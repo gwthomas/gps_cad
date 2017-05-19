@@ -3,9 +3,13 @@
   <arg name="db" default="false" />
   <arg name="debug" default="false" />
 
-  <include file="$(find pr2_moveit_config)/launch/planning_context.launch">
+  <rosparam param="/move_group/trajectory_execution/allowed_start_tolerance">
+    0.0
+  </rosparam>
+
+  <!--include file="$(find pr2_moveit_config)/launch/planning_context.launch">
     <arg name="load_robot_description" value="false"/>
-  </include>
+  </include-->
 
   <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 odom_combined base_footprint 100" />
 
@@ -31,9 +35,4 @@
   <include file="$(find pr2_moveit_config)/launch/default_warehouse_db.launch" if="$(arg db)"/>
   <include file="$(find pr2_arm_kinematics)/launch/pr2_ik_larm_node.launch"/>
   <include file="$(find pr2_controller_configuration)/pr2_default_controllers.launch"/>
-
-  <rosparam command="load" file="$(find gps_agent_pkg)/config/ompl_planning.yaml" />
-  <rosparam param="/move_group/trajectory_execution/allowed_start_tolerance">
-    0.0
-  </rosparam>
 </launch>

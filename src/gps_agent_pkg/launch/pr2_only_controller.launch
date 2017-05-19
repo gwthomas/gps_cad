@@ -16,7 +16,7 @@
     <!-- Spawn Controller -->
     <node name="controller_spawner"
       pkg="pr2_controller_manager" type="spawner" output="screen"
-      args="--stopped GPSPR2Plugin" />
+      args="GPSPR2Plugin" />
          <!--pkg="pr2_controller_manager" type="pr2_controller_manager" output="screen"
          args="spawn GPSPR2Plugin" /-->
 

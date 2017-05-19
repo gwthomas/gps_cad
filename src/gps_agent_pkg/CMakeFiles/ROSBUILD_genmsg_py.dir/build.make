@@ -146,6 +146,7 @@ src/gps_agent_pkg/msg/_SampleResult.py: /opt/ros/indigo/share/pr2_mechanism_diag
 src/gps_agent_pkg/msg/_SampleResult.py: /opt/ros/indigo/share/xacro/package.xml
 src/gps_agent_pkg/msg/_SampleResult.py: /opt/ros/indigo/share/pr2_description/package.xml
 src/gps_agent_pkg/msg/_SampleResult.py: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+src/gps_agent_pkg/msg/_SampleResult.py: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating src/gps_agent_pkg/msg/_SampleResult.py"
 	/opt/ros/indigo/share/rospy/rosbuild/scripts/genmsg_py.py --noinitpy /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/SampleResult.msg
@@ -229,6 +230,7 @@ src/gps_agent_pkg/msg/_PositionCommand.py: /opt/ros/indigo/share/pr2_mechanism_d
 src/gps_agent_pkg/msg/_PositionCommand.py: /opt/ros/indigo/share/xacro/package.xml
 src/gps_agent_pkg/msg/_PositionCommand.py: /opt/ros/indigo/share/pr2_description/package.xml
 src/gps_agent_pkg/msg/_PositionCommand.py: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+src/gps_agent_pkg/msg/_PositionCommand.py: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating src/gps_agent_pkg/msg/_PositionCommand.py"
 	/opt/ros/indigo/share/rospy/rosbuild/scripts/genmsg_py.py --noinitpy /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/PositionCommand.msg
@@ -312,6 +314,7 @@ src/gps_agent_pkg/msg/_TfActionCommand.py: /opt/ros/indigo/share/pr2_mechanism_d
 src/gps_agent_pkg/msg/_TfActionCommand.py: /opt/ros/indigo/share/xacro/package.xml
 src/gps_agent_pkg/msg/_TfActionCommand.py: /opt/ros/indigo/share/pr2_description/package.xml
 src/gps_agent_pkg/msg/_TfActionCommand.py: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+src/gps_agent_pkg/msg/_TfActionCommand.py: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating src/gps_agent_pkg/msg/_TfActionCommand.py"
 	/opt/ros/indigo/share/rospy/rosbuild/scripts/genmsg_py.py --noinitpy /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/TfActionCommand.msg
@@ -395,6 +398,7 @@ src/gps_agent_pkg/msg/_LinGaussParams.py: /opt/ros/indigo/share/pr2_mechanism_di
 src/gps_agent_pkg/msg/_LinGaussParams.py: /opt/ros/indigo/share/xacro/package.xml
 src/gps_agent_pkg/msg/_LinGaussParams.py: /opt/ros/indigo/share/pr2_description/package.xml
 src/gps_agent_pkg/msg/_LinGaussParams.py: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+src/gps_agent_pkg/msg/_LinGaussParams.py: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating src/gps_agent_pkg/msg/_LinGaussParams.py"
 	/opt/ros/indigo/share/rospy/rosbuild/scripts/genmsg_py.py --noinitpy /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/LinGaussParams.msg
@@ -478,6 +482,7 @@ src/gps_agent_pkg/msg/_CaffeParams.py: /opt/ros/indigo/share/pr2_mechanism_diagn
 src/gps_agent_pkg/msg/_CaffeParams.py: /opt/ros/indigo/share/xacro/package.xml
 src/gps_agent_pkg/msg/_CaffeParams.py: /opt/ros/indigo/share/pr2_description/package.xml
 src/gps_agent_pkg/msg/_CaffeParams.py: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+src/gps_agent_pkg/msg/_CaffeParams.py: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating src/gps_agent_pkg/msg/_CaffeParams.py"
 	/opt/ros/indigo/share/rospy/rosbuild/scripts/genmsg_py.py --noinitpy /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/CaffeParams.msg
@@ -565,6 +570,7 @@ src/gps_agent_pkg/msg/_TrialCommand.py: /opt/ros/indigo/share/pr2_mechanism_diag
 src/gps_agent_pkg/msg/_TrialCommand.py: /opt/ros/indigo/share/xacro/package.xml
 src/gps_agent_pkg/msg/_TrialCommand.py: /opt/ros/indigo/share/pr2_description/package.xml
 src/gps_agent_pkg/msg/_TrialCommand.py: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+src/gps_agent_pkg/msg/_TrialCommand.py: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating src/gps_agent_pkg/msg/_TrialCommand.py"
 	/opt/ros/indigo/share/rospy/rosbuild/scripts/genmsg_py.py --noinitpy /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/TrialCommand.msg
@@ -648,6 +654,7 @@ src/gps_agent_pkg/msg/_TfObsData.py: /opt/ros/indigo/share/pr2_mechanism_diagnos
 src/gps_agent_pkg/msg/_TfObsData.py: /opt/ros/indigo/share/xacro/package.xml
 src/gps_agent_pkg/msg/_TfObsData.py: /opt/ros/indigo/share/pr2_description/package.xml
 src/gps_agent_pkg/msg/_TfObsData.py: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+src/gps_agent_pkg/msg/_TfObsData.py: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating src/gps_agent_pkg/msg/_TfObsData.py"
 	/opt/ros/indigo/share/rospy/rosbuild/scripts/genmsg_py.py --noinitpy /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/TfObsData.msg
@@ -731,6 +738,7 @@ src/gps_agent_pkg/msg/_DataType.py: /opt/ros/indigo/share/pr2_mechanism_diagnost
 src/gps_agent_pkg/msg/_DataType.py: /opt/ros/indigo/share/xacro/package.xml
 src/gps_agent_pkg/msg/_DataType.py: /opt/ros/indigo/share/pr2_description/package.xml
 src/gps_agent_pkg/msg/_DataType.py: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+src/gps_agent_pkg/msg/_DataType.py: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating src/gps_agent_pkg/msg/_DataType.py"
 	/opt/ros/indigo/share/rospy/rosbuild/scripts/genmsg_py.py --noinitpy /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/DataType.msg
@@ -814,6 +822,7 @@ src/gps_agent_pkg/msg/_RelaxCommand.py: /opt/ros/indigo/share/pr2_mechanism_diag
 src/gps_agent_pkg/msg/_RelaxCommand.py: /opt/ros/indigo/share/xacro/package.xml
 src/gps_agent_pkg/msg/_RelaxCommand.py: /opt/ros/indigo/share/pr2_description/package.xml
 src/gps_agent_pkg/msg/_RelaxCommand.py: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+src/gps_agent_pkg/msg/_RelaxCommand.py: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating src/gps_agent_pkg/msg/_RelaxCommand.py"
 	/opt/ros/indigo/share/rospy/rosbuild/scripts/genmsg_py.py --noinitpy /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/RelaxCommand.msg
@@ -900,6 +909,7 @@ src/gps_agent_pkg/msg/_ControllerParams.py: /opt/ros/indigo/share/pr2_mechanism_
 src/gps_agent_pkg/msg/_ControllerParams.py: /opt/ros/indigo/share/xacro/package.xml
 src/gps_agent_pkg/msg/_ControllerParams.py: /opt/ros/indigo/share/pr2_description/package.xml
 src/gps_agent_pkg/msg/_ControllerParams.py: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+src/gps_agent_pkg/msg/_ControllerParams.py: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating src/gps_agent_pkg/msg/_ControllerParams.py"
 	/opt/ros/indigo/share/rospy/rosbuild/scripts/genmsg_py.py --noinitpy /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/ControllerParams.msg
@@ -983,6 +993,7 @@ src/gps_agent_pkg/msg/_DataRequest.py: /opt/ros/indigo/share/pr2_mechanism_diagn
 src/gps_agent_pkg/msg/_DataRequest.py: /opt/ros/indigo/share/xacro/package.xml
 src/gps_agent_pkg/msg/_DataRequest.py: /opt/ros/indigo/share/pr2_description/package.xml
 src/gps_agent_pkg/msg/_DataRequest.py: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+src/gps_agent_pkg/msg/_DataRequest.py: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating src/gps_agent_pkg/msg/_DataRequest.py"
 	/opt/ros/indigo/share/rospy/rosbuild/scripts/genmsg_py.py --noinitpy /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/DataRequest.msg
@@ -1066,6 +1077,7 @@ src/gps_agent_pkg/msg/_TfParams.py: /opt/ros/indigo/share/pr2_mechanism_diagnost
 src/gps_agent_pkg/msg/_TfParams.py: /opt/ros/indigo/share/xacro/package.xml
 src/gps_agent_pkg/msg/_TfParams.py: /opt/ros/indigo/share/pr2_description/package.xml
 src/gps_agent_pkg/msg/_TfParams.py: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+src/gps_agent_pkg/msg/_TfParams.py: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_13)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating src/gps_agent_pkg/msg/_TfParams.py"
 	/opt/ros/indigo/share/rospy/rosbuild/scripts/genmsg_py.py --noinitpy /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/TfParams.msg

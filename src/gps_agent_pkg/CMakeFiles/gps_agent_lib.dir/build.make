@@ -130,6 +130,7 @@ CMakeFiles/gps_agent_lib.dir/src/robotplugin.cpp.o: /opt/ros/indigo/share/pr2_me
 CMakeFiles/gps_agent_lib.dir/src/robotplugin.cpp.o: /opt/ros/indigo/share/xacro/package.xml
 CMakeFiles/gps_agent_lib.dir/src/robotplugin.cpp.o: /opt/ros/indigo/share/pr2_description/package.xml
 CMakeFiles/gps_agent_lib.dir/src/robotplugin.cpp.o: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+CMakeFiles/gps_agent_lib.dir/src/robotplugin.cpp.o: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gps_agent_lib.dir/src/robotplugin.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gps_agent_lib.dir/src/robotplugin.cpp.o -c /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/robotplugin.cpp
@@ -229,6 +230,7 @@ CMakeFiles/gps_agent_lib.dir/src/pr2plugin.cpp.o: /opt/ros/indigo/share/pr2_mech
 CMakeFiles/gps_agent_lib.dir/src/pr2plugin.cpp.o: /opt/ros/indigo/share/xacro/package.xml
 CMakeFiles/gps_agent_lib.dir/src/pr2plugin.cpp.o: /opt/ros/indigo/share/pr2_description/package.xml
 CMakeFiles/gps_agent_lib.dir/src/pr2plugin.cpp.o: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+CMakeFiles/gps_agent_lib.dir/src/pr2plugin.cpp.o: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gps_agent_lib.dir/src/pr2plugin.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gps_agent_lib.dir/src/pr2plugin.cpp.o -c /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/pr2plugin.cpp
@@ -328,6 +330,7 @@ CMakeFiles/gps_agent_lib.dir/src/sample.cpp.o: /opt/ros/indigo/share/pr2_mechani
 CMakeFiles/gps_agent_lib.dir/src/sample.cpp.o: /opt/ros/indigo/share/xacro/package.xml
 CMakeFiles/gps_agent_lib.dir/src/sample.cpp.o: /opt/ros/indigo/share/pr2_description/package.xml
 CMakeFiles/gps_agent_lib.dir/src/sample.cpp.o: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+CMakeFiles/gps_agent_lib.dir/src/sample.cpp.o: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gps_agent_lib.dir/src/sample.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gps_agent_lib.dir/src/sample.cpp.o -c /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/sample.cpp
@@ -427,6 +430,7 @@ CMakeFiles/gps_agent_lib.dir/src/sensor.cpp.o: /opt/ros/indigo/share/pr2_mechani
 CMakeFiles/gps_agent_lib.dir/src/sensor.cpp.o: /opt/ros/indigo/share/xacro/package.xml
 CMakeFiles/gps_agent_lib.dir/src/sensor.cpp.o: /opt/ros/indigo/share/pr2_description/package.xml
 CMakeFiles/gps_agent_lib.dir/src/sensor.cpp.o: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+CMakeFiles/gps_agent_lib.dir/src/sensor.cpp.o: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gps_agent_lib.dir/src/sensor.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gps_agent_lib.dir/src/sensor.cpp.o -c /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/sensor.cpp
@@ -526,6 +530,7 @@ CMakeFiles/gps_agent_lib.dir/src/neuralnetwork.cpp.o: /opt/ros/indigo/share/pr2_
 CMakeFiles/gps_agent_lib.dir/src/neuralnetwork.cpp.o: /opt/ros/indigo/share/xacro/package.xml
 CMakeFiles/gps_agent_lib.dir/src/neuralnetwork.cpp.o: /opt/ros/indigo/share/pr2_description/package.xml
 CMakeFiles/gps_agent_lib.dir/src/neuralnetwork.cpp.o: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetwork.cpp.o: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gps_agent_lib.dir/src/neuralnetwork.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gps_agent_lib.dir/src/neuralnetwork.cpp.o -c /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/neuralnetwork.cpp
@@ -625,6 +630,7 @@ CMakeFiles/gps_agent_lib.dir/src/tfcontroller.cpp.o: /opt/ros/indigo/share/pr2_m
 CMakeFiles/gps_agent_lib.dir/src/tfcontroller.cpp.o: /opt/ros/indigo/share/xacro/package.xml
 CMakeFiles/gps_agent_lib.dir/src/tfcontroller.cpp.o: /opt/ros/indigo/share/pr2_description/package.xml
 CMakeFiles/gps_agent_lib.dir/src/tfcontroller.cpp.o: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+CMakeFiles/gps_agent_lib.dir/src/tfcontroller.cpp.o: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gps_agent_lib.dir/src/tfcontroller.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gps_agent_lib.dir/src/tfcontroller.cpp.o -c /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/tfcontroller.cpp
@@ -724,6 +730,7 @@ CMakeFiles/gps_agent_lib.dir/src/controller.cpp.o: /opt/ros/indigo/share/pr2_mec
 CMakeFiles/gps_agent_lib.dir/src/controller.cpp.o: /opt/ros/indigo/share/xacro/package.xml
 CMakeFiles/gps_agent_lib.dir/src/controller.cpp.o: /opt/ros/indigo/share/pr2_description/package.xml
 CMakeFiles/gps_agent_lib.dir/src/controller.cpp.o: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+CMakeFiles/gps_agent_lib.dir/src/controller.cpp.o: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gps_agent_lib.dir/src/controller.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gps_agent_lib.dir/src/controller.cpp.o -c /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/controller.cpp
@@ -823,6 +830,7 @@ CMakeFiles/gps_agent_lib.dir/src/lingausscontroller.cpp.o: /opt/ros/indigo/share
 CMakeFiles/gps_agent_lib.dir/src/lingausscontroller.cpp.o: /opt/ros/indigo/share/xacro/package.xml
 CMakeFiles/gps_agent_lib.dir/src/lingausscontroller.cpp.o: /opt/ros/indigo/share/pr2_description/package.xml
 CMakeFiles/gps_agent_lib.dir/src/lingausscontroller.cpp.o: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+CMakeFiles/gps_agent_lib.dir/src/lingausscontroller.cpp.o: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gps_agent_lib.dir/src/lingausscontroller.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gps_agent_lib.dir/src/lingausscontroller.cpp.o -c /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/lingausscontroller.cpp
@@ -922,6 +930,7 @@ CMakeFiles/gps_agent_lib.dir/src/camerasensor.cpp.o: /opt/ros/indigo/share/pr2_m
 CMakeFiles/gps_agent_lib.dir/src/camerasensor.cpp.o: /opt/ros/indigo/share/xacro/package.xml
 CMakeFiles/gps_agent_lib.dir/src/camerasensor.cpp.o: /opt/ros/indigo/share/pr2_description/package.xml
 CMakeFiles/gps_agent_lib.dir/src/camerasensor.cpp.o: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+CMakeFiles/gps_agent_lib.dir/src/camerasensor.cpp.o: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gps_agent_lib.dir/src/camerasensor.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gps_agent_lib.dir/src/camerasensor.cpp.o -c /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/camerasensor.cpp
@@ -1021,6 +1030,7 @@ CMakeFiles/gps_agent_lib.dir/src/positioncontroller.cpp.o: /opt/ros/indigo/share
 CMakeFiles/gps_agent_lib.dir/src/positioncontroller.cpp.o: /opt/ros/indigo/share/xacro/package.xml
 CMakeFiles/gps_agent_lib.dir/src/positioncontroller.cpp.o: /opt/ros/indigo/share/pr2_description/package.xml
 CMakeFiles/gps_agent_lib.dir/src/positioncontroller.cpp.o: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+CMakeFiles/gps_agent_lib.dir/src/positioncontroller.cpp.o: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gps_agent_lib.dir/src/positioncontroller.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gps_agent_lib.dir/src/positioncontroller.cpp.o -c /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/positioncontroller.cpp
@@ -1120,6 +1130,7 @@ CMakeFiles/gps_agent_lib.dir/src/trialcontroller.cpp.o: /opt/ros/indigo/share/pr
 CMakeFiles/gps_agent_lib.dir/src/trialcontroller.cpp.o: /opt/ros/indigo/share/xacro/package.xml
 CMakeFiles/gps_agent_lib.dir/src/trialcontroller.cpp.o: /opt/ros/indigo/share/pr2_description/package.xml
 CMakeFiles/gps_agent_lib.dir/src/trialcontroller.cpp.o: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+CMakeFiles/gps_agent_lib.dir/src/trialcontroller.cpp.o: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gps_agent_lib.dir/src/trialcontroller.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gps_agent_lib.dir/src/trialcontroller.cpp.o -c /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/trialcontroller.cpp
@@ -1219,6 +1230,7 @@ CMakeFiles/gps_agent_lib.dir/src/encodersensor.cpp.o: /opt/ros/indigo/share/pr2_
 CMakeFiles/gps_agent_lib.dir/src/encodersensor.cpp.o: /opt/ros/indigo/share/xacro/package.xml
 CMakeFiles/gps_agent_lib.dir/src/encodersensor.cpp.o: /opt/ros/indigo/share/pr2_description/package.xml
 CMakeFiles/gps_agent_lib.dir/src/encodersensor.cpp.o: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+CMakeFiles/gps_agent_lib.dir/src/encodersensor.cpp.o: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gps_agent_lib.dir/src/encodersensor.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gps_agent_lib.dir/src/encodersensor.cpp.o -c /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/encodersensor.cpp
@@ -1318,6 +1330,7 @@ CMakeFiles/gps_agent_lib.dir/src/encoderfilter.cpp.o: /opt/ros/indigo/share/pr2_
 CMakeFiles/gps_agent_lib.dir/src/encoderfilter.cpp.o: /opt/ros/indigo/share/xacro/package.xml
 CMakeFiles/gps_agent_lib.dir/src/encoderfilter.cpp.o: /opt/ros/indigo/share/pr2_description/package.xml
 CMakeFiles/gps_agent_lib.dir/src/encoderfilter.cpp.o: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+CMakeFiles/gps_agent_lib.dir/src/encoderfilter.cpp.o: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_13)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gps_agent_lib.dir/src/encoderfilter.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gps_agent_lib.dir/src/encoderfilter.cpp.o -c /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/encoderfilter.cpp
@@ -1417,6 +1430,7 @@ CMakeFiles/gps_agent_lib.dir/src/rostopicsensor.cpp.o: /opt/ros/indigo/share/pr2
 CMakeFiles/gps_agent_lib.dir/src/rostopicsensor.cpp.o: /opt/ros/indigo/share/xacro/package.xml
 CMakeFiles/gps_agent_lib.dir/src/rostopicsensor.cpp.o: /opt/ros/indigo/share/pr2_description/package.xml
 CMakeFiles/gps_agent_lib.dir/src/rostopicsensor.cpp.o: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+CMakeFiles/gps_agent_lib.dir/src/rostopicsensor.cpp.o: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_14)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gps_agent_lib.dir/src/rostopicsensor.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gps_agent_lib.dir/src/rostopicsensor.cpp.o -c /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/rostopicsensor.cpp
@@ -1516,6 +1530,7 @@ CMakeFiles/gps_agent_lib.dir/src/util.cpp.o: /opt/ros/indigo/share/pr2_mechanism
 CMakeFiles/gps_agent_lib.dir/src/util.cpp.o: /opt/ros/indigo/share/xacro/package.xml
 CMakeFiles/gps_agent_lib.dir/src/util.cpp.o: /opt/ros/indigo/share/pr2_description/package.xml
 CMakeFiles/gps_agent_lib.dir/src/util.cpp.o: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+CMakeFiles/gps_agent_lib.dir/src/util.cpp.o: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_15)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gps_agent_lib.dir/src/util.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gps_agent_lib.dir/src/util.cpp.o -c /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/util.cpp
@@ -1537,6 +1552,206 @@ CMakeFiles/gps_agent_lib.dir/src/util.cpp.o.provides: CMakeFiles/gps_agent_lib.d
 
 CMakeFiles/gps_agent_lib.dir/src/util.cpp.o.provides.build: CMakeFiles/gps_agent_lib.dir/src/util.cpp.o
 
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: CMakeFiles/gps_agent_lib.dir/flags.make
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: src/neuralnetworkcaffe.cpp
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: manifest.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/cpp_common/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rostime/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/roscpp_traits/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/roscpp_serialization/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/catkin/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/genmsg/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/genpy/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/message_runtime/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/std_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/geometry_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/sensor_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/gencpp/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/genlisp/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/message_generation/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rosbuild/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rosconsole/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rosgraph_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/xmlrpcpp/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/roscpp/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/pr2_hardware_interface/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rosconsole_bridge/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/urdf_parser_plugin/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/class_loader/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rospack/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/roslib/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/pluginlib/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/urdf/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/orocos_kdl/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/kdl_parser/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/angles/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/hardware_interface/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/pr2_mechanism_model/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/controller_interface/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/pr2_controller_interface/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rosgraph/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rospy/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/actionlib_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rosbag_migration_rule/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/trajectory_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/pr2_controllers_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/cmake_modules/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/roslz4/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rosbag_storage/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/topic_tools/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rosbag/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rosmsg/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rosservice/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/dynamic_reconfigure/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/realtime_tools/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/control_toolbox/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/message_filters/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rosclean/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rosmaster/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rosout/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rosparam/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rosunit/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/roslaunch/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rostopic/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rosnode/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/roswtf/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/tf2_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/tf2/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/rostest/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/actionlib/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/tf2_py/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/tf2_ros/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/tf/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/diagnostic_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/diagnostic_updater/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/pr2_mechanism_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/std_srvs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/pr2_mechanism_diagnostics/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/xacro/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/pr2_description/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o: /opt/ros/indigo/share/visualization_msgs/package.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_16)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o -c /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/neuralnetworkcaffe.cpp
+
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/neuralnetworkcaffe.cpp > CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.i
+
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/neuralnetworkcaffe.cpp -o CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.s
+
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o.requires:
+.PHONY : CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o.requires
+
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o.provides: CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o.requires
+	$(MAKE) -f CMakeFiles/gps_agent_lib.dir/build.make CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o.provides.build
+.PHONY : CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o.provides
+
+CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o.provides.build: CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o
+
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: CMakeFiles/gps_agent_lib.dir/flags.make
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: src/caffenncontroller.cpp
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: manifest.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/cpp_common/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rostime/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/roscpp_traits/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/roscpp_serialization/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/catkin/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/genmsg/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/genpy/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/message_runtime/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/std_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/geometry_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/sensor_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/gencpp/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/genlisp/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/message_generation/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rosbuild/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rosconsole/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rosgraph_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/xmlrpcpp/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/roscpp/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/pr2_hardware_interface/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rosconsole_bridge/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/urdf_parser_plugin/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/class_loader/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rospack/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/roslib/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/pluginlib/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/urdf/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/orocos_kdl/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/kdl_parser/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/angles/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/hardware_interface/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/pr2_mechanism_model/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/controller_interface/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/pr2_controller_interface/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rosgraph/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rospy/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/actionlib_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rosbag_migration_rule/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/trajectory_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/pr2_controllers_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/cmake_modules/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/roslz4/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rosbag_storage/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/topic_tools/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rosbag/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rosmsg/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rosservice/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/dynamic_reconfigure/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/realtime_tools/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/control_toolbox/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/message_filters/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rosclean/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rosmaster/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rosout/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rosparam/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rosunit/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/roslaunch/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rostopic/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rosnode/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/roswtf/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/tf2_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/tf2/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/rostest/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/actionlib/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/tf2_py/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/tf2_ros/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/tf/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/diagnostic_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/diagnostic_updater/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/pr2_mechanism_msgs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/std_srvs/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/pr2_mechanism_diagnostics/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/xacro/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/pr2_description/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o: /opt/ros/indigo/share/visualization_msgs/package.xml
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_17)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o -c /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/caffenncontroller.cpp
+
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/caffenncontroller.cpp > CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.i
+
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/gwthomas/workspace/gps/src/gps_agent_pkg/src/caffenncontroller.cpp -o CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.s
+
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o.requires:
+.PHONY : CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o.requires
+
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o.provides: CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o.requires
+	$(MAKE) -f CMakeFiles/gps_agent_lib.dir/build.make CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o.provides.build
+.PHONY : CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o.provides
+
+CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o.provides.build: CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o
+
 # Object files for target gps_agent_lib
 gps_agent_lib_OBJECTS = \
 "CMakeFiles/gps_agent_lib.dir/src/robotplugin.cpp.o" \
@@ -1553,7 +1768,9 @@ gps_agent_lib_OBJECTS = \
 "CMakeFiles/gps_agent_lib.dir/src/encodersensor.cpp.o" \
 "CMakeFiles/gps_agent_lib.dir/src/encoderfilter.cpp.o" \
 "CMakeFiles/gps_agent_lib.dir/src/rostopicsensor.cpp.o" \
-"CMakeFiles/gps_agent_lib.dir/src/util.cpp.o"
+"CMakeFiles/gps_agent_lib.dir/src/util.cpp.o" \
+"CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o" \
+"CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o"
 
 # External object files for target gps_agent_lib
 gps_agent_lib_EXTERNAL_OBJECTS =
@@ -1573,6 +1790,8 @@ lib/libgps_agent_lib.so: CMakeFiles/gps_agent_lib.dir/src/encodersensor.cpp.o
 lib/libgps_agent_lib.so: CMakeFiles/gps_agent_lib.dir/src/encoderfilter.cpp.o
 lib/libgps_agent_lib.so: CMakeFiles/gps_agent_lib.dir/src/rostopicsensor.cpp.o
 lib/libgps_agent_lib.so: CMakeFiles/gps_agent_lib.dir/src/util.cpp.o
+lib/libgps_agent_lib.so: CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o
+lib/libgps_agent_lib.so: CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o
 lib/libgps_agent_lib.so: CMakeFiles/gps_agent_lib.dir/build.make
 lib/libgps_agent_lib.so: /opt/ros/indigo/lib/liborocos-kdl.so
 lib/libgps_agent_lib.so: /opt/ros/indigo/lib/liborocos-kdl.so.1.3.0
@@ -1614,6 +1833,8 @@ CMakeFiles/gps_agent_lib.dir/requires: CMakeFiles/gps_agent_lib.dir/src/encoders
 CMakeFiles/gps_agent_lib.dir/requires: CMakeFiles/gps_agent_lib.dir/src/encoderfilter.cpp.o.requires
 CMakeFiles/gps_agent_lib.dir/requires: CMakeFiles/gps_agent_lib.dir/src/rostopicsensor.cpp.o.requires
 CMakeFiles/gps_agent_lib.dir/requires: CMakeFiles/gps_agent_lib.dir/src/util.cpp.o.requires
+CMakeFiles/gps_agent_lib.dir/requires: CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o.requires
+CMakeFiles/gps_agent_lib.dir/requires: CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o.requires
 .PHONY : CMakeFiles/gps_agent_lib.dir/requires
 
 CMakeFiles/gps_agent_lib.dir/clean:

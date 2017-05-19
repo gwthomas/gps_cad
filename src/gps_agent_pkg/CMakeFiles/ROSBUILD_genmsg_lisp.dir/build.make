@@ -165,6 +165,7 @@ msg_gen/lisp/SampleResult.lisp: /opt/ros/indigo/share/pr2_mechanism_diagnostics/
 msg_gen/lisp/SampleResult.lisp: /opt/ros/indigo/share/xacro/package.xml
 msg_gen/lisp/SampleResult.lisp: /opt/ros/indigo/share/pr2_description/package.xml
 msg_gen/lisp/SampleResult.lisp: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+msg_gen/lisp/SampleResult.lisp: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating msg_gen/lisp/SampleResult.lisp, msg_gen/lisp/_package.lisp, msg_gen/lisp/_package_SampleResult.lisp"
 	/opt/ros/indigo/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/SampleResult.msg
@@ -252,6 +253,7 @@ msg_gen/lisp/PositionCommand.lisp: /opt/ros/indigo/share/pr2_mechanism_diagnosti
 msg_gen/lisp/PositionCommand.lisp: /opt/ros/indigo/share/xacro/package.xml
 msg_gen/lisp/PositionCommand.lisp: /opt/ros/indigo/share/pr2_description/package.xml
 msg_gen/lisp/PositionCommand.lisp: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+msg_gen/lisp/PositionCommand.lisp: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating msg_gen/lisp/PositionCommand.lisp, msg_gen/lisp/_package.lisp, msg_gen/lisp/_package_PositionCommand.lisp"
 	/opt/ros/indigo/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/PositionCommand.msg
@@ -339,6 +341,7 @@ msg_gen/lisp/TfActionCommand.lisp: /opt/ros/indigo/share/pr2_mechanism_diagnosti
 msg_gen/lisp/TfActionCommand.lisp: /opt/ros/indigo/share/xacro/package.xml
 msg_gen/lisp/TfActionCommand.lisp: /opt/ros/indigo/share/pr2_description/package.xml
 msg_gen/lisp/TfActionCommand.lisp: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+msg_gen/lisp/TfActionCommand.lisp: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating msg_gen/lisp/TfActionCommand.lisp, msg_gen/lisp/_package.lisp, msg_gen/lisp/_package_TfActionCommand.lisp"
 	/opt/ros/indigo/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/TfActionCommand.msg
@@ -426,6 +429,7 @@ msg_gen/lisp/LinGaussParams.lisp: /opt/ros/indigo/share/pr2_mechanism_diagnostic
 msg_gen/lisp/LinGaussParams.lisp: /opt/ros/indigo/share/xacro/package.xml
 msg_gen/lisp/LinGaussParams.lisp: /opt/ros/indigo/share/pr2_description/package.xml
 msg_gen/lisp/LinGaussParams.lisp: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+msg_gen/lisp/LinGaussParams.lisp: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating msg_gen/lisp/LinGaussParams.lisp, msg_gen/lisp/_package.lisp, msg_gen/lisp/_package_LinGaussParams.lisp"
 	/opt/ros/indigo/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/LinGaussParams.msg
@@ -513,6 +517,7 @@ msg_gen/lisp/CaffeParams.lisp: /opt/ros/indigo/share/pr2_mechanism_diagnostics/p
 msg_gen/lisp/CaffeParams.lisp: /opt/ros/indigo/share/xacro/package.xml
 msg_gen/lisp/CaffeParams.lisp: /opt/ros/indigo/share/pr2_description/package.xml
 msg_gen/lisp/CaffeParams.lisp: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+msg_gen/lisp/CaffeParams.lisp: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating msg_gen/lisp/CaffeParams.lisp, msg_gen/lisp/_package.lisp, msg_gen/lisp/_package_CaffeParams.lisp"
 	/opt/ros/indigo/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/CaffeParams.msg
@@ -604,6 +609,7 @@ msg_gen/lisp/TrialCommand.lisp: /opt/ros/indigo/share/pr2_mechanism_diagnostics/
 msg_gen/lisp/TrialCommand.lisp: /opt/ros/indigo/share/xacro/package.xml
 msg_gen/lisp/TrialCommand.lisp: /opt/ros/indigo/share/pr2_description/package.xml
 msg_gen/lisp/TrialCommand.lisp: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+msg_gen/lisp/TrialCommand.lisp: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating msg_gen/lisp/TrialCommand.lisp, msg_gen/lisp/_package.lisp, msg_gen/lisp/_package_TrialCommand.lisp"
 	/opt/ros/indigo/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/TrialCommand.msg
@@ -691,6 +697,7 @@ msg_gen/lisp/TfObsData.lisp: /opt/ros/indigo/share/pr2_mechanism_diagnostics/pac
 msg_gen/lisp/TfObsData.lisp: /opt/ros/indigo/share/xacro/package.xml
 msg_gen/lisp/TfObsData.lisp: /opt/ros/indigo/share/pr2_description/package.xml
 msg_gen/lisp/TfObsData.lisp: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+msg_gen/lisp/TfObsData.lisp: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating msg_gen/lisp/TfObsData.lisp, msg_gen/lisp/_package.lisp, msg_gen/lisp/_package_TfObsData.lisp"
 	/opt/ros/indigo/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/TfObsData.msg
@@ -778,6 +785,7 @@ msg_gen/lisp/DataType.lisp: /opt/ros/indigo/share/pr2_mechanism_diagnostics/pack
 msg_gen/lisp/DataType.lisp: /opt/ros/indigo/share/xacro/package.xml
 msg_gen/lisp/DataType.lisp: /opt/ros/indigo/share/pr2_description/package.xml
 msg_gen/lisp/DataType.lisp: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+msg_gen/lisp/DataType.lisp: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating msg_gen/lisp/DataType.lisp, msg_gen/lisp/_package.lisp, msg_gen/lisp/_package_DataType.lisp"
 	/opt/ros/indigo/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/DataType.msg
@@ -865,6 +873,7 @@ msg_gen/lisp/RelaxCommand.lisp: /opt/ros/indigo/share/pr2_mechanism_diagnostics/
 msg_gen/lisp/RelaxCommand.lisp: /opt/ros/indigo/share/xacro/package.xml
 msg_gen/lisp/RelaxCommand.lisp: /opt/ros/indigo/share/pr2_description/package.xml
 msg_gen/lisp/RelaxCommand.lisp: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+msg_gen/lisp/RelaxCommand.lisp: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating msg_gen/lisp/RelaxCommand.lisp, msg_gen/lisp/_package.lisp, msg_gen/lisp/_package_RelaxCommand.lisp"
 	/opt/ros/indigo/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/RelaxCommand.msg
@@ -955,6 +964,7 @@ msg_gen/lisp/ControllerParams.lisp: /opt/ros/indigo/share/pr2_mechanism_diagnost
 msg_gen/lisp/ControllerParams.lisp: /opt/ros/indigo/share/xacro/package.xml
 msg_gen/lisp/ControllerParams.lisp: /opt/ros/indigo/share/pr2_description/package.xml
 msg_gen/lisp/ControllerParams.lisp: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+msg_gen/lisp/ControllerParams.lisp: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating msg_gen/lisp/ControllerParams.lisp, msg_gen/lisp/_package.lisp, msg_gen/lisp/_package_ControllerParams.lisp"
 	/opt/ros/indigo/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/ControllerParams.msg
@@ -1042,6 +1052,7 @@ msg_gen/lisp/DataRequest.lisp: /opt/ros/indigo/share/pr2_mechanism_diagnostics/p
 msg_gen/lisp/DataRequest.lisp: /opt/ros/indigo/share/xacro/package.xml
 msg_gen/lisp/DataRequest.lisp: /opt/ros/indigo/share/pr2_description/package.xml
 msg_gen/lisp/DataRequest.lisp: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+msg_gen/lisp/DataRequest.lisp: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating msg_gen/lisp/DataRequest.lisp, msg_gen/lisp/_package.lisp, msg_gen/lisp/_package_DataRequest.lisp"
 	/opt/ros/indigo/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/DataRequest.msg
@@ -1129,6 +1140,7 @@ msg_gen/lisp/TfParams.lisp: /opt/ros/indigo/share/pr2_mechanism_diagnostics/pack
 msg_gen/lisp/TfParams.lisp: /opt/ros/indigo/share/xacro/package.xml
 msg_gen/lisp/TfParams.lisp: /opt/ros/indigo/share/pr2_description/package.xml
 msg_gen/lisp/TfParams.lisp: /opt/ros/indigo/share/pr2_controller_manager/package.xml
+msg_gen/lisp/TfParams.lisp: /opt/ros/indigo/share/visualization_msgs/package.xml
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/gwthomas/workspace/gps/src/gps_agent_pkg/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating msg_gen/lisp/TfParams.lisp, msg_gen/lisp/_package.lisp, msg_gen/lisp/_package_TfParams.lisp"
 	/opt/ros/indigo/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/gwthomas/workspace/gps/src/gps_agent_pkg/msg/TfParams.msg

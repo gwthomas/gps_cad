@@ -17,6 +17,8 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/gps_agent_lib.dir/src/encoderfilter.cpp.o"
   "CMakeFiles/gps_agent_lib.dir/src/rostopicsensor.cpp.o"
   "CMakeFiles/gps_agent_lib.dir/src/util.cpp.o"
+  "CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o"
+  "CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o"
   "lib/libgps_agent_lib.pdb"
   "lib/libgps_agent_lib.so"
 )

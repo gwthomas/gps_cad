@@ -20,6 +20,7 @@
   <depend package="geometry_msgs"/>
   <depend package="tf"/>
   <depend package="pr2_controller_manager"/>
+  <depend package="visualization_msgs"/>
 
   <rosdep name="eigen" />
 
@@ -28,5 +29,3 @@
   </export>
 
 </package>
-
-

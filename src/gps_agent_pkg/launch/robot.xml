@@ -2370,6 +2370,9 @@
     <turnGravityOff>true</turnGravityOff>
     <material value="PR2/Red"/>
   </gazebo>
+  <!--gazebo reference="base_link">
+    <static>true</static>
+  </gazebo-->
   <!-- fictitous joint that represents the gripper gap -->
   <!-- effort is the linear force at the gripper gap
          velocity limit is the linear velocity limit at the gripper gap

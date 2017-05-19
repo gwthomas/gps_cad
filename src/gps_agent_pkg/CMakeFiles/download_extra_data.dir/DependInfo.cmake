@@ -6,7 +6,9 @@ SET(CMAKE_DEPENDS_LANGUAGES
 # Preprocessor definitions for this target.
 SET(CMAKE_TARGET_DEFINITIONS
   "BOOST_CB_DISABLE_DEBUG"
+  "CAFFE_GPU"
   "ROS_PACKAGE_NAME=\"gps_agent_pkg\""
+  "USE_CAFFE"
   )
 
 # Targets to which this target links.
@@ -20,6 +22,8 @@ SET(CMAKE_C_TARGET_INCLUDE_PATH
   "/usr/include/eigen3"
   "msg_gen/cpp/include"
   "/build/gps"
+  "/usr/local/cuda-8.0/include"
+  "/home/gwthomas/workspace/caffe/distribute/include"
   )
 SET(CMAKE_CXX_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
 SET(CMAKE_Fortran_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
