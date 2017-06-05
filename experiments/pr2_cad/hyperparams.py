@@ -60,7 +60,7 @@ common = {
     'data_files_dir': EXP_DIR + 'data_files/',
     'target_filename': EXP_DIR + 'target.npz',
     'log_filename': EXP_DIR + 'log.txt',
-    'conditions': 1,
+    'conditions': 2,
 }
 
 x0s = []
@@ -71,12 +71,13 @@ for i in xrange(common['conditions']):
     ee_tgts.append(np.zeros(9))
     if i == 0:
         reset_condition ={
-            # TRIAL_ARM:     {'data': np.array([0.4, -0.25, 1.0, -0.5, -0.0, -0.6, 0.0]), 'mode': 1},
             TRIAL_ARM:     {'data': np.array([0.4, -0.25, 1.0, -0.5, 0.5, -0.5, 1.25]), 'mode': 1},
+            # TRIAL_ARM:     {'data': np.array([-0.2, -0.0, 1.0, -0.75, -0.0, -0.6, 1.25]), 'mode': 1},
             AUXILIARY_ARM: {'data': np.array([-1.25, 0.0, 0.0, -2.0, 0.0, 0.0, 0.0]), 'mode': 1}
         }
     elif i == 1:
         reset_condition = {
+            # TRIAL_ARM:     {'data': np.array([0.4, -0.25, 1.0, -0.5, 0.5, -0.5, 1.25]), 'mode': 1},
             TRIAL_ARM:     {'data': np.array([-0.2, -0.0, 1.0, -0.75, -0.0, -0.6, 1.25]), 'mode': 1},
             AUXILIARY_ARM: {'data': np.array([-1.25, 0.0, 0.0, -2.0, 0.0, 0.0, 0.0]), 'mode': 1}
         }
@@ -101,7 +102,7 @@ agent = {
     'dt': 0.05,
     'conditions': common['conditions'],
     'T': 100,
-    'T_interpolation': 80,
+    'T_interpolation': 50,
     'x0': x0s,
     'ee_points_tgt': ee_tgts,
     'reset_conditions': reset_conditions,
@@ -112,7 +113,7 @@ agent = {
     'obs_include': [JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS,
                     END_EFFECTOR_POINT_VELOCITIES],
     'planner': 'RRTStarkConfigDefault',
-    'planning_schedule': [20],
+    'planning_schedule': [25],
     'indefatigable': True,
     'require_approval': True,
     'targets': [{'position': (0.5, 0.09, 0.555), 'orientation': (3.14, 0.0, -1.57)}
@@ -157,27 +158,16 @@ else:
         'policy_sample_mode': 'add',
     }
 
-
 algorithm['init_traj_distr'] = {
-    'type': init_lqr,
-    'init_gains':  1.0 / PR2_GAINS,
-    'init_acc': np.zeros(SENSOR_DIMS[ACTION]),
-    'init_var': 1.0,
-    'stiffness': 0.5,
-    'stiffness_vel': 0.25,
-    'final_weight': 50,
+    'type': init_pd,
+    'pos_gains': 7.5,
+    'vel_gains_mult': 0.0,
+    'init_var': 0.1,
+    'dQ': 7, # set this to action dim based on another file, but effect of changing unclear
     'dt': agent['dt'],
     'T': agent['T'],
 }
-# algorithm['init_traj_distr'] = {
-#     'type': init_lqr, #or init_pd
-#     'pos_gains': 1.0,
-#     'vel_gains_mult': 0.3,
-#     'init_var': 0.1,
-#     'dQ': 7, # set this to action dim based on another file, but effect of changing unclear
-#     'dt': agent['dt'],
-#     'T': agent['T'],
-# }
+agent['init_traj_distr'] = algorithm['init_traj_distr']
 
 algorithm['dynamics'] = {
     'type': DynamicsLRPrior,

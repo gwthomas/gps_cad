@@ -140,3 +140,46 @@ def init_pd(hyperparams):
     invPSig = (1.0 / config['init_var']) * np.tile(np.eye(dU), [T, 1, 1])
 
     return LinearGaussianPolicy(K, k, PSig, cholPSig, invPSig)
+
+
+def init_pd_ref(hyperparams, ref_ja, ref_ee):
+    """
+    This function initializes the linear-Gaussian controller as a
+    proportional-derivative (PD) controller with Gaussian noise. The
+    position gains are controlled by the variable pos_gains, velocity
+    gains are controlled by pos_gains*vel_gans_mult.
+    """
+    config = copy.deepcopy(INIT_LG_PD)
+    config.update(hyperparams)
+
+    dU, dQ, dX = config['dU'], config['dQ'], config['dX']
+    T = config['T']
+
+    # Choose initialization mode.
+    Kp = 1.0
+    Kv = config['vel_gains_mult']
+    if dU < dQ:
+        K = -config['pos_gains'] * np.tile(
+            [np.eye(dU) * Kp, np.zeros((dU, dQ-dU)),
+             np.eye(dU) * Kv, np.zeros((dU, dQ-dU))],
+            [T, 1, 1]
+        )
+    else:
+        K = -config['pos_gains'] * np.tile(
+            np.hstack([
+                np.eye(dU) * Kp, np.eye(dU) * Kv,
+                np.zeros((dU, dX - dU*2))
+            ]), [T, 1, 1]
+        )
+
+    X = np.zeros((T,32))
+    for t in range(T):
+        X[t,:7] = ref_ja[t]
+        X[t,14:(14+9)] = ref_ee[t]
+
+    k = X.dot(-K[0, :, :].T)
+    PSig = config['init_var'] * np.tile(np.eye(dU), [T, 1, 1])
+    cholPSig = np.sqrt(config['init_var']) * np.tile(np.eye(dU), [T, 1, 1])
+    invPSig = (1.0 / config['init_var']) * np.tile(np.eye(dU), [T, 1, 1])
+
+    return (K, k, PSig, cholPSig, invPSig)
