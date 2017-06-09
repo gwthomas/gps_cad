@@ -21,6 +21,8 @@ SET(CMAKE_TARGET_LINKED_INFO_FILES
 # The include file search paths:
 SET(CMAKE_C_TARGET_INCLUDE_PATH
   "include"
+  "/opt/ros/indigo/include"
+  "/usr/include/eigen3"
   "/usr/src/gtest/include"
   "/usr/src/gtest"
   )

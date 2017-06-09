@@ -33,7 +33,7 @@ from gps.utility.general_utils import get_ee_points
 from gps.gui.config import generate_experiment_info
 
 
-NNLIB = 'caffe'
+NNLIB = 'tf'
 assert NNLIB in ('tf', 'caffe', None)
 
 # EE_POINTS = np.array([[0.02, -0.025, 0.05], [0.02, -0.025, -0.05],
@@ -113,7 +113,7 @@ agent = {
     'obs_include': [JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS,
                     END_EFFECTOR_POINT_VELOCITIES],
     'planner': 'RRTStarkConfigDefault',
-    'planning_schedule': [25],
+    'planning_schedule': [10],
     'indefatigable': True,
     'require_approval': True,
     'targets': [{'position': (0.5, 0.09, 0.555), 'orientation': (3.14, 0.0, -1.57)}
@@ -162,7 +162,7 @@ algorithm['init_traj_distr'] = {
     'type': init_pd,
     'pos_gains': 7.5,
     'vel_gains_mult': 0.0,
-    'init_var': 0.1,
+    'init_var': 0.01,
     'dQ': 7, # set this to action dim based on another file, but effect of changing unclear
     'dt': agent['dt'],
     'T': agent['T'],
@@ -175,8 +175,8 @@ algorithm['dynamics'] = {
     'prior': {
         'type': DynamicsPriorGMM,
         'max_clusters': 20,
-        'min_samples_per_cluster': 40, #added from hyperparams_lqr.py
-        'max_samples': 20, #added from hyperparams_lqr.py
+        'min_samples_per_cluster': 40,
+        'max_samples': 20,
         }
 }
 

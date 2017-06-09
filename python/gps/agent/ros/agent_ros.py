@@ -135,7 +135,7 @@ class AgentROS(Agent):
                        condition_data[TRIAL_ARM]['data'])
         self.reset_arm(AUXILIARY_ARM, condition_data[AUXILIARY_ARM]['mode'],
                        condition_data[AUXILIARY_ARM]['data'])
-        time.sleep(2.0)  # useful for the real robot, so it stops completely
+        #time.sleep(2.0)  # useful for the real robot, so it stops completely
 
     def sample(self, policy, condition, verbose=True, save=True, noisy=True):
         """
@@ -174,7 +174,8 @@ class AgentROS(Agent):
         trial_command.state_datatypes = self._hyperparams['state_include']
         trial_command.obs_datatypes = self._hyperparams['state_include']
 
-        if self.use_tf is False:
+        if self.use_tf is False or not isinstance(policy, TfPolicy):
+            print 'Not using TF controller'
             sample_msg = self._trial_service.publish_and_wait(
                 trial_command, timeout=self._hyperparams['trial_timeout']
             )
@@ -183,6 +184,7 @@ class AgentROS(Agent):
                 self._samples[condition].append(sample)
             return sample
         else:
+            print 'Using TF controller'
             self._trial_service.publish(trial_command)
             sample_msg = self.run_trial_tf(policy, time_to_run=self._hyperparams['trial_timeout'])
             sample = msg_to_sample(sample_msg, self)
@@ -209,8 +211,8 @@ class AgentROS(Agent):
             else:
                 rospy.sleep(0.01)
                 consecutive_failures += 1
-                if time.time() - start_time > time_to_run and consecutive_failures > 5:
-                    # we only stop when we have run for the trial time and are no longer receiving obs.
+                if time.time() - start_time > time_to_run or \
+                        (self.current_action_id > self.T and consecutive_failures > 25):
                     should_stop = True
         rospy.sleep(0.25)  # wait for finished trial to come in.
         result = self._trial_service._subscriber_msg

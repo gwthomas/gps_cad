@@ -165,23 +165,23 @@ class AgentCAD(AgentROS):
         self.scene.remove_world_object(name)
         pdb.set_trace()
 
-    # def reset_arm(self, arm, mode, data):
-    #     """
-    #     Issues a position command to an arm.
-    #     Args:
-    #         arm: Either TRIAL_ARM or AUXILIARY_ARM.
-    #         mode: An integer code (defined in gps_pb2).
-    #         data: An array of floats.
-    #     """
-    #     reset_command = PositionCommand()
-    #     reset_command.mode = mode
-    #     reset_command.data = data
-    #     reset_command.pd_gains = self._hyperparams['pid_params']
-    #     reset_command.arm = arm
-    #     timeout = self._hyperparams['reset_timeout']
-    #     reset_command.id = self._get_next_seq_id()
-    #     self._reset_service.publish_and_wait(reset_command, timeout=timeout)
-    #     #TODO: Maybe verify that you reset to the correct position.
+    def reset_arm(self, arm, mode, data):
+        """
+        Issues a position command to an arm.
+        Args:
+            arm: Either TRIAL_ARM or AUXILIARY_ARM.
+            mode: An integer code (defined in gps_pb2).
+            data: An array of floats.
+        """
+        reset_command = PositionCommand()
+        reset_command.mode = mode
+        reset_command.data = data
+        reset_command.pd_gains = self._hyperparams['pid_params']
+        reset_command.arm = arm
+        timeout = self._hyperparams['reset_timeout']
+        reset_command.id = self._get_next_seq_id()
+        self._reset_service.publish_and_wait(reset_command, timeout=timeout)
+        #TODO: Maybe verify that you reset to the correct position.
 
     def reset(self, condition):
         self.use_controller('GPS')
@@ -365,11 +365,20 @@ class AgentCAD(AgentROS):
         trial_command.obs_datatypes = self._hyperparams['state_include']
 
 
-        if self.use_tf is False:
+        # if self.use_tf is False:
+        #     sample_msg = self._trial_service.publish_and_wait(
+        #         trial_command, timeout=self._hyperparams['trial_timeout']
+        #     )
+        # else:
+        #     self._trial_service.publish(trial_command)
+        #     sample_msg = self.run_trial_tf(policy, time_to_run=self._hyperparams['trial_timeout'])
+        if self.use_tf is False or not isinstance(policy, TfPolicy):
+            print 'Not using TF controller'
             sample_msg = self._trial_service.publish_and_wait(
                 trial_command, timeout=self._hyperparams['trial_timeout']
             )
         else:
+            print 'Using TF controller'
             self._trial_service.publish(trial_command)
             sample_msg = self.run_trial_tf(policy, time_to_run=self._hyperparams['trial_timeout'])
 
