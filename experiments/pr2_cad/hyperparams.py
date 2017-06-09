@@ -32,7 +32,7 @@ from gps.proto.gps_pb2 import JOINT_ANGLES, JOINT_VELOCITIES, \
 from gps.utility.general_utils import get_ee_points
 from gps.gui.config import generate_experiment_info
 
-
+T = 100
 NNLIB = 'tf'
 assert NNLIB in ('tf', 'caffe', None)
 
@@ -46,6 +46,7 @@ SENSOR_DIMS = {
     END_EFFECTOR_POINTS: 3 * EE_POINTS.shape[0],
     END_EFFECTOR_POINT_VELOCITIES: 3 * EE_POINTS.shape[0],
     ACTION: 7,
+    'ref_traj': 9*T
 }
 
 PR2_GAINS = np.array([3.09, 1.08, 0.393, 0.674, 0.111, 0.152, 0.098])
@@ -60,7 +61,7 @@ common = {
     'data_files_dir': EXP_DIR + 'data_files/',
     'target_filename': EXP_DIR + 'target.npz',
     'log_filename': EXP_DIR + 'log.txt',
-    'conditions': 2,
+    'conditions': 1,
 }
 
 x0s = []
@@ -101,7 +102,7 @@ agent = {
     'type': AgentCADExperiment,
     'dt': 0.05,
     'conditions': common['conditions'],
-    'T': 100,
+    'T': T,
     'T_interpolation': 50,
     'x0': x0s,
     'ee_points_tgt': ee_tgts,
@@ -111,7 +112,7 @@ agent = {
                       END_EFFECTOR_POINT_VELOCITIES],
     'end_effector_points': EE_POINTS,
     'obs_include': [JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS,
-                    END_EFFECTOR_POINT_VELOCITIES],
+                    END_EFFECTOR_POINT_VELOCITIES, 'ref_traj'],
     'planner': 'RRTStarkConfigDefault',
     'planning_schedule': [10],
     'indefatigable': True,
@@ -177,7 +178,7 @@ algorithm['dynamics'] = {
         'max_clusters': 20,
         'min_samples_per_cluster': 40,
         'max_samples': 20,
-        }
+    }
 }
 
 algorithm['traj_opt'] = {
@@ -188,8 +189,8 @@ if NNLIB == 'tf':
     algorithm['policy_opt'] = {
         'type': PolicyOptTf,
         'network_params': {
-            'obs_include': [JOINT_ANGLES, JOINT_VELOCITIES],
-            'obs_vector_data': [JOINT_ANGLES, JOINT_VELOCITIES],
+            'obs_include': [JOINT_ANGLES, JOINT_VELOCITIES, 'ref_traj'],
+            'obs_vector_data': [JOINT_ANGLES, JOINT_VELOCITIES, 'ref_traj'],
             'sensor_dims': SENSOR_DIMS,
         },
         'network_model': tf_network,
@@ -254,7 +255,7 @@ config = {
     'agent': agent,
     'gui_on': True,
     'algorithm': algorithm,
-    'num_samples': 5,
+    'num_samples': 3,
 }
 if NNLIB is not None:
     config['verbose_policy_trials'] = 1

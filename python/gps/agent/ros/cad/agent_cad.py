@@ -338,7 +338,6 @@ class AgentCAD(AgentROS):
         print 'Sampling, condition', condition
         self.reset(condition)
 
-        #added from agent_ros.py of public gps codebase
         if TfPolicy is not None:  # user has tf installed.
             if isinstance(policy, TfPolicy):
                 self._init_tf(policy.dU)
@@ -384,6 +383,9 @@ class AgentCAD(AgentROS):
 
         sample = msg_to_sample(sample_msg, self)
         sample.set('target_traj_ee_points', [points - ref_traj[-1] for points in ref_traj])
+
+        ref_traj_vec = np.array(ref_traj).flatten()
+        sample.set('ref_traj', np.array([ref_traj_vec]*self.T))
 
         if save:
             self._samples[condition].append(sample)
