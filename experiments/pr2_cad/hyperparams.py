@@ -20,7 +20,7 @@ from gps.algorithm.cost.cost_fk import CostFK
 from gps.algorithm.cost.cost_fkt import CostFKT
 from gps.algorithm.cost.cost_action import CostAction
 from gps.algorithm.cost.cost_sum import CostSum
-from gps.algorithm.cost.cost_utils import RAMP_LINEAR, RAMP_FINAL_ONLY
+from gps.algorithm.cost.cost_utils import RAMP_LINEAR, RAMP_FINAL_ONLY, RAMP_CONSTANT
 from gps.algorithm.dynamics.dynamics_lr_prior import DynamicsLRPrior
 from gps.algorithm.dynamics.dynamics_prior_gmm import DynamicsPriorGMM
 from gps.algorithm.traj_opt.traj_opt_lqr_python import TrajOptLQRPython
@@ -32,8 +32,8 @@ from gps.proto.gps_pb2 import JOINT_ANGLES, JOINT_VELOCITIES, \
 from gps.utility.general_utils import get_ee_points
 from gps.gui.config import generate_experiment_info
 
-T = 100
-NNLIB = 'tf'
+T = 200
+NNLIB = None
 assert NNLIB in ('tf', 'caffe', None)
 
 # EE_POINTS = np.array([[0.02, -0.025, 0.05], [0.02, -0.025, -0.05],
@@ -62,6 +62,7 @@ common = {
     'target_filename': EXP_DIR + 'target.npz',
     'log_filename': EXP_DIR + 'log.txt',
     'conditions': 1,
+    'iterations': 50,
 }
 
 x0s = []
@@ -103,7 +104,7 @@ agent = {
     'dt': 0.05,
     'conditions': common['conditions'],
     'T': T,
-    'T_interpolation': 50,
+    'T_interpolation': 150,
     'x0': x0s,
     'ee_points_tgt': ee_tgts,
     'reset_conditions': reset_conditions,
@@ -163,7 +164,7 @@ algorithm['init_traj_distr'] = {
     'type': init_pd,
     'pos_gains': 7.5,
     'vel_gains_mult': 0.0,
-    'init_var': 0.01,
+    'init_var': 0.2,
     'dQ': 7, # set this to action dim based on another file, but effect of changing unclear
     'dt': agent['dt'],
     'T': agent['T'],
@@ -226,7 +227,7 @@ fk_cost1 = {
     'wp': np.ones(SENSOR_DIMS[END_EFFECTOR_POINTS]),
     'l1': 0.1,
     'l2': 0.0001,
-    'ramp_option': RAMP_LINEAR,
+    'ramp_option': RAMP_CONSTANT,
 }
 
 fk_cost2 = {
@@ -255,7 +256,7 @@ config = {
     'agent': agent,
     'gui_on': True,
     'algorithm': algorithm,
-    'num_samples': 3,
+    'num_samples': 5,
 }
 if NNLIB is not None:
     config['verbose_policy_trials'] = 1
