@@ -103,7 +103,7 @@ class GPSTrainingGUI(object):
                 fontsize=config['algthm_output_fontsize'],
                 font_family='monospace')
         self._cost_plotter = MeanPlotter(self._fig, self._gs_cost_plotter,
-                color='blue', label='mean cost')
+                color='blue', label='mean cost', min_itr=self._hyperparams.get('iterations', 10))
         self._traj_visualizer = Plotter3D(self._fig, self._gs_traj_visualizer,
                 num_plots=self._hyperparams['conditions'])
         if config['image_on']:
@@ -352,7 +352,7 @@ class GPSTrainingGUI(object):
             self._traj_visualizer.clear(m)
             self._traj_visualizer.set_lim(i=m, xlim=xlim, ylim=ylim, zlim=zlim)
             if algorithm._hyperparams['fit_dynamics']:
-                self._update_linear_gaussian_controller_plots(algorithm, agent, m)                                
+                self._update_linear_gaussian_controller_plots(algorithm, agent, m)
             self._update_samples_plots(traj_sample_lists, m, 'green', 'Trajectory Samples')
             if pol_sample_lists:
                 self._update_samples_plots(pol_sample_lists,  m, 'blue',  'Policy Samples')
