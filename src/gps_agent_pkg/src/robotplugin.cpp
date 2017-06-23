@@ -11,6 +11,7 @@
 #include "gps_agent_pkg/util.h"
 #include "gps/proto/gps.pb.h"
 #include <vector>
+#include <iostream>
 
 #ifdef USE_CAFFE
 #include "gps_agent_pkg/caffenncontroller.h"
@@ -428,7 +429,7 @@ void RobotPlugin::trial_subscriber_callback(const gps_agent_pkg::TrialCommand::C
             }
             controller_params["noise_"+to_string(t)] = noise;
         }
- 
+
         controller_params["net_param"] = params.net_param;
         controller_params["scale"] = scale;
         controller_params["bias"] = bias;

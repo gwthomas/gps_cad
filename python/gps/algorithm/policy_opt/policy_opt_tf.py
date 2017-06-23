@@ -283,4 +283,3 @@ class PolicyOptTf(PolicyOpt):
             f.write(state['wts'])
             f.seek(0)
             self.restore_model(f.name)
-

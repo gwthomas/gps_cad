@@ -7,7 +7,7 @@ from gps.algorithm.cost.config import COST_FK
 from gps.algorithm.cost.cost import Cost
 from gps.algorithm.cost.cost_utils import get_ramp_multiplier
 from gps.proto.gps_pb2 import JOINT_ANGLES, END_EFFECTOR_POINTS, \
-        END_EFFECTOR_POINT_JACOBIANS
+        END_EFFECTOR_POINT_JACOBIANS, REF_OFFSETS
 
 
 class CostFKT(Cost):
@@ -48,7 +48,7 @@ class CostFKT(Cost):
         lux = np.zeros((T, dU, dX))
 
         # Choose target.
-        tgt = sample.get('target_traj_ee_points')
+        tgt = sample.get(REF_OFFSETS)
         pt = sample.get(END_EFFECTOR_POINTS)
         dist = pt - tgt
         # TODO - These should be partially zeros so we're not double

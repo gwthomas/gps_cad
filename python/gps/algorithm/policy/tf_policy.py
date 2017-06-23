@@ -42,7 +42,7 @@ class TfPolicy(Policy):
                                                      self.copy_params_assign_placeholders[i])
                                              for i in range(len(self.copy_params))]
 
-    def act(self, x, obs, t, noise):
+    def act(self, x, obs, t, noise, extra=[]):
         """
         Return an action for a state.
         Args:
@@ -57,12 +57,16 @@ class TfPolicy(Policy):
             obs = np.expand_dims(obs, axis=0)
         obs[:, self.x_idx] = obs[:, self.x_idx].dot(self.scale) + self.bias
         with tf.device(self.device_string):
-            action_mean = self.sess.run(self.act_op, feed_dict={self.obs_tensor: obs})
+            ops = [self.act_op] + [name+':0' for name in extra]
+            results = self.sess.run(ops, feed_dict={self.obs_tensor: obs})
+            action_mean = results[0]
+            for i, op_name in enumerate(extra):
+                print '{}:'.format(op_name), results[i+1]
         if noise is None:
             u = action_mean
         else:
             u = action_mean + self.chol_pol_covar.T.dot(noise)
-        return u[0]  # the DAG computations are batched by default, but we use batch size 1.
+        return u[0], results[1:]  # the DAG computations are batched by default, but we use batch size 1.
 
     def get_features(self, obs):
         """
@@ -132,4 +136,3 @@ class TfPolicy(Policy):
         cls_init.bias = pol_dict['bias']
         cls_init.x_idx = pol_dict['x_idx']
         return cls_init
-

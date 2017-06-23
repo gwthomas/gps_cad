@@ -15,6 +15,7 @@ from gps.algorithm.policy_opt.policy_opt_tf import PolicyOptTf
 from gps.algorithm.policy_opt.policy_opt_caffe import PolicyOptCaffe
 from gps.algorithm.policy.policy_prior_gmm import PolicyPriorGMM
 from gps.algorithm.policy_opt.tf_model_example import tf_network
+from gps.agent.ros.cad.ref_traj_network import ref_traj_network
 
 from gps.algorithm.cost.cost_fk import CostFK
 from gps.algorithm.cost.cost_fkt import CostFKT
@@ -28,12 +29,13 @@ from gps.algorithm.policy.lin_gauss_init import init_lqr, init_pd
 from gps.gui.target_setup_gui import load_pose_from_npz
 from gps.proto.gps_pb2 import JOINT_ANGLES, JOINT_VELOCITIES, \
         END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, ACTION, \
-        TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE
+        TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE, REF_TRAJ, REF_OFFSETS
 from gps.utility.general_utils import get_ee_points
 from gps.gui.config import generate_experiment_info
 
-T = 200
-NNLIB = None
+T = 150
+NNLIB = 'tf'
+ATTENTION = False
 assert NNLIB in ('tf', 'caffe', None)
 
 # EE_POINTS = np.array([[0.02, -0.025, 0.05], [0.02, -0.025, -0.05],
@@ -46,7 +48,7 @@ SENSOR_DIMS = {
     END_EFFECTOR_POINTS: 3 * EE_POINTS.shape[0],
     END_EFFECTOR_POINT_VELOCITIES: 3 * EE_POINTS.shape[0],
     ACTION: 7,
-    'ref_traj': 9*T
+    REF_TRAJ: 9*T
 }
 
 PR2_GAINS = np.array([3.09, 1.08, 0.393, 0.674, 0.111, 0.152, 0.098])
@@ -61,7 +63,7 @@ common = {
     'data_files_dir': EXP_DIR + 'data_files/',
     'target_filename': EXP_DIR + 'target.npz',
     'log_filename': EXP_DIR + 'log.txt',
-    'conditions': 1,
+    'conditions': 2,
     'iterations': 50,
 }
 
@@ -72,7 +74,7 @@ for i in xrange(common['conditions']):
     x0s.append(np.zeros(32))
     ee_tgts.append(np.zeros(9))
     if i == 0:
-        reset_condition ={
+        reset_condition = {
             TRIAL_ARM:     {'data': np.array([0.4, -0.25, 1.0, -0.5, 0.5, -0.5, 1.25]), 'mode': 1},
             # TRIAL_ARM:     {'data': np.array([-0.2, -0.0, 1.0, -0.75, -0.0, -0.6, 1.25]), 'mode': 1},
             AUXILIARY_ARM: {'data': np.array([-1.25, 0.0, 0.0, -2.0, 0.0, 0.0, 0.0]), 'mode': 1}
@@ -104,7 +106,7 @@ agent = {
     'dt': 0.05,
     'conditions': common['conditions'],
     'T': T,
-    'T_interpolation': 150,
+    'T_interpolation': 100,
     'x0': x0s,
     'ee_points_tgt': ee_tgts,
     'reset_conditions': reset_conditions,
@@ -112,10 +114,10 @@ agent = {
     'state_include': [JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS,
                       END_EFFECTOR_POINT_VELOCITIES],
     'end_effector_points': EE_POINTS,
-    'obs_include': [JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS,
-                    END_EFFECTOR_POINT_VELOCITIES, 'ref_traj'],
+    'obs_include': [JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES] \
+            + ([REF_TRAJ] if ATTENTION else []),
     'planner': 'RRTStarkConfigDefault',
-    'planning_schedule': [10],
+    'planning_schedule': [15],
     'indefatigable': True,
     'require_approval': True,
     'targets': [{'position': (0.5, 0.09, 0.555), 'orientation': (3.14, 0.0, -1.57)}
@@ -128,7 +130,8 @@ agent = {
     #     #{'position': (0.5, 0.09, 0.555), 'orientation': (0.0, 0.0, -1.57)}
     # ],
     'cad_path': os.path.join(EXP_DIR, 'piece.stl'),
-    'reset_timeout': 10
+    'reset_timeout': 10,
+    'attention': ATTENTION
 }
 
 if NNLIB is None:
@@ -164,7 +167,7 @@ algorithm['init_traj_distr'] = {
     'type': init_pd,
     'pos_gains': 7.5,
     'vel_gains_mult': 0.0,
-    'init_var': 0.2,
+    'init_var': 0.1,
     'dQ': 7, # set this to action dim based on another file, but effect of changing unclear
     'dt': agent['dt'],
     'T': agent['T'],
@@ -190,12 +193,15 @@ if NNLIB == 'tf':
     algorithm['policy_opt'] = {
         'type': PolicyOptTf,
         'network_params': {
-            'obs_include': [JOINT_ANGLES, JOINT_VELOCITIES, 'ref_traj'],
-            'obs_vector_data': [JOINT_ANGLES, JOINT_VELOCITIES, 'ref_traj'],
+            'obs_include': agent['obs_include'],
+            'obs_image_data': [END_EFFECTOR_POINTS, REF_TRAJ],
             'sensor_dims': SENSOR_DIMS,
+            'T': T,
+            'ee_pos_indices': (14,23),
+            'scale': 100,
         },
-        'network_model': tf_network,
-        'iterations': 1000,
+        'network_model': ref_traj_network if ATTENTION else tf_network,
+        'iterations': 2500,
         'weights_file_prefix': EXP_DIR + 'policy',
     }
 elif NNLIB == 'caffe':
@@ -242,10 +248,8 @@ fk_cost2 = {
 
 algorithm['cost'] = {
     'type': CostSum,
-    # 'costs': [torque_cost, fk_cost1, fk_cost2],
-    # 'weights': [1.0, 1.0, 1.0],
-    'costs': [fk_cost1, torque_cost],
-    'weights': [1.0, 0.1],
+    'costs': [torque_cost, fk_cost1],
+    'weights': [0.5, 1.0],
 }
 
 
@@ -256,7 +260,7 @@ config = {
     'agent': agent,
     'gui_on': True,
     'algorithm': algorithm,
-    'num_samples': 5,
+    'num_samples': 2, # must be >1 to fit dynamics
 }
 if NNLIB is not None:
     config['verbose_policy_trials'] = 1

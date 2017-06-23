@@ -21,12 +21,11 @@ from gps.agent.ros.agent_ros import AgentROS
 from gps.agent.agent_utils import generate_noise, setup
 from gps.agent.config import AGENT_ROS
 from gps.algorithm.policy.lin_gauss_init import init_lqr, init_pd
-from gps.agent.ros.ros_utils import ServiceEmulator, msg_to_sample, \
-        policy_to_msg
+from gps.agent.ros.ros_utils import ServiceEmulator, TimeoutException, msg_to_sample, policy_to_msg
 from gps.algorithm.policy.lin_gauss_init import init_pd_ref
 from gps.proto.gps_pb2 import TRIAL_ARM, AUXILIARY_ARM, JOINT_ANGLES, \
         JOINT_VELOCITIES, END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, \
-        ACTION, TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE
+        ACTION, TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE, REF_TRAJ, REF_OFFSETS
 from gps_agent_pkg.msg import TrialCommand, SampleResult, PositionCommand, \
         RelaxCommand, DataRequest
 from gps.utility.general_utils import get_ee_points
@@ -189,12 +188,12 @@ class AgentCAD(AgentROS):
         try:
             self.reset_arm(TRIAL_ARM, condition_data[TRIAL_ARM]['mode'],
                     condition_data[TRIAL_ARM]['data'])
-        except:
+        except TimeoutException:
             print 'Trial arm reset timed out'
         try:
             self.reset_arm(AUXILIARY_ARM, condition_data[AUXILIARY_ARM]['mode'],
                        condition_data[AUXILIARY_ARM]['data'])
-        except:
+        except TimeoutException:
             print 'Auxiliary arm reset timed out'
 
     def set_gripper(self, position, max_effort, wait):
@@ -318,7 +317,12 @@ class AgentCAD(AgentROS):
         # plot_trajectories(trajectories)
         # pdb.set_trace()
 
-        self.trajectories[condition] = ref_ee
+        ref_offsets = [points - ref_ee[-1] for points in ref_ee]
+        self.trajectories[condition] = {
+            'traj': ref_ee,
+            'offsets': ref_offsets,
+            'flattened': np.array(ref_offsets).flatten()
+        }
         policy.__init__(*init_pd_ref(self._hyperparams['init_traj_distr'], ref_ja, ref_ee))
 
     def sample(self, policy, condition, verbose=True, save=True, noisy=True):
@@ -335,14 +339,14 @@ class AgentCAD(AgentROS):
         if condition not in self.trajectories:
             self.compute_reference_trajectory(condition, policy)
 
-        print 'Sampling, condition', condition
         self.reset(condition)
 
         if TfPolicy is not None:  # user has tf installed.
             if isinstance(policy, TfPolicy):
                 self._init_tf(policy.dU)
 
-        ref_traj = self.trajectories[condition]
+        ref_traj_info = self.trajectories[condition]
+        ref_traj = ref_traj_info['traj']
 
         # Generate noise.
         if noisy:
@@ -355,38 +359,40 @@ class AgentCAD(AgentROS):
         trial_command.id = self._get_next_seq_id()
         trial_command.controller = policy_to_msg(policy, noise)
         trial_command.T = self.T
-        trial_command.id = self._get_next_seq_id()
         trial_command.frequency = self._hyperparams['frequency']
         ee_points = self._hyperparams['end_effector_points']
         trial_command.ee_points = ee_points.reshape(ee_points.size).tolist()
         trial_command.ee_points_tgt = ref_traj[-1]
         trial_command.state_datatypes = self._hyperparams['state_include']
-        trial_command.obs_datatypes = self._hyperparams['state_include']
+        trial_command.obs_datatypes = self._hyperparams['state_include'] # changing this to 'obs_include' resulted in weird Gazebo memory corruption
 
-
-        # if self.use_tf is False:
-        #     sample_msg = self._trial_service.publish_and_wait(
-        #         trial_command, timeout=self._hyperparams['trial_timeout']
-        #     )
-        # else:
-        #     self._trial_service.publish(trial_command)
-        #     sample_msg = self.run_trial_tf(policy, time_to_run=self._hyperparams['trial_timeout'])
         if self.use_tf is False or not isinstance(policy, TfPolicy):
-            print 'Not using TF controller'
             sample_msg = self._trial_service.publish_and_wait(
                 trial_command, timeout=self._hyperparams['trial_timeout']
             )
         else:
-            print 'Using TF controller'
             self._trial_service.publish(trial_command)
-            sample_msg = self.run_trial_tf(policy, time_to_run=self._hyperparams['trial_timeout'])
+            sample_msg = self.run_trial_tf(policy, condition, time_to_run=self._hyperparams['trial_timeout'])
 
         sample = msg_to_sample(sample_msg, self)
-        sample.set('target_traj_ee_points', [points - ref_traj[-1] for points in ref_traj])
-
-        ref_traj_vec = np.array(ref_traj).flatten()
-        sample.set('ref_traj', np.array([ref_traj_vec]*self.T))
+        sample.set(REF_OFFSETS, ref_traj_info['offsets'])
+        sample.set(REF_TRAJ, np.array([ref_traj_info['flattened']]*self.T))
 
         if save:
             self._samples[condition].append(sample)
         return sample
+
+    def _get_new_action(self, policy, obs):
+        # extra = ['ref_traj', 'distances', 'weights', 'attended', 'ee_pos']
+        extra = []
+        action, debug = policy.act(None, obs, None, None, extra=extra)
+        return action
+
+    def _get_obs(self, msg, condition):
+        array = AgentROS._get_obs(self, msg, condition)
+        if self._hyperparams['attention']:
+            ref_flattened = self.trajectories[condition]['flattened']
+            obs = np.concatenate([array, ref_flattened])
+        else:
+            obs = array
+        return obs

@@ -467,30 +467,6 @@ gtest_main/fast:
 	$(MAKE) -f gtest/CMakeFiles/gtest_main.dir/build.make gtest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
 
-src/caffenncontroller.o: src/caffenncontroller.cpp.o
-.PHONY : src/caffenncontroller.o
-
-# target to build an object file
-src/caffenncontroller.cpp.o:
-	$(MAKE) -f CMakeFiles/gps_agent_lib.dir/build.make CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.o
-.PHONY : src/caffenncontroller.cpp.o
-
-src/caffenncontroller.i: src/caffenncontroller.cpp.i
-.PHONY : src/caffenncontroller.i
-
-# target to preprocess a source file
-src/caffenncontroller.cpp.i:
-	$(MAKE) -f CMakeFiles/gps_agent_lib.dir/build.make CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.i
-.PHONY : src/caffenncontroller.cpp.i
-
-src/caffenncontroller.s: src/caffenncontroller.cpp.s
-.PHONY : src/caffenncontroller.s
-
-# target to generate assembly for a file
-src/caffenncontroller.cpp.s:
-	$(MAKE) -f CMakeFiles/gps_agent_lib.dir/build.make CMakeFiles/gps_agent_lib.dir/src/caffenncontroller.cpp.s
-.PHONY : src/caffenncontroller.cpp.s
-
 src/camerasensor.o: src/camerasensor.cpp.o
 .PHONY : src/camerasensor.o
 
@@ -634,30 +610,6 @@ src/neuralnetwork.s: src/neuralnetwork.cpp.s
 src/neuralnetwork.cpp.s:
 	$(MAKE) -f CMakeFiles/gps_agent_lib.dir/build.make CMakeFiles/gps_agent_lib.dir/src/neuralnetwork.cpp.s
 .PHONY : src/neuralnetwork.cpp.s
-
-src/neuralnetworkcaffe.o: src/neuralnetworkcaffe.cpp.o
-.PHONY : src/neuralnetworkcaffe.o
-
-# target to build an object file
-src/neuralnetworkcaffe.cpp.o:
-	$(MAKE) -f CMakeFiles/gps_agent_lib.dir/build.make CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.o
-.PHONY : src/neuralnetworkcaffe.cpp.o
-
-src/neuralnetworkcaffe.i: src/neuralnetworkcaffe.cpp.i
-.PHONY : src/neuralnetworkcaffe.i
-
-# target to preprocess a source file
-src/neuralnetworkcaffe.cpp.i:
-	$(MAKE) -f CMakeFiles/gps_agent_lib.dir/build.make CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.i
-.PHONY : src/neuralnetworkcaffe.cpp.i
-
-src/neuralnetworkcaffe.s: src/neuralnetworkcaffe.cpp.s
-.PHONY : src/neuralnetworkcaffe.s
-
-# target to generate assembly for a file
-src/neuralnetworkcaffe.cpp.s:
-	$(MAKE) -f CMakeFiles/gps_agent_lib.dir/build.make CMakeFiles/gps_agent_lib.dir/src/neuralnetworkcaffe.cpp.s
-.PHONY : src/neuralnetworkcaffe.cpp.s
 
 src/positioncontroller.o: src/positioncontroller.cpp.o
 .PHONY : src/positioncontroller.o
@@ -912,9 +864,6 @@ help:
 	@echo "... tests"
 	@echo "... gtest"
 	@echo "... gtest_main"
-	@echo "... src/caffenncontroller.o"
-	@echo "... src/caffenncontroller.i"
-	@echo "... src/caffenncontroller.s"
 	@echo "... src/camerasensor.o"
 	@echo "... src/camerasensor.i"
 	@echo "... src/camerasensor.s"
@@ -933,9 +882,6 @@ help:
 	@echo "... src/neuralnetwork.o"
 	@echo "... src/neuralnetwork.i"
 	@echo "... src/neuralnetwork.s"
-	@echo "... src/neuralnetworkcaffe.o"
-	@echo "... src/neuralnetworkcaffe.i"
-	@echo "... src/neuralnetworkcaffe.s"
 	@echo "... src/positioncontroller.o"
 	@echo "... src/positioncontroller.i"
 	@echo "... src/positioncontroller.s"
