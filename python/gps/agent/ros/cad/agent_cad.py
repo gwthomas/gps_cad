@@ -1,4 +1,5 @@
 import numpy as np
+import os.path as osp
 import pdb
 import time
 
@@ -160,27 +161,25 @@ class AgentCAD(AgentROS):
 
     def attach(self, name, touch_links=[]):
         self.scene.attach_mesh(self.ee_link, name, touch_links=touch_links)
-        pdb.set_trace()
         self.scene.remove_world_object(name)
-        pdb.set_trace()
 
-    def reset_arm(self, arm, mode, data):
-        """
-        Issues a position command to an arm.
-        Args:
-            arm: Either TRIAL_ARM or AUXILIARY_ARM.
-            mode: An integer code (defined in gps_pb2).
-            data: An array of floats.
-        """
-        reset_command = PositionCommand()
-        reset_command.mode = mode
-        reset_command.data = data
-        reset_command.pd_gains = self._hyperparams['pid_params']
-        reset_command.arm = arm
-        timeout = self._hyperparams['reset_timeout']
-        reset_command.id = self._get_next_seq_id()
-        self._reset_service.publish_and_wait(reset_command, timeout=timeout)
-        #TODO: Maybe verify that you reset to the correct position.
+    # def reset_arm(self, arm, mode, data):
+    #     """
+    #     Issues a position command to an arm.
+    #     Args:
+    #         arm: Either TRIAL_ARM or AUXILIARY_ARM.
+    #         mode: An integer code (defined in gps_pb2).
+    #         data: An array of floats.
+    #     """
+    #     reset_command = PositionCommand()
+    #     reset_command.mode = mode
+    #     reset_command.data = data
+    #     reset_command.pd_gains = self._hyperparams['pid_params']
+    #     reset_command.arm = arm
+    #     timeout = self._hyperparams['reset_timeout']
+    #     reset_command.id = self._get_next_seq_id()
+    #     self._reset_service.publish_and_wait(reset_command, timeout=timeout)
+    #     #TODO: Maybe verify that you reset to the correct position.
 
     def reset(self, condition):
         self.use_controller('GPS')
@@ -270,9 +269,6 @@ class AgentCAD(AgentROS):
         pose = response.pose_stamped[0].pose
         return np.array(listify(pose.position) + listify(pose.orientation))
 
-    # def forward_kinematics(self, plan, frame):
-    #     return [self.forward_kinematics1(point.positions, frame) for point in plan.joint_trajectory.points]
-
     def forward_kinematics(self, joint_angles, frame):
         return [self.forward_kinematics1(angles, frame) for angles in joint_angles]
 
@@ -284,7 +280,7 @@ class AgentCAD(AgentROS):
             joints.append(state.position[index])
         return self.forward_kinematics1(joints)
 
-    def compute_reference_trajectory(self, condition, policy):
+    def compute_reference_trajectory(self, condition):
         self.reset(condition)
         target = self._hyperparams['targets'][condition]
 
@@ -307,23 +303,29 @@ class AgentCAD(AgentROS):
             if not self.require_approval or yesno('Does this trajectory look ok?'):
                 break
 
-        # trajectories = []
-        # for i in range(3):
-        #     plan = self.plan_end_effector(target['position'], target['orientation'])
-        #     fk_poses = self.forward_kinematics(plan, 'torso_lift_link')
-        #     ref_poses = interpolate(fk_poses, self.T_interpolation)
-        #     ref_poses.extend([fk_poses[-1]] * (self.T - self.T_interpolation))
-        #     trajectories.append(ref_poses)
-        # plot_trajectories(trajectories)
-        # pdb.set_trace()
-
-        ref_offsets = [points - ref_ee[-1] for points in ref_ee]
-        self.trajectories[condition] = {
-            'traj': ref_ee,
+        # ref_offsets = np.array([points - ref_ee[-1] for points in ref_ee])
+        ref_ja = np.array(ref_ja)
+        ref_ee = np.array(ref_ee)
+        ref_offsets = ref_ee - ref_ee[-1]
+        return {
+            'ja': ref_ja,
+            'ee': ref_ee,
             'offsets': ref_offsets,
-            'flattened': np.array(ref_offsets).flatten()
+            'flattened': ref_offsets.flatten()
         }
+
+    def determine_reference_trajectory(self, condition, policy):
+        filename = 'ref_traj_{}.npz'.format(condition)
+        if osp.exists(filename):
+            print 'Using existing reference trajectory for condition', condition
+            ref_traj_info = np.load(filename)
+        else:
+            print 'No reference trajectory found for condition {}. Computing a fresh one'.format(condition)
+            ref_traj_info = self.compute_reference_trajectory(condition)
+            np.savez(filename, **ref_traj_info)
+        ref_ja, ref_ee = ref_traj_info['ja'], ref_traj_info['ee']
         policy.__init__(*init_pd_ref(self._hyperparams['init_traj_distr'], ref_ja, ref_ee))
+        self.trajectories[condition] = ref_traj_info
 
     def sample(self, policy, condition, verbose=True, save=True, noisy=True):
         """
@@ -337,7 +339,7 @@ class AgentCAD(AgentROS):
             sample: A Sample object.
         """
         if condition not in self.trajectories:
-            self.compute_reference_trajectory(condition, policy)
+            self.determine_reference_trajectory(condition, policy)
 
         self.reset(condition)
 
@@ -346,7 +348,7 @@ class AgentCAD(AgentROS):
                 self._init_tf(policy.dU)
 
         ref_traj_info = self.trajectories[condition]
-        ref_traj = ref_traj_info['traj']
+        ref_ee = ref_traj_info['ee']
 
         # Generate noise.
         if noisy:
@@ -362,7 +364,7 @@ class AgentCAD(AgentROS):
         trial_command.frequency = self._hyperparams['frequency']
         ee_points = self._hyperparams['end_effector_points']
         trial_command.ee_points = ee_points.reshape(ee_points.size).tolist()
-        trial_command.ee_points_tgt = ref_traj[-1]
+        trial_command.ee_points_tgt = ref_ee[-1]
         trial_command.state_datatypes = self._hyperparams['state_include']
         trial_command.obs_datatypes = self._hyperparams['state_include'] # changing this to 'obs_include' resulted in weird Gazebo memory corruption
 

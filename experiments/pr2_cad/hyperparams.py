@@ -117,7 +117,7 @@ agent = {
     'obs_include': [JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES] \
             + ([REF_TRAJ] if ATTENTION else []),
     'planner': 'RRTStarkConfigDefault',
-    'planning_schedule': [15],
+    'planning_schedule': [5],
     'indefatigable': True,
     'require_approval': True,
     'targets': [{'position': (0.5, 0.09, 0.555), 'orientation': (3.14, 0.0, -1.57)}

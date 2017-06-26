@@ -41,6 +41,8 @@ class AlgorithmBADMM(Algorithm):
         Args:
             sample_lists: List of SampleList objects for each condition.
         """
+        print 'Beginning new iteration'
+
         for m in range(self.M):
             self.cur[m].sample_list = sample_lists[m]
 
