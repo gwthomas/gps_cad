@@ -1,0 +1,5 @@
+These are the distances: 
+[3.5429588479754202, 3.2123733255975662, 5.590943144785018]
+
+This is the mean distance: 4.1154251061193348
+Success rate: 3 / 5

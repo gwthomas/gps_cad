@@ -1,0 +1,21 @@
+<launch>
+
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+	    <arg name="world_name" value="worlds/gear_world.world"/>
+  </include>
+
+  <!--include file="$(find pr2_gazebo)/launch/pr2_no_controllers.launch" /-->
+
+	<!-- send pr2 urdf to param server -->
+  <param name="robot_description" textfile="$(find gps_agent_pkg)/launch/robot.xml" />
+
+	<!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="spawn_pr2_model" pkg="gazebo_ros" type="spawn_model" args="$(optenv ROBOT_INITIAL_POSE) -unpause -urdf -param robot_description -model pr2 -ros_namespace /gazebo" respawn="false" output="screen" />
+
+  <!-- default bringup script -->
+  <include file="$(find pr2_gazebo)/launch/pr2_bringup.launch" />
+
+	<include file="$(find gps_agent_pkg)/launch/pr2_moveit.launch" />
+	<include file="$(find gps_agent_pkg)/launch/pr2_only_controller.launch" />
+
+</launch>

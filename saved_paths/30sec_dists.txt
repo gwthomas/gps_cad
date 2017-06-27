@@ -1,0 +1,7 @@
+These are the distances: 
+[5.7470510786749935]
+This is the mean distance: 5.74705107867
+Success rate: 1 / 10
+This is the distance for each trial: [5.7470510786749935]
+
+This is the mean distance for trials: 5.74705107867
