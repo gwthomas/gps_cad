@@ -57,7 +57,13 @@ enum SampleType {
   END_EFFECTOR_POINTS_NO_TARGET = 17,
   END_EFFECTOR_POINT_VELOCITIES_NO_TARGET = 18,
   NOISE = 19,
+<<<<<<< HEAD
   TOTAL_DATA_TYPES = 20
+=======
+  REF_TRAJ = 20,
+  REF_OFFSETS = 21,
+  TOTAL_DATA_TYPES = 22
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 };
 bool SampleType_IsValid(int value);
 const SampleType SampleType_MIN = ACTION;

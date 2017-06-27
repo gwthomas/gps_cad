@@ -67,6 +67,7 @@ class DynamicsPriorGMM(object):
         if self.X is None:
             self.X = X
         else:
+<<<<<<< HEAD
             # If they don't have the same T
             if self.X.shape[1] != X.shape[1]:
                 # Just pad with zeroes I think?
@@ -76,17 +77,22 @@ class DynamicsPriorGMM(object):
                 for i in range(self.X.shape[1], X.shape[1]):
                     newX[:, i, :] = self.X[:, -1, :]
                 self.X = newX # Replace
+=======
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
             self.X = np.concatenate([self.X, X], axis=0)
 
         if self.U is None:
             self.U = U
         else:
+<<<<<<< HEAD
             # If they don't have the same T
             if self.U.shape[1] != U.shape[1]:
                 # Just pad with zeroes I think?
                 newU = np.zeros((self.U.shape[0], U.shape[1], self.U.shape[2]))
                 newU[:, :self.U.shape[1], :] = self.U
                 self.U = newU # Replace
+=======
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
             self.U = np.concatenate([self.U, U], axis=0)
 
         # Remove excess samples from dataset.

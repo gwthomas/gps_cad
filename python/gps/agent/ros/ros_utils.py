@@ -116,7 +116,13 @@ class ServiceEmulator(object):
 
     def publish(self, pub_msg):
         """ Publish a message without waiting for response. """
+<<<<<<< HEAD
         self._pub.publish(pub_msg)
+=======
+        assert not self._waiting
+        self._pub.publish(pub_msg)
+        self._waiting = True
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 
     def publish_and_wait(self, pub_msg, timeout=5.0, poll_delay=0.01,
                          check_id=False):
@@ -135,13 +141,22 @@ class ServiceEmulator(object):
         if check_id:  # This is not yet implemented in C++.
             raise NotImplementedError()
 
+<<<<<<< HEAD
         self._waiting = True
+=======
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
         self.publish(pub_msg)
 
         time_waited = 0
         while self._waiting:
             rospy.sleep(poll_delay)
+<<<<<<< HEAD
             time_waited += 0.01
             if time_waited > timeout:
+=======
+            time_waited += poll_delay
+            if time_waited > timeout:
+                self._waiting = False
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
                 raise TimeoutException(time_waited)
         return self._subscriber_msg

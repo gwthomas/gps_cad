@@ -3,9 +3,12 @@ import time
 
 from geometry_msgs.msg import Pose, Point, Quaternion
 from tf.transformations import quaternion_from_euler
+<<<<<<< HEAD
 from tf.transformations import quaternion_matrix, quaternion_slerp
 from gps.utility.general_utils import get_ee_points
 from gps.algorithm.policy.lin_gauss_init import init_pd_ref
+=======
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 
 from gps.agent.ros.cad.agent_cad import AgentCAD
 from gps.agent.ros.cad.util import *
@@ -14,8 +17,16 @@ from gps.agent.ros.cad.util import *
 class AgentCADExperiment(AgentCAD):
     def __init__(self, hyperparams, init_node=True):
         AgentCAD.__init__(self, hyperparams, init_node)
+<<<<<<< HEAD
 	self.attempts = 70 # Make 70 plans 
 
+=======
+
+        # self.use_controller('GPS')
+        # for _ in range(10):
+        #     self.reset(0)
+        #     self.reset(1)
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
         pdb.set_trace()     # for optional setup, not debugging
 
     def setup(self):
@@ -67,6 +78,7 @@ class AgentCADExperiment(AgentCAD):
         self.grip(None)
         time.sleep(5)
         self.attach('held_piece', touch_links=['l_gripper_l_finger_tip_link', 'l_gripper_r_finger_tip_link'])
+<<<<<<< HEAD
 
     # Exceptions don't matter because it's fine if some plans fail
     def plan(self, use_plan=None): # Lmao a little override
@@ -119,3 +131,5 @@ class AgentCADExperiment(AgentCAD):
         self.trajectories[condition] = ref_ee
         policy.__init__(*init_pd_ref(self._hyperparams['init_traj_distr'], ref_ja, ref_ee))
 
+=======
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec

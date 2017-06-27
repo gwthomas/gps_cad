@@ -107,10 +107,16 @@ class AlgorithmTrajOpt(Algorithm):
         multiplier = self._hyperparams['max_ent_traj']
         fCm, fcv = traj_info.Cm / (eta + multiplier), traj_info.cv / (eta + multiplier)
         K, ipc, k = traj_distr.K, traj_distr.inv_pol_covar, traj_distr.k
+<<<<<<< HEAD
 	T = K.shape[0] # The first of K lmao
 
         # Add in the trajectory divergence term.
         for t in range(T - 1, -1, -1):
+=======
+
+        # Add in the trajectory divergence term.
+        for t in range(self.T - 1, -1, -1):
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
             fCm[t, :, :] += eta / (eta + multiplier) * np.vstack([
                 np.hstack([
                     K[t, :, :].T.dot(ipc[t, :, :]).dot(K[t, :, :]),

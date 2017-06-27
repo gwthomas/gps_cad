@@ -135,7 +135,11 @@ class AgentROS(Agent):
                        condition_data[TRIAL_ARM]['data'])
         self.reset_arm(AUXILIARY_ARM, condition_data[AUXILIARY_ARM]['mode'],
                        condition_data[AUXILIARY_ARM]['data'])
+<<<<<<< HEAD
         time.sleep(2.0)  # useful for the real robot, so it stops completely
+=======
+        #time.sleep(2.0)  # useful for the real robot, so it stops completely
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 
     def sample(self, policy, condition, verbose=True, save=True, noisy=True):
         """
@@ -172,9 +176,16 @@ class AgentROS(Agent):
         trial_command.ee_points_tgt = \
                 self._hyperparams['ee_points_tgt'][condition].tolist()
         trial_command.state_datatypes = self._hyperparams['state_include']
+<<<<<<< HEAD
         trial_command.obs_datatypes = self._hyperparams['state_include']
 
         if self.use_tf is False:
+=======
+        trial_command.obs_datatypes = self._hyperparams['obs_include']
+
+        if self.use_tf is False or not isinstance(policy, TfPolicy):
+            print 'Not using TF controller'
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
             sample_msg = self._trial_service.publish_and_wait(
                 trial_command, timeout=self._hyperparams['trial_timeout']
             )
@@ -183,23 +194,41 @@ class AgentROS(Agent):
                 self._samples[condition].append(sample)
             return sample
         else:
+<<<<<<< HEAD
             self._trial_service.publish(trial_command)
             sample_msg = self.run_trial_tf(policy, time_to_run=self._hyperparams['trial_timeout'])
+=======
+            print 'Using TF controller'
+            self._trial_service.publish(trial_command)
+            sample_msg = self.run_trial_tf(policy, condition, time_to_run=self._hyperparams['trial_timeout'])
+            pdb.set_trace()
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
             sample = msg_to_sample(sample_msg, self)
             if save:
                 self._samples[condition].append(sample)
             return sample
 
+<<<<<<< HEAD
     def run_trial_tf(self, policy, time_to_run=5):
         """ Run an async controller from a policy. The async controller receives observations from ROS subscribers
          and then uses them to publish actions."""
+=======
+    def run_trial_tf(self, policy, condition, time_to_run=5):
+        """ Run an async controller from a policy. The async controller receives observations from ROS subscribers
+         and then uses them to publish actions."""
+        import copy
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
         should_stop = False
         consecutive_failures = 0
         start_time = time.time()
         while should_stop is False:
             if self.observations_stale is False:
                 consecutive_failures = 0
+<<<<<<< HEAD
                 last_obs = tf_obs_msg_to_numpy(self._tf_subscriber_msg)
+=======
+                last_obs = self._get_obs(self._tf_subscriber_msg, condition)
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
                 action_msg = tf_policy_to_action_msg(self.dU,
                                                      self._get_new_action(policy, last_obs),
                                                      self.current_action_id)
@@ -209,6 +238,7 @@ class AgentROS(Agent):
             else:
                 rospy.sleep(0.01)
                 consecutive_failures += 1
+<<<<<<< HEAD
                 if time.time() - start_time > time_to_run and consecutive_failures > 5:
                     # we only stop when we have run for the trial time and are no longer receiving obs.
                     should_stop = True
@@ -216,6 +246,20 @@ class AgentROS(Agent):
         result = self._trial_service._subscriber_msg
         return result  # the trial has completed. Here is its message.
 
+=======
+                if time.time() - start_time > time_to_run or \
+                        (self.current_action_id > self.T and consecutive_failures > 25):
+                    should_stop = True
+        while self._trial_service._waiting:
+            print 'Waiting for trial to come in', i
+            rospy.sleep(0.25)
+        result = self._trial_service._subscriber_msg
+        return result  # the trial has completed. Here is its message.
+
+    def _get_obs(self, msg, condition):
+        return tf_obs_msg_to_numpy(msg)
+
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
     def _get_new_action(self, policy, obs):
         return policy.act(None, obs, None, None)
 

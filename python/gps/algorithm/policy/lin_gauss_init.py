@@ -153,7 +153,11 @@ def init_pd_ref(hyperparams, ref_ja, ref_ee):
     config.update(hyperparams)
 
     dU, dQ, dX = config['dU'], config['dQ'], config['dX']
+<<<<<<< HEAD
     T = len(ref_ja)
+=======
+    T = config['T']
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 
     # Choose initialization mode.
     Kp = 1.0
@@ -183,4 +187,7 @@ def init_pd_ref(hyperparams, ref_ja, ref_ee):
     invPSig = (1.0 / config['init_var']) * np.tile(np.eye(dU), [T, 1, 1])
 
     return (K, k, PSig, cholPSig, invPSig)
+<<<<<<< HEAD
 
+=======
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec

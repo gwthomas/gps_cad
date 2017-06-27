@@ -1,7 +1,11 @@
 <launch>
 
 	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+<<<<<<< HEAD
 	    <arg name="world_name" value="worlds/cad.world"/>
+=======
+	    <arg name="world_name" value="/home/gwthomas/workspace/gps/gazebo/worlds/cad.world"/>
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
   </include>
 
   <!--include file="$(find pr2_gazebo)/launch/pr2_no_controllers.launch" /-->

@@ -152,7 +152,11 @@
       <static>0</static>
     </model>
     <physics type='ode'>
+<<<<<<< HEAD
       <max_step_size>0.0025</max_step_size>
+=======
+      <max_step_size>0.001</max_step_size>
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
       <real_time_factor>1</real_time_factor>
       <real_time_update_rate>0.0</real_time_update_rate>
       <gravity>0 0 -9.8</gravity>

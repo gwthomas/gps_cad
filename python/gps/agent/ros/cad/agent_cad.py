@@ -1,13 +1,22 @@
 import numpy as np
+<<<<<<< HEAD
 import pdb
 import time
 import pickle
+=======
+import os.path as osp
+import pdb
+import time
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 
 import actionlib
 import rospy
 import moveit_commander
 import moveit_msgs.msg
+<<<<<<< HEAD
 from moveit_msgs.msg import DisplayTrajectory
+=======
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 from moveit_msgs.srv import GetPositionFK
 from geometry_msgs.msg import Pose, PoseStamped, Point, PointStamped, Quaternion, Twist
 from std_msgs.msg import Header, ColorRGBA
@@ -23,12 +32,20 @@ from gps.agent.ros.agent_ros import AgentROS
 from gps.agent.agent_utils import generate_noise, setup
 from gps.agent.config import AGENT_ROS
 from gps.algorithm.policy.lin_gauss_init import init_lqr, init_pd
+<<<<<<< HEAD
 from gps.agent.ros.ros_utils import ServiceEmulator, msg_to_sample, \
         policy_to_msg
 from gps.algorithm.policy.lin_gauss_init import init_pd_ref
 from gps.proto.gps_pb2 import TRIAL_ARM, AUXILIARY_ARM, JOINT_ANGLES, \
         JOINT_VELOCITIES, END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, \
         ACTION, TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE
+=======
+from gps.agent.ros.ros_utils import ServiceEmulator, TimeoutException, msg_to_sample, policy_to_msg
+from gps.algorithm.policy.lin_gauss_init import init_pd_ref
+from gps.proto.gps_pb2 import TRIAL_ARM, AUXILIARY_ARM, JOINT_ANGLES, \
+        JOINT_VELOCITIES, END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, \
+        ACTION, TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE, REF_TRAJ, REF_OFFSETS
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 from gps_agent_pkg.msg import TrialCommand, SampleResult, PositionCommand, \
         RelaxCommand, DataRequest
 from gps.utility.general_utils import get_ee_points
@@ -50,6 +67,10 @@ JOINT_NAMES = [
         'l_wrist_roll_joint'
 ]
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 class AgentCAD(AgentROS):
     def __init__(self, hyperparams, init_node=True):
         AgentROS.__init__(self, hyperparams, init_node)
@@ -73,12 +94,15 @@ class AgentCAD(AgentROS):
         print 'Waiting for gripper server to start'; self.gripper_client.wait_for_server()
         self.visual_pub = rospy.Publisher('move_group/ompl_planner_data_marker_array', MarkerArray)
 
+<<<<<<< HEAD
         self.traj_read = rospy.Subscriber('move_group/display_planned_path', DisplayTrajectory, self.getTrajectory)
         self.traj_display = rospy.Publisher('move_group/display_planned_path', DisplayTrajectory)
         self.best_saved_traj = None # Set this to nothing for now
         self.saved_traj = None # Saved each time a thing is published
 
 
+=======
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
         if 'ee_link' in hyperparams:
             ee_link = hyperparams['ee_link']
             assert ee_link in self.robot.get_link_names()
@@ -89,6 +113,7 @@ class AgentCAD(AgentROS):
         self.trajectories = {}
         self.current_controller = None
 
+<<<<<<< HEAD
     def getTrajectory(self, msg):
         print("Received a trajectory, yayy!!!!\n")
         self.saved_traj = msg # Stores the trajectory that was received
@@ -96,6 +121,8 @@ class AgentCAD(AgentROS):
     def publishDisplayTrajectory(self, traj):
         self.traj_display.publish(traj) # Publish the DisplayTrajectory
 
+=======
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
     def use_controller(self, target):
         assert target in ('GPS', 'MoveIt')
         switch = False
@@ -129,7 +156,10 @@ class AgentCAD(AgentROS):
         self.visual_pub.publish(marker_array)
 
     def visualize_points(self, points, id, size=0.01, color=(1.,1.,1.,1.), frame=None):
+<<<<<<< HEAD
         pdb.set_trace()
+=======
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
         frame = self.group.get_planning_frame() if frame is None else frame
         marker = Marker()
         marker.header.frame_id = frame
@@ -176,9 +206,13 @@ class AgentCAD(AgentROS):
 
     def attach(self, name, touch_links=[]):
         self.scene.attach_mesh(self.ee_link, name, touch_links=touch_links)
+<<<<<<< HEAD
         pdb.set_trace()
         self.scene.remove_world_object(name)
         pdb.set_trace()
+=======
+        self.scene.remove_world_object(name)
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 
     # def reset_arm(self, arm, mode, data):
     #     """
@@ -204,13 +238,21 @@ class AgentCAD(AgentROS):
         try:
             self.reset_arm(TRIAL_ARM, condition_data[TRIAL_ARM]['mode'],
                     condition_data[TRIAL_ARM]['data'])
+<<<<<<< HEAD
         except Exception as e:
 	    print(e)
+=======
+        except TimeoutException:
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
             print 'Trial arm reset timed out'
         try:
             self.reset_arm(AUXILIARY_ARM, condition_data[AUXILIARY_ARM]['mode'],
                        condition_data[AUXILIARY_ARM]['data'])
+<<<<<<< HEAD
         except:
+=======
+        except TimeoutException:
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
             print 'Auxiliary arm reset timed out'
 
     def set_gripper(self, position, max_effort, wait):
@@ -231,6 +273,7 @@ class AgentCAD(AgentROS):
     def ungrip(self, wait):
         self.set_gripper(0.08, 50.0, wait)
 
+<<<<<<< HEAD
     # This calculates the distance of the joints in a trajectory
     def get_dist(self, plan):
 	prevPoint = None # Start off with nothing
@@ -258,13 +301,19 @@ class AgentCAD(AgentROS):
 	# If already given a plan, just return it
 	if use_plan is not None:
 		return use_plan
+=======
+    def plan(self):
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
         for time in self.planning_schedule:
             print 'Planning with {} seconds'.format(time)
             self.group.set_planning_time(time)
             plan = self.group.plan()
             if len(plan.joint_trajectory.points) > 0:
                 print 'Success!'
+<<<<<<< HEAD
 		self.save_traj(plan)
+=======
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
                 return plan
             else:
                 print 'Failed.'.format(time)
@@ -277,7 +326,10 @@ class AgentCAD(AgentROS):
                 plan = self.group.plan()
                 if len(plan.joint_trajectory.points) > 0:
                     print 'Success!'
+<<<<<<< HEAD
 		    self.save_traj(plan)
+=======
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
                     return plan
                 else:
                     print 'Failed.'.format(time)
@@ -315,9 +367,12 @@ class AgentCAD(AgentROS):
         pose = response.pose_stamped[0].pose
         return np.array(listify(pose.position) + listify(pose.orientation))
 
+<<<<<<< HEAD
     # def forward_kinematics(self, plan, frame):
     #     return [self.forward_kinematics1(point.positions, frame) for point in plan.joint_trajectory.points]
 
+=======
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
     def forward_kinematics(self, joint_angles, frame):
         return [self.forward_kinematics1(angles, frame) for angles in joint_angles]
 
@@ -329,7 +384,11 @@ class AgentCAD(AgentROS):
             joints.append(state.position[index])
         return self.forward_kinematics1(joints)
 
+<<<<<<< HEAD
     def compute_reference_trajectory(self, condition, policy):
+=======
+    def compute_reference_trajectory(self, condition):
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
         self.reset(condition)
         target = self._hyperparams['targets'][condition]
 
@@ -348,11 +407,15 @@ class AgentCAD(AgentROS):
                 ref_ee.append(points)
 
             plot_trajectories([ref_ee])
+<<<<<<< HEAD
 	    pdb.set_trace()
+=======
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 
             if not self.require_approval or yesno('Does this trajectory look ok?'):
                 break
 
+<<<<<<< HEAD
         # trajectories = []
         # for i in range(3):
         #     plan = self.plan_end_effector(target['position'], target['orientation'])
@@ -365,6 +428,31 @@ class AgentCAD(AgentROS):
 
         self.trajectories[condition] = ref_ee
         policy.__init__(*init_pd_ref(self._hyperparams['init_traj_distr'], ref_ja, ref_ee))
+=======
+        # ref_offsets = np.array([points - ref_ee[-1] for points in ref_ee])
+        ref_ja = np.array(ref_ja)
+        ref_ee = np.array(ref_ee)
+        ref_offsets = ref_ee - ref_ee[-1]
+        return {
+            'ja': ref_ja,
+            'ee': ref_ee,
+            'offsets': ref_offsets,
+            'flattened': ref_offsets.flatten()
+        }
+
+    def determine_reference_trajectory(self, condition, policy):
+        filename = 'ref_traj_{}.npz'.format(condition)
+        if osp.exists(filename):
+            print 'Using existing reference trajectory for condition', condition
+            ref_traj_info = np.load(filename)
+        else:
+            print 'No reference trajectory found for condition {}. Computing a fresh one'.format(condition)
+            ref_traj_info = self.compute_reference_trajectory(condition)
+            np.savez(filename, **ref_traj_info)
+        ref_ja, ref_ee = ref_traj_info['ja'], ref_traj_info['ee']
+        policy.__init__(*init_pd_ref(self._hyperparams['init_traj_distr'], ref_ja, ref_ee))
+        self.trajectories[condition] = ref_traj_info
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 
     def sample(self, policy, condition, verbose=True, save=True, noisy=True):
         """
@@ -378,17 +466,29 @@ class AgentCAD(AgentROS):
             sample: A Sample object.
         """
         if condition not in self.trajectories:
+<<<<<<< HEAD
             self.compute_reference_trajectory(condition, policy)
 
         print 'Sampling, condition', condition
         self.reset(condition)
 
         #added from agent_ros.py of public gps codebase
+=======
+            self.determine_reference_trajectory(condition, policy)
+
+        self.reset(condition)
+
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
         if TfPolicy is not None:  # user has tf installed.
             if isinstance(policy, TfPolicy):
                 self._init_tf(policy.dU)
 
+<<<<<<< HEAD
         ref_traj = self.trajectories[condition]
+=======
+        ref_traj_info = self.trajectories[condition]
+        ref_ee = ref_traj_info['ee']
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 
         # Generate noise.
         if noisy:
@@ -401,6 +501,7 @@ class AgentCAD(AgentROS):
         trial_command.id = self._get_next_seq_id()
         trial_command.controller = policy_to_msg(policy, noise)
         trial_command.T = self.T
+<<<<<<< HEAD
         trial_command.id = self._get_next_seq_id()
         trial_command.frequency = self._hyperparams['frequency']
         ee_points = self._hyperparams['end_effector_points']
@@ -411,11 +512,22 @@ class AgentCAD(AgentROS):
 
 
         if self.use_tf is False:
+=======
+        trial_command.frequency = self._hyperparams['frequency']
+        ee_points = self._hyperparams['end_effector_points']
+        trial_command.ee_points = ee_points.reshape(ee_points.size).tolist()
+        trial_command.ee_points_tgt = ref_ee[-1]
+        trial_command.state_datatypes = self._hyperparams['state_include']
+        trial_command.obs_datatypes = self._hyperparams['state_include'] # changing this to 'obs_include' resulted in weird Gazebo memory corruption
+
+        if self.use_tf is False or not isinstance(policy, TfPolicy):
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
             sample_msg = self._trial_service.publish_and_wait(
                 trial_command, timeout=self._hyperparams['trial_timeout']
             )
         else:
             self._trial_service.publish(trial_command)
+<<<<<<< HEAD
             sample_msg = self.run_trial_tf(policy, time_to_run=self._hyperparams['trial_timeout'])
 
         sample = msg_to_sample(sample_msg, self)
@@ -426,3 +538,29 @@ class AgentCAD(AgentROS):
         
         self.reset(condition) # Reset again just so it is stable
         return sample
+=======
+            sample_msg = self.run_trial_tf(policy, condition, time_to_run=self._hyperparams['trial_timeout'])
+
+        sample = msg_to_sample(sample_msg, self)
+        sample.set(REF_OFFSETS, ref_traj_info['offsets'])
+        sample.set(REF_TRAJ, np.array([ref_traj_info['flattened']]*self.T))
+
+        if save:
+            self._samples[condition].append(sample)
+        return sample
+
+    def _get_new_action(self, policy, obs):
+        # extra = ['ref_traj', 'distances', 'weights', 'attended', 'ee_pos']
+        extra = []
+        action, debug = policy.act(None, obs, None, None, extra=extra)
+        return action
+
+    def _get_obs(self, msg, condition):
+        array = AgentROS._get_obs(self, msg, condition)
+        if self._hyperparams['attention']:
+            ref_flattened = self.trajectories[condition]['flattened']
+            obs = np.concatenate([array, ref_flattened])
+        else:
+            obs = array
+        return obs
+>>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
