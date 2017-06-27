@@ -158,8 +158,7 @@ class JPieceExperiment(AgentCAD):
         best_ref_ja = None # HAHAHAHAHA to store the best one
         best_dist = float("inf") # Infinity itself
         best_plan = None 
-
-	plans_made = 0 # Count how many plans were actually created
+        plans_made = 0 # Count how many plans were actually created
 
         while True:
 
@@ -208,3 +207,11 @@ class JPieceExperiment(AgentCAD):
 
         with open('pickled_robot_traj', 'w') as f:
             pickle.dump(self.best_saved_traj, f)
+        ref_offsets = np.array(best_ref_ee) - best_ref_ee[-1]
+
+        return {
+            'ja': np.array(best_ref_ja),
+            'ee': np.array(best_ref_ee),
+            'offsets': ref_offsets,
+            'flattened': ref_offsets.flatten()
+        }

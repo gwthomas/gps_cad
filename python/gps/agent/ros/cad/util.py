@@ -54,7 +54,6 @@ def interpolate(points, T):
     print 'Interpolation segment lengths', segment_lengths
     return interpolated_points
 
-<<<<<<< HEAD
 def find_closest_T(ref_ja, ref_ee, goal_ref_ja, goal_ref_ee):
     cur_count = 0 # For counting which timestep you are on
     closest_dist_ja, closest_dist_ee = float("inf"), float("inf")
@@ -75,8 +74,6 @@ def find_closest_T(ref_ja, ref_ee, goal_ref_ja, goal_ref_ee):
 
     # Average the closest things and it will be good
     return (closest_T_ee + closest_T_ja) // 2 
-=======
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 
 def yesno(s):
     while True:
@@ -91,16 +88,6 @@ def plot_trajectories(trajectories):
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
 
-<<<<<<< HEAD
-=======
-    # Add mean trajectory
-    T = len(trajectories[0])
-    mean_trajectory = []
-    for t in range(T):
-        mean_trajectory.append(np.mean([traj[t] for traj in trajectories], axis=0))
-    trajectories.append(mean_trajectory)
-
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
     for traj in trajectories:
         xs, ys, zs = [], [], []
         for pose in traj:
@@ -108,10 +95,6 @@ def plot_trajectories(trajectories):
             ys.append(pose[1])
             zs.append(pose[2])
         ax.plot(xs, ys, zs)
-<<<<<<< HEAD
     plt.legend(['Traj {}'.format(i) for i in range(len(trajectories)-1)])
-=======
-    plt.legend(['Traj {}'.format(i) for i in range(len(trajectories)-1)] + ['Mean'])
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
     plt.savefig('trajectories.png')
     # plt.show() # gives threading error

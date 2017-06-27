@@ -307,7 +307,6 @@ class GearExperiment(AgentCAD):
         #    f.write('\nThis is the mean distance: ' + str(np.mean(np.array(self.dists))) + '\n')
         #    f.write('Success rate: ' + str(len(self.dists)) + ' / ' + str(self.attempts) + '\n')
 
-        self.trajectories[condition] = best_ref_ee
         self.save_plan(best_plan) # Save the trajectory
         if self.chosen_parts is None: # If there isn't a specific plan segment chunk
 	       # For now just take one / segments of the references to initialize
@@ -342,6 +341,18 @@ class GearExperiment(AgentCAD):
                 f.write(str(item) + '\n')  
         with open('pickled_robot_traj', 'w') as f:
             pickle.dump(self.best_saved_traj, f)
+
+        ref_offsets = np.array(new_ref_ee) - new_ref_ee[-1]
+
+        traj_info = {
+            'ja': np.array(new_ref_ja),
+            'ee': np.array(new_ref_ee),
+            'offsets': ref_offsets,
+            'flattened': ref_offsets.flatten()
+        }
+
+        self.trajectories[condition] = traj_info
+        return traj_info
 
     def sample(self, policy, condition, verbose=True, save=True, noisy=True):
         """
@@ -398,13 +409,13 @@ class GearExperiment(AgentCAD):
 
 
         # Length of the trajectory
-        traj_length = len(self.trajectories[condition])
+        traj_length = len(self.full_ref_ee[condition])
         # This is how long the current trajectory we're using is - self.T
         if self.T == self.final_T: # If we have gotten to the whole trajectory
-            ref_traj = self.trajectories[condition] # Current reference trajectory
+            ref_traj = self.trajectories[condition]['ee'] # Current reference trajectory
         else: # Otherwise pad the reference trajectory as well
-            ref_traj = self.trajectories[condition][:self.T - self.padding]
-            ref_traj.extend([self.trajectories[condition][self.T-self.padding-1]] * self.padding)
+            ref_traj = self.trajectories[condition]['ee'][:self.T - self.padding]
+            ref_traj.extend([self.trajectories[condition]['ee'][self.T-self.padding-1]] * self.padding)
 
         print('The length of the trajectory we are currently using is ' + str(self.T))
         print 'Sampling, condition', condition

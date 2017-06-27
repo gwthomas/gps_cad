@@ -31,20 +31,17 @@ from gps.algorithm.traj_opt.traj_opt_lqr_python import TrajOptLQRPython
 from gps.algorithm.policy.lin_gauss_init import init_lqr, init_pd
 from gps.gui.target_setup_gui import load_pose_from_npz
 from gps.proto.gps_pb2 import JOINT_ANGLES, JOINT_VELOCITIES, \
-        END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, ACTION, \
-        TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE
+        END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, ACTION, TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE
 from gps.utility.general_utils import get_ee_points
 from gps.gui.config import generate_experiment_info
 
 
 #NNLIB = 'caffe'
 NNLIB = None
-        TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE, REF_TRAJ, REF_OFFSETS
 from gps.utility.general_utils import get_ee_points
 from gps.gui.config import generate_experiment_info
 
-T = 150
-NNLIB = 'tf'
+#T = 150
 ATTENTION = False
 assert NNLIB in ('tf', 'caffe', None)
 
@@ -58,7 +55,7 @@ SENSOR_DIMS = {
     END_EFFECTOR_POINTS: 3 * EE_POINTS.shape[0],
     END_EFFECTOR_POINT_VELOCITIES: 3 * EE_POINTS.shape[0],
     ACTION: 7,
-    REF_TRAJ: 9*T
+    #REF_TRAJ: 9*T
 }
 
 PR2_GAINS = np.array([3.09, 1.08, 0.393, 0.674, 0.111, 0.152, 0.098])
@@ -73,8 +70,7 @@ common = {
     'data_files_dir': EXP_DIR + 'data_files/',
     'target_filename': EXP_DIR + 'target.npz',
     'log_filename': EXP_DIR + 'log.txt',
-
-    'conditions': 2,
+    'conditions': 1,
     'iterations': 50,
 }
 
@@ -85,8 +81,7 @@ for i in xrange(common['conditions']):
     x0s.append(np.zeros(32))
     ee_tgts.append(np.zeros(9))
     if i == 0:
-        reset_condition ={
-
+        reset_condition = {
             TRIAL_ARM:     {'data': np.array([0.4, -0.25, 1.0, -0.5, 0.5, -0.5, 1.25]), 'mode': 1},
             # TRIAL_ARM:     {'data': np.array([-0.2, -0.0, 1.0, -0.75, -0.0, -0.6, 1.25]), 'mode': 1},
             AUXILIARY_ARM: {'data': np.array([-1.25, 0.0, 0.0, -2.0, 0.0, 0.0, 0.0]), 'mode': 1}
@@ -114,11 +109,13 @@ if not os.path.exists(common['data_files_dir']):
     os.makedirs(common['data_files_dir'])
 
 agent = {
-    'type': AgentCADExperiment,
+    #'type': AgentCADExperiment,
+    #'type': JPieceExperiment,
+    'type': GearExperiment,
     'dt': 0.05,
     'conditions': common['conditions'],
-    'T': T,
-    'T_interpolation': 100,
+    'T': 230,
+    'T_interpolation': 160,
     'x0': x0s,
     'ee_points_tgt': ee_tgts,
     'reset_conditions': reset_conditions,
@@ -145,18 +142,10 @@ agent = {
     ##################################################################
     #0.657
     ###### THIS IS FOR THE GEAR EXPERIMENT ###########################
-    #'targets': [{'position': (0.658, -0.074, 0.7), 'orientation': (1.57, 0, 0.07)}
-    #    for _ in range(common['conditions'])],
+    'targets': [{'position': (0.658, -0.074, 0.7), 'orientation': (1.57, 0, 0.07)}
+        for _ in range(common['conditions'])],
     ###################################################################
 
-    'obs_include': [JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES] \
-            + ([REF_TRAJ] if ATTENTION else []),
-    'planner': 'RRTStarkConfigDefault',
-    'planning_schedule': [5],
-    'indefatigable': True,
-    'require_approval': True,
-    'targets': [{'position': (0.5, 0.09, 0.555), 'orientation': (3.14, 0.0, -1.57)}
-        for _ in range(common['conditions'])],
     # 'targets': [
     #     # {'position': (0.55, 0.07, 0.55), 'orientation': (0.0, 0.0, -1.57)}
     #     {'position': (0.5, 0.09, 0.555), 'orientation': (3.14, 0.0, -1.57)}
@@ -170,9 +159,6 @@ agent = {
     'the_gear': os.path.join(EXP_DIR, 'gear_teeth.stl'),
     'reset_timeout': 15,
     'trial_timeout': 30
-    'cad_path': os.path.join(EXP_DIR, 'piece.stl'),
-    'reset_timeout': 10,
-    'attention': ATTENTION
 }
 
 if NNLIB is None:
@@ -206,10 +192,10 @@ else:
 
 algorithm['init_traj_distr'] = {
     'type': init_pd,
-
-    'pos_gains': 7.5,
-    'vel_gains_mult': 0.0,
-    'init_var': 0.1,
+    #'pos_gains': 9,
+    'pos_gains': 12,
+    'vel_gains_mult': 0.05,
+    'init_var': 0.2,
     'dQ': 7, # set this to action dim based on another file, but effect of changing unclear
     'dt': agent['dt'],
     'T': agent['T'],
@@ -236,22 +222,17 @@ if NNLIB == 'tf':
     algorithm['policy_opt'] = {
         'type': PolicyOptTf,
         'network_params': {
-            'obs_include': [JOINT_ANGLES, JOINT_VELOCITIES],
-            'obs_vector_data': [JOINT_ANGLES, JOINT_VELOCITIES],
-            'sensor_dims': SENSOR_DIMS,
-        },
-        'network_model': tf_network,
-        'iterations': 1000,
             'obs_include': agent['obs_include'],
             'obs_image_data': [END_EFFECTOR_POINTS, REF_TRAJ],
             'sensor_dims': SENSOR_DIMS,
             'T': T,
             'ee_pos_indices': (14,23),
             'scale': 100,
+        },
         'network_model': ref_traj_network if ATTENTION else tf_network,
         'iterations': 2500,
         'weights_file_prefix': EXP_DIR + 'policy',
-        }
+    }
 elif NNLIB == 'caffe':
     algorithm['policy_opt'] = {
         'type': PolicyOptCaffe,
@@ -284,20 +265,10 @@ fk_cost1 = {
     'ramp_option': RAMP_CONSTANT,
 }
 
-fk_cost2 = {
-    'type': CostFK,
-    'target_end_effector': np.zeros(3 * EE_POINTS.shape[0]),
-    'wp': np.ones(SENSOR_DIMS[END_EFFECTOR_POINTS]),
-    'l1': 1.0,
-    'l2': 0.0,
-    'wp_final_multiplier': 10.0,  # Weight multiplier on final timestep.
-    'ramp_option': RAMP_FINAL_ONLY,
-}
-
 algorithm['cost'] = {
     'type': CostSum,
-    'costs': [torque_cost, fk_cost1],
-    'weights': [0.5, 1.0],
+    'costs': [fk_cost1, torque_cost],
+    'weights': [1.0, 0.4],
 }
 
 
@@ -308,8 +279,7 @@ config = {
     'agent': agent,
     'gui_on': True,
     'algorithm': algorithm,
-
-    'num_samples': 2, # must be >1 to fit dynamics
+    'num_samples': 5,
 }
 if NNLIB is not None:
     config['verbose_policy_trials'] = 1

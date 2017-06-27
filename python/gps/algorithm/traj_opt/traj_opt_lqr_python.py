@@ -190,11 +190,7 @@ class TrajOptLQRPython(TrajOpt):
     def estimate_cost(self, traj_distr, traj_info):
         """ Compute Laplace approximation to expected cost. """
         # Constants.
-<<<<<<< HEAD
         T = traj_info.Cm.shape[0] # CHANGED THIS LMAO
-=======
-        T = traj_distr.T
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 
         # Perform forward pass (note that we repeat this here, because
         # traj_info may have different dynamics from the ones that were
@@ -223,12 +219,8 @@ class TrajOptLQRPython(TrajOpt):
         """
         # Compute state-action marginals from specified conditional
         # parameters and current traj_info.
-<<<<<<< HEAD
         Fm = traj_info.dynamics.Fm
         T = Fm.shape[0] # Here is some shape
-=======
-        T = traj_distr.T
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
         dU = traj_distr.dU
         dX = traj_distr.dX
 
@@ -240,10 +232,7 @@ class TrajOptLQRPython(TrajOpt):
         mu = np.zeros((T, dX+dU))
 
         # Pull out dynamics.
-<<<<<<< HEAD
-=======
         Fm = traj_info.dynamics.Fm
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
         fv = traj_info.dynamics.fv
         dyn_covar = traj_info.dynamics.dyn_covar
 
