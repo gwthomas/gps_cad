@@ -1,2 +1,0 @@
-/home/gwthomas/workspace/gps/build/Boost.NumPy/libs/numpy/src/CMakeFiles/boost_numpy.dir
-/home/gwthomas/workspace/gps/build/mjcpy2/CMakeFiles/mjcpy.dir
