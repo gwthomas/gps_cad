@@ -1,3 +1,12 @@
 src/stereo_click
 src/gazebo-pkgs
 experiments/pr2_cad_new/good_data_files/*
+*.caffemodel
+*.pkl
+*.solverstate
+*.pyc
+*.o
+*.cmake
+*.gv
+*.pdf
+*.png
