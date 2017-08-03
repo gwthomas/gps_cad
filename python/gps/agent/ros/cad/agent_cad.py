@@ -7,8 +7,13 @@ import actionlib
 import rospy
 import moveit_commander
 import moveit_msgs.msg
+<<<<<<< HEAD
 from moveit_msgs.msg import DisplayTrajectory, PositionIKRequest
 from moveit_msgs.srv import GetPositionFK, GetPositionIK
+=======
+from moveit_msgs.msg import DisplayTrajectory
+from moveit_msgs.srv import GetPositionFK
+>>>>>>> c245b97f3cb77668c74789344f57be5d7274da8a
 from geometry_msgs.msg import Pose, PoseStamped, Point, PointStamped, Quaternion, Twist
 from std_msgs.msg import Header, ColorRGBA
 from gazebo_msgs.msg import ModelState
@@ -522,6 +527,7 @@ class AgentCAD(AgentROS):
             joints.append(state.position[index])
         return self.forward_kinematics1(joints)
 
+<<<<<<< HEAD
     # Calculates ref_ee and ref_ja given the following plan
     def calc_ee_and_ja(self, plan):
         plan_joints = [np.array(point.positions) for point in plan.joint_trajectory.points]
@@ -551,6 +557,7 @@ class AgentCAD(AgentROS):
         }        
 
     def compute_reference_trajectory(self, condition, policy):
+
         self.reset(condition)
         target = self._hyperparams['targets'][condition]
 
@@ -563,16 +570,6 @@ class AgentCAD(AgentROS):
 
             if not self.require_approval or yesno('Does this trajectory look ok?'):
                 break
-
-        # trajectories = []
-        # for i in range(3):
-        #     plan = self.plan_end_effector(target['position'], target['orientation'])
-        #     fk_poses = self.forward_kinematics(plan, 'torso_lift_link')
-        #     ref_poses = interpolate(fk_poses, self.T_interpolation)
-        #     ref_poses.extend([fk_poses[-1]] * (self.T - self.T_interpolation))
-        #     trajectories.append(ref_poses)
-        # plot_trajectories(trajectories)
-        # pdb.set_trace()
 
         self.trajectories[condition] = ref_ee
         policy.__init__(*init_pd_ref(self._hyperparams['init_traj_distr'], ref_ja, ref_ee))
@@ -627,6 +624,16 @@ class AgentCAD(AgentROS):
     def reverse_plan(self, thePlan):
         # Lmao just use the list reversing thing
         thePlan.joint_trajectory.points.reverse() # Reversed, awww yea
+        ref_offsets = np.array([points - ref_ee[-1] for points in ref_ee])
+        ref_ja = np.array(ref_ja)
+        ref_ee = np.array(ref_ee)
+        ref_offsets = ref_ee - ref_ee[-1]
+        return {
+            'ja': ref_ja,
+            'ee': ref_ee,
+            'offsets': ref_offsets,
+            'flattened': ref_offsets.flatten()
+        }
 
     def determine_reference_trajectory(self, condition, policy):
         filename = 'ref_traj_{}.npz'.format(condition)
@@ -661,6 +668,9 @@ class AgentCAD(AgentROS):
         else:
             trajectories = self.trajectories
 
+        if condition not in self.trajectories:
+            self.compute_reference_trajectory(condition, policy)
+
         if condition not in trajectories: # If this hasn't been initialized yet
             if self.reset_time:
                 self.init_reset_traj(condition, policy)
@@ -675,6 +685,7 @@ class AgentCAD(AgentROS):
 
         #added from agent_ros.py of public gps codebase
         #self.determine_reference_trajectory(condition, policy)
+        self.reset(condition)
 
         if TfPolicy is not None:  # user has tf installed.
             if isinstance(policy, TfPolicy):
@@ -748,3 +759,4 @@ class AgentCAD(AgentROS):
         real_ori = tf.transformations.euler_from_quaternion(listify(self.ee_goal.orientation))
         print("The position diff (real - est): " + str(np.arrray(real_pos) - np.array(est_pos)))
         print("The euler diff (real - est): " + str(np.arrray(real_ori) - np.array(est_ori)))
+

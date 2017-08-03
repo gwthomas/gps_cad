@@ -595,6 +595,18 @@ class GearExperiment(AgentCAD):
         else:
             return None
 
+        ref_offsets = np.array(new_ref_ee) - new_ref_ee[-1]
+
+        traj_info = {
+            'ja': np.array(new_ref_ja),
+            'ee': np.array(new_ref_ee),
+            'offsets': ref_offsets,
+            'flattened': ref_offsets.flatten()
+        }
+
+        self.trajectories[condition] = traj_info
+        return traj_info
+
     def sample(self, policy, condition, verbose=True, save=True, noisy=True):
         """
         Reset and execute a policy and collect a sample.
@@ -633,10 +645,17 @@ class GearExperiment(AgentCAD):
         traj_length = len(self.full_ref_ee[condition])
         # This is how long the current trajectory we're using is - self.T
         if self.T == self.final_T: # If we have gotten to the whole trajectory
+<<<<<<< HEAD
             ref_traj = ref_traj_info['ee'] # Current reference trajectory
         else: # Otherwise pad the reference trajectory as well
             ref_traj = list(ref_traj_info['ee'][:self.T - self.padding])
             ref_traj.extend([ref_traj_info['ee'][self.T-self.padding-1]] * self.padding)
+=======
+            ref_traj = self.trajectories[condition]['ee'] # Current reference trajectory
+        else: # Otherwise pad the reference trajectory as well
+            ref_traj = self.trajectories[condition]['ee'][:self.T - self.padding]
+            ref_traj.extend([self.trajectories[condition]['ee'][self.T-self.padding-1]] * self.padding)
+>>>>>>> c245b97f3cb77668c74789344f57be5d7274da8a
 
         print('The length of the trajectory we are currently using is ' + str(self.T))
         print 'Sampling, condition', condition

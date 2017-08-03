@@ -69,6 +69,7 @@ class DynamicsPriorGMM(object):
         else:
             # If they don't have the same T
             if self.X.shape[1] != X.shape[1]:
+<<<<<<< HEAD
                 # If our sample is larger than the thing
                 if self.X.shape[1] < X.shape[1]: 
                     # Just pad with zeroes I think?
@@ -85,6 +86,15 @@ class DynamicsPriorGMM(object):
                     for i in range(X.shape[1], self.X.shape[1]):
                         newX[:, i, :] = X[:, -1, :]
                     X = newX # Replace the sample with this newly enlarged sample
+=======
+                # Just pad with zeroes I think?
+                newX = np.zeros((self.X.shape[0], X.shape[1], self.X.shape[2]))
+                newX[:, :self.X.shape[1], :] = self.X
+                # For all the "timesteps" just put the same last x that it saw
+                for i in range(self.X.shape[1], X.shape[1]):
+                    newX[:, i, :] = self.X[:, -1, :]
+                self.X = newX # Replace
+>>>>>>> c245b97f3cb77668c74789344f57be5d7274da8a
             self.X = np.concatenate([self.X, X], axis=0)
 
         if self.U is None:
@@ -92,6 +102,7 @@ class DynamicsPriorGMM(object):
         else:
             # If they don't have the same T
             if self.U.shape[1] != U.shape[1]:
+<<<<<<< HEAD
                 if self.U.shape[1] < U.shape[1]:
                     # Just pad with zeroes I think?
                     newU = np.zeros((self.U.shape[0], U.shape[1], self.U.shape[2]))
@@ -101,6 +112,12 @@ class DynamicsPriorGMM(object):
                     newU = np.zeros((U.shape[0], self.U.shape[1], U.shape[2]))
                     newU[:, :U.shape[1], :] = U
                     U = newU
+=======
+                # Just pad with zeroes I think?
+                newU = np.zeros((self.U.shape[0], U.shape[1], self.U.shape[2]))
+                newU[:, :self.U.shape[1], :] = self.U
+                self.U = newU # Replace
+>>>>>>> c245b97f3cb77668c74789344f57be5d7274da8a
             self.U = np.concatenate([self.U, U], axis=0)
 
         # Remove excess samples from dataset.

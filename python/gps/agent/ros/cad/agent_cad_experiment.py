@@ -46,6 +46,7 @@ from gps.proto.gps_pb2 import JOINT_ANGLES, END_EFFECTOR_POINTS, \
 class AgentCADExperiment(AgentCAD):
     def __init__(self, hyperparams, init_node=True):
         AgentCAD.__init__(self, hyperparams, init_node)
+<<<<<<< HEAD
         self.attempts = 20 # Make 20 plans 
         self.use_saved_traj = None # Any saved trajectory??/
         self.ar = {'held_piece': 0, 'fixed_piece': 1} # Number of AR tag they have on them
@@ -57,6 +58,9 @@ class AgentCADExperiment(AgentCAD):
         self.ar_functions[self.ar['fixed_piece']] = self.create_AR_function( \
             self.ar['fixed_piece'], 0, -0.025, -0.0325, 0, 0, 0)
 
+=======
+        self.attempts = 70 # Make 70 plans 
+>>>>>>> c245b97f3cb77668c74789344f57be5d7274da8a
         pdb.set_trace()     # for optional setup, not debugging
 
     def setup(self):
@@ -113,6 +117,7 @@ class AgentCADExperiment(AgentCAD):
     def grasp(self):
         self.grip(None)
         time.sleep(5)
+<<<<<<< HEAD
         self.attach('held_piece', touch_links=['l_gripper_l_finger_tip_link', 'l_gripper_r_finger_tip_link', \
             'l_gripper_r_finger_link', 'l_gripper_l_finger_link'])
 
@@ -131,6 +136,9 @@ class AgentCADExperiment(AgentCAD):
             orientation=listify(pose.orientation),
             size=(0.045,0.045,0.02286),
             filename=self._hyperparams['cad_path'])
+=======
+        self.attach('held_piece', touch_links=['l_gripper_l_finger_tip_link', 'l_gripper_r_finger_tip_link'])
+>>>>>>> c245b97f3cb77668c74789344f57be5d7274da8a
 
         # Calculate where the hand should be compared to the block
         new_pos = [posi.x, posi.y + 0.28018, posi.z + 0.055]
@@ -213,6 +221,7 @@ class AgentCADExperiment(AgentCAD):
         init_plan = self.plan_end_effector(target_position, target_pose)
         self.group.execute(init_plan)
 
+<<<<<<< HEAD
     # Also override LMAOOOOOOO
     def plan(self, use_plan=None):
         # If already given a plan, just return it
@@ -250,3 +259,5 @@ class AgentCADExperiment(AgentCAD):
         else:
                 return None
         return None
+=======
+>>>>>>> c245b97f3cb77668c74789344f57be5d7274da8a
