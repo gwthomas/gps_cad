@@ -9,12 +9,10 @@
 #include "gps_agent_pkg/TfParams.h"
 #include "gps_agent_pkg/ControllerParams.h"
 #include "gps_agent_pkg/util.h"
+#include "gps_agent_pkg/proxycontroller.h"
+#include "gps_agent_pkg/ProxyParams.h"
 #include "gps/proto/gps.pb.h"
 #include <vector>
-<<<<<<< HEAD
-=======
-#include <iostream>
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 
 #ifdef USE_CAFFE
 #include "gps_agent_pkg/caffenncontroller.h"
@@ -58,6 +56,8 @@ void RobotPlugin::initialize(ros::NodeHandle& n)
     // After this, we still need to create the kinematics solvers. How these are
     // created depends on the particular robot, and should be implemented in a
     // subclass.
+
+    n_ = n;
 }
 
 // Initialize ROS communication infrastructure.
@@ -432,11 +432,7 @@ void RobotPlugin::trial_subscriber_callback(const gps_agent_pkg::TrialCommand::C
             }
             controller_params["noise_"+to_string(t)] = noise;
         }
-<<<<<<< HEAD
- 
-=======
 
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
         controller_params["net_param"] = params.net_param;
         controller_params["scale"] = scale;
         controller_params["bias"] = bias;
@@ -450,9 +446,18 @@ void RobotPlugin::trial_subscriber_callback(const gps_agent_pkg::TrialCommand::C
         gps_agent_pkg::TfParams tfparams = msg->controller.tf;
         int dU = (int) tfparams.dU;
         controller_params["dU"] = dU;
-        trial_controller_-> configure_controller(controller_params);
+        trial_controller_->configure_controller(controller_params);
     }
-    else{
+    else if (msg->controller.controller_to_execute == gps::PROXY_CONTROLLER) {
+        ROS_INFO("Using proxy controller");
+        trial_controller_.reset(new ProxyController(n_));
+        controller_params["T"] = (int)msg->T;
+        gps_agent_pkg::ProxyParams params = msg->controller.proxy;
+        controller_params["dU"] = (int)params.dU;
+        // controller_params["service_name"] = params.service_name;
+        trial_controller_->configure_controller(controller_params);
+    }
+    else {
         ROS_ERROR("Unknown trial controller arm type and/or USE_CAFFE=0");
     }
 

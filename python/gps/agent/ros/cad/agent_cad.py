@@ -1,3 +1,4 @@
+import cPickle as pickle
 import numpy as np
 import pdb
 import time
@@ -7,17 +8,12 @@ import actionlib
 import rospy
 import moveit_commander
 import moveit_msgs.msg
-<<<<<<< HEAD
 from moveit_msgs.msg import DisplayTrajectory, PositionIKRequest
 from moveit_msgs.srv import GetPositionFK, GetPositionIK
-=======
-from moveit_msgs.msg import DisplayTrajectory
-from moveit_msgs.srv import GetPositionFK
->>>>>>> c245b97f3cb77668c74789344f57be5d7274da8a
 from geometry_msgs.msg import Pose, PoseStamped, Point, PointStamped, Quaternion, Twist
 from std_msgs.msg import Header, ColorRGBA
 from gazebo_msgs.msg import ModelState
-from gazebo_msgs.srv import GetModelState, SetModelState
+from gazebo_msgs.srv import GetModelState, SetModelState, SpawnModel, SpawnModelRequest, DeleteModel, DeleteModelRequest
 from visualization_msgs.msg import Marker, MarkerArray
 from pr2_controllers_msgs.msg import Pr2GripperCommandAction, Pr2GripperCommandGoal
 from pr2_controllers_msgs.msg import PointHeadGoal, PointHeadAction
@@ -25,7 +21,7 @@ from pr2_mechanism_msgs.srv import SwitchController
 from tf.transformations import quaternion_matrix, quaternion_slerp
 from genpy import Duration, Time
 import tf
-import copy # So we can copy things 
+import copy # So we can copy things
 
 # For the messages from the AR sensing thing
 from ar_track_alvar_msgs.msg import AlvarMarker, AlvarMarkers
@@ -33,16 +29,16 @@ from ar_track_alvar_msgs.msg import AlvarMarker, AlvarMarkers
 from gps.agent.ros.agent_ros import AgentROS
 from gps.agent.agent_utils import generate_noise, setup
 from gps.agent.config import AGENT_ROS
-from gps.algorithm.policy.lin_gauss_init import init_lqr, init_pd
-from gps.agent.ros.ros_utils import ServiceEmulator, msg_to_sample, \
-        policy_to_msg
-from gps.algorithm.policy.lin_gauss_init import init_pd_ref
+from gps.algorithm.policy.lin_gauss_init import init_lqr, init_pd, init_pd_ref
+from gps.algorithm.policy.lin_gauss_policy import LinearGaussianPolicy
+from gps.agent.ros.ros_utils import ServiceEmulator, TimeoutException, msg_to_sample, policy_to_msg
 from gps.proto.gps_pb2 import TRIAL_ARM, AUXILIARY_ARM, JOINT_ANGLES, \
         JOINT_VELOCITIES, END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, \
-        ACTION, TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE
-
+        ACTION, TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE, \
+        REF_TRAJ, REF_OFFSETS, PROXY_CONTROLLER, NOISE
 from gps_agent_pkg.msg import TrialCommand, SampleResult, PositionCommand, \
         RelaxCommand, DataRequest
+from gps_agent_pkg.srv import ProxyControl, ProxyControlResponse
 from gps.utility.general_utils import get_ee_points
 from gps.agent.ros.cad.util import *
 
@@ -64,7 +60,52 @@ JOINT_NAMES = [
         'l_wrist_roll_joint'
 ]
 
+
+class ProxyTrialManager(object):
+    def __init__(self, agent, dt=0.01):
+        self.agent = agent
+        self.dt = dt
+        self.service = rospy.Service('proxy_control', ProxyControl, self.handle_request)
+
+    def handle_request(self, request):
+        self.t += 1
+        obs = self.agent.get_obs(request, self.condition)
+        response = ProxyControlResponse()
+        response.action = self.agent.get_action(self.policy, obs)
+        return response
+
+    def prep(self, policy, condition):
+        self.policy = policy
+        self.condition = condition
+        self.t = 0
+
+    def run(self, time_to_run):
+        time_elapsed = 0
+        while self.t < self.agent.T:
+            rospy.sleep(self.dt)
+            time_elapsed += self.dt
+            if time_elapsed > time_to_run:
+                raise TimeoutException(time_elapsed)
+
+
 class AgentCAD(AgentROS):
+
+    _unpickleables = AgentROS._unpickleables + [
+            'robot',
+            'scene',
+            'group',
+            'fk',
+            'get_model_state_srv',
+            'set_model_state_srv',
+            'spawn_model_srv',
+            'delete_model_srv',
+            'use_controller_srv',
+            'gripper_client',
+            'visual_pub',
+            'trial_manager',
+            'trajectories'
+    ]
+
     def __init__(self, hyperparams, init_node=True):
         AgentROS.__init__(self, hyperparams, init_node)
 
@@ -77,15 +118,16 @@ class AgentCAD(AgentROS):
          PointHeadAction)
 
         self.group.set_planner_id(hyperparams['planner'])
-        self.planning_schedule = hyperparams['planning_schedule']
-        self.indefatigable = hyperparams['indefatigable']
-        self.require_approval = hyperparams['require_approval']
+        self.planning_time = hyperparams['planning_time']
+        self.planning_attempts = hyperparams['plan_attempts']
         self.T_interpolation = hyperparams['T_interpolation']
 
         self.fk = rospy.ServiceProxy('pr2_left_arm_kinematics/get_fk', GetPositionFK)
         self.ik = rospy.ServiceProxy('pr2_left_arm_kinematics/get_ik', GetPositionIK)
         self.get_model_state_srv = rospy.ServiceProxy('gazebo/get_model_state', GetModelState)
         self.set_model_state_srv = rospy.ServiceProxy('gazebo/set_model_state', SetModelState)
+        self.spawn_model_srv = rospy.ServiceProxy('gazebo/spawn_sdf_model', SpawnModel)
+        self.delete_model_srv = rospy.ServiceProxy('gazebo/delete_model', DeleteModel)
         self.use_controller_srv = rospy.ServiceProxy('pr2_controller_manager/switch_controller', SwitchController)
         self.gripper_client = actionlib.SimpleActionClient('l_gripper_controller/gripper_action', Pr2GripperCommandAction)
         print 'Waiting for gripper server to start'; self.gripper_client.wait_for_server()
@@ -107,6 +149,8 @@ class AgentCAD(AgentROS):
         self.do_reset = True # If we are gonna reset or not
         self.reset_plans = [0] * 5 # Empty array for the reset plans
 
+        self.trial_manager = ProxyTrialManager(self)
+
         if 'ee_link' in hyperparams:
             ee_link = hyperparams['ee_link']
             assert ee_link in self.robot.get_link_names()
@@ -117,6 +161,12 @@ class AgentCAD(AgentROS):
         self.trajectories = {}
         self.reset_trajectories = {} # For dat fancy reset or something
         self.current_controller = None
+        self.initialized = set()
+
+        print 'Checking existence of plans'
+        for condition in range(hyperparams['conditions']):
+            if self.get_existing_plan(condition) is None:
+                print 'WARNING: no existing plan for condition', condition
 
     # Move the head to look at the designated point (so camera point in right dir)
     def move_head(self, x, y, z):
@@ -140,7 +190,7 @@ class AgentCAD(AgentROS):
     def getAR(self, msg):
         self.cur_ar_markers = msg # Store what we have gotten lmao
 
-    # Stores the gotten visual trajectory information in an instance variable 
+    # Stores the gotten visual trajectory information in an instance variable
     def getTrajectory(self, msg):
         self.saved_traj = msg # Stores the trajectory that was received
 
@@ -149,7 +199,7 @@ class AgentCAD(AgentROS):
         # Returns the array of AR markers
         return self.cur_ar_markers.markers
 
-    # Get the chosen tag of the AR markers 
+    # Get the chosen tag of the AR markers
     # If the AR tag doesn't exist in the array, return None
     def get_AR_pose(self, number):
         the_markers = self.get_AR_markers()
@@ -158,7 +208,7 @@ class AgentCAD(AgentROS):
                 return tag.pose.pose # Return the pose of the tag
         return None # If we couldn't find anything, return None
 
-    # This will create an AR function that will return the pose of the 
+    # This will create an AR function that will return the pose of the
     # actual item depending on where the AR tag is placed (that's why offsets)
     def create_AR_function(self, id_number, x_offset, y_offset, z_offset, \
         euler_offset_0, euler_offset_1, euler_offset_2):
@@ -166,7 +216,7 @@ class AgentCAD(AgentROS):
             ar_pose = copy.deepcopy(self.get_AR_pose(id_number)) # Get the pose of AR marker
             if ar_pose is None: # If you can't find the AR marker
                 print("Item " + str(id_number) + " AR tag not found!")
-            # Consider the offsets 
+            # Consider the offsets
             ar_pose.position.x += x_offset
             ar_pose.position.y += y_offset
             ar_pose.position.z += z_offset
@@ -232,7 +282,7 @@ class AgentCAD(AgentROS):
 
     # Resets the object depending on the AR tag and stuff
     def reset_object_AR(self, name, theSize):
-        # Remove the object from rviz first 
+        # Remove the object from rviz first
         self.scene.remove_world_object(name)
 
         # Get the pose twice just in case or whatever
@@ -254,67 +304,47 @@ class AgentCAD(AgentROS):
 
     def use_controller(self, target):
         assert target in ('GPS', 'MoveIt')
-        switch = False
+        switch = True
         if target == 'GPS' and self.current_controller != 'GPS':
             start = ['GPSPR2Plugin']
             stop = ['l_arm_controller', 'r_arm_controller']
             self.current_controller = 'GPS'
-            switch = True
         elif target == 'MoveIt' and self.current_controller != 'MoveIt':
             start = ['l_arm_controller', 'r_arm_controller']
             stop = ['GPSPR2Plugin']
             self.current_controller = 'MoveIt'
-            switch = True
+        else:
+            switch = False
 
         if switch:
             print 'Switching to {} controllers'.format(target)
             self.use_controller_srv(start, stop, 2) # 2 means STRICT
             time.sleep(1)
 
-    def clear_visuals(self):
-        header = Header(0, rospy.Time(), self.group.get_planning_frame())
-        markers = []
-        for id in range(10):
-            delmarker = Marker()
-            delmarker.header = header
-            delmarker.action = Marker.DELETE
-            delmarker.ns = 'points'
-            delmarker.id = id
-            markers.append(delmarker)
-        marker_array = MarkerArray(markers=markers)
-        self.visual_pub.publish(marker_array)
-
-    def visualize_points(self, points, id, size=0.01, color=(1.,1.,1.,1.), frame=None):
-        frame = self.group.get_planning_frame() if frame is None else frame
-        marker = Marker()
-        marker.header.frame_id = frame
-        marker.type = Marker.POINTS
-        marker.action = Marker.ADD
-        marker.ns = 'points'
-        marker.id = id
-        marker.points = [Point(*point) for point in points]
-        marker.colors = [ColorRGBA(*color)] * len(points)
-        marker.scale.x = size
-        marker.scale.y = size
-        marker.color.r = 1.0
-        marker.color.g = 1.0
-        marker.color.b = 1.0
-        marker.color.a = 1.0
-        marker_array = MarkerArray(markers=[marker])
-        self.visual_pub.publish(marker_array)
-
     # Query Gazebo for the pose of a named object
     def get_pose(self, name, relative_entity_name=''):
         response = self.get_model_state_srv(name, relative_entity_name)
         if not response.success:
-            raise RuntimeError('Failed to get pose for object {}'.format(name))
+            raise RuntimeError('Failed to get pose for model {}'.format(name))
         return response.pose
 
     def set_pose(self, name, pose, relative_entity_name=''):
         model_state = ModelState(name, pose, Twist(), relative_entity_name)
         response = self.set_model_state_srv(model_state)
         if not response.success:
-            raise RuntimeError('Failed to set pose for object {}'.format(name))
+            raise RuntimeError('Failed to set pose for model {}'.format(name))
+
+    def spawn_model(self, name, xml, pose, namespace='', reference_frame=''):
+        request = SpawnModelRequest(name, xml, namespace, pose, reference_frame)
+        response = self.spawn_model_srv(request)
+        if not response.success:
+            raise RuntimeError('Failed to spawn model {}'.format(name))
+
+    def delete_model(self, name):
+        request = DeleteModelRequest(name)
+        response = self.delete_model_srv(request)
+        if not response.success:
+            raise RuntimeError('Failed to delete model {}'.format(name))
 
     def add_object(self, name, position, orientation=(0,0,0,0), size=(1,1,1), type=None, filename=None):
         assert type or filename
@@ -333,24 +363,6 @@ class AgentCAD(AgentROS):
         self.scene.attach_mesh(self.ee_link, name, touch_links=touch_links)
         time.sleep(2) # Just rest for a little bit before removing
         self.scene.remove_world_object(name)
-
-    # def reset_arm(self, arm, mode, data):
-    #     """
-    #     Issues a position command to an arm.
-    #     Args:
-    #         arm: Either TRIAL_ARM or AUXILIARY_ARM.
-    #         mode: An integer code (defined in gps_pb2).
-    #         data: An array of floats.
-    #     """
-    #     reset_command = PositionCommand()
-    #     reset_command.mode = mode
-    #     reset_command.data = data
-    #     reset_command.pd_gains = self._hyperparams['pid_params']
-    #     reset_command.arm = arm
-    #     timeout = self._hyperparams['reset_timeout']
-    #     reset_command.id = self._get_next_seq_id()
-    #     self._reset_service.publish_and_wait(reset_command, timeout=timeout)
-    #     #TODO: Maybe verify that you reset to the correct position.
 
     def reset(self, condition):
         self.use_controller('GPS')
@@ -398,7 +410,7 @@ class AgentCAD(AgentROS):
             self.gripper_client.send_goal(goal)
         else:
             duration = rospy.Duration(wait)
-            self.gripper_client.send_goal_and_wait(goal)
+            self.gripper_client.send_goal_and_wait(goal, execute_timeout=duration)
 
     def grip(self, wait):
         self.set_gripper(0.0, 50.0, wait)
@@ -412,52 +424,30 @@ class AgentCAD(AgentROS):
 
     # This calculates the distance of the joints in a trajectory
     def get_dist(self, plan):
-	prevPoint = None # Start off with nothing
-	dist = 0 # Start off the distance as 0
-	for thePoint in plan.joint_trajectory.points:
-		position = np.array(thePoint.positions)
-		if prevPoint is not None: # If there was a previous pt
-			dist += np.sqrt(np.sum(np.square(position - prevPoint)))
-		prevPoint = position # Aww man almost forgot this
-	return dist
-
-    # This will help save a plan and what not
-    def save_plan(self, plan, toSave=None):
-        if toSave is None:
-            toSave = 'savedTraj.txt'
-        with open(toSave, 'w') as f:
-            pickle.dump(plan, f)
-
-    # Load a plan from a file lmaoooo
-    def load_plan(self, filename):
-        with open(filename, 'r') as f:
-            return pickle.load(f)
+    	prevPoint = None # Start off with nothing
+    	dist = 0 # Start off the distance as 0
+    	for thePoint in plan.joint_trajectory.points:
+    		position = np.array(thePoint.positions)
+    		if prevPoint is not None: # If there was a previous pt
+    			dist += np.sqrt(np.sum(np.square(position - prevPoint)))
+    		prevPoint = position # Aww man almost forgot this
+    	return dist
 
     def plan(self):
-        for time in self.planning_schedule:
-            print 'Planning with {} seconds'.format(time)
-            self.group.set_planning_time(time)
-            plan = self.group.plan()
-            if len(plan.joint_trajectory.points) > 0:
-                print 'Success!'
-                return plan
-            else:
-                print 'Failed.'.format(time)
-        if self.indefatigable:
-            print 'Failed to find a valid plan under the given schedule, but trying again'
-            time = 1
-            while True:
-                print 'Planning with {} seconds'.format(time)
-                self.group.set_planning_time(time)
-                plan = self.group.plan()
-                if len(plan.joint_trajectory.points) > 0:
-                    print 'Success!'
-                    return plan
-                else:
-                    print 'Failed.'.format(time)
-                time *= 2
-        else:
-            raise RuntimeError('Unable to find a valid plan. Consider modifying the schedule or using the indefatigable option')
+        self.set_planning_time(self.planning_time)
+        best_plan, best_dist = None, float("inf")  # Infinity itself
+
+        # For as many attempts as allowed
+        for attempt in range(self.planning_attempts):
+            plan = self.group.plan() # Use motion planning to plan
+            if plan is not None:
+                cur_dist = self.get_dist(plan) # Get the distance of cur plan
+                # If it beats it we need to use it! Woah!
+                if cur_dist < best_dist:
+                    best_dist = cur_dist # This is the current best distance
+                    best_plan = plan # This is the best plan
+        return best_plan
+
 
     def plan_end_effector(self, target_position, target_orientation=None):
         current_position = listify(self.group.get_current_pose().pose.position)
@@ -476,9 +466,6 @@ class AgentCAD(AgentROS):
     def plan_joints(self, target_joint_positions):
         self.group.set_joint_value_target(target_joint_positions)
         return self.plan()
-
-    def smart_reset(self, condition):
-        self.group.execute(self.plan_joints(self.initial_joint_positions))
 
     def forward_kinematics1(self, joint_angles, frame):
         header = Header(0, rospy.Time.now(), frame)
@@ -502,7 +489,7 @@ class AgentCAD(AgentROS):
         rs = moveit_msgs.msg.RobotState() # Getting the robot state
         rs.joint_state.name = JOINT_NAMES # This is the current joint value thing
         # I dunno get the current joint values
-        rs.joint_state.position = self.group.get_current_joint_values() 
+        rs.joint_state.position = self.group.get_current_joint_values()
         # Not really sure so am just gonna put this down lmao
         #request.ik_seed_state = rs
         request.robot_state = rs
@@ -511,13 +498,13 @@ class AgentCAD(AgentROS):
         response = self.ik(request)
         return response.solution # Return the solution found (hopefully something)
 
-    # Get the joint angles of a pose that is some m[meters]_above the current pose (of the end 
+    # Get the joint angles of a pose that is some m[meters]_above the current pose (of the end
     # effector) that we have lmao
     def get_ja_above(self, cur_pose, m_above):
         cur_pose.pose.position.z += m_above # Increase the z value by some amount
         solution = self.inverse_kinematics1(cur_pose)
         # Return the array of values lmao
-        return solution.joint_state.position 
+        return solution.joint_state.position
 
     def get_end_effector_pose(self):
         state = self.robot.get_current_state().joint_state
@@ -526,22 +513,6 @@ class AgentCAD(AgentROS):
             index = state.name.index(joint)
             joints.append(state.position[index])
         return self.forward_kinematics1(joints)
-
-<<<<<<< HEAD
-    # Calculates ref_ee and ref_ja given the following plan
-    def calc_ee_and_ja(self, plan):
-        plan_joints = [np.array(point.positions) for point in plan.joint_trajectory.points]
-        ref_ja = interpolate(plan_joints, self.T_interpolation)
-        ref_ja.extend([ref_ja[-1]] * (self.T - self.T_interpolation))
-        ref_poses = self.forward_kinematics(ref_ja, 'torso_lift_link')
-        ref_ee = []
-        ee_offsets = self._hyperparams['end_effector_points']
-        for pose in ref_poses:
-            position, orientation = np.array([pose[:3]]), pose[3:]
-            rotation_mat = quaternion_matrix(orientation)[:3,:3]
-            points = np.ndarray.flatten(get_ee_points(ee_offsets, position, rotation_mat).T)
-            ref_ee.append(points)
-        return ref_ee, ref_ja
 
     # Calculate the trajectory information from the ee and ja
     def calc_trajectory_info(self, ref_ee, ref_ja):
@@ -554,29 +525,50 @@ class AgentCAD(AgentROS):
             'ee': ref_ee,
             'offsets': ref_offsets,
             'flattened': ref_offsets.flatten()
-        }        
+        }
 
-    def compute_reference_trajectory(self, condition, policy):
+    def get_initial(self, condition, arm=TRIAL_ARM):
+        condition_data = self._hyperparams['reset_conditions'][condition]
+        return condition_data[arm]['data']
 
+    def reset_arm(self, arm, mode, data):
+        reset_command = PositionCommand()
+        reset_command.mode = mode
+        reset_command.data = data
+        reset_command.pd_gains = self._hyperparams['pid_params']
+        reset_command.arm = arm
+        timeout = self._hyperparams['reset_timeout']
+        reset_command.id = self._get_next_seq_id()
+        self._reset_service.publish_and_wait(reset_command, timeout=timeout)
+
+    def reset(self, condition):
+        self.use_controller('GPS')
+        print 'Resetting to condition', condition
+
+        try:
+            self.reset_arm(TRIAL_ARM, JOINT_SPACE, self.get_initial(condition, arm=TRIAL_ARM))
+        except TimeoutException:
+            print 'Trial arm reset timed out'
+
+        try:
+            self.reset_arm(AUXILIARY_ARM, JOINT_SPACE, self.get_initial(condition, arm=AUXILIARY_ARM))
+        except TimeoutException:
+            print 'Auxiliary arm reset timed out'
+
+    def compute_plan(self, condition):
         self.reset(condition)
         target = self._hyperparams['targets'][condition]
-
         while True:
             plan = self.plan_end_effector(target['position'], target['orientation'])
             self.edit_plan_if_necessary(plan) # Just edit it if you need to change the goal lmao
-            ref_ee, ref_ja = self.calc_ee_and_ja(plan) # Calculate the ref_ee and ref_ja
-
-            plot_trajectories([ref_ee])
 
             if not self.require_approval or yesno('Does this trajectory look ok?'):
-                break
+                return plan
 
-        self.trajectories[condition] = ref_ee
-        policy.__init__(*init_pd_ref(self._hyperparams['init_traj_distr'], ref_ja, ref_ee))
+    def _plan_file(self, condition):
+        return osp.join(self._hyperparams['exp_dir'], 'plan_{}.pkl'.format(condition))
 
-        return self.calc_trajectory_info(ref_ee, ref_ja)
-
-    # Do the initialization of the reset trajectory and policy and stuff?? 
+    # Do the initialization of the reset trajectory and policy and stuff??
     def init_reset_traj(self, condition, policy):
         plan = self.reset_plans[condition] # Get the plan for the reset trajectory
         ref_ee, ref_ja = self.calc_ee_and_ja(plan) # Get the ref_ee and ref_ja
@@ -597,7 +589,7 @@ class AgentCAD(AgentROS):
         pose = self.get_ee_pose() # Get the current pose of the group
         pose = self.get_ee_pose() # Get the current pose of the group
 
-        # For as many conditions there are 
+        # For as many conditions there are
         for i in range(self._hyperparams['conditions']):
             # Set the goal to the current position
             self._hyperparams['targets'][i]['position'] = listify(pose.position)
@@ -608,7 +600,7 @@ class AgentCAD(AgentROS):
     def get_ee_pose(self):
         return self.group.get_current_pose().pose
 
-    # This is if you want to set the ultimate destination from the 
+    # This is if you want to set the ultimate destination from the
     def set_real_goal(self):
         self.ee_goal = self.get_ee_pose() # Use what is happening in real world (??)
         self.ja_goal = self.group.get_current_joint_values() # Get the current joint values
@@ -626,27 +618,69 @@ class AgentCAD(AgentROS):
         thePlan.joint_trajectory.points.reverse() # Reversed, awww yea
         ref_offsets = np.array([points - ref_ee[-1] for points in ref_ee])
         ref_ja = np.array(ref_ja)
+
+    def get_existing_plan(self, condition):
+        filename = self._plan_file(condition)
+        if osp.exists(filename):
+            print 'Found existing reference trajectory for condition', condition
+            with open(filename, 'rb') as f:
+                return pickle.load(f)
+        return None
+
+    def compute_reference_trajectory(self, plan):
+        plan_ja_pos = [np.array(point.positions) for point in plan.joint_trajectory.points]
+        plan_ja_vel = [np.array(point.velocities) for point in plan.joint_trajectory.points]
+        ref_ja_pos = interpolate(plan_ja_pos, self.T_interpolation)
+        ref_ja_vel = interpolate(plan_ja_vel, self.T_interpolation)
+        ref_ja_pos.extend([ref_ja_pos[-1]] * (self.T - self.T_interpolation))
+        ref_ja_vel.extend([ref_ja_vel[-1]] * (self.T - self.T_interpolation))
+        ref_poses = self.forward_kinematics(ref_ja_pos, 'torso_lift_link')
+        ref_ee = []
+        ee_offsets = self._hyperparams['end_effector_points']
+        for pose in ref_poses:
+            position, orientation = np.array([pose[:3]]), pose[3:]
+            rotation_mat = quaternion_matrix(orientation)[:3,:3]
+            points = np.ndarray.flatten(get_ee_points(ee_offsets, position, rotation_mat).T)
+            ref_ee.append(points)
+
+            # plot_trajectories([ref_ee])
+
+        ref_ja_pos = np.array(ref_ja_pos)
+        ref_ja_vel = np.array(ref_ja_vel)
         ref_ee = np.array(ref_ee)
         ref_offsets = ref_ee - ref_ee[-1]
         return {
-            'ja': ref_ja,
+            'ja_pos': ref_ja_pos,
+            'ja_vel': ref_ja_vel,
             'ee': ref_ee,
             'offsets': ref_offsets,
             'flattened': ref_offsets.flatten()
         }
 
-    def determine_reference_trajectory(self, condition, policy):
-        filename = 'ref_traj_{}.npz'.format(condition)
-        if osp.exists(filename):
-            print 'Using existing reference trajectory for condition', condition
-            ref_traj_info = np.load(filename)
-        else:
-            print 'No reference trajectory found for condition {}. Computing a fresh one'.format(condition)
-            ref_traj_info = self.compute_reference_trajectory(condition, policy)
-            np.savez(filename, **ref_traj_info)
-        ref_ja, ref_ee = ref_traj_info['ja'], ref_traj_info['ee']
-        policy.__init__(*init_pd_ref(self._hyperparams['init_traj_distr'], ref_ja, ref_ee))
-        self.trajectories[condition] = ref_traj_info
+    def determine_reference_trajectory(self, condition):
+        plan = self.get_existing_plan(condition)
+        if plan is None:
+            print 'No valid plan found for condition {}. Computing a fresh one'.format(condition)
+            plan = self.compute_plan(condition)
+            filename = self._plan_file(condition)
+            with open(filename, 'wb') as f:
+                pickle.dump(plan, f)
+        self.trajectories[condition] = self.compute_reference_trajectory(plan)
+
+    def determine_all(self):
+        for condition in range(self._hyperparams['conditions']):
+            self.determine_reference_trajectory(condition)
+
+    def initialize_controller(self, condition, policy):
+        if condition in self.initialized or not isinstance(policy, LinearGaussianPolicy):
+            return
+
+        ref_traj_info = self.trajectories[condition]
+        ref_ja_pos = ref_traj_info['ja_pos']
+        ref_ja_vel = ref_traj_info['ja_vel']
+        ref_ee = ref_traj_info['ee']
+        policy.__init__(*init_pd_ref(self._hyperparams['init_traj_distr'], ref_ja_pos, ref_ja_vel, ref_ee))
+        self.initialized.add(condition)
 
     # Gets the reset trajectory by basically reversing
 
@@ -668,23 +702,18 @@ class AgentCAD(AgentROS):
         else:
             trajectories = self.trajectories
 
-        if condition not in self.trajectories:
-            self.compute_reference_trajectory(condition, policy)
-
         if condition not in trajectories: # If this hasn't been initialized yet
             if self.reset_time:
                 self.init_reset_traj(condition, policy)
             else:
-                self.compute_reference_trajectory(condition, policy)
+                self.determine_reference_trajectory(condition)
 
         if self.reset_time:
             print('Reset sampling, condition ' + str(condition))
         else:
             print 'Sampling, condition', condition
-        self.reset(condition)
 
-        #added from agent_ros.py of public gps codebase
-        #self.determine_reference_trajectory(condition, policy)
+        self.initialize_controller(condition, policy)
         self.reset(condition)
 
         if TfPolicy is not None:  # user has tf installed.
@@ -719,10 +748,16 @@ class AgentCAD(AgentROS):
                 trial_command, timeout=self._hyperparams['trial_timeout']
             )
         else:
+            self.trial_manager.prep(policy, condition)
             self._trial_service.publish(trial_command)
-            sample_msg = self.run_trial_tf(policy, condition, time_to_run=self._hyperparams['trial_timeout'])
+            self.trial_manager.run(self._hyperparams['trial_timeout'])
+            while self._trial_service._waiting:
+                print 'Waiting for sample to come in'
+                rospy.sleep(1.0)
+            sample_msg = self._trial_service._subscriber_msg
 
         sample = msg_to_sample(sample_msg, self)
+        sample.set(NOISE, noise)
         sample.set(REF_OFFSETS, ref_traj_info['offsets'])
         sample.set(REF_TRAJ, np.array([ref_traj_info['flattened']]*self.T))
 
@@ -733,19 +768,17 @@ class AgentCAD(AgentROS):
         self.reset_time = False # It's not reset time after this lmaoo???
         return sample
 
-    def _get_new_action(self, policy, obs):
-        # extra = ['ref_traj', 'distances', 'weights', 'attended', 'ee_pos']
-        extra = []
+    def get_action(self, policy, obs):
+        extra = ['distances', 'coeffs', 'ee_pos', 'attended', 'direction']
+        # extra = []
         action, debug = policy.act(None, obs, None, None, extra=extra)
         return action
 
-    def _get_obs(self, msg, condition):
-        array = AgentROS._get_obs(self, msg, condition)
-        if self._hyperparams['attention']:
-            ref_flattened = self.trajectories[condition]['flattened']
-            obs = np.concatenate([array, ref_flattened])
-        else:
-            obs = array
+    def get_obs(self, request, condition):
+        array = np.array(request.obs)
+        # print array[14:23]
+        ref_flattened = self.trajectories[condition]['flattened']
+        obs = np.concatenate([array, ref_flattened])
         return obs
 
     # Gets the difference between the goal and the estimated goal
@@ -759,4 +792,3 @@ class AgentCAD(AgentROS):
         real_ori = tf.transformations.euler_from_quaternion(listify(self.ee_goal.orientation))
         print("The position diff (real - est): " + str(np.arrray(real_pos) - np.array(est_pos)))
         print("The euler diff (real - est): " + str(np.arrray(real_ori) - np.array(est_ori)))
-

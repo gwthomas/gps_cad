@@ -131,7 +131,6 @@ class PolicyOptTf(PolicyOpt):
 
         # Fold weights into tgt_prc.
         tgt_prc = tgt_wt * tgt_prc
-
         # TODO: Find entries with very low weights?
 
         # Normalize obs, but only compute normalzation at the beginning.
@@ -173,7 +172,11 @@ class PolicyOptTf(PolicyOpt):
             total_loss = 0
 
         # actual training.
-        for i in range(self._hyperparams['iterations']):
+        average_losses = []
+        period = self._hyperparams['period']
+        termination_history_length = self._hyperparams['termination_history_length']
+        termination_epsilon = self._hyperparams['termination_epsilon']
+        for i in range(self._hyperparams['max_iterations']):
             # Load in data for this batch.
             start_idx = int(i * self.batch_size %
                             (batches_per_epoch * self.batch_size))
@@ -181,14 +184,24 @@ class PolicyOptTf(PolicyOpt):
             feed_dict = {self.obs_tensor: obs[idx_i],
                          self.action_tensor: tgt_mu[idx_i],
                          self.precision_tensor: tgt_prc[idx_i]}
+            fc_params = self.sess.run(self.fc_vars)
             train_loss = self.solver(feed_dict, self.sess, device_string=self.device_string)
+            if np.isnan(train_loss):
+                import pdb; pdb.set_trace()
 
             total_loss += train_loss
-            if (i+1) % 500 == 0:
-                LOGGER.info('tensorflow iteration %d, average loss %f',
-                             i+1, total_loss / 50)
-                print 'TF iteration', i+1, '\taverage loss', total_loss / 500
+            if (i+1) % period == 0:
+                average_loss = total_loss / period
                 total_loss = 0
+                LOGGER.info('tensorflow iteration %d, average loss %f', i+1, average_loss)
+                print 'TF iteration', i+1, '\taverage loss', average_loss
+                average_losses.append(average_loss)
+
+                if len(average_losses) > termination_history_length:
+                    recent = average_losses[-termination_history_length:]
+                    relative_range = (np.max(recent) - np.min(recent)) / np.mean(recent)
+                    if relative_range < termination_epsilon:
+                        break
 
         feed_dict = {self.obs_tensor: obs}
         num_values = obs.shape[0]
@@ -245,7 +258,7 @@ class PolicyOptTf(PolicyOpt):
 
     def save_model(self, fname):
         LOGGER.debug('Saving model to: %s', fname)
-        self.saver.save(self.sess, fname, write_meta_graph=False)
+        return self.saver.save(self.sess, fname, write_meta_graph=False)
 
     def restore_model(self, fname):
         self.saver.restore(self.sess, fname)
@@ -253,11 +266,13 @@ class PolicyOptTf(PolicyOpt):
 
     # For pickling.
     def __getstate__(self):
-        with tempfile.NamedTemporaryFile('w+b', delete=True) as f:
-            self.save_model(f.name) # TODO - is this implemented.
-            f.seek(0)
-            with open(f.name, 'r') as f2:
-                wts = f2.read()
+        import random, string
+        save_dir = self._hyperparams['weights_file_prefix']
+        if not os.path.isdir(save_dir):
+            os.mkdir(save_dir)
+        randstr = ''.join(random.choice(string.ascii_lowercase + string.ascii_uppercase + string.digits) for _ in range(10))
+        save_path = os.path.join(save_dir, randstr)
+        self.save_model(save_path)
         return {
             'hyperparams': self._hyperparams,
             'dO': self._dO,
@@ -267,7 +282,7 @@ class PolicyOptTf(PolicyOpt):
             'tf_iter': self.tf_iter,
             'x_idx': self.policy.x_idx,
             'chol_pol_covar': self.policy.chol_pol_covar,
-            'wts': wts,
+            'save_path': save_path,
         }
 
     # For unpickling.
@@ -280,8 +295,4 @@ class PolicyOptTf(PolicyOpt):
         self.policy.x_idx = state['x_idx']
         self.policy.chol_pol_covar = state['chol_pol_covar']
         self.tf_iter = state['tf_iter']
-
-        with tempfile.NamedTemporaryFile('w+b', delete=True) as f:
-            f.write(state['wts'])
-            f.seek(0)
-            self.restore_model(f.name)
+        self.restore_model(state['save_path'])

@@ -41,7 +41,7 @@ def get_input_layer(dim_input, dim_output):
     return net_input, action, precision
 
 
-def get_mlp_layers(mlp_input, number_layers, dimension_hidden):
+def get_mlp_layers(mlp_input, number_layers, dimension_hidden, nonlinearity=tf.nn.relu, nonlinear_output=False):
     """compute MLP with specified number of layers.
         math: sigma(Wx + b)
         for each layer, where sigma is by default relu"""
@@ -54,10 +54,9 @@ def get_mlp_layers(mlp_input, number_layers, dimension_hidden):
         cur_bias = init_bias([dimension_hidden[layer_step]], name='b_' + str(layer_step))
         weights.append(cur_weight)
         biases.append(cur_bias)
-        if layer_step != number_layers-1:  # final layer has no RELU
-            cur_top = tf.nn.relu(tf.matmul(cur_top, cur_weight) + cur_bias)
-        else:
-            cur_top = tf.matmul(cur_top, cur_weight) + cur_bias
+        cur_top = tf.matmul(cur_top, cur_weight) + cur_bias
+        if layer_step != number_layers-1 or nonlinear_output:  # final layer has no RELU
+            cur_top = nonlinearity(cur_top)
 
     return cur_top, weights, biases
 

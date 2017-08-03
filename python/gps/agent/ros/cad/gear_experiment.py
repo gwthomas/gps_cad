@@ -49,7 +49,7 @@ try:
 except ImportError:  # user does not have tf installed.
     TfPolicy = None
 
-B4_PEG_JA =  np.array([-0.07127360764327229, 0.09295724750611623, 1.1055297826139094, 
+B4_PEG_JA =  np.array([-0.07127360764327229, 0.09295724750611623, 1.1055297826139094,
     -0.8294466322295317, -9.253024883350639, -0.9218553679154435, -2.803443744403202])
 B4_PEG_EE = np.array([ 0.7069959,  -0.07505008,  0.04737351,  0.85666558, -0.06439661,  0.0972282,
   0.85657629, -0.06450655, -0.0027717 ])
@@ -73,7 +73,7 @@ class GearExperiment(AgentCAD):
         self.prev_pose = None # For storing previous pose of gear lmao
 
         self.cur_T = [0] * 5 # For storing the T of each of the conditions!
-        self.final_T = self.T # This is the original T WOWOWOWOWOWOWOWWOW 
+        self.final_T = self.T # This is the original T WOWOWOWOWOWOWOWWOW
         self.varying_T = False # If you want T to vary depending on a whole bunch of stuff
         self.the_tolerance = 0.03 # If the difference is that large it's concerning
         self.segments = 1.0 # How many segments to break the trajectory into
@@ -84,7 +84,7 @@ class GearExperiment(AgentCAD):
 
         self.use_saved_traj = False # If we already have one saved (pickled DisplayTrajectory)
         self.pickled_traj_filename = 'pickled_robot_traj_cond0' # Where you saved the DisplayTrajectory
-        self.plan_filename = 'new_saved_robot_plan' 
+        self.plan_filename = 'new_saved_robot_plan'
         self.data_files_dir = hyperparams['data_files_dir']
         self.saved_samples = [[] * 5] # Just for storing this real quick
 
@@ -94,25 +94,25 @@ class GearExperiment(AgentCAD):
 
     def __getstate__(self):
         # Saving all these nice important things or something lmaooo
-        d = {} 
-        d['dists'] = self.dists 
-        d['attempts'] = self.attempts 
-        d['samples_taken'] = self.samples_taken 
+        d = {}
+        d['dists'] = self.dists
+        d['attempts'] = self.attempts
+        d['samples_taken'] = self.samples_taken
         d['cur_frac'] = self.cur_frac
-        d['full_ref_ee'] = self.full_ref_ee 
-        d['full_ref_ja'] = self.full_ref_ja 
-        d['prev_pose'] = self.prev_pose 
-        d['final_T'] = self.final_T 
+        d['full_ref_ee'] = self.full_ref_ee
+        d['full_ref_ja'] = self.full_ref_ja
+        d['prev_pose'] = self.prev_pose
+        d['final_T'] = self.final_T
         d['segments'] = self.segments
         d['iter_per_seg'] = self.iter_per_seg
         d['iter_count'] = self.iter_count
-        d['padding'] = self.padding 
-        d['chosen_parts'] = self.chosen_parts 
+        d['padding'] = self.padding
+        d['chosen_parts'] = self.chosen_parts
         d['sample_dists'] = self.sample_dists
         d['use_saved_traj'] = self.use_saved_traj
-        d['pickled_traj_filename'] = self.pickled_traj_filename 
+        d['pickled_traj_filename'] = self.pickled_traj_filename
         d['plan_filename'] = self.plan_filename
-        d['best_saved_traj'] = self.best_saved_traj 
+        d['best_saved_traj'] = self.best_saved_traj
         d['saved_traj'] = self.saved_traj
         d['trajectories'] = self.trajectories
         d['current_controller'] = self.current_controller
@@ -139,8 +139,8 @@ class GearExperiment(AgentCAD):
         self.full_ref_ja = agt.full_ref_ja # For the full reference ja
         self.prev_pose = agt.prev_pose # For storing previous pose of gear lmao
 
-        self.cur_T = agt.cur_T 
-        self.final_T = agt.final_T # This is the original T WOWOWOWOWOWOWOWWOW 
+        self.cur_T = agt.cur_T
+        self.final_T = agt.final_T # This is the original T WOWOWOWOWOWOWOWWOW
         self.varying_T = agt.varying_T
         self.the_tolerance = agt.the_tolerance
         self.segments = agt.segments # How many segments to break the trajectory into
@@ -165,7 +165,7 @@ class GearExperiment(AgentCAD):
         self.ar_functions[ar['gear_box']] = self.create_AR_function(ar['gear_box'], 0.023, 0.01, -0.17, 0, 0, 0)
         self.move_head(6, 0, -3) # Move head so we can see what we need to see
         # Move arm down so we can see what is going on!!!
-        self.move_to(0.45, 0.25, 0.55, 0, 0, 0) 
+        self.move_to(0.45, 0.25, 0.55, 0, 0, 0)
         self.configure_scene()
         self.grasp_prep()
 
@@ -229,14 +229,14 @@ class GearExperiment(AgentCAD):
 
     def finish_prep(self):
     	# Get the previous orientation of the gear
-    	self.scene.remove_world_object('the_gear') # Remove it 
+    	self.scene.remove_world_object('the_gear') # Remove it
     	#pose, euler = self.ar_functions[ar['the_gear']]() # Get the pose now that it has changed
         pose = self.get_pose('the_gear')
         time.sleep(1) # Sleep for 2 seconds
     	# Now add the gear back to the scene with the new pose
-    	self.add_object('the_gear', position=listify(pose.position), 
+    	self.add_object('the_gear', position=listify(pose.position),
 			orientation=listify(pose.orientation),
-			size=(0.04, 0.04, 0.04), 
+			size=(0.04, 0.04, 0.04),
                         filename=self._hyperparams['the_gear'])
         self.attach('the_gear', touch_links=['l_gripper_l_finger_tip_link', 'l_gripper_r_finger_tip_link'])# ,'l_gripper_l_finger_link'])
 
@@ -255,7 +255,7 @@ class GearExperiment(AgentCAD):
     	target_pose = [orient_x, orient_y, orient_z]
         init_plan = self.plan_end_effector(target_position, target_pose)
         self.group.execute(init_plan)
-	
+
     # Made to change goals depending on the weird left rotation of the gear lololol
     def offset_rotation(self):
         self.use_controller('MoveIt')
@@ -281,8 +281,8 @@ class GearExperiment(AgentCAD):
         robot_pos = robot_pose.position # Get the position of the link
 
         # Start with original pos, gonna calculate a new goal depending on rotation
-        new_pos = list(self._hyperparams['targets'][0]['position']) 
-        
+        new_pos = list(self._hyperparams['targets'][0]['position'])
+
         #gear_box_pose, euler = self.ar_functions[ar['gear_box']]() # Get the position of the box by AR tag
         #gear_box_pose, euler = self.ar_functions[ar['gear_box']]() # Get the position of the box by AR tag
         gear_box_pose = self.get_pose('gear_box')
@@ -296,9 +296,9 @@ class GearExperiment(AgentCAD):
         #new_pos[0] = gear_box_pose.position.x - 0.2805
         #new_pos[1] = gear_box_pose.position.y - 0.00335
         new_pos[0] = robot_pos.x + (gear_box_pose.position.x - 0.0006 - gear_pose.position.x)
-        new_pos[1] = robot_pos.y + (gear_box_pose.position.y + 0.001 - gear_pose.position.y) 
+        new_pos[1] = robot_pos.y + (gear_box_pose.position.y + 0.001 - gear_pose.position.y)
 
-        # For as many conditions there are 
+        # For as many conditions there are
         for i in range(self._hyperparams['conditions']):
             the_tuple = self._hyperparams['targets'][i]['orientation']
             new_thing = [the_tuple[0], the_tuple[1], euler2]
@@ -316,15 +316,15 @@ class GearExperiment(AgentCAD):
         robot_pos = robot_pose.position # Get the position of the link
 
         # Start with original pos, gonna calculate a new goal depending on rotation
-        new_pos = list(self._hyperparams['targets'][0]['position']) 
-        
+        new_pos = list(self._hyperparams['targets'][0]['position'])
+
         gear_box_pose, euler = self.ar_functions[ar['gear_box']]() # Get the position of the box by AR tag
         gear_box_pose, euler = self.ar_functions[ar['gear_box']]() # Get the position of the box by AR tag
 
         new_pos[0] = robot_pos.x + (gear_box_pose.position.x - 0.0006 - gear_pose.position.x)
-        new_pos[1] = robot_pos.y + (gear_box_pose.position.y + 0.001 - gear_pose.position.y) 
+        new_pos[1] = robot_pos.y + (gear_box_pose.position.y + 0.001 - gear_pose.position.y)
 
-        # For as many conditions there are 
+        # For as many conditions there are
         for i in range(self._hyperparams['conditions']):
             self._hyperparams['targets'][i]['position'] = new_pos
             print("This is the new position " + str(new_pos))
@@ -391,13 +391,13 @@ class GearExperiment(AgentCAD):
                 return None
         return None
 
-    # Override lmao o o o o o o o 
+    # Override lmao o o o o o o o
     def compute_reference_trajectory(self, condition, policy):
         super(GearExperiment, self).reset(condition) # Call the super method
         target = self._hyperparams['targets'][condition]
         best_ref_ee, best_ref_ja = None, None # HAHAHAHAHA
         best_dist = float("inf") # Infinity itself
-        best_plan = None 
+        best_plan = None
         best_T = None # Set this up
         self.T = self.final_T # Gotta use the final T or something like that
 
@@ -409,7 +409,7 @@ class GearExperiment(AgentCAD):
                     break # We can leave this place
                 else: # Otherwise just create a motion plan
                     plan = self.plan_end_effector(target['position'], target['orientation'])
- 
+
 
                 if plan is not None:
                     cur_dist = self.get_dist(plan) # Get the distance of cur plan
@@ -419,8 +419,8 @@ class GearExperiment(AgentCAD):
                         best_dist = cur_dist # This is the current best distance
                         best_plan = plan # This is the best plan
                         # Save the display trajectory and stuff
-                        self.best_saved_traj[condition] = self.saved_traj 
-            
+                        self.best_saved_traj[condition] = self.saved_traj
+
             copy_plan = copy.deepcopy(best_plan) # Copy the plan
             self.reverse_plan(copy_plan) # Reverse the plan
             self.reset_plans[condition] = copy_plan # This is the plan to get out of here!
@@ -437,14 +437,14 @@ class GearExperiment(AgentCAD):
                 position, orientation = np.array([pose[:3]]), pose[3:]
                 rotation_mat = quaternion_matrix(orientation)[:3,:3]
                 points = np.ndarray.flatten(get_ee_points(ee_offsets, position, rotation_mat).T)
-                best_ref_ee.append(points)           
+                best_ref_ee.append(points)
 
             # Publish it so it is the last thing you see before question
-            self.publishDisplayTrajectory(self.best_saved_traj[condition]) 
+            self.publishDisplayTrajectory(self.best_saved_traj[condition])
 
             if not self.require_approval or yesno('Does this trajectory look ok?'):
                 print("this is the distance of the best one: " + str(best_dist))
-                break 
+                break
 
         if self.use_saved_traj: # If we already have one
             with open(self.pickled_traj_filename, 'r') as f: # Read from the pickled place
@@ -482,11 +482,11 @@ class GearExperiment(AgentCAD):
             # This is adding more timesteps to the last step in the segment
             new_ref_ja.extend([best_ref_ja[start_ind-1]] * self.padding)
             new_ref_ee.extend([best_ref_ee[start_ind-1]] * self.padding)
-            self.T += self.padding # Put in the padding lmao 
+            self.T += self.padding # Put in the padding lmao
         else: # Otherwise, the goal already has padding
             new_ref_ja, new_ref_ee = best_ref_ja, best_ref_ee
 	    # Initialize using the beginning part of the trajectory
-        policy.__init__(*init_pd_ref(self._hyperparams['init_traj_distr'], new_ref_ja, new_ref_ee)) 
+        policy.__init__(*init_pd_ref(self._hyperparams['init_traj_distr'], new_ref_ja, new_ref_ee))
 
         with open('pickled_robot_traj_cond' + str(condition), 'w') as f:
             pickle.dump(self.best_saved_traj[condition], f)
@@ -504,7 +504,7 @@ class GearExperiment(AgentCAD):
         return traj_info
 
     # Calculate the T depending on how much of the trajectory we are using
-    def change_T(self, condition):   
+    def change_T(self, condition):
         # Length of the trajectory
         traj_length = len(self.trajectories[condition]['ee'])
         cur_T = self.cur_T[condition] # What we have right now!!
@@ -518,12 +518,12 @@ class GearExperiment(AgentCAD):
                 self.T = the_cutoff - 30 # LOL SOME PADDING
         elif self.chosen_parts is None:
             # Changing the timesteps currently used
-            self.T = int(self.cur_frac[condition] * traj_length / self.segments) 
+            self.T = int(self.cur_frac[condition] * traj_length / self.segments)
         else:
-            self.T = self.chosen_parts[int(self.cur_frac[condition] - 1)] 
+            self.T = self.chosen_parts[int(self.cur_frac[condition] - 1)]
 
     # This is for updating the T and then the policy after we've passed a certain number
-    # of iterations! 
+    # of iterations!
     def update_T_then_policy(self, policy, condition):
         print(str(self.iter_per_seg * 5) + ' samples have passed lmao')
         self.cur_frac[condition] = self.cur_frac[condition] + 1 # Increase the current fraction of samples used
@@ -543,7 +543,7 @@ class GearExperiment(AgentCAD):
             ref_ee.extend([self.full_ref_ee[condition][self.T-1]] * self.padding)
             self.T += self.padding # If not the full trajectory, add the padding
 
-        self.cur_T[condition] = self.T # Update! 
+        self.cur_T[condition] = self.T # Update!
 
         # We're gonna change policies - initialize with the old stuff learned tho
         self.change_policy(condition, policy, ref_ja, ref_ee)
@@ -645,17 +645,10 @@ class GearExperiment(AgentCAD):
         traj_length = len(self.full_ref_ee[condition])
         # This is how long the current trajectory we're using is - self.T
         if self.T == self.final_T: # If we have gotten to the whole trajectory
-<<<<<<< HEAD
-            ref_traj = ref_traj_info['ee'] # Current reference trajectory
-        else: # Otherwise pad the reference trajectory as well
-            ref_traj = list(ref_traj_info['ee'][:self.T - self.padding])
-            ref_traj.extend([ref_traj_info['ee'][self.T-self.padding-1]] * self.padding)
-=======
             ref_traj = self.trajectories[condition]['ee'] # Current reference trajectory
         else: # Otherwise pad the reference trajectory as well
             ref_traj = self.trajectories[condition]['ee'][:self.T - self.padding]
             ref_traj.extend([self.trajectories[condition]['ee'][self.T-self.padding-1]] * self.padding)
->>>>>>> c245b97f3cb77668c74789344f57be5d7274da8a
 
         print('The length of the trajectory we are currently using is ' + str(self.T))
         print 'Sampling, condition', condition
@@ -683,7 +676,7 @@ class GearExperiment(AgentCAD):
             self.pickle_self() # Pickle self and send to data files lmaooo
             with open('iter' + str(self.iter_count) + '_cond' + str(condition) + '.txt', 'w') as f:
                 the_noise = np.zeros((self.T, self.dU))
-                f.write(str(policy_to_msg(policy, the_noise)))  
+                f.write(str(policy_to_msg(policy, the_noise)))
 
         trial_command.T = self.T
         trial_command.id = self._get_next_seq_id()
@@ -714,15 +707,15 @@ class GearExperiment(AgentCAD):
             self.saved_samples[condition].append(sample) # Save it here too just in case
         self.reset(condition) # Might as well reset for the heck of it
         return sample
-                                            
+
     # This is initializing a new policy with more timesteps using the
-    # information from the old policy! :D	 
+    # information from the old policy! :D
     def change_policy(self, condition, policy, new_ref_ja, new_ref_ee):
 
         # Save all of these because we're about to initialize with something newww
-        old_K, old_k = policy.K, policy.k 
+        old_K, old_k = policy.K, policy.k
         # This was how many timesteps there were before, not including the padding!
-        old_T = old_K.shape[0] - self.padding 
+        old_T = old_K.shape[0] - self.padding
 
         with open('old_policy.txt', 'w') as f:
             noise = np.zeros((old_K.shape[0], self.dU))
@@ -736,7 +729,7 @@ class GearExperiment(AgentCAD):
         policy.K[:old_T, :, :], policy.k[:old_T, :] = old_K[:old_T, :, :], old_k[:old_T, :]
         policy.pol_covar[:old_T, :, :], policy.chol_pol_covar[:old_T, :, :] = old_pol_covar[:old_T, :, :], old_chol_pol_covar[:old_T, :, :]
         policy.inv_pol_covar[:old_T, :, :] = old_inv_pol_covar[:old_T, :, :]
-        
+
         # Writing the new policy to a text file just so we can examine
         with open('new_policy.txt', 'w') as f:
             noise = np.zeros((self.T, self.dU))

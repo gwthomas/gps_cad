@@ -319,8 +319,9 @@ class GPSTrainingGUI(object):
             test_idx = algorithm._hyperparams['test_conditions']
             # pol_sample_lists is a list of singletons
             samples = [sl[0] for sl in pol_sample_lists]
-            pol_costs = [np.sum(algorithm.cost[idx].eval(s)[0])
-                    for s, idx in zip(samples, test_idx)]
+            # pol_costs = [np.sum(algorithm.cost[idx].eval(s)[0])
+            # why wouldn't the cost function be the same for all conditions?
+            pol_costs = [np.sum(algorithm.cost[0].eval(s)[0]) for s in samples]
             itr_data = '%3d | %8.2f %12.2f' % (itr, avg_cost, np.mean(pol_costs))
         else:
             itr_data = '%3d | %8.2f' % (itr, avg_cost)

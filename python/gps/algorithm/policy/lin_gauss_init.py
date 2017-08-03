@@ -142,7 +142,7 @@ def init_pd(hyperparams):
     return LinearGaussianPolicy(K, k, PSig, cholPSig, invPSig)
 
 
-def init_pd_ref(hyperparams, ref_ja, ref_ee):
+def init_pd_ref(hyperparams, ref_ja_pos, ref_ja_vel, ref_ee):
     """
     This function initializes the linear-Gaussian controller as a
     proportional-derivative (PD) controller with Gaussian noise. The
@@ -174,8 +174,9 @@ def init_pd_ref(hyperparams, ref_ja, ref_ee):
 
     X = np.zeros((T,32))
     for t in range(T):
-        X[t,:7] = ref_ja[t]
-        X[t,14:(14+9)] = ref_ee[t]
+        X[t,:7] = ref_ja_pos[t]
+        X[t,7:14] = ref_ja_vel[t]
+        # X[t,14:(14+9)] = ref_ee[t]
 
     k = X.dot(-K[0, :, :].T)
     PSig = config['init_var'] * np.tile(np.eye(dU), [T, 1, 1])

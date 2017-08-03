@@ -65,7 +65,7 @@
       <pose>0.75 0.25 0.6 0 -0 0</pose>
       <link name='link'>
         <inertial>
-          <mass>0.1</mass>
+          <mass>0.01</mass>
           <inertia>
             <ixx>1</ixx>
             <ixy>0</ixy>
@@ -86,7 +86,10 @@
           <surface>
             <bounce/>
             <friction>
-              <ode/>
+              <ode>
+                <mu>0.6</mu>
+                <mu2>0.6</mu2>
+              </ode>
             </friction>
             <contact>
               <ode/>
@@ -126,7 +129,10 @@
           <surface>
             <bounce/>
             <friction>
-              <ode/>
+              <ode>
+                <mu>0.6</mu>
+                <mu2>0.6</mu2>
+              </ode>
             </friction>
             <contact>
               <ode/>
@@ -152,13 +158,9 @@
       <static>0</static>
     </model>
     <physics type='ode'>
-<<<<<<< HEAD
-      <max_step_size>0.0025</max_step_size>
-=======
       <max_step_size>0.001</max_step_size>
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
       <real_time_factor>1</real_time_factor>
-      <real_time_update_rate>0.0</real_time_update_rate>
+      <real_time_update_rate>1000.0</real_time_update_rate>
       <gravity>0 0 -9.8</gravity>
     </physics>
     <scene>

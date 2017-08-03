@@ -1,3 +1,4 @@
+import copy
 import pdb
 import time
 import get_plan
@@ -44,11 +45,12 @@ from gps.proto.gps_pb2 import JOINT_ANGLES, END_EFFECTOR_POINTS, \
         END_EFFECTOR_POINT_JACOBIANS, REF_OFFSETS, REF_TRAJ
 
 class AgentCADExperiment(AgentCAD):
-    def __init__(self, hyperparams, init_node=True):
+    def __init__(self, hyperparams, init_node=True, trace=True):
+        self.fixed_pose = Pose(Point(0.5, -0.1628, 0.5), Quaternion(0.5, -0.5, -0.5, 0.5))
+        with open('/home/gwthomas/.gazebo/models/piece/model-static.sdf', 'r') as f:
+            self.piece_xml = f.read()
+
         AgentCAD.__init__(self, hyperparams, init_node)
-<<<<<<< HEAD
-        self.attempts = 20 # Make 20 plans 
-        self.use_saved_traj = None # Any saved trajectory??/
         self.ar = {'held_piece': 0, 'fixed_piece': 1} # Number of AR tag they have on them
 
         # Create the functions with the proper offsets and whatever
@@ -58,10 +60,14 @@ class AgentCADExperiment(AgentCAD):
         self.ar_functions[self.ar['fixed_piece']] = self.create_AR_function( \
             self.ar['fixed_piece'], 0, -0.025, -0.0325, 0, 0, 0)
 
-=======
-        self.attempts = 70 # Make 70 plans 
->>>>>>> c245b97f3cb77668c74789344f57be5d7274da8a
-        pdb.set_trace()     # for optional setup, not debugging
+        if trace:
+            pdb.set_trace()     # for optional setup, not debugging
+
+    def all_resets(self, repetitions=1):
+        conditions = self._hyperparams['conditions']
+        for _ in range(repetitions):
+            for i in range(conditions):
+                self.reset(i)
 
     def setup(self):
         self.configure_scene()
@@ -79,6 +85,9 @@ class AgentCADExperiment(AgentCAD):
             z = 0.72 # Ehh just some random height
         else:
             z = table_pose.position.z # Otherwise get the z coordinate
+
+        self.reset_held_piece()
+
         print 'Adding objects to planning scene'
         # self.add_object('table', position=[0.75,0.,0.42], size=[0.9,1.5,0.03], type='box')
         self.add_object('table', position=[0.8,0.,z], size=[0.7,1.5,0.03], type='box')
@@ -93,10 +102,19 @@ class AgentCADExperiment(AgentCAD):
                     filename=self._hyperparams['cad_path'])
         self.change_goal() # Change the goal depending on where the goal piece is lmao
 
-    def reset_piece(self):
+    def reset_held_piece(self):
+        print 'Resetting held piece'
         quat = Quaternion(*quaternion_from_euler(1.57971, 0.002477, 3.11933))
         pose = Pose(Point(0.841529, 0.209424, 0.501394), quat)
         self.set_pose('held_piece', pose)
+
+    def reset(self, condition):
+        try:
+            self.delete_model('fixed_piece')
+        except:
+            pass
+        AgentCAD.reset(self, condition)
+        self.spawn_model('fixed_piece', self.piece_xml, self.fixed_pose)
 
     def grasp_prep(self):
         self.use_controller('MoveIt')
@@ -117,7 +135,6 @@ class AgentCADExperiment(AgentCAD):
     def grasp(self):
         self.grip(None)
         time.sleep(5)
-<<<<<<< HEAD
         self.attach('held_piece', touch_links=['l_gripper_l_finger_tip_link', 'l_gripper_r_finger_tip_link', \
             'l_gripper_r_finger_link', 'l_gripper_l_finger_link'])
 
@@ -136,83 +153,14 @@ class AgentCADExperiment(AgentCAD):
             orientation=listify(pose.orientation),
             size=(0.045,0.045,0.02286),
             filename=self._hyperparams['cad_path'])
-=======
-        self.attach('held_piece', touch_links=['l_gripper_l_finger_tip_link', 'l_gripper_r_finger_tip_link'])
->>>>>>> c245b97f3cb77668c74789344f57be5d7274da8a
 
         # Calculate where the hand should be compared to the block
         new_pos = [posi.x, posi.y + 0.28018, posi.z + 0.055]
 
-        # For as many conditions there are 
+        # For as many conditions there are
         for i in range(self._hyperparams['conditions']):
             self._hyperparams['targets'][i]['position'] = new_pos
             print("This is the new position " + str(new_pos))
-
-    # Override so we make multiple plans and then choose one with best
-    def compute_reference_trajectory(self, condition, policy):
-        self.reset(condition)
-        target = self._hyperparams['targets'][condition]
-        best_ref_ee = None # HAHAHAHAHA to store the best one
-        best_ref_ja = None # HAHAHAHAHA to store the best one
-        best_dist = float("inf") # Infinity itself
-
-        while True:
-            for attempt in range(self.attempts): # Let's do asked attempts on plan
-                if self.use_saved_traj: # If there is a plan to read
-                    best_plan = self.load_plan(self.plan_filename)
-                    best_dist = self.get_dist(best_plan) # Best plan!
-                    break # We can leave this place
-                else: # Otherwise just create a motion plan
-                    plan = self.plan_end_effector(target['position'], target['orientation'])
- 
-
-                if plan is not None:
-                    cur_dist = self.get_dist(plan) # Get the distance of cur plan
-                    #self.dists.append(cur_dist)
-                    # If it beats it we need to use it! Woah!
-                    if cur_dist < best_dist:
-                        best_dist = cur_dist # This is the current best distance
-                        best_plan = plan # This is the best plan
-                        # Save the display trajectory and stuff
-                        self.best_saved_traj[condition] = self.saved_traj 
-
-            self.edit_plan_if_necessary(best_plan) # Edit the plan if we have a diff end
-            # Only continue on with these calculations if necessary
-            plan_joints = [np.array(point.positions) for point in best_plan.joint_trajectory.points]
-            best_ref_ja = interpolate(plan_joints, self.T_interpolation)
-            best_ref_ja.extend([best_ref_ja[-1]] * (self.T - self.T_interpolation))
-            ref_poses = self.forward_kinematics(best_ref_ja, 'torso_lift_link')
-            best_ref_ee = []
-            ee_offsets = self._hyperparams['end_effector_points']
-
-            for pose in ref_poses:
-                position, orientation = np.array([pose[:3]]), pose[3:]
-                rotation_mat = quaternion_matrix(orientation)[:3,:3]
-                points = np.ndarray.flatten(get_ee_points(ee_offsets, position, rotation_mat).T)
-                best_ref_ee.append(points)     
-
-            # Publish it so it is the last thing you see before question
-            self.publishDisplayTrajectory(self.best_saved_traj[condition]) 
-
-            if not self.require_approval or yesno('Does this trajectory look ok?'):
-                print("this is the distance of the best one: " + str(best_dist))
-                break 
-
-        policy.__init__(*init_pd_ref(self._hyperparams['init_traj_distr'], best_ref_ja, best_ref_ee))
-
-        with open('pickled_robot_traj_cond' + str(condition), 'w') as f:
-            pickle.dump(self.best_saved_traj[condition], f)
-
-        ref_offsets = np.array(best_ref_ee) - best_ref_ee[-1]
-
-        traj_info = {
-            'ja': np.array(best_ref_ja),
-            'ee': np.array(best_ref_ee),
-            'offsets': ref_offsets,
-            'flattened': ref_offsets.flatten()
-        }
-        self.trajectories[condition] = traj_info
-
 
     def move_to(self, pos_x, pos_y, pos_z, orient_x, orient_y, orient_z):
         self.use_controller('MoveIt')
@@ -220,44 +168,3 @@ class AgentCADExperiment(AgentCAD):
         target_pose = [orient_x, orient_y, orient_z]
         init_plan = self.plan_end_effector(target_position, target_pose)
         self.group.execute(init_plan)
-
-<<<<<<< HEAD
-    # Also override LMAOOOOOOO
-    def plan(self, use_plan=None):
-        # If already given a plan, just return it
-        if use_plan is not None:
-                return use_plan
-        used_time = 0 # We'll give them a total of 60 seconds
-        for time in self.planning_schedule:
-            print 'Planning with {} seconds'.format(time)
-            used_time += time # Increment the time used
-            self.group.set_planning_time(time)
-            plan = self.group.plan()
-            if len(plan.joint_trajectory.points) > 0:
-                print 'Success!'
-                dist = self.get_dist(plan) # Get the distance of the plan
-                print('The distance was ' + str(dist) + '\n')
-                return plan
-            else:
-                print 'Failed.'.format(time)
-        if self.indefatigable:
-            print 'Failed to find a valid plan under the given schedule, but trying again'
-            time = 1
-            while used_time <= 80:
-                print 'Planning with {} seconds'.format(time)
-                self.group.set_planning_time(time)
-                plan = self.group.plan()
-                if len(plan.joint_trajectory.points) > 0:
-                    print 'Success!'
-                    dist = self.get_dist(plan) # Get the distance of the plan
-                    print('The distance was ' + str(dist) + '\n')
-                    return plan
-                else:
-                    print 'Failed.'.format(time)
-                used_time += time
-                time *= 2
-        else:
-                return None
-        return None
-=======
->>>>>>> c245b97f3cb77668c74789344f57be5d7274da8a

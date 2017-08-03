@@ -13,6 +13,7 @@ class Agent(object):
     collect samples.
     """
     __metaclass__ = abc.ABCMeta
+    _unpickleables = ['_hyperparams', '_samples']
 
     def __init__(self, hyperparams):
         config = copy.deepcopy(AGENT)
@@ -281,3 +282,19 @@ class Agent(object):
             index[axes[i]] = slice(self._x_data_idx[data_types[i]][0],
                                    self._x_data_idx[data_types[i]][-1] + 1)
         return existing_mat[index]
+
+    # For pickling.
+    def __getstate__(self):
+        state = self.__dict__.copy()
+        for name in self._unpickleables:
+            if name in state:
+                state.pop(name)
+            else:
+                print 'WARNING: unpickleable property {} not found'.format(name)
+        return state
+
+    # For unpickling.
+    def __setstate__(self, state):
+        self.__dict__ = state
+        for name in self._unpickleables:
+            self.__dict__[name] = None

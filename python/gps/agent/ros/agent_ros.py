@@ -19,12 +19,21 @@ except ImportError:  # user does not have tf installed.
     TfPolicy = None
 
 
-
 class AgentROS(Agent):
     """
     All communication between the algorithms and ROS is done through
     this class.
     """
+
+    _unpickleables = Agent._unpickleables + [
+            '_trial_service',
+            '_reset_service',
+            '_relax_service',
+            '_data_service',
+            '_pub',
+            '_sub'
+    ]
+
     def __init__(self, hyperparams, init_node=True):
         """
         Initialize agent.
@@ -193,36 +202,6 @@ class AgentROS(Agent):
             if save:
                 self._samples[condition].append(sample)
             return sample
-
-
-    def run_trial_tf(self, policy, condition, time_to_run=5):
-        """ Run an async controller from a policy. The async controller receives observations from ROS subscribers
-         and then uses them to publish actions."""
-        import copy
-        should_stop = False
-        consecutive_failures = 0
-        start_time = time.time()
-        while should_stop is False:
-            if self.observations_stale is False:
-                consecutive_failures = 0
-                last_obs = self._get_obs(self._tf_subscriber_msg, condition)
-                action_msg = tf_policy_to_action_msg(self.dU,
-                                                     self._get_new_action(policy, last_obs),
-                                                     self.current_action_id)
-                self._tf_publish(action_msg)
-                self.observations_stale = True
-                self.current_action_id += 1
-            else:
-                rospy.sleep(0.01)
-                consecutive_failures += 1
-                if time.time() - start_time > time_to_run or \
-                        (self.current_action_id > self.T and consecutive_failures > 25):
-                    should_stop = True
-        while self._trial_service._waiting:
-            print 'Waiting for trial to come in', i
-            rospy.sleep(0.25)
-        result = self._trial_service._subscriber_msg
-        return result  # the trial has completed. Here is its message.
 
     def _get_obs(self, msg, condition):
         return tf_obs_msg_to_numpy(msg)

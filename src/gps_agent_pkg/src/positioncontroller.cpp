@@ -175,4 +175,3 @@ void PositionController::reset(ros::Time time)
     // Clear update time.
     last_update_time_ = ros::Time(0.0);
 }
-
