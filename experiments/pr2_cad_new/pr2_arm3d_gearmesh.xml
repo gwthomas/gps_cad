@@ -1,0 +1,219 @@
+<mujoco model="arm3d">
+  <compiler inertiafromgeom="true" angle="radian" coordinate="local" meshdir="gears/"/>
+  <option timestep="0.01" eqsoft="true" remotecontact="true" gravity="0 0 0" iterations='20'/>
+  <default>
+    <joint armature='0.04' damping="1" islimited="true" makeactuator="true"/>
+    <geom friction=".5 .1 .1" mindist="0.002" compliance="0.001" timeconst="0.001" condim="1" contype="0" conaffinity="0"/>
+  </default>
+
+
+  <body>
+    <body name="r_shoulder_pan_link" pos="0 -0.188 0">
+      
+      <geom name="sp" type="capsule" fromto="0 0 -0.4 0 0 0.2" size="0.1"/>
+      
+      <joint name="r_shoulder_pan_joint" type="hinge" pos="0 0 0" axis="0 0 1" range="-2.2854 1.714602" damping="10.0" maxvel="2.088" />
+
+      <body name="r_shoulder_lift_link" pos="0.1 0 0">
+
+        <geom name="sl" type="capsule" fromto="0 -0.1 0 0 0.1 0" size="0.1"/>
+        
+        <joint name="r_shoulder_lift_joint" type="hinge" pos="0 0 0" axis="0 1 0" range="-0.5236 1.3963" damping="10.0" maxvel="2.082" />
+
+        <body name="r_upper_arm_roll_link" pos="0 0 0">
+
+          <geom name="uar" type="capsule" fromto="-0.1 0 0 0.1 0 0" size="0.02"/>
+          
+          <joint name="r_upper_arm_roll_joint" type="hinge" pos="0 0 0" axis="1 0 0" range="-3.9 0.8" damping="0.1" maxvel="3.27" />
+
+          <body name="r_upper_arm_link" pos="0 0 0">
+            
+            <geom name="ua" type="capsule" fromto="0 0 0 0.4 0 0" size="0.06"/>
+            
+            <body name="r_elbow_flex_link" pos="0.4 0 0">
+              
+              <geom name="ef" type="capsule" fromto="0 -0.02 0 0.0 0.02 0" size="0.06"/>
+              
+              <joint name="r_elbow_flex_joint" type="hinge" pos="0 0 0" axis="0 1 0" range="-2.3213 0" damping="1.0" maxvel="3.3" />
+
+              <body name="r_forearm_roll_link" pos="0 0 0">
+
+                <geom name="fr" type="capsule" fromto="-0.1 0 0 0.1 0 0" size="0.02"/>
+                
+                <joint name="r_forearm_roll_joint" type="hinge" islimited="false" pos="0 0 0" axis="1 0 0" damping=".1" maxvel="3.6" />
+                
+                <body name="r_forearm_link" pos="0 0 0">
+
+                  <geom name="fa" type="capsule" fromto="0 0 0 0.321 0 0" size="0.05"/>
+                  
+                  <body name="r_wrist_flex_link" pos="0.321 0 0">
+
+                    <geom name="wf" type="capsule" fromto="0 -0.02 0 0 0.02 0" size="0.01"/>
+                    
+                    <joint name="r_wrist_flex_joint" type="hinge" pos="0 0 0" axis="0 1 0" range="-2.094 0" damping=".1" maxvel="3.078" />
+
+                    <body name="r_wrist_roll_link" pos="0 0 0">
+
+                      <geom name="wr" type="capsule" fromto="-0.02 0 0 0.02 0 0" size="0.01"/>
+                      
+                      <joint name="r_wrist_roll_joint" type="hinge" pos="0 0 0" islimited="false" axis="1 0 0" damping="0.1" maxvel="3.6" />
+
+                      <body name="r_gripper_palm_link" pos="0 0 0">
+
+                        <geom name="pl" type="capsule" fromto="0.05 0 -0.02 0.05 0 0.02" size="0.05"/>
+
+                        <body name="r_gripper_tool_frame" pos="0.18 0 0">
+                            <site name="leg_middle" pos="0 0 0"/>
+                            <site name="leg_bottom" pos="0 0 -0.05"/>
+                            <site name="leg_top" pos="0 0 0.05"/>
+                          <!--<site name="leg_bottom" pos="-0.05 0 0"/>
+                          <site name="leg_top" pos="0.05 0 0"/>
+                          <site name="leg_middle" pos="0 0.05 0"/>!-->
+                              <body name="gear2_1" pos="0 0 0">
+                                  <!--<joint name="head_tilt_joint" type="hinge" islimited="true" pos="0 0 0" axis="0 1 0" range="-0.471238 1.39626" maxvel="5" />!-->
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part1.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part2.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part3.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part4.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part5.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part6.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part7.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part8.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part9.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part10.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part11.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part12.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part13.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part14.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part15.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part16.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part17.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part18.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part19.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part20.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part21.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part22.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part23.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part24.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part25.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part26.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part27.stl"/>
+                                  <mesh contype="2" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part28.stl"/>
+                              </body>
+                          <!--<body name="ball" pos="0 0 0">
+                            <geom name="ball_geom" rgba="0.8 0.6 0.6 1" type="box" size="0.1 0.01 0.15" contype="2" conaffinity="1"/>
+                            <geom name="ball_geom" rgba="0.8 0.6 0.6 1" type="cylinder" fromto="0 0 -0.215 0 0 0.215" size="0.028" density="2000" contype="2" conaffinity="1"/>!-->
+                            <!--
+                            <joint name="ball_rx" islimited="false" type="hinge" pos="0 0 0" axis="1 0 0"/>
+                            <joint name="ball_ry" islimited="false" type="hinge" pos="0 0 0" axis="0 1 0"/>
+                            <joint name="ball_rz" islimited="false" type="hinge" pos="0 0 0" axis="0 0 1"/>
+                            <joint name="ball_x" islimited="false" type="slide" pos="0 0 0" axis="1 0 0"/>
+                            <joint name="ball_y" islimited="false" type="slide" pos="0 0 0" axis="0 1 0"/>
+                            <joint name="ball_z" islimited="false" type="slide" pos="0 0 0" axis="0 0 1"/>
+                            
+                          </body>
+                          <body name="ball2" pos="0.15 0 0.1">
+                                <geom name="ball_geom2" rgba="0.8 0.6 0.6 1" type="box" size="0.05 0.01 0.05" contype="2" conaffinity="1"/>
+                          </body>
+                          <body name="ball3" pos="0.15 0 -0.1">
+                                <geom name="ball_geom3" rgba="0.8 0.6 0.6 1" type="box" size="0.05 0.01 0.05" contype="2" conaffinity="1"/>
+                          </body>
+                          <body name="ball4" pos="0.3 0 0">
+                                <geom name="ball_geom4" rgba="0.8 0.6 0.6 1" type="box" size="0.1 0.01 0.15" contype="2" conaffinity="1"/>
+                          </body>!-->
+                        </body>
+
+                        <body name="r_gripper_l_finger_link" pos="0.07691 0.01 0">
+
+                          <geom name="gf3" type="capsule" fromto="0 0 0 0.09137 0.00495 0" size="0.01"/>
+                          
+                          <joint name="r_gripper_l_finger_joint" type="hinge" pos="0 0 0" axis="0 0 1" range="0 0.548" damping="0.2" maxvel="0.5" />
+
+                          <body name="r_gripper_l_finger_tip_link" pos="0.09137 0.00495 0">
+
+                            <geom name="gf4" type="capsule" fromto="0 0 0 0.09137 0.0 0" size="0.01"/>
+                            
+                            <joint name="r_gripper_l_finger_tip_joint" type="hinge" pos="0 0 0" axis="0 0 -1" range="0 0.548" damping="0.01" maxvel="0.5" />
+                            
+                          </body>
+                        </body>
+
+                        <body name="r_gripper_r_finger_link" pos="0.07691 -0.01 0">
+
+                          <geom name="gf1" type="capsule" fromto="0 0 0 0.09137 -0.00495 0" size="0.01"/>
+                          
+                          <joint name="r_gripper_r_finger_joint" type="hinge" pos="0 0 0" axis="0 0 -1" range="0 0.548" damping="0.2" maxvel="0.5" />
+
+                          <body name="r_gripper_r_finger_tip_link" pos="0.09137 -0.00495 0">
+
+                            <geom name="gf2" type="capsule" fromto="0 0 0 0.09137 0.0 0" size="0.01"/>
+                            
+                            <joint name="r_gripper_r_finger_tip_joint" type="hinge" pos="0 0 0" axis="0 0 1" range="0 0.548" damping="0.01" maxvel="0.5" />
+                            
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    <body name="gear_shaft" pos="-0.11 0.41 -0.55">
+        <geom type="capsule" fromto="0 0 0.2  0 0 0" density="20" size="0.016" contype="1" conaffinity="1"/>
+    </body>
+    <body name="gear2_2" pos="-0.27 0.41 -0.36">
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part1.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part2.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part3.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part4.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part5.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part6.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part7.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part8.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part9.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part10.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part11.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part12.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part13.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part14.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part15.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part16.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part17.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part18.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part19.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part20.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part21.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part22.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part23.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part24.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part25.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part26.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part27.stl"/>
+        <mesh contype="1" conaffinity="1" group="1" rgba="0 0.8 0 1" pos="0 0 0" file="Part28.stl"/>
+    </body>
+</body>
+
+  <features>
+    <feature name='control'>
+      <data field='ctrl' item='all'/>
+    </feature>
+  </features>
+  <costs>
+
+    <physics_options  timestep='0.01'/>
+
+    <optimization_options
+        logeps='-30'
+        horizon='400'
+        logmurange='-5 3'
+        />
+
+    <cost name='dummy'>
+      <term feature='control'       norm='quadratic'    coef_running='.1' />
+    </cost>
+  </costs>
+</mujoco>

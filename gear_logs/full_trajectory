@@ -1,0 +1,17 @@
+Log of how successful the gear experiments were (using full trajectory)
+
+Gear_experiment_1
+(Learned pretty shaky dynamics, a lot of wildly waving....)
+Iteration 10: 2 / 5 
+Iteration 11: 3 / 5
+Iteration 12: 4 / 5
+Iteration 13: 4 / 5
+Left it running - was a lot less shaky except for the beginning of the trajectory (kind of by iteration 28)
+Iteration 30: 4 / 5
+
+Gear_experiment_2
+Cost has gone pretty steadily down from iterations 0-9 but still stuck in a local minima
+Around iteration 10 begins to be able to put the gear on the pole
+Iteration 11: 4 / 5
+Iteration 12: 5 / 5
+Iteration 14: 5 / 5

@@ -1,0 +1,10 @@
+
+
+exp_name:   my_experiment_07-21-17_11-56
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 1
+samples:    5
+

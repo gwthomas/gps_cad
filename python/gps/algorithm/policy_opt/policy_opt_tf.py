@@ -148,11 +148,7 @@ class PolicyOptTf(PolicyOpt):
         # Assuming that N*T >= self.batch_size.
         batches_per_epoch = np.floor(N*T / self.batch_size)
         idx = range(N*T)
-<<<<<<< HEAD
-        average_loss = 0
-=======
         total_loss = 0
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
         np.random.shuffle(idx)
 
         if self._hyperparams['fc_only_iterations'] > 0:
@@ -167,15 +163,7 @@ class PolicyOptTf(PolicyOpt):
                              self.action_tensor: tgt_mu[idx_i],
                              self.precision_tensor: tgt_prc[idx_i]}
                 train_loss = self.solver(feed_dict, self.sess, device_string=self.device_string, use_fc_solver=True)
-<<<<<<< HEAD
-                average_loss += train_loss
 
-                if (i+1) % 500 == 0:
-                    LOGGER.info('tensorflow iteration %d, average loss %f',
-                                    i+1, average_loss / 500)
-                    average_loss = 0
-            average_loss = 0
-=======
                 total_loss += train_loss
 
                 if (i+1) % 500 == 0:
@@ -183,7 +171,6 @@ class PolicyOptTf(PolicyOpt):
                                     i+1, total_loss / 500)
                     total_loss = 0
             total_loss = 0
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 
         # actual training.
         for i in range(self._hyperparams['iterations']):
@@ -196,20 +183,12 @@ class PolicyOptTf(PolicyOpt):
                          self.precision_tensor: tgt_prc[idx_i]}
             train_loss = self.solver(feed_dict, self.sess, device_string=self.device_string)
 
-<<<<<<< HEAD
-            average_loss += train_loss
-            if (i+1) % 50 == 0:
-                LOGGER.info('tensorflow iteration %d, average loss %f',
-                             i+1, average_loss / 50)
-                average_loss = 0
-=======
             total_loss += train_loss
             if (i+1) % 500 == 0:
                 LOGGER.info('tensorflow iteration %d, average loss %f',
                              i+1, total_loss / 50)
                 print 'TF iteration', i+1, '\taverage loss', total_loss / 500
                 total_loss = 0
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 
         feed_dict = {self.obs_tensor: obs}
         num_values = obs.shape[0]
@@ -306,7 +285,3 @@ class PolicyOptTf(PolicyOpt):
             f.write(state['wts'])
             f.seek(0)
             self.restore_model(f.name)
-<<<<<<< HEAD
-
-=======
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec

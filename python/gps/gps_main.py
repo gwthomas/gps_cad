@@ -13,6 +13,8 @@ import argparse
 import threading
 import time
 import traceback
+import pdb
+import pickle
 
 # Add gps/python to path so that imports work.
 sys.path.append('/'.join(str.split(__file__, '/')[:-2]))
@@ -30,9 +32,12 @@ class GPSMain(object):
             config: Hyperparameters for experiment
             quit_on_end: When true, quit automatically on completion
         """
+        self.special_reset = True # L M A O
         self._quit_on_end = quit_on_end
         self._hyperparams = config
         self._conditions = config['common']['conditions']
+        # There's gonna be as many reset conditions as conditions l m a o 
+        self._reset_conditions = self._conditions # Heh 
         if 'train_conditions' in config['common']:
             self._train_idx = config['common']['train_conditions']
             self._test_idx = config['common']['test_conditions']
@@ -50,6 +55,8 @@ class GPSMain(object):
 
         config['algorithm']['agent'] = self.agent
         self.algorithm = config['algorithm']['type'](config['algorithm'])
+        # Gonna make the algorithm for the reset ones as well
+        self.reset_algorithm = config['algorithm']['type'](config['algorithm'])
 
     def run(self, itr_load=None):
         """
@@ -66,13 +73,25 @@ class GPSMain(object):
                 for cond in self._train_idx:
                     for i in range(self._hyperparams['num_samples']):
                         self._take_sample(itr, cond, i)
+                        if self.special_reset: # If there is a special reset 
+                            # Take a special sample
+                            self._take_sample(itr, cond, i, reset=True)
 
                 traj_sample_lists = [
                     self.agent.get_samples(cond, -self._hyperparams['num_samples'])
                     for cond in self._train_idx
                 ]
+                if self.special_reset: # Again, if there is a special reset
+                    reset_traj_sample_lists = [
+                    self.agent.get_reset_samples(cond, -self._hyperparams['num_samples'])
+                    for cond in self._train_idx
+                    ]
+                    self._take_iteration(itr, reset_traj_sample_lists)
+                    reset_pol_sample_lists = self._take_reset_policy_samples()
+                    ##### PROBABLY NEED TO LOG THE DATA TOO BUT OH WELL
 
-                # Clear agent samples.
+
+                # Clear agent samples. (Including the reset ones lmao)
                 self.agent.clear_samples()
 
                 self._take_iteration(itr, traj_sample_lists)
@@ -147,7 +166,8 @@ class GPSMain(object):
                     'Press \'go\' to begin.') % itr_load)
             return itr_load + 1
 
-    def _take_sample(self, itr, cond, i):
+    # The reset is if this sample is a reset sample
+    def _take_sample(self, itr, cond, i, reset=False):
         """
         Collect a sample from the agent.
         Args:
@@ -158,9 +178,16 @@ class GPSMain(object):
         """
         if self.algorithm._hyperparams['sample_on_policy'] \
                 and self.algorithm.iteration_count > 0:
-            pol = self.algorithm.policy_opt.policy
+            # Use the reset algorithm policy if this is a reset sample
+            if reset:
+                pol = self.reset_algorithm.policy_opt.policy
+            else: # Otherwise we are gonna use the primary algorithm
+                pol = self.algorithm.policy_opt.policy
         else:
-            pol = self.algorithm.cur[cond].traj_distr
+            if reset:
+                pol = self.reset_algorithm.cur[cond].traj_distr
+            else:
+                pol = self.algorithm.cur[cond].traj_distr
         if self.gui:
             self.gui.set_image_overlays(cond)   # Must call for each new cond.
             redo = True
@@ -178,15 +205,20 @@ class GPSMain(object):
                     elif self.gui.request == 'fail':
                         self.gui.err_msg = 'Cannot fail before sampling.'
                     self.gui.process_mode()  # Complete request.
-
-                self.gui.set_status_text(
-                    'Sampling: iteration %d, condition %d, sample %d.' %
-                    (itr, cond, i)
+                if reset: # If we are doing a reset one
+                    self.gui.set_status_text(
+                        'Sampling reset: iteration %d, condition %d, sample %d.' %
+                        (itr, cond, i)
+                    )
+                else: # Otherwise this is a normal sample or something
+                    self.gui.set_status_text(
+                        'Sampling: iteration %d, condition %d, sample %d.' %
+                        (itr, cond, i)
                 )
-                self.agent.sample(
-                    pol, cond,
-                    verbose=(i < self._hyperparams['verbose_trials'])
-                )
+                if reset:
+                    self.agent.reset_time = True # Set the agent reset_time to true lmao
+                    # Then it will be a special sample hahaha
+                self.agent.sample(pol, cond, verbose=(i < self._hyperparams['verbose_trials']))
 
                 if self.gui.mode == 'request' and self.gui.request == 'fail':
                     redo = True
@@ -195,10 +227,17 @@ class GPSMain(object):
                 else:
                     redo = False
         else:
-            self.agent.sample(
+            # If reset is true something I dunno.... T_T
+            if reset:
+                self.agent.sample(
                 pol, cond,
-                verbose=(i < self._hyperparams['verbose_trials'])
-            )
+                verbose=(i < self._hyperparams['verbose_trials']), reset=True
+                )
+            else: 
+                self.agent.sample(
+                    pol, cond,
+                    verbose=(i < self._hyperparams['verbose_trials'])
+                )
 
     def _take_iteration(self, itr, sample_lists):
         """
@@ -234,6 +273,31 @@ class GPSMain(object):
         for cond in range(len(self._test_idx)):
             pol_samples[cond][0] = self.agent.sample(
                 self.algorithm.policy_opt.policy, self._test_idx[cond],
+                verbose=verbose, save=False, noisy=False)
+        return [SampleList(samples) for samples in pol_samples]
+
+    # This is basically the same thing as the take policy samples method
+    # but with the reset algorithm instead lmao
+    def _take_reset_policy_samples(self, N=None):
+        """
+        Take samples from the policy to see how it's doing.
+        Args:
+            N  : number of policy samples to take per condition
+        Returns: None
+        """
+        if 'verbose_policy_trials' not in self._hyperparams:
+            # AlgorithmTrajOpt
+            return None
+        verbose = self._hyperparams['verbose_policy_trials']
+        if self.gui:
+            self.gui.set_status_text('Taking reset policy samples.')
+        pol_samples = [[None] for _ in range(len(self._test_idx))]
+        # Since this isn't noisy, just take one sample.
+        # TODO: Make this noisy? Add hyperparam?
+        # TODO: Take at all conditions for GUI?
+        for cond in range(len(self._test_idx)):
+            pol_samples[cond][0] = self.agent.sample(
+                self.reset_algorithm.policy_opt.policy, self._test_idx[cond],
                 verbose=verbose, save=False, noisy=False)
         return [SampleList(samples) for samples in pol_samples]
 
@@ -278,6 +342,12 @@ class GPSMain(object):
                 # Quit automatically (for running sequential expts)
                 os._exit(1)
 
+def unpickle_agent(pathway, itr):
+    pickle_filename = pathway + 'agent_itr_' + str(itr) + '.pkl'
+    with open(pickle_filename, 'r') as f: # Read to this pickled place
+        gear_thing = pickle.load(f) # Read the pickled thing
+        return gear_thing
+
 def main():
     """ Main function to be run. """
     parser = argparse.ArgumentParser(description='Run the Guided Policy Search algorithm.')
@@ -306,7 +376,6 @@ def main():
     gps_dir = '/'.join(str.split(gps_filepath, '/')[:-3]) + '/'
     exp_dir = gps_dir + 'experiments/' + exp_name + '/'
     hyperparams_file = exp_dir + 'hyperparams.py'
-
     if args.silent:
         logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
     else:
@@ -352,6 +421,9 @@ def main():
             from gps.agent.ros.agent_ros import AgentROS
             from gps.gui.target_setup_gui import TargetSetupGUI
 
+            # If we want to start halfway and stuff
+            if resume_training_itr is not None:
+                hyperparams.agent.update({'resume_itr': resume_training_itr})
             agent = AgentROS(hyperparams.config['agent'])
             TargetSetupGUI(hyperparams.config['common'], agent)
 
@@ -396,7 +468,12 @@ def main():
         random.seed(seed)
         np.random.seed(seed)
 
+        # If we want to start halfway and stuff
+        if resume_training_itr is not None:
+            hyperparams.agent.update({'resume_itr': resume_training_itr})
+
         gps = GPSMain(hyperparams.config, args.quit)
+
         if hyperparams.config['gui_on']:
             run_gps = threading.Thread(
                 target=lambda: gps.run(itr_load=resume_training_itr)

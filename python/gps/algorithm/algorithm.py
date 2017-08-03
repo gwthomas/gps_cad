@@ -3,10 +3,7 @@
 import abc
 import copy
 import logging
-<<<<<<< HEAD
 import pdb
-=======
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 
 import random
 import numpy as np
@@ -131,23 +128,15 @@ class Algorithm(object):
                     self.traj_opt.update(cond, self)
 
     def _eval_cost(self, cond):
-<<<<<<< HEAD
 	print('This is T ' + str(self.T))
-=======
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
         """
         Evaluate costs for all samples for a condition.
         Args:
             cond: Condition to evaluate cost on.
         """
-<<<<<<< HEAD
-	T = self.cur[cond].sample_list[0].get_X().shape[0]
+        T = self.cur[cond].sample_list[0].get_X().shape[0]
         # Constants.
         dX, dU = self.dX, self.dU
-=======
-        # Constants.
-        T, dX, dU = self.T, self.dX, self.dU
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
         N = len(self.cur[cond].sample_list)
 
         # Compute cost.
@@ -234,11 +223,7 @@ class Algorithm(object):
     def _measure_ent(self, m):
         """ Measure the entropy of the current trajectory. """
         ent = 0
-<<<<<<< HEAD
         for t in range(self.cur[m].traj_distr.chol_pol_covar.shape[0]):
-=======
-        for t in range(self.T):
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
             ent = ent + np.sum(
                 np.log(np.diag(self.cur[m].traj_distr.chol_pol_covar[t, :, :]))
             )

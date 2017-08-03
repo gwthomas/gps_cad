@@ -15676,3 +15676,63 @@ itr | avg_cost |   cost     step   entropy
  12 |   -47.35 |   -47.35     1.25 -3042.47
  13 |   -53.95 |   -53.95     0.61 -3240.80
  14 |   -58.36 |   -58.36     0.46 -3361.88
+
+
+exp_name:   my_experiment_06-27-17_15-31
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostFKT, CostAction)
+iterations: 50
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_06-27-17_15-34
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostFKT, CostAction)
+iterations: 50
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_06-27-17_15-36
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostFKT, CostAction)
+iterations: 50
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_06-27-17_15-38
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostFKT, CostAction)
+iterations: 50
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_06-27-17_15-39
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostFKT, CostAction)
+iterations: 50
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_06-27-17_15-44
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostFKT, CostAction)
+iterations: 50
+conditions: 1
+samples:    5
+

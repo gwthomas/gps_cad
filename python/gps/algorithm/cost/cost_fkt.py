@@ -1,17 +1,13 @@
 """ This file defines the forward kinematics cost function. """
 import copy
-
+import pdb
 import numpy as np
 
 from gps.algorithm.cost.config import COST_FK
 from gps.algorithm.cost.cost import Cost
 from gps.algorithm.cost.cost_utils import get_ramp_multiplier
 from gps.proto.gps_pb2 import JOINT_ANGLES, END_EFFECTOR_POINTS, \
-<<<<<<< HEAD
-        END_EFFECTOR_POINT_JACOBIANS
-=======
         END_EFFECTOR_POINT_JACOBIANS, REF_OFFSETS
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
 
 
 class CostFKT(Cost):
@@ -52,11 +48,7 @@ class CostFKT(Cost):
         lux = np.zeros((T, dU, dX))
 
         # Choose target.
-<<<<<<< HEAD
-        tgt = sample.get('target_traj_ee_points')
-=======
         tgt = sample.get(REF_OFFSETS)
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
         pt = sample.get(END_EFFECTOR_POINTS)
         dist = pt - tgt
         # TODO - These should be partially zeros so we're not double

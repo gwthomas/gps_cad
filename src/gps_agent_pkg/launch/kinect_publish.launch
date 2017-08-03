@@ -1,12 +1,12 @@
 <launch>
-    <arg name="kinect_camera" default="camera"/>
+    <arg name="kinect_camera" default="head_mount_kinect_5"/>
 
      <param name="camera/driver/image_mode" value="6" />
      <param name="camera/driver/depth_mode" value="6" />
-     <include file="$(find openni_launch)/launch/openni.launch">
+     <include file="$(find freenect_launch)/launch/freenect.launch">
         <arg name="camera" value="$(arg kinect_camera)"/>
         <!-- Might publish rgb images faster if the following is false -->
-        <arg name="depth_registration" value="false"/>
+        <arg name="depth_registration" value="true"/>
     </include>
 
 </launch>

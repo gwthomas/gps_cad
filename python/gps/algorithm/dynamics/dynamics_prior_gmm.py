@@ -67,32 +67,40 @@ class DynamicsPriorGMM(object):
         if self.X is None:
             self.X = X
         else:
-<<<<<<< HEAD
             # If they don't have the same T
             if self.X.shape[1] != X.shape[1]:
-                # Just pad with zeroes I think?
-                newX = np.zeros((self.X.shape[0], X.shape[1], self.X.shape[2]))
-                newX[:, :self.X.shape[1], :] = self.X
-                # For all the "timesteps" just put the same last x that it saw
-                for i in range(self.X.shape[1], X.shape[1]):
-                    newX[:, i, :] = self.X[:, -1, :]
-                self.X = newX # Replace
-=======
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
+                # If our sample is larger than the thing
+                if self.X.shape[1] < X.shape[1]: 
+                    # Just pad with zeroes I think?
+                    newX = np.zeros((self.X.shape[0], X.shape[1], self.X.shape[2]))
+                    newX[:, :self.X.shape[1], :] = self.X
+                    # For all the "timesteps" just put the same last x that it saw
+                    for i in range(self.X.shape[1], X.shape[1]):
+                        newX[:, i, :] = self.X[:, -1, :]
+                    self.X = newX # Replace
+                else: # Otherwise the sample is smaller than the thing
+                    newX = np.zeros((X.shape[0], self.X.shape[1], X.shape[2]))
+                    newX[:, :X.shape[1], :] = X
+                    # For all the "timesteps" just put the same last x that it saw
+                    for i in range(X.shape[1], self.X.shape[1]):
+                        newX[:, i, :] = X[:, -1, :]
+                    X = newX # Replace the sample with this newly enlarged sample
             self.X = np.concatenate([self.X, X], axis=0)
 
         if self.U is None:
             self.U = U
         else:
-<<<<<<< HEAD
             # If they don't have the same T
             if self.U.shape[1] != U.shape[1]:
-                # Just pad with zeroes I think?
-                newU = np.zeros((self.U.shape[0], U.shape[1], self.U.shape[2]))
-                newU[:, :self.U.shape[1], :] = self.U
-                self.U = newU # Replace
-=======
->>>>>>> f7d301069f230ac6442abac95479a6b7c48479ec
+                if self.U.shape[1] < U.shape[1]:
+                    # Just pad with zeroes I think?
+                    newU = np.zeros((self.U.shape[0], U.shape[1], self.U.shape[2]))
+                    newU[:, :self.U.shape[1], :] = self.U
+                    self.U = newU # Replace
+                else:
+                    newU = np.zeros((U.shape[0], self.U.shape[1], U.shape[2]))
+                    newU[:, :U.shape[1], :] = U
+                    U = newU
             self.U = np.concatenate([self.U, U], axis=0)
 
         # Remove excess samples from dataset.

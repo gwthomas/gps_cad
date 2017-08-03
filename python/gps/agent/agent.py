@@ -21,6 +21,9 @@ class Agent(object):
 
         # Store samples, along with size/index information for samples.
         self._samples = [[] for _ in range(self._hyperparams['conditions'])]
+        # Have this for saving reset samples just in case or something
+        self._reset_samples = [[] for _ in range(self._hyperparams['conditions'])]
+
         self.T = self._hyperparams['T']
         self.dU = self._hyperparams['sensor_dims'][ACTION]
 
@@ -61,6 +64,7 @@ class Agent(object):
                                                    self._obs_idx)}
         self._meta_data_idx = {d: i for d, i in zip(self.meta_data_types,
                                                    self._meta_idx)}
+        self.reset_time = False # If it's reset time or not lmao
 
     @abc.abstractmethod
     def sample(self, policy, condition, verbose=True, save=True, noisy=True):
@@ -84,6 +88,11 @@ class Agent(object):
         return (SampleList(self._samples[condition][start:]) if end is None
                 else SampleList(self._samples[condition][start:end]))
 
+    # Basically the same thing as the get samples thing but with reset samples instead
+    def get_reset_samples(self, condition, start=0, end=None):
+        return (SampleList(self._samples[condition][start:]) if end is None
+                else SampleList(self._samples[condition][start:end]))
+
     def clear_samples(self, condition=None):
         """
         Reset the samples for a given condition, defaulting to all conditions.
@@ -92,8 +101,10 @@ class Agent(object):
         """
         if condition is None:
             self._samples = [[] for _ in range(self._hyperparams['conditions'])]
+            self._reset_samples = [[] for _ in range(self._hyperparams['conditions'])]
         else:
             self._samples[condition] = []
+            self._reset_samples[condition] = []
 
     def delete_last_sample(self, condition):
         """ Delete the last sample from the specified condition. """

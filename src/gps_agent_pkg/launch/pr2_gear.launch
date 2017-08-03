@@ -18,4 +18,8 @@
 	<include file="$(find gps_agent_pkg)/launch/pr2_moveit.launch" />
 	<include file="$(find gps_agent_pkg)/launch/pr2_only_controller.launch" />
 
+	<!-- The camera screen node /-->
+	<include file="$(find stereo_click)/launch/narrow_stereo_click.launch" />
+	<!-- The AR tracking node /-->
+	<include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch" />
 </launch>
