@@ -64,6 +64,10 @@ class PolicyOptTf(PolicyOpt):
         init_op = tf.initialize_all_variables()
         self.sess.run(init_op)
 
+        self.normalize = self._hyperparams['normalize']
+        self.policy.normalize = self.normalize
+
+
     def init_network(self):
         """ Helper method to initialize the tf networks used """
         tf_map_generator = self._hyperparams['network_model']
@@ -142,7 +146,8 @@ class PolicyOptTf(PolicyOpt):
                 1.0 / np.maximum(np.std(obs[:, self.x_idx], axis=0), 1e-3))
             self.policy.bias = - np.mean(
                 obs[:, self.x_idx].dot(self.policy.scale), axis=0)
-        obs[:, self.x_idx] = obs[:, self.x_idx].dot(self.policy.scale) + self.policy.bias
+        if self.normalize:
+            obs[:, self.x_idx] = obs[:, self.x_idx].dot(self.policy.scale) + self.policy.bias
 
         # Assuming that N*T >= self.batch_size.
         batches_per_epoch = np.floor(N*T / self.batch_size)
@@ -231,7 +236,7 @@ class PolicyOptTf(PolicyOpt):
         N, T = obs.shape[:2]
 
         # Normalize obs.
-        if self.policy.scale is not None:
+        if self.policy.scale is not None and self.normalize:
             # TODO: Should prob be called before update?
             for n in range(N):
                 obs[n, :, self.x_idx] = (obs[n, :, self.x_idx].T.dot(self.policy.scale)

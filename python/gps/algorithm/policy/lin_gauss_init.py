@@ -153,7 +153,7 @@ def init_pd_ref(hyperparams, ref_ja_pos, ref_ja_vel, ref_ee):
     config.update(hyperparams)
 
     dU, dQ, dX = config['dU'], config['dQ'], config['dX']
-    T = len(ref_ja)
+    T = len(ref_ja_pos)
 
     # Choose initialization mode.
     Kp = 1.0

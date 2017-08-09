@@ -55,7 +55,8 @@ class TfPolicy(Policy):
         # Normalize obs.
         if len(obs.shape) == 1:
             obs = np.expand_dims(obs, axis=0)
-        obs[:, self.x_idx] = obs[:, self.x_idx].dot(self.scale) + self.bias
+        if self.normalize:
+            obs[:, self.x_idx] = obs[:, self.x_idx].dot(self.scale) + self.bias
         with tf.device(self.device_string):
             ops = [self.act_op] + [name+':0' for name in extra]
             results = self.sess.run(ops, feed_dict={self.obs_tensor: obs})

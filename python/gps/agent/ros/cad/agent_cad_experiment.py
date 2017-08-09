@@ -51,14 +51,16 @@ class AgentCADExperiment(AgentCAD):
             self.piece_xml = f.read()
 
         AgentCAD.__init__(self, hyperparams, init_node)
-        self.ar = {'held_piece': 0, 'fixed_piece': 1} # Number of AR tag they have on them
 
-        # Create the functions with the proper offsets and whatever
-        self.ar_functions[self.ar['held_piece']] = self.create_AR_function( \
-            self.ar['held_piece'], 0.003, -0.02, -0.0265, 0, 0, -1.57)
-            #self.ar['held_piece'], 0.035, 0, -0.0465, 0, 0, -1.57)
-        self.ar_functions[self.ar['fixed_piece']] = self.create_AR_function( \
-            self.ar['fixed_piece'], 0, -0.025, -0.0325, 0, 0, 0)
+        if self._hyperparams['use_AR_markers']:
+            self.ar = {'held_piece': 0, 'fixed_piece': 1} # Number of AR tag they have on them
+
+            # Create the functions with the proper offsets and whatever
+            self.ar_functions[self.ar['held_piece']] = self.create_AR_function( \
+                self.ar['held_piece'], 0.003, -0.02, -0.0265, 0, 0, -1.57)
+                #self.ar['held_piece'], 0.035, 0, -0.0465, 0, 0, -1.57)
+            self.ar_functions[self.ar['fixed_piece']] = self.create_AR_function( \
+                self.ar['fixed_piece'], 0, -0.025, -0.0325, 0, 0, 0)
 
         if trace:
             pdb.set_trace()     # for optional setup, not debugging
@@ -78,29 +80,25 @@ class AgentCADExperiment(AgentCAD):
         self.scene.remove_world_object()
         self.scene.remove_attached_object(self.ee_link)
 
-        #print 'Resetting piece'
-        #self.reset_piece()
-        table_pose = self.get_AR_pose(2) # Get the AR position of the table
-        if not table_pose: # If there isn't an AR marker
-            z = 0.72 # Ehh just some random height
-        else:
-            z = table_pose.position.z # Otherwise get the z coordinate
+        # table_pose = self.get_AR_pose(2) # Get the AR position of the table
+        # if not table_pose: # If there isn't an AR marker
+        #     z = 0.72 # Ehh just some random height
+        # else:
+        #     z = table_pose.position.z # Otherwise get the z coordinate
 
         self.reset_held_piece()
 
         print 'Adding objects to planning scene'
-        # self.add_object('table', position=[0.75,0.,0.42], size=[0.9,1.5,0.03], type='box')
-        self.add_object('table', position=[0.8,0.,z], size=[0.7,1.5,0.03], type='box')
+        self.add_object('table', position=[0.75,0.,0.42], size=[0.9,1.5,0.03], type='box')
+        # self.add_object('table', position=[0.8,0.,z], size=[0.7,1.5,0.03], type='box')
 
         for name in ('held_piece', 'fixed_piece'):
-            #pose = self.get_pose(name)
-            # Get the position of the objects using their AR tags
-            pose, euler = self.pose_from_AR(name)
+            pose = self.get_pose(name)
             self.add_object(name, position=listify(pose.position),
                     orientation=listify(pose.orientation),
                     size=(0.045,0.045,0.02286),
                     filename=self._hyperparams['cad_path'])
-        self.change_goal() # Change the goal depending on where the goal piece is lmao
+        # self.change_goal() # Change the goal depending on where the goal piece is lmao
 
     def reset_held_piece(self):
         print 'Resetting held piece'
@@ -118,19 +116,15 @@ class AgentCADExperiment(AgentCAD):
 
     def grasp_prep(self):
         self.use_controller('MoveIt')
-        self.ungrip(None)
-
-        #target_position = listify(self.get_pose('held_piece').position)
-        # Get the position of the held piece using their AR tags
-        pose, euler = self.pose_from_AR('held_piece')
-        target_position = listify(pose.position) # Get the position as list
-        target_position[0] -= 0.23
-        target_position[2] += 0
-        target_pose = [0,0,0]
-        init_plan = self.plan_end_effector(target_position, target_pose)
-        self.group.execute(init_plan)
-
         self.ungrip(15)
+
+        # Get the position of the held piece using their AR tags
+        # pose, euler = self.pose_from_AR('held_piece')
+        # target_position = listify(pose.position) # Get the position as list
+        target_position = listify(self.get_pose('held_piece').position)
+        target_position[0] -= 0.2
+        target_position[2] += 0.0075
+        self.move_to(target_position, [0,0,0])
 
     def grasp(self):
         self.grip(None)
@@ -162,9 +156,7 @@ class AgentCADExperiment(AgentCAD):
             self._hyperparams['targets'][i]['position'] = new_pos
             print("This is the new position " + str(new_pos))
 
-    def move_to(self, pos_x, pos_y, pos_z, orient_x, orient_y, orient_z):
+    def move_to(self, position, orientation):
         self.use_controller('MoveIt')
-        target_position = [pos_x, pos_y, pos_z]
-        target_pose = [orient_x, orient_y, orient_z]
-        init_plan = self.plan_end_effector(target_position, target_pose)
+        init_plan = self.plan_end_effector(position, orientation, attempts=1)
         self.group.execute(init_plan)
