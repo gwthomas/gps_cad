@@ -22,6 +22,7 @@ class Algorithm(object):
 
     def __init__(self, hyperparams):
         config = copy.deepcopy(ALG)
+        config = ALG
         config.update(hyperparams)
         self._hyperparams = config
 

@@ -1,742 +1,230 @@
-/ar_pose_marker
-/ar_track_alvar/enable_detection
-/ar_track_alvar/parameter_descriptions
-/ar_track_alvar/parameter_updates
-/attached_collision_object
-/base_bumper
-/base_controller/bl_caster_l_wheel_joint/parameter_descriptions
-/base_controller/bl_caster_l_wheel_joint/parameter_updates
-/base_controller/bl_caster_r_wheel_joint/parameter_descriptions
-/base_controller/bl_caster_r_wheel_joint/parameter_updates
-/base_controller/bl_caster_rotation_joint/position_controller/parameter_descriptions
-/base_controller/bl_caster_rotation_joint/position_controller/parameter_updates
-/base_controller/br_caster_l_wheel_joint/parameter_descriptions
-/base_controller/br_caster_l_wheel_joint/parameter_updates
-/base_controller/br_caster_r_wheel_joint/parameter_descriptions
-/base_controller/br_caster_r_wheel_joint/parameter_updates
-/base_controller/br_caster_rotation_joint/position_controller/parameter_descriptions
-/base_controller/br_caster_rotation_joint/position_controller/parameter_updates
-/base_controller/command
-/base_controller/fl_caster_l_wheel_joint/parameter_descriptions
-/base_controller/fl_caster_l_wheel_joint/parameter_updates
-/base_controller/fl_caster_r_wheel_joint/parameter_descriptions
-/base_controller/fl_caster_r_wheel_joint/parameter_updates
-/base_controller/fl_caster_rotation_joint/position_controller/parameter_descriptions
-/base_controller/fl_caster_rotation_joint/position_controller/parameter_updates
-/base_controller/fr_caster_l_wheel_joint/parameter_descriptions
-/base_controller/fr_caster_l_wheel_joint/parameter_updates
-/base_controller/fr_caster_r_wheel_joint/parameter_descriptions
-/base_controller/fr_caster_r_wheel_joint/parameter_updates
-/base_controller/fr_caster_rotation_joint/position_controller/parameter_descriptions
-/base_controller/fr_caster_rotation_joint/position_controller/parameter_updates
-/base_controller/state
-/base_hokuyo_node/parameter_descriptions
-/base_hokuyo_node/parameter_updates
-/base_odometry/odom
-/base_odometry/odometer
-/base_odometry/state
-/base_pose_ground_truth
-/base_scan
-/caffe_features_publisher
-/calibrated
-/camera_synchronizer_node/parameter_descriptions
-/camera_synchronizer_node/parameter_updates
-/clicks_narrow_stereo_left
-/clicks_narrow_stereo_right
-/clock
-/collision_object
-/dashboard_agg
-/ddwrt/accesspoint
-/diagnostics
-/diagnostics_agg
-/diagnostics_toplevel_state
-/execute_trajectory/cancel
-/execute_trajectory/feedback
-/execute_trajectory/goal
-/execute_trajectory/result
-/execute_trajectory/status
-/gazebo/link_states
-/gazebo/model_states
-/gazebo/parameter_descriptions
-/gazebo/parameter_updates
-/gazebo/set_link_state
-/gazebo/set_model_state
-/gps_controller_data_request
-/gps_controller_position_command
-/gps_controller_relax_command
-/gps_controller_report
-/gps_controller_sent_robot_action_tf
-/gps_controller_trial_command
-/gps_obs_tf
-/head_mount_kinect/depth_registered/points
-/head_traj_controller/command
-/head_traj_controller/follow_joint_trajectory/cancel
-/head_traj_controller/follow_joint_trajectory/feedback
-/head_traj_controller/follow_joint_trajectory/goal
-/head_traj_controller/follow_joint_trajectory/result
-/head_traj_controller/follow_joint_trajectory/status
-/head_traj_controller/gains/head_pan_joint/parameter_descriptions
-/head_traj_controller/gains/head_pan_joint/parameter_updates
-/head_traj_controller/gains/head_tilt_joint/parameter_descriptions
-/head_traj_controller/gains/head_tilt_joint/parameter_updates
-/head_traj_controller/joint_trajectory_action/cancel
-/head_traj_controller/joint_trajectory_action/feedback
-/head_traj_controller/joint_trajectory_action/goal
-/head_traj_controller/joint_trajectory_action/result
-/head_traj_controller/joint_trajectory_action/status
-/head_traj_controller/point_head_action/cancel
-/head_traj_controller/point_head_action/feedback
-/head_traj_controller/point_head_action/goal
-/head_traj_controller/point_head_action/result
-/head_traj_controller/point_head_action/status
-/head_traj_controller/state
-/joint_states
-/l_arm_controller/command
-/l_arm_controller/follow_joint_trajectory/cancel
-/l_arm_controller/follow_joint_trajectory/feedback
-/l_arm_controller/follow_joint_trajectory/goal
-/l_arm_controller/follow_joint_trajectory/result
-/l_arm_controller/follow_joint_trajectory/status
-/l_arm_controller/gains/l_elbow_flex_joint/parameter_descriptions
-/l_arm_controller/gains/l_elbow_flex_joint/parameter_updates
-/l_arm_controller/gains/l_forearm_roll_joint/parameter_descriptions
-/l_arm_controller/gains/l_forearm_roll_joint/parameter_updates
-/l_arm_controller/gains/l_shoulder_lift_joint/parameter_descriptions
-/l_arm_controller/gains/l_shoulder_lift_joint/parameter_updates
-/l_arm_controller/gains/l_shoulder_pan_joint/parameter_descriptions
-/l_arm_controller/gains/l_shoulder_pan_joint/parameter_updates
-/l_arm_controller/gains/l_upper_arm_roll_joint/parameter_descriptions
-/l_arm_controller/gains/l_upper_arm_roll_joint/parameter_updates
-/l_arm_controller/gains/l_wrist_flex_joint/parameter_descriptions
-/l_arm_controller/gains/l_wrist_flex_joint/parameter_updates
-/l_arm_controller/gains/l_wrist_roll_joint/parameter_descriptions
-/l_arm_controller/gains/l_wrist_roll_joint/parameter_updates
-/l_arm_controller/joint_trajectory_action/cancel
-/l_arm_controller/joint_trajectory_action/feedback
-/l_arm_controller/joint_trajectory_action/goal
-/l_arm_controller/joint_trajectory_action/result
-/l_arm_controller/joint_trajectory_action/status
-/l_arm_controller/state
-/l_forearm_cam/camera_info
-/l_forearm_cam/image_color
-/l_forearm_cam/image_color/compressed
-/l_forearm_cam/image_color/compressed/parameter_descriptions
-/l_forearm_cam/image_color/compressed/parameter_updates
-/l_forearm_cam/image_color/compressedDepth
-/l_forearm_cam/image_color/compressedDepth/parameter_descriptions
-/l_forearm_cam/image_color/compressedDepth/parameter_updates
-/l_forearm_cam/image_color/theora
-/l_forearm_cam/image_color/theora/parameter_descriptions
-/l_forearm_cam/image_color/theora/parameter_updates
-/l_forearm_cam/image_mono
-/l_forearm_cam/image_mono/compressed
-/l_forearm_cam/image_mono/compressed/parameter_descriptions
-/l_forearm_cam/image_mono/compressed/parameter_updates
-/l_forearm_cam/image_mono/compressedDepth
-/l_forearm_cam/image_mono/compressedDepth/parameter_descriptions
-/l_forearm_cam/image_mono/compressedDepth/parameter_updates
-/l_forearm_cam/image_mono/theora
-/l_forearm_cam/image_mono/theora/parameter_descriptions
-/l_forearm_cam/image_mono/theora/parameter_updates
-/l_forearm_cam/image_proc_debayer/parameter_descriptions
-/l_forearm_cam/image_proc_debayer/parameter_updates
-/l_forearm_cam/image_proc_rectify_color/parameter_descriptions
-/l_forearm_cam/image_proc_rectify_color/parameter_updates
-/l_forearm_cam/image_proc_rectify_mono/parameter_descriptions
-/l_forearm_cam/image_proc_rectify_mono/parameter_updates
-/l_forearm_cam/image_raw
-/l_forearm_cam/image_raw/compressed
-/l_forearm_cam/image_raw/compressed/parameter_descriptions
-/l_forearm_cam/image_raw/compressed/parameter_updates
-/l_forearm_cam/image_raw/compressedDepth
-/l_forearm_cam/image_raw/compressedDepth/parameter_descriptions
-/l_forearm_cam/image_raw/compressedDepth/parameter_updates
-/l_forearm_cam/image_raw/theora
-/l_forearm_cam/image_raw/theora/parameter_descriptions
-/l_forearm_cam/image_raw/theora/parameter_updates
-/l_forearm_cam/image_rect
-/l_forearm_cam/image_rect/compressed
-/l_forearm_cam/image_rect/compressed/parameter_descriptions
-/l_forearm_cam/image_rect/compressed/parameter_updates
-/l_forearm_cam/image_rect/compressedDepth
-/l_forearm_cam/image_rect/compressedDepth/parameter_descriptions
-/l_forearm_cam/image_rect/compressedDepth/parameter_updates
-/l_forearm_cam/image_rect/theora
-/l_forearm_cam/image_rect/theora/parameter_descriptions
-/l_forearm_cam/image_rect/theora/parameter_updates
-/l_forearm_cam/image_rect_color
-/l_forearm_cam/image_rect_color/compressed
-/l_forearm_cam/image_rect_color/compressed/parameter_descriptions
-/l_forearm_cam/image_rect_color/compressed/parameter_updates
-/l_forearm_cam/image_rect_color/compressedDepth
-/l_forearm_cam/image_rect_color/compressedDepth/parameter_descriptions
-/l_forearm_cam/image_rect_color/compressedDepth/parameter_updates
-/l_forearm_cam/image_rect_color/theora
-/l_forearm_cam/image_rect_color/theora/parameter_descriptions
-/l_forearm_cam/image_rect_color/theora/parameter_updates
-/l_forearm_cam/parameter_descriptions
-/l_forearm_cam/parameter_updates
-/l_gripper_controller/command
-/l_gripper_controller/gripper_action/cancel
-/l_gripper_controller/gripper_action/feedback
-/l_gripper_controller/gripper_action/goal
-/l_gripper_controller/gripper_action/result
-/l_gripper_controller/gripper_action/status
-/l_gripper_controller/pid/parameter_descriptions
-/l_gripper_controller/pid/parameter_updates
-/l_gripper_controller/state
-/l_gripper_l_finger_force_ground_truth
-/l_gripper_l_finger_pose_ground_truth
-/l_gripper_l_finger_tip_bumper
-/l_gripper_palm_pose_ground_truth
-/l_gripper_r_finger_tip_bumper
-/laser_tilt_controller/gains/parameter_descriptions
-/laser_tilt_controller/gains/parameter_updates
-/laser_tilt_controller/laser_scanner_signal
-/laser_tilt_controller/set_periodic_cmd
-/laser_tilt_controller/set_traj_cmd
-/mechanism_statistics
-/move_group/cancel
-/move_group/display_contacts
-/move_group/display_cost_sources
-/move_group/display_grasp_markers
-/move_group/display_planned_path
-/move_group/feedback
-/move_group/filtered_cloud
-/move_group/goal
-/move_group/monitored_planning_scene
-/move_group/motion_plan_request
-/move_group/ompl/parameter_descriptions
-/move_group/ompl/parameter_updates
-/move_group/ompl_planner_data_marker_array
-/move_group/ompl_planner_valid_states
-/move_group/plan_execution/parameter_descriptions
-/move_group/plan_execution/parameter_updates
-/move_group/planning_scene_monitor/parameter_descriptions
-/move_group/planning_scene_monitor/parameter_updates
-/move_group/result
-/move_group/sense_for_plan/parameter_descriptions
-/move_group/sense_for_plan/parameter_updates
-/move_group/status
-/move_group/trajectory_execution/parameter_descriptions
-/move_group/trajectory_execution/parameter_updates
-/narrow_stereo/disparity
-/narrow_stereo/left/camera_info
-/narrow_stereo/left/image_color
-/narrow_stereo/left/image_color/compressed
-/narrow_stereo/left/image_color/compressed/parameter_descriptions
-/narrow_stereo/left/image_color/compressed/parameter_updates
-/narrow_stereo/left/image_color/compressedDepth
-/narrow_stereo/left/image_color/compressedDepth/parameter_descriptions
-/narrow_stereo/left/image_color/compressedDepth/parameter_updates
-/narrow_stereo/left/image_color/theora
-/narrow_stereo/left/image_color/theora/parameter_descriptions
-/narrow_stereo/left/image_color/theora/parameter_updates
-/narrow_stereo/left/image_mono
-/narrow_stereo/left/image_mono/compressed
-/narrow_stereo/left/image_mono/compressed/parameter_descriptions
-/narrow_stereo/left/image_mono/compressed/parameter_updates
-/narrow_stereo/left/image_mono/compressedDepth
-/narrow_stereo/left/image_mono/compressedDepth/parameter_descriptions
-/narrow_stereo/left/image_mono/compressedDepth/parameter_updates
-/narrow_stereo/left/image_mono/theora
-/narrow_stereo/left/image_mono/theora/parameter_descriptions
-/narrow_stereo/left/image_mono/theora/parameter_updates
-/narrow_stereo/left/image_raw
-/narrow_stereo/left/image_raw/compressed
-/narrow_stereo/left/image_raw/compressed/parameter_descriptions
-/narrow_stereo/left/image_raw/compressed/parameter_updates
-/narrow_stereo/left/image_raw/compressedDepth
-/narrow_stereo/left/image_raw/compressedDepth/parameter_descriptions
-/narrow_stereo/left/image_raw/compressedDepth/parameter_updates
-/narrow_stereo/left/image_raw/theora
-/narrow_stereo/left/image_raw/theora/parameter_descriptions
-/narrow_stereo/left/image_raw/theora/parameter_updates
-/narrow_stereo/left/image_rect
-/narrow_stereo/left/image_rect/compressed
-/narrow_stereo/left/image_rect/compressed/parameter_descriptions
-/narrow_stereo/left/image_rect/compressed/parameter_updates
-/narrow_stereo/left/image_rect/compressedDepth
-/narrow_stereo/left/image_rect/compressedDepth/parameter_descriptions
-/narrow_stereo/left/image_rect/compressedDepth/parameter_updates
-/narrow_stereo/left/image_rect/theora
-/narrow_stereo/left/image_rect/theora/parameter_descriptions
-/narrow_stereo/left/image_rect/theora/parameter_updates
-/narrow_stereo/left/image_rect_color
-/narrow_stereo/left/image_rect_color/compressed
-/narrow_stereo/left/image_rect_color/compressed/parameter_descriptions
-/narrow_stereo/left/image_rect_color/compressed/parameter_updates
-/narrow_stereo/left/image_rect_color/compressedDepth
-/narrow_stereo/left/image_rect_color/compressedDepth/parameter_descriptions
-/narrow_stereo/left/image_rect_color/compressedDepth/parameter_updates
-/narrow_stereo/left/image_rect_color/theora
-/narrow_stereo/left/image_rect_color/theora/parameter_descriptions
-/narrow_stereo/left/image_rect_color/theora/parameter_updates
-/narrow_stereo/left/parameter_descriptions
-/narrow_stereo/left/parameter_updates
-/narrow_stereo/narrow_stereo_proc/parameter_descriptions
-/narrow_stereo/narrow_stereo_proc/parameter_updates
-/narrow_stereo/narrow_stereo_proc_debayer_left/parameter_descriptions
-/narrow_stereo/narrow_stereo_proc_debayer_left/parameter_updates
-/narrow_stereo/narrow_stereo_proc_debayer_right/parameter_descriptions
-/narrow_stereo/narrow_stereo_proc_debayer_right/parameter_updates
-/narrow_stereo/narrow_stereo_proc_rectify_color_left/parameter_descriptions
-/narrow_stereo/narrow_stereo_proc_rectify_color_left/parameter_updates
-/narrow_stereo/narrow_stereo_proc_rectify_color_right/parameter_descriptions
-/narrow_stereo/narrow_stereo_proc_rectify_color_right/parameter_updates
-/narrow_stereo/narrow_stereo_proc_rectify_mono_left/parameter_descriptions
-/narrow_stereo/narrow_stereo_proc_rectify_mono_left/parameter_updates
-/narrow_stereo/narrow_stereo_proc_rectify_mono_right/parameter_descriptions
-/narrow_stereo/narrow_stereo_proc_rectify_mono_right/parameter_updates
-/narrow_stereo/points2
-/narrow_stereo/right/camera_info
-/narrow_stereo/right/image_color
-/narrow_stereo/right/image_color/compressed
-/narrow_stereo/right/image_color/compressed/parameter_descriptions
-/narrow_stereo/right/image_color/compressed/parameter_updates
-/narrow_stereo/right/image_color/compressedDepth
-/narrow_stereo/right/image_color/compressedDepth/parameter_descriptions
-/narrow_stereo/right/image_color/compressedDepth/parameter_updates
-/narrow_stereo/right/image_color/theora
-/narrow_stereo/right/image_color/theora/parameter_descriptions
-/narrow_stereo/right/image_color/theora/parameter_updates
-/narrow_stereo/right/image_mono
-/narrow_stereo/right/image_mono/compressed
-/narrow_stereo/right/image_mono/compressed/parameter_descriptions
-/narrow_stereo/right/image_mono/compressed/parameter_updates
-/narrow_stereo/right/image_mono/compressedDepth
-/narrow_stereo/right/image_mono/compressedDepth/parameter_descriptions
-/narrow_stereo/right/image_mono/compressedDepth/parameter_updates
-/narrow_stereo/right/image_mono/theora
-/narrow_stereo/right/image_mono/theora/parameter_descriptions
-/narrow_stereo/right/image_mono/theora/parameter_updates
-/narrow_stereo/right/image_raw
-/narrow_stereo/right/image_raw/compressed
-/narrow_stereo/right/image_raw/compressed/parameter_descriptions
-/narrow_stereo/right/image_raw/compressed/parameter_updates
-/narrow_stereo/right/image_raw/compressedDepth
-/narrow_stereo/right/image_raw/compressedDepth/parameter_descriptions
-/narrow_stereo/right/image_raw/compressedDepth/parameter_updates
-/narrow_stereo/right/image_raw/theora
-/narrow_stereo/right/image_raw/theora/parameter_descriptions
-/narrow_stereo/right/image_raw/theora/parameter_updates
-/narrow_stereo/right/image_rect
-/narrow_stereo/right/image_rect/compressed
-/narrow_stereo/right/image_rect/compressed/parameter_descriptions
-/narrow_stereo/right/image_rect/compressed/parameter_updates
-/narrow_stereo/right/image_rect/compressedDepth
-/narrow_stereo/right/image_rect/compressedDepth/parameter_descriptions
-/narrow_stereo/right/image_rect/compressedDepth/parameter_updates
-/narrow_stereo/right/image_rect/theora
-/narrow_stereo/right/image_rect/theora/parameter_descriptions
-/narrow_stereo/right/image_rect/theora/parameter_updates
-/narrow_stereo/right/image_rect_color
-/narrow_stereo/right/image_rect_color/compressed
-/narrow_stereo/right/image_rect_color/compressed/parameter_descriptions
-/narrow_stereo/right/image_rect_color/compressed/parameter_updates
-/narrow_stereo/right/image_rect_color/compressedDepth
-/narrow_stereo/right/image_rect_color/compressedDepth/parameter_descriptions
-/narrow_stereo/right/image_rect_color/compressedDepth/parameter_updates
-/narrow_stereo/right/image_rect_color/theora
-/narrow_stereo/right/image_rect_color/theora/parameter_descriptions
-/narrow_stereo/right/image_rect_color/theora/parameter_updates
-/narrow_stereo/right/parameter_descriptions
-/narrow_stereo/right/parameter_updates
-/narrow_stereo_textured/disparity
-/narrow_stereo_textured/left/camera_info
-/narrow_stereo_textured/left/image_color
-/narrow_stereo_textured/left/image_color/compressed
-/narrow_stereo_textured/left/image_color/compressed/parameter_descriptions
-/narrow_stereo_textured/left/image_color/compressed/parameter_updates
-/narrow_stereo_textured/left/image_color/compressedDepth
-/narrow_stereo_textured/left/image_color/compressedDepth/parameter_descriptions
-/narrow_stereo_textured/left/image_color/compressedDepth/parameter_updates
-/narrow_stereo_textured/left/image_color/theora
-/narrow_stereo_textured/left/image_color/theora/parameter_descriptions
-/narrow_stereo_textured/left/image_color/theora/parameter_updates
-/narrow_stereo_textured/left/image_mono
-/narrow_stereo_textured/left/image_mono/compressed
-/narrow_stereo_textured/left/image_mono/compressed/parameter_descriptions
-/narrow_stereo_textured/left/image_mono/compressed/parameter_updates
-/narrow_stereo_textured/left/image_mono/compressedDepth
-/narrow_stereo_textured/left/image_mono/compressedDepth/parameter_descriptions
-/narrow_stereo_textured/left/image_mono/compressedDepth/parameter_updates
-/narrow_stereo_textured/left/image_mono/theora
-/narrow_stereo_textured/left/image_mono/theora/parameter_descriptions
-/narrow_stereo_textured/left/image_mono/theora/parameter_updates
-/narrow_stereo_textured/left/image_raw
-/narrow_stereo_textured/left/image_rect
-/narrow_stereo_textured/left/image_rect/compressed
-/narrow_stereo_textured/left/image_rect/compressed/parameter_descriptions
-/narrow_stereo_textured/left/image_rect/compressed/parameter_updates
-/narrow_stereo_textured/left/image_rect/compressedDepth
-/narrow_stereo_textured/left/image_rect/compressedDepth/parameter_descriptions
-/narrow_stereo_textured/left/image_rect/compressedDepth/parameter_updates
-/narrow_stereo_textured/left/image_rect/theora
-/narrow_stereo_textured/left/image_rect/theora/parameter_descriptions
-/narrow_stereo_textured/left/image_rect/theora/parameter_updates
-/narrow_stereo_textured/left/image_rect_color
-/narrow_stereo_textured/left/image_rect_color/compressed
-/narrow_stereo_textured/left/image_rect_color/compressed/parameter_descriptions
-/narrow_stereo_textured/left/image_rect_color/compressed/parameter_updates
-/narrow_stereo_textured/left/image_rect_color/compressedDepth
-/narrow_stereo_textured/left/image_rect_color/compressedDepth/parameter_descriptions
-/narrow_stereo_textured/left/image_rect_color/compressedDepth/parameter_updates
-/narrow_stereo_textured/left/image_rect_color/theora
-/narrow_stereo_textured/left/image_rect_color/theora/parameter_descriptions
-/narrow_stereo_textured/left/image_rect_color/theora/parameter_updates
-/narrow_stereo_textured/narrow_stereo_textured_proc/parameter_descriptions
-/narrow_stereo_textured/narrow_stereo_textured_proc/parameter_updates
-/narrow_stereo_textured/narrow_stereo_textured_proc_debayer_left/parameter_descriptions
-/narrow_stereo_textured/narrow_stereo_textured_proc_debayer_left/parameter_updates
-/narrow_stereo_textured/narrow_stereo_textured_proc_debayer_right/parameter_descriptions
-/narrow_stereo_textured/narrow_stereo_textured_proc_debayer_right/parameter_updates
-/narrow_stereo_textured/narrow_stereo_textured_proc_rectify_color_left/parameter_descriptions
-/narrow_stereo_textured/narrow_stereo_textured_proc_rectify_color_left/parameter_updates
-/narrow_stereo_textured/narrow_stereo_textured_proc_rectify_color_right/parameter_descriptions
-/narrow_stereo_textured/narrow_stereo_textured_proc_rectify_color_right/parameter_updates
-/narrow_stereo_textured/narrow_stereo_textured_proc_rectify_mono_left/parameter_descriptions
-/narrow_stereo_textured/narrow_stereo_textured_proc_rectify_mono_left/parameter_updates
-/narrow_stereo_textured/narrow_stereo_textured_proc_rectify_mono_right/parameter_descriptions
-/narrow_stereo_textured/narrow_stereo_textured_proc_rectify_mono_right/parameter_updates
-/narrow_stereo_textured/points2
-/narrow_stereo_textured/right/camera_info
-/narrow_stereo_textured/right/image_color
-/narrow_stereo_textured/right/image_color/compressed
-/narrow_stereo_textured/right/image_color/compressed/parameter_descriptions
-/narrow_stereo_textured/right/image_color/compressed/parameter_updates
-/narrow_stereo_textured/right/image_color/compressedDepth
-/narrow_stereo_textured/right/image_color/compressedDepth/parameter_descriptions
-/narrow_stereo_textured/right/image_color/compressedDepth/parameter_updates
-/narrow_stereo_textured/right/image_color/theora
-/narrow_stereo_textured/right/image_color/theora/parameter_descriptions
-/narrow_stereo_textured/right/image_color/theora/parameter_updates
-/narrow_stereo_textured/right/image_mono
-/narrow_stereo_textured/right/image_mono/compressed
-/narrow_stereo_textured/right/image_mono/compressed/parameter_descriptions
-/narrow_stereo_textured/right/image_mono/compressed/parameter_updates
-/narrow_stereo_textured/right/image_mono/compressedDepth
-/narrow_stereo_textured/right/image_mono/compressedDepth/parameter_descriptions
-/narrow_stereo_textured/right/image_mono/compressedDepth/parameter_updates
-/narrow_stereo_textured/right/image_mono/theora
-/narrow_stereo_textured/right/image_mono/theora/parameter_descriptions
-/narrow_stereo_textured/right/image_mono/theora/parameter_updates
-/narrow_stereo_textured/right/image_raw
-/narrow_stereo_textured/right/image_rect
-/narrow_stereo_textured/right/image_rect/compressed
-/narrow_stereo_textured/right/image_rect/compressed/parameter_descriptions
-/narrow_stereo_textured/right/image_rect/compressed/parameter_updates
-/narrow_stereo_textured/right/image_rect/compressedDepth
-/narrow_stereo_textured/right/image_rect/compressedDepth/parameter_descriptions
-/narrow_stereo_textured/right/image_rect/compressedDepth/parameter_updates
-/narrow_stereo_textured/right/image_rect/theora
-/narrow_stereo_textured/right/image_rect/theora/parameter_descriptions
-/narrow_stereo_textured/right/image_rect/theora/parameter_updates
-/narrow_stereo_textured/right/image_rect_color
-/narrow_stereo_textured/right/image_rect_color/compressed
-/narrow_stereo_textured/right/image_rect_color/compressed/parameter_descriptions
-/narrow_stereo_textured/right/image_rect_color/compressed/parameter_updates
-/narrow_stereo_textured/right/image_rect_color/compressedDepth
-/narrow_stereo_textured/right/image_rect_color/compressedDepth/parameter_descriptions
-/narrow_stereo_textured/right/image_rect_color/compressedDepth/parameter_updates
-/narrow_stereo_textured/right/image_rect_color/theora
-/narrow_stereo_textured/right/image_rect_color/theora/parameter_descriptions
-/narrow_stereo_textured/right/image_rect_color/theora/parameter_updates
-/pickup/cancel
-/pickup/feedback
-/pickup/goal
-/pickup/result
-/pickup/status
-/place/cancel
-/place/feedback
-/place/goal
-/place/result
-/place/status
-/planning_scene
-/planning_scene_world
-/plugged_in
-/power_board/state
-/power_state
-/pr2_etherCAT/motors_halted
-/projector_controller/rising_edge_timestamps
-/projector_wg6802418_controller/image
-/projector_wg6802418_controller/projector
-/prosilica/camera_info
-/prosilica/image_raw
-/prosilica/image_raw/compressed
-/prosilica/image_raw/compressed/parameter_descriptions
-/prosilica/image_raw/compressed/parameter_updates
-/prosilica/image_raw/compressedDepth
-/prosilica/image_raw/compressedDepth/parameter_descriptions
-/prosilica/image_raw/compressedDepth/parameter_updates
-/prosilica/image_raw/theora
-/prosilica/image_raw/theora/parameter_descriptions
-/prosilica/image_raw/theora/parameter_updates
-/prosilica/parameter_descriptions
-/prosilica/parameter_updates
-/r_arm_controller/command
-/r_arm_controller/follow_joint_trajectory/cancel
-/r_arm_controller/follow_joint_trajectory/feedback
-/r_arm_controller/follow_joint_trajectory/goal
-/r_arm_controller/follow_joint_trajectory/result
-/r_arm_controller/follow_joint_trajectory/status
-/r_arm_controller/gains/r_elbow_flex_joint/parameter_descriptions
-/r_arm_controller/gains/r_elbow_flex_joint/parameter_updates
-/r_arm_controller/gains/r_forearm_roll_joint/parameter_descriptions
-/r_arm_controller/gains/r_forearm_roll_joint/parameter_updates
-/r_arm_controller/gains/r_shoulder_lift_joint/parameter_descriptions
-/r_arm_controller/gains/r_shoulder_lift_joint/parameter_updates
-/r_arm_controller/gains/r_shoulder_pan_joint/parameter_descriptions
-/r_arm_controller/gains/r_shoulder_pan_joint/parameter_updates
-/r_arm_controller/gains/r_upper_arm_roll_joint/parameter_descriptions
-/r_arm_controller/gains/r_upper_arm_roll_joint/parameter_updates
-/r_arm_controller/gains/r_wrist_flex_joint/parameter_descriptions
-/r_arm_controller/gains/r_wrist_flex_joint/parameter_updates
-/r_arm_controller/gains/r_wrist_roll_joint/parameter_descriptions
-/r_arm_controller/gains/r_wrist_roll_joint/parameter_updates
-/r_arm_controller/joint_trajectory_action/cancel
-/r_arm_controller/joint_trajectory_action/feedback
-/r_arm_controller/joint_trajectory_action/goal
-/r_arm_controller/joint_trajectory_action/result
-/r_arm_controller/joint_trajectory_action/status
-/r_arm_controller/state
-/r_forearm_cam/camera_info
-/r_forearm_cam/image_color
-/r_forearm_cam/image_color/compressed
-/r_forearm_cam/image_color/compressed/parameter_descriptions
-/r_forearm_cam/image_color/compressed/parameter_updates
-/r_forearm_cam/image_color/compressedDepth
-/r_forearm_cam/image_color/compressedDepth/parameter_descriptions
-/r_forearm_cam/image_color/compressedDepth/parameter_updates
-/r_forearm_cam/image_color/theora
-/r_forearm_cam/image_color/theora/parameter_descriptions
-/r_forearm_cam/image_color/theora/parameter_updates
-/r_forearm_cam/image_mono
-/r_forearm_cam/image_mono/compressed
-/r_forearm_cam/image_mono/compressed/parameter_descriptions
-/r_forearm_cam/image_mono/compressed/parameter_updates
-/r_forearm_cam/image_mono/compressedDepth
-/r_forearm_cam/image_mono/compressedDepth/parameter_descriptions
-/r_forearm_cam/image_mono/compressedDepth/parameter_updates
-/r_forearm_cam/image_mono/theora
-/r_forearm_cam/image_mono/theora/parameter_descriptions
-/r_forearm_cam/image_mono/theora/parameter_updates
-/r_forearm_cam/image_proc_debayer/parameter_descriptions
-/r_forearm_cam/image_proc_debayer/parameter_updates
-/r_forearm_cam/image_proc_rectify_color/parameter_descriptions
-/r_forearm_cam/image_proc_rectify_color/parameter_updates
-/r_forearm_cam/image_proc_rectify_mono/parameter_descriptions
-/r_forearm_cam/image_proc_rectify_mono/parameter_updates
-/r_forearm_cam/image_raw
-/r_forearm_cam/image_raw/compressed
-/r_forearm_cam/image_raw/compressed/parameter_descriptions
-/r_forearm_cam/image_raw/compressed/parameter_updates
-/r_forearm_cam/image_raw/compressedDepth
-/r_forearm_cam/image_raw/compressedDepth/parameter_descriptions
-/r_forearm_cam/image_raw/compressedDepth/parameter_updates
-/r_forearm_cam/image_raw/theora
-/r_forearm_cam/image_raw/theora/parameter_descriptions
-/r_forearm_cam/image_raw/theora/parameter_updates
-/r_forearm_cam/image_rect
-/r_forearm_cam/image_rect/compressed
-/r_forearm_cam/image_rect/compressed/parameter_descriptions
-/r_forearm_cam/image_rect/compressed/parameter_updates
-/r_forearm_cam/image_rect/compressedDepth
-/r_forearm_cam/image_rect/compressedDepth/parameter_descriptions
-/r_forearm_cam/image_rect/compressedDepth/parameter_updates
-/r_forearm_cam/image_rect/theora
-/r_forearm_cam/image_rect/theora/parameter_descriptions
-/r_forearm_cam/image_rect/theora/parameter_updates
-/r_forearm_cam/image_rect_color
-/r_forearm_cam/image_rect_color/compressed
-/r_forearm_cam/image_rect_color/compressed/parameter_descriptions
-/r_forearm_cam/image_rect_color/compressed/parameter_updates
-/r_forearm_cam/image_rect_color/compressedDepth
-/r_forearm_cam/image_rect_color/compressedDepth/parameter_descriptions
-/r_forearm_cam/image_rect_color/compressedDepth/parameter_updates
-/r_forearm_cam/image_rect_color/theora
-/r_forearm_cam/image_rect_color/theora/parameter_descriptions
-/r_forearm_cam/image_rect_color/theora/parameter_updates
-/r_forearm_cam/parameter_descriptions
-/r_forearm_cam/parameter_updates
-/r_gripper_controller/command
-/r_gripper_controller/gripper_action/cancel
-/r_gripper_controller/gripper_action/feedback
-/r_gripper_controller/gripper_action/goal
-/r_gripper_controller/gripper_action/result
-/r_gripper_controller/gripper_action/status
-/r_gripper_controller/pid/parameter_descriptions
-/r_gripper_controller/pid/parameter_updates
-/r_gripper_controller/state
-/r_gripper_l_finger_force_ground_truth
-/r_gripper_l_finger_pose_ground_truth
-/r_gripper_l_finger_tip_bumper
-/r_gripper_palm_pose_ground_truth
-/r_gripper_r_finger_tip_bumper
-/recognized_object_array
-/robot_pose_ekf/odom_combined
-/rosout
-/rosout_agg
-/rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic/feedback
-/rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic/update
-/rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic/update_full
-/rviz_rll3_7168_4071713516815547645/motionplanning_planning_scene_monitor/parameter_descriptions
-/rviz_rll3_7168_4071713516815547645/motionplanning_planning_scene_monitor/parameter_updates
-/statistics
-/stereo_points_3d
-/test_sub
-/tf
-/tf2_buffer_server/cancel
-/tf2_buffer_server/feedback
-/tf2_buffer_server/goal
-/tf2_buffer_server/result
-/tf2_buffer_server/status
-/tf_static
-/tilt_hokuyo_node/parameter_descriptions
-/tilt_hokuyo_node/parameter_updates
-/tilt_scan
-/torso_controller/command
-/torso_controller/follow_joint_trajectory/cancel
-/torso_controller/follow_joint_trajectory/feedback
-/torso_controller/follow_joint_trajectory/goal
-/torso_controller/follow_joint_trajectory/result
-/torso_controller/follow_joint_trajectory/status
-/torso_controller/gains/torso_lift_joint/parameter_descriptions
-/torso_controller/gains/torso_lift_joint/parameter_updates
-/torso_controller/joint_trajectory_action/cancel
-/torso_controller/joint_trajectory_action/feedback
-/torso_controller/joint_trajectory_action/goal
-/torso_controller/joint_trajectory_action/result
-/torso_controller/joint_trajectory_action/status
-/torso_controller/position_joint_action/cancel
-/torso_controller/position_joint_action/feedback
-/torso_controller/position_joint_action/goal
-/torso_controller/position_joint_action/result
-/torso_controller/position_joint_action/status
-/torso_controller/state
-/torso_lift_bumper
-/torso_lift_imu/data
-/trajectory_execution_event
-/visualization_marker
-/wide_stereo/disparity
-/wide_stereo/left/camera_info
-/wide_stereo/left/image_color
-/wide_stereo/left/image_color/compressed
-/wide_stereo/left/image_color/compressed/parameter_descriptions
-/wide_stereo/left/image_color/compressed/parameter_updates
-/wide_stereo/left/image_color/compressedDepth
-/wide_stereo/left/image_color/compressedDepth/parameter_descriptions
-/wide_stereo/left/image_color/compressedDepth/parameter_updates
-/wide_stereo/left/image_color/theora
-/wide_stereo/left/image_color/theora/parameter_descriptions
-/wide_stereo/left/image_color/theora/parameter_updates
-/wide_stereo/left/image_mono
-/wide_stereo/left/image_mono/compressed
-/wide_stereo/left/image_mono/compressed/parameter_descriptions
-/wide_stereo/left/image_mono/compressed/parameter_updates
-/wide_stereo/left/image_mono/compressedDepth
-/wide_stereo/left/image_mono/compressedDepth/parameter_descriptions
-/wide_stereo/left/image_mono/compressedDepth/parameter_updates
-/wide_stereo/left/image_mono/theora
-/wide_stereo/left/image_mono/theora/parameter_descriptions
-/wide_stereo/left/image_mono/theora/parameter_updates
-/wide_stereo/left/image_raw
-/wide_stereo/left/image_raw/compressed
-/wide_stereo/left/image_raw/compressed/parameter_descriptions
-/wide_stereo/left/image_raw/compressed/parameter_updates
-/wide_stereo/left/image_raw/compressedDepth
-/wide_stereo/left/image_raw/compressedDepth/parameter_descriptions
-/wide_stereo/left/image_raw/compressedDepth/parameter_updates
-/wide_stereo/left/image_raw/theora
-/wide_stereo/left/image_raw/theora/parameter_descriptions
-/wide_stereo/left/image_raw/theora/parameter_updates
-/wide_stereo/left/image_rect
-/wide_stereo/left/image_rect/compressed
-/wide_stereo/left/image_rect/compressed/parameter_descriptions
-/wide_stereo/left/image_rect/compressed/parameter_updates
-/wide_stereo/left/image_rect/compressedDepth
-/wide_stereo/left/image_rect/compressedDepth/parameter_descriptions
-/wide_stereo/left/image_rect/compressedDepth/parameter_updates
-/wide_stereo/left/image_rect/theora
-/wide_stereo/left/image_rect/theora/parameter_descriptions
-/wide_stereo/left/image_rect/theora/parameter_updates
-/wide_stereo/left/image_rect_color
-/wide_stereo/left/image_rect_color/compressed
-/wide_stereo/left/image_rect_color/compressed/parameter_descriptions
-/wide_stereo/left/image_rect_color/compressed/parameter_updates
-/wide_stereo/left/image_rect_color/compressedDepth
-/wide_stereo/left/image_rect_color/compressedDepth/parameter_descriptions
-/wide_stereo/left/image_rect_color/compressedDepth/parameter_updates
-/wide_stereo/left/image_rect_color/theora
-/wide_stereo/left/image_rect_color/theora/parameter_descriptions
-/wide_stereo/left/image_rect_color/theora/parameter_updates
-/wide_stereo/left/parameter_descriptions
-/wide_stereo/left/parameter_updates
-/wide_stereo/points2
-/wide_stereo/right/camera_info
-/wide_stereo/right/image_color
-/wide_stereo/right/image_color/compressed
-/wide_stereo/right/image_color/compressed/parameter_descriptions
-/wide_stereo/right/image_color/compressed/parameter_updates
-/wide_stereo/right/image_color/compressedDepth
-/wide_stereo/right/image_color/compressedDepth/parameter_descriptions
-/wide_stereo/right/image_color/compressedDepth/parameter_updates
-/wide_stereo/right/image_color/theora
-/wide_stereo/right/image_color/theora/parameter_descriptions
-/wide_stereo/right/image_color/theora/parameter_updates
-/wide_stereo/right/image_mono
-/wide_stereo/right/image_mono/compressed
-/wide_stereo/right/image_mono/compressed/parameter_descriptions
-/wide_stereo/right/image_mono/compressed/parameter_updates
-/wide_stereo/right/image_mono/compressedDepth
-/wide_stereo/right/image_mono/compressedDepth/parameter_descriptions
-/wide_stereo/right/image_mono/compressedDepth/parameter_updates
-/wide_stereo/right/image_mono/theora
-/wide_stereo/right/image_mono/theora/parameter_descriptions
-/wide_stereo/right/image_mono/theora/parameter_updates
-/wide_stereo/right/image_raw
-/wide_stereo/right/image_raw/compressed
-/wide_stereo/right/image_raw/compressed/parameter_descriptions
-/wide_stereo/right/image_raw/compressed/parameter_updates
-/wide_stereo/right/image_raw/compressedDepth
-/wide_stereo/right/image_raw/compressedDepth/parameter_descriptions
-/wide_stereo/right/image_raw/compressedDepth/parameter_updates
-/wide_stereo/right/image_raw/theora
-/wide_stereo/right/image_raw/theora/parameter_descriptions
-/wide_stereo/right/image_raw/theora/parameter_updates
-/wide_stereo/right/image_rect
-/wide_stereo/right/image_rect/compressed
-/wide_stereo/right/image_rect/compressed/parameter_descriptions
-/wide_stereo/right/image_rect/compressed/parameter_updates
-/wide_stereo/right/image_rect/compressedDepth
-/wide_stereo/right/image_rect/compressedDepth/parameter_descriptions
-/wide_stereo/right/image_rect/compressedDepth/parameter_updates
-/wide_stereo/right/image_rect/theora
-/wide_stereo/right/image_rect/theora/parameter_descriptions
-/wide_stereo/right/image_rect/theora/parameter_updates
-/wide_stereo/right/image_rect_color
-/wide_stereo/right/image_rect_color/compressed
-/wide_stereo/right/image_rect_color/compressed/parameter_descriptions
-/wide_stereo/right/image_rect_color/compressed/parameter_updates
-/wide_stereo/right/image_rect_color/compressedDepth
-/wide_stereo/right/image_rect_color/compressedDepth/parameter_descriptions
-/wide_stereo/right/image_rect_color/compressedDepth/parameter_updates
-/wide_stereo/right/image_rect_color/theora
-/wide_stereo/right/image_rect_color/theora/parameter_descriptions
-/wide_stereo/right/image_rect_color/theora/parameter_updates
-/wide_stereo/right/parameter_descriptions
-/wide_stereo/right/parameter_updates
-/wide_stereo/wide_stereo_proc/parameter_descriptions
-/wide_stereo/wide_stereo_proc/parameter_updates
-/wide_stereo/wide_stereo_proc_debayer_left/parameter_descriptions
-/wide_stereo/wide_stereo_proc_debayer_left/parameter_updates
-/wide_stereo/wide_stereo_proc_debayer_right/parameter_descriptions
-/wide_stereo/wide_stereo_proc_debayer_right/parameter_updates
-/wide_stereo/wide_stereo_proc_rectify_color_left/parameter_descriptions
-/wide_stereo/wide_stereo_proc_rectify_color_left/parameter_updates
-/wide_stereo/wide_stereo_proc_rectify_color_right/parameter_descriptions
-/wide_stereo/wide_stereo_proc_rectify_color_right/parameter_updates
-/wide_stereo/wide_stereo_proc_rectify_mono_left/parameter_descriptions
-/wide_stereo/wide_stereo_proc_rectify_mono_left/parameter_updates
-/wide_stereo/wide_stereo_proc_rectify_mono_right/parameter_descriptions
-/wide_stereo/wide_stereo_proc_rectify_mono_right/parameter_updates
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+2.299851075368284422e-03 -2.096257887457736099e-02 1.933325177565587728e-03 1.948702572434089786e-02 -3.125958227186865536e-03 -7.816208542871636369e-03 1.445428990004262761e-02
+4.599702150736568844e-03 -4.192515774915472199e-02 3.866650355131175457e-03 3.897405144868179572e-02 -6.251916454373731072e-03 -1.563241708574327274e-02 2.890857980008525521e-02
+6.899553226104853700e-03 -6.288773662373207951e-02 5.799975532696762318e-03 5.846107717302267970e-02 -9.377874681560595740e-03 -2.344862562861490737e-02 4.336286970012787761e-02
+9.199404301473137688e-03 -8.385031549830944397e-02 7.733300710262350913e-03 7.794810289736359143e-02 -1.250383290874746214e-02 -3.126483417148654548e-02 5.781715960017051043e-02
+1.149925537684142254e-02 -1.048128943728867946e-01 9.666625887827937774e-03 9.743512862170447542e-02 -1.562979113593432681e-02 -3.908104271435818011e-02 7.227144950021313630e-02
+1.379910645220970740e-02 -1.257754732474641590e-01 1.159995106539352464e-02 1.169221543460453594e-01 -1.875574936312119148e-02 -4.689725125722981475e-02 8.672573940025575523e-02
+1.609895752757799225e-02 -1.467380521220414957e-01 1.353327624295911150e-02 1.364091800703862434e-01 -2.188170759030805615e-02 -5.471345980010144938e-02 1.011800293002983880e-01
+1.839880860294627538e-02 -1.677006309966188879e-01 1.546660142052470183e-02 1.558962057947271829e-01 -2.500766581749492429e-02 -6.252966834297309096e-02 1.156343192003410209e-01
+2.069865967831456197e-02 -1.886632098711962247e-01 1.739992659809028869e-02 1.753832315190680669e-01 -2.813362404468178896e-02 -7.034587688584473253e-02 1.300886091003836398e-01
+2.299851075368284509e-02 -2.096257887457735891e-01 1.933325177565587555e-02 1.948702572434089508e-01 -3.125958227186865362e-02 -7.816208542871636022e-02 1.445428990004262726e-01
+2.443443401060717626e-02 -2.222239193892990849e-01 2.036238328628224917e-02 2.064500815351435203e-01 -3.339756016373665592e-02 -8.283032836472849214e-02 1.532334730336489259e-01
+2.587035726753151091e-02 -2.348220500328245530e-01 2.139151479690862279e-02 2.180299058268780898e-01 -3.553553805560465823e-02 -8.749857130074062406e-02 1.619240470668715792e-01
+2.730628052445584208e-02 -2.474201806763500489e-01 2.242064630753499641e-02 2.296097301186126316e-01 -3.767351594747266053e-02 -9.216681423675275597e-02 1.706146211000942325e-01
+2.874220378138017673e-02 -2.600183113198755169e-01 2.344977781816137002e-02 2.411895544103472011e-01 -3.981149383934066283e-02 -9.683505717276488789e-02 1.793051951333168859e-01
+3.017812703830450791e-02 -2.726164419634010128e-01 2.447890932878774364e-02 2.527693787020817706e-01 -4.194947173120866513e-02 -1.015033001087770198e-01 1.879957691665395392e-01
+3.161405029522883908e-02 -2.852145726069265086e-01 2.550804083941411726e-02 2.643492029938163124e-01 -4.408744962307666743e-02 -1.061715430447891517e-01 1.966863431997621925e-01
+3.304997355215317373e-02 -2.978127032504519489e-01 2.653717235004049088e-02 2.759290272855509096e-01 -4.622542751494466973e-02 -1.108397859808012836e-01 2.053769172329848458e-01
+3.448589680907750837e-02 -3.104108338939775003e-01 2.756630386066686450e-02 2.875088515772854514e-01 -4.836340540681267203e-02 -1.155080289168134156e-01 2.140674912662074991e-01
+3.592182006600183608e-02 -3.230089645375029406e-01 2.859543537129323812e-02 2.990886758690200486e-01 -5.050138329868067433e-02 -1.201762718528255475e-01 2.227580652994301524e-01
+3.735774332292617073e-02 -3.356070951810284364e-01 2.962456688191961174e-02 3.106685001607545904e-01 -5.263936119054867663e-02 -1.248445147888376794e-01 2.314486393326528058e-01
+3.834357059471264068e-02 -3.440108009192907046e-01 3.024195271055089493e-02 3.183244719109127874e-01 -5.420051065697564785e-02 -1.279433346626328571e-01 2.372477531937011164e-01
+3.932939786649911063e-02 -3.524145066575529728e-01 3.085933853918217812e-02 3.259804436610709844e-01 -5.576166012340261907e-02 -1.310421545364280627e-01 2.430468670547494270e-01
+4.031522513828558751e-02 -3.608182123958152965e-01 3.147672436781346478e-02 3.336364154112292368e-01 -5.732280958982959029e-02 -1.341409744102232682e-01 2.488459809157977098e-01
+4.130105241007205746e-02 -3.692219181340775647e-01 3.209411019644474450e-02 3.412923871613874338e-01 -5.888395905625656152e-02 -1.372397942840184459e-01 2.546450947768460482e-01
+4.228687968185852741e-02 -3.776256238723398329e-01 3.271149602507603116e-02 3.489483589115456308e-01 -6.044510852268353274e-02 -1.403386141578136237e-01 2.604442086378943033e-01
+4.327270695364499736e-02 -3.860293296106021010e-01 3.332888185370731782e-02 3.566043306617038278e-01 -6.200625798911049702e-02 -1.434374340316088292e-01 2.662433224989426139e-01
+4.425853422543146731e-02 -3.944330353488643692e-01 3.394626768233859754e-02 3.642603024118620247e-01 -6.356740745553747518e-02 -1.465362539054040347e-01 2.720424363599909245e-01
+4.524436149721794420e-02 -4.028367410871266929e-01 3.456365351096988420e-02 3.719162741620202772e-01 -6.512855692196443946e-02 -1.496350737791992125e-01 2.778415502210392352e-01
+4.623018876900441415e-02 -4.112404468253889611e-01 3.518103933960116392e-02 3.795722459121784742e-01 -6.668970638839141762e-02 -1.527338936529943902e-01 2.836406640820875458e-01
+4.721601604079088410e-02 -4.196441525636512293e-01 3.579842516823245058e-02 3.872282176623366712e-01 -6.825085585481838191e-02 -1.558327135267895958e-01 2.894397779431358564e-01
+4.802958091368306204e-02 -4.253929167432327629e-01 3.587700531904591122e-02 3.921249190154105779e-01 -6.999028650959543407e-02 -1.578770427947043808e-01 2.934166643955362641e-01
+4.884314578657523997e-02 -4.311416809228142966e-01 3.595558546985937881e-02 3.970216203684844292e-01 -7.172971716437248624e-02 -1.599213720626191382e-01 2.973935508479366163e-01
+4.965671065946741791e-02 -4.368904451023958302e-01 3.603416562067283946e-02 4.019183217215582804e-01 -7.346914781914955228e-02 -1.619657013305339233e-01 3.013704373003369685e-01
+5.047027553235959585e-02 -4.426392092819773638e-01 3.611274577148630704e-02 4.068150230746321872e-01 -7.520857847392660445e-02 -1.640100305984487083e-01 3.053473237527373763e-01
+5.128384040525177379e-02 -4.483879734615588974e-01 3.619132592229976769e-02 4.117117244277060939e-01 -7.694800912870365661e-02 -1.660543598663634657e-01 3.093242102051377840e-01
+5.209740527814394478e-02 -4.541367376411403756e-01 3.626990607311322834e-02 4.166084257807799451e-01 -7.868743978348070878e-02 -1.680986891342782508e-01 3.133010966575381362e-01
+5.291097015103612272e-02 -4.598855018207219092e-01 3.634848622392669593e-02 4.215051271338537964e-01 -8.042687043825776094e-02 -1.701430184021930359e-01 3.172779831099384884e-01
+5.372453502392830066e-02 -4.656342660003034428e-01 3.642706637474015657e-02 4.264018284869277031e-01 -8.216630109303482699e-02 -1.721873476701078209e-01 3.212548695623388961e-01
+5.453809989682047860e-02 -4.713830301798849765e-01 3.650564652555362416e-02 4.312985298400016099e-01 -8.390573174781187915e-02 -1.742316769380225783e-01 3.252317560147393039e-01
+5.535166476971265653e-02 -4.771317943594665101e-01 3.658422667636708481e-02 4.361952311930754611e-01 -8.564516240258893132e-02 -1.762760062059373634e-01 3.292086424671396561e-01
+5.542486222451219191e-02 -4.764676526753580110e-01 3.616223249986341010e-02 4.352204556619652109e-01 -8.625078874123856543e-02 -1.759491454720376047e-01 3.287610432988259945e-01
+5.549805967931172035e-02 -4.758035109912495120e-01 3.574023832335973538e-02 4.342456801308549608e-01 -8.685641507988818566e-02 -1.756222847381378183e-01 3.283134441305123885e-01
+5.557125713411125573e-02 -4.751393693071410129e-01 3.531824414685606067e-02 4.332709045997446551e-01 -8.746204141853781977e-02 -1.752954240042380596e-01 3.278658449621987270e-01
+5.564445458891079110e-02 -4.744752276230325139e-01 3.489624997035238596e-02 4.322961290686344049e-01 -8.806766775718745388e-02 -1.749685632703382732e-01 3.274182457938851210e-01
+5.571765204371031954e-02 -4.738110859389239593e-01 3.447425579384871125e-02 4.313213535375241547e-01 -8.867329409583707411e-02 -1.746417025364385145e-01 3.269706466255714594e-01
+5.579084949850985492e-02 -4.731469442548154603e-01 3.405226161734503654e-02 4.303465780064139046e-01 -8.927892043448670822e-02 -1.743148418025387558e-01 3.265230474572577979e-01
+5.586404695330939030e-02 -4.724828025707069612e-01 3.363026744084136183e-02 4.293718024753036544e-01 -8.988454677313634233e-02 -1.739879810686389694e-01 3.260754482889441919e-01
+5.593724440810892568e-02 -4.718186608865984621e-01 3.320827326433768711e-02 4.283970269441933487e-01 -9.049017311178597645e-02 -1.736611203347392107e-01 3.256278491206305303e-01
+5.601044186290845411e-02 -4.711545192024899631e-01 3.278627908783401240e-02 4.274222514130830985e-01 -9.109579945043559668e-02 -1.733342596008394243e-01 3.251802499523169243e-01
+5.608363931770798949e-02 -4.704903775183814640e-01 3.236428491133033769e-02 4.264474758819728484e-01 -9.170142578908523079e-02 -1.730073988669396656e-01 3.247326507840032628e-01
+5.569722229241018396e-02 -4.649631113871305343e-01 3.131118642105894245e-02 4.207710002047327924e-01 -9.193852651204408033e-02 -1.708271497154693896e-01 3.209370263170935322e-01
+5.531080526711237844e-02 -4.594358452558795491e-01 3.025808793078755068e-02 4.150945245274927364e-01 -9.217562723500291599e-02 -1.686469005639991137e-01 3.171414018501838572e-01
+5.492438824181457291e-02 -4.539085791246286195e-01 2.920498944051615892e-02 4.094180488502526249e-01 -9.241272795796176553e-02 -1.664666514125288377e-01 3.133457773832741822e-01
+5.453797121651676738e-02 -4.483813129933776898e-01 2.815189095024476715e-02 4.037415731730125690e-01 -9.264982868092060120e-02 -1.642864022610585617e-01 3.095501529163644516e-01
+5.415155419121896185e-02 -4.428540468621267046e-01 2.709879245997337538e-02 3.980650974957725130e-01 -9.288692940387945074e-02 -1.621061531095882857e-01 3.057545284494547211e-01
+5.376513716592116326e-02 -4.373267807308757749e-01 2.604569396970198014e-02 3.923886218185324570e-01 -9.312403012683830028e-02 -1.599259039581180097e-01 3.019589039825450461e-01
+5.337872014062335774e-02 -4.317995145996248452e-01 2.499259547943058837e-02 3.867121461412924011e-01 -9.336113084979713594e-02 -1.577456548066477338e-01 2.981632795156353710e-01
+5.299230311532555221e-02 -4.262722484683738600e-01 2.393949698915919660e-02 3.810356704640522896e-01 -9.359823157275598549e-02 -1.555654056551774578e-01 2.943676550487256405e-01
+5.260588609002774668e-02 -4.207449823371229303e-01 2.288639849888780137e-02 3.753591947868122336e-01 -9.383533229571482115e-02 -1.533851565037071818e-01 2.905720305818159099e-01
+5.221946906472994115e-02 -4.152177162058720006e-01 2.183330000861640960e-02 3.696827191095721776e-01 -9.407243301867367069e-02 -1.512049073522369058e-01 2.867764061149062349e-01
+5.173592053920215983e-02 -4.092580372164322244e-01 2.086304628808821962e-02 3.637258502917687930e-01 -9.400532408809192386e-02 -1.488903793607623816e-01 2.826791012955180982e-01
+5.125237201367438544e-02 -4.032983582269925038e-01 1.989279256756002964e-02 3.577689814739654084e-01 -9.393821515751019091e-02 -1.465758513692878851e-01 2.785817964761299059e-01
+5.076882348814660412e-02 -3.973386792375527277e-01 1.892253884703183966e-02 3.518121126561619683e-01 -9.387110622692844408e-02 -1.442613233778133608e-01 2.744844916567417692e-01
+5.028527496261882279e-02 -3.913790002481130070e-01 1.795228512650364622e-02 3.458552438383585836e-01 -9.380399729634669725e-02 -1.419467953863388365e-01 2.703871868373535770e-01
+4.980172643709104841e-02 -3.854193212586732309e-01 1.698203140597545624e-02 3.398983750205551990e-01 -9.373688836576496430e-02 -1.396322673948643400e-01 2.662898820179654402e-01
+4.931817791156326708e-02 -3.794596422692334547e-01 1.601177768544726626e-02 3.339415062027518144e-01 -9.366977943518321748e-02 -1.373177394033898158e-01 2.621925771985773035e-01
+4.883462938603548575e-02 -3.734999632797937341e-01 1.504152396491907802e-02 3.279846373849484298e-01 -9.360267050460147065e-02 -1.350032114119152915e-01 2.580952723791891112e-01
+4.835108086050770443e-02 -3.675402842903539580e-01 1.407127024439088631e-02 3.220277685671449897e-01 -9.353556157401972382e-02 -1.326886834204407672e-01 2.539979675598009745e-01
+4.786753233497993004e-02 -3.615806053009142373e-01 1.310101652386269633e-02 3.160708997493416050e-01 -9.346845264343799087e-02 -1.303741554289662707e-01 2.499006627404128100e-01
+4.738398380945214872e-02 -3.556209263114744612e-01 1.213076280333450635e-02 3.101140309315382204e-01 -9.340134371285624404e-02 -1.280596274374917465e-01 2.458033579210246455e-01
+4.698447400416300157e-02 -3.492785410253325118e-01 1.081395476380497475e-02 3.034930347449226740e-01 -9.388516873079368052e-02 -1.255340436299668128e-01 2.414510924939991254e-01
+4.658496419887385442e-02 -3.429361557391905624e-01 9.497146724275441418e-03 2.968720385583071275e-01 -9.436899374873111701e-02 -1.230084598224418790e-01 2.370988270669736053e-01
+4.618545439358471422e-02 -3.365937704530485575e-01 8.180338684745909819e-03 2.902510423716915811e-01 -9.485281876666855350e-02 -1.204828760149169453e-01 2.327465616399480852e-01
+4.578594458829556707e-02 -3.302513851669066081e-01 6.863530645216376486e-03 2.836300461850760901e-01 -9.533664378460598998e-02 -1.179572922073920116e-01 2.283942962129225651e-01
+4.538643478300641992e-02 -3.239089998807646587e-01 5.546722605686844887e-03 2.770090499984605437e-01 -9.582046880254342647e-02 -1.154317083998670779e-01 2.240420307858970173e-01
+4.498692497771727278e-02 -3.175666145946227092e-01 4.229914566157313288e-03 2.703880538118449972e-01 -9.630429382048086295e-02 -1.129061245923421442e-01 2.196897653588714971e-01
+4.458741517242812563e-02 -3.112242293084807598e-01 2.913106526627781689e-03 2.637670576252294508e-01 -9.678811883841829944e-02 -1.103805407848172104e-01 2.153374999318459770e-01
+4.418790536713898542e-02 -3.048818440223387549e-01 1.596298487098246621e-03 2.571460614386139043e-01 -9.727194385635573592e-02 -1.078549569772922767e-01 2.109852345048204569e-01
+4.378839556184983828e-02 -2.985394587361968055e-01 2.794904475687150225e-04 2.505250652519983579e-01 -9.775576887429317241e-02 -1.053293731697673430e-01 2.066329690777949368e-01
+4.338888575656069113e-02 -2.921970734500548561e-01 -1.037317591960815709e-03 2.439040690653828392e-01 -9.823959389223060890e-02 -1.028037893622424093e-01 2.022807036507694167e-01
+4.343809804294606475e-02 -2.891977485410136550e-01 -2.248196756560750294e-03 2.401903073969563485e-01 -9.961728808585675055e-02 -1.014802659456820050e-01 2.002393769046517669e-01
+4.348731032933143836e-02 -2.861984236319723984e-01 -3.459075921160684880e-03 2.364765457285298855e-01 -1.009949822794828922e-01 -1.001567425291215868e-01 1.981980501585340892e-01
+4.353652261571681198e-02 -2.831990987229311973e-01 -4.669955085760619032e-03 2.327627840601034226e-01 -1.023726764731090338e-01 -9.883321911256118253e-02 1.961567234124164116e-01
+4.358573490210218560e-02 -2.801997738138899408e-01 -5.880834250360554051e-03 2.290490223916769319e-01 -1.037503706667351755e-01 -9.750969569600076436e-02 1.941153966662987618e-01
+4.363494718848756615e-02 -2.772004489048487397e-01 -7.091713414960488203e-03 2.253352607232504412e-01 -1.051280648603613033e-01 -9.618617227944036008e-02 1.920740699201811119e-01
+4.368415947487293977e-02 -2.742011239958075386e-01 -8.302592579560421487e-03 2.216214990548239783e-01 -1.065057590539874449e-01 -9.486264886287995579e-02 1.900327431740634343e-01
+4.373337176125831338e-02 -2.712017990867662820e-01 -9.513471744160357374e-03 2.179077373863975153e-01 -1.078834532476135866e-01 -9.353912544631953763e-02 1.879914164279457844e-01
+4.378258404764368700e-02 -2.682024741777250809e-01 -1.072435090876029326e-02 2.141939757179710246e-01 -1.092611474412397282e-01 -9.221560202975913334e-02 1.859500896818281068e-01
+4.383179633402906061e-02 -2.652031492686838243e-01 -1.193523007336022568e-02 2.104802140495445339e-01 -1.106388416348658699e-01 -9.089207861319871518e-02 1.839087629357104570e-01
+4.388100862041443423e-02 -2.622038243596426232e-01 -1.314610923796016156e-02 2.067664523811180710e-01 -1.120165358284920115e-01 -8.956855519663831089e-02 1.818674361895927793e-01
+4.378494064236348321e-02 -2.595851540574321548e-01 -1.385992556203790096e-02 2.038642051889585916e-01 -1.125486212676034548e-01 -8.848841861318709756e-02 1.800753336807740246e-01
+4.368887266431252525e-02 -2.569664837552216863e-01 -1.457374188611563863e-02 2.009619579967991121e-01 -1.130807067067148980e-01 -8.740828202973588423e-02 1.782832311719552421e-01
+4.359280468626157423e-02 -2.543478134530112733e-01 -1.528755821019337803e-02 1.980597108046396049e-01 -1.136127921458263412e-01 -8.632814544628467091e-02 1.764911286631364873e-01
+4.349673670821062321e-02 -2.517291431508008048e-01 -1.600137453427111570e-02 1.951574636124801254e-01 -1.141448775849377845e-01 -8.524800886283345758e-02 1.746990261543177048e-01
+4.340066873015967219e-02 -2.491104728485903363e-01 -1.671519085834885510e-02 1.922552164203206460e-01 -1.146769630240492277e-01 -8.416787227938224425e-02 1.729069236454989500e-01
+4.330460075210871423e-02 -2.464918025463798679e-01 -1.742900718242659450e-02 1.893529692281611665e-01 -1.152090484631606848e-01 -8.308773569593101704e-02 1.711148211366801952e-01
+4.320853277405776321e-02 -2.438731322441694271e-01 -1.814282350650433390e-02 1.864507220360016870e-01 -1.157411339022721281e-01 -8.200759911247980372e-02 1.693227186278614127e-01
+4.311246479600681220e-02 -2.412544619419589587e-01 -1.885663983058206983e-02 1.835484748438421798e-01 -1.162732193413835713e-01 -8.092746252902859039e-02 1.675306161190426579e-01
+4.301639681795585424e-02 -2.386357916397485179e-01 -1.957045615465980923e-02 1.806462276516827004e-01 -1.168053047804950145e-01 -7.984732594557737706e-02 1.657385136102238754e-01
+4.292032883990490322e-02 -2.360171213375380495e-01 -2.028427247873754863e-02 1.777439804595232209e-01 -1.173373902196064578e-01 -7.876718936212616373e-02 1.639464111014051206e-01
+4.212083994603316867e-02 -2.298676917859071578e-01 -2.054313637049977326e-02 1.723328198869343297e-01 -1.158181916249724636e-01 -7.654198783239557491e-02 1.596973649863056566e-01
+4.132135105216143411e-02 -2.237182622342762661e-01 -2.080200026226199789e-02 1.669216593143454663e-01 -1.142989930303384694e-01 -7.431678630266499996e-02 1.554483188712061925e-01
+4.052186215828969956e-02 -2.175688326826453745e-01 -2.106086415402421905e-02 1.615104987417565752e-01 -1.127797944357044613e-01 -7.209158477293441114e-02 1.511992727561067562e-01
+3.972237326441796501e-02 -2.114194031310144828e-01 -2.131972804578644368e-02 1.560993381691676840e-01 -1.112605958410704671e-01 -6.986638324320382232e-02 1.469502266410072921e-01
+3.892288437054623046e-02 -2.052699735793835911e-01 -2.157859193754866831e-02 1.506881775965788206e-01 -1.097413972464364729e-01 -6.764118171347324737e-02 1.427011805259078281e-01
+3.812339547667449591e-02 -1.991205440277526995e-01 -2.183745582931089294e-02 1.452770170239899294e-01 -1.082221986518024787e-01 -6.541598018374265855e-02 1.384521344108083918e-01
+3.732390658280276136e-02 -1.929711144761218078e-01 -2.209631972107311756e-02 1.398658564514010383e-01 -1.067030000571684845e-01 -6.319077865401206973e-02 1.342030882957089277e-01
+3.652441768893102680e-02 -1.868216849244909161e-01 -2.235518361283533872e-02 1.344546958788121471e-01 -1.051838014625344764e-01 -6.096557712428148090e-02 1.299540421806094637e-01
+3.572492879505929225e-02 -1.806722553728600245e-01 -2.261404750459756335e-02 1.290435353062232837e-01 -1.036646028679004822e-01 -5.874037559455090596e-02 1.257049960655099996e-01
+3.492543990118755770e-02 -1.745228258212291328e-01 -2.287291139635978798e-02 1.236323747336343926e-01 -1.021454042732664880e-01 -5.651517406482031713e-02 1.214559499504105494e-01
+3.409068038112918198e-02 -1.670535727818164007e-01 -2.352401555650115647e-02 1.167262957273788593e-01 -1.009578116177393958e-01 -5.373844636521168949e-02 1.163046060816548405e-01
+3.325592086107080625e-02 -1.595843197424036686e-01 -2.417511971664252496e-02 1.098202167211233260e-01 -9.977021896221231756e-02 -5.096171866560306185e-02 1.111532622128991177e-01
+3.242116134101243746e-02 -1.521150667029909365e-01 -2.482622387678388998e-02 1.029141377148677927e-01 -9.858262630668522541e-02 -4.818499096599443421e-02 1.060019183441434087e-01
+3.158640182095406174e-02 -1.446458136635782044e-01 -2.547732803692525846e-02 9.600805870861225944e-02 -9.739503365115814715e-02 -4.540826326638580657e-02 1.008505744753876998e-01
+3.075164230089568601e-02 -1.371765606241655000e-01 -2.612843219706662695e-02 8.910197970235672615e-02 -9.620744099563105500e-02 -4.263153556677717892e-02 9.569923060663199088e-02
+2.991688278083731375e-02 -1.297073075847527679e-01 -2.677953635720799544e-02 8.219590069610119287e-02 -9.501984834010396286e-02 -3.985480786716855128e-02 9.054788673787626807e-02
+2.908212326077894150e-02 -1.222380545453400358e-01 -2.743064051734936393e-02 7.528982168984567347e-02 -9.383225568457688459e-02 -3.707808016755992364e-02 8.539654286912055914e-02
+2.824736374072056577e-02 -1.147688015059273037e-01 -2.808174467749072895e-02 6.838374268359012631e-02 -9.264466302904979245e-02 -3.430135246795128906e-02 8.024519900036483633e-02
+2.741260422066219005e-02 -1.072995484665145716e-01 -2.873284883763209743e-02 6.147766367733460691e-02 -9.145707037352271418e-02 -3.152462476834266142e-02 7.509385513160912740e-02
+2.657784470060381779e-02 -9.983029542710183946e-02 -2.938395299777346592e-02 5.457158467107907363e-02 -9.026947771799562203e-02 -2.874789706873403378e-02 6.994251126285341846e-02
+2.766120595804491544e-02 -9.871198071591687218e-02 -3.246579112777094739e-02 5.058102813729149771e-02 -9.592122255015538002e-02 -2.767673931948637714e-02 6.925682408056919870e-02
+2.874456721548600963e-02 -9.759366600473190489e-02 -3.554762925776842886e-02 4.659047160350392180e-02 -1.015729673823151380e-01 -2.660558157023872050e-02 6.857113689828496506e-02
+2.982792847292710381e-02 -9.647535129354692374e-02 -3.862946738776591032e-02 4.259991506971634589e-02 -1.072247122144748960e-01 -2.553442382099106386e-02 6.788544971600074529e-02
+3.091128973036820146e-02 -9.535703658236195646e-02 -4.171130551776339179e-02 3.860935853592876998e-02 -1.128764570466346540e-01 -2.446326607174340723e-02 6.719976253371651165e-02
+3.199465098780929911e-02 -9.423872187117698918e-02 -4.479314364776087326e-02 3.461880200214119407e-02 -1.185282018787944119e-01 -2.339210832249575406e-02 6.651407535143229188e-02
+3.307801224525039330e-02 -9.312040715999202189e-02 -4.787498177775835473e-02 3.062824546835361816e-02 -1.241799467109541699e-01 -2.232095057324809742e-02 6.582838816914807212e-02
+3.416137350269148748e-02 -9.200209244880705461e-02 -5.095681990775583620e-02 2.663768893456604572e-02 -1.298316915431139140e-01 -2.124979282400044078e-02 6.514270098686383847e-02
+3.524473476013258166e-02 -9.088377773762207346e-02 -5.403865803775331766e-02 2.264713240077846634e-02 -1.354834363752736859e-01 -2.017863507475278068e-02 6.445701380457961871e-02
+3.632809601757368279e-02 -8.976546302643710618e-02 -5.712049616775079913e-02 1.865657586699089043e-02 -1.411351812074334577e-01 -1.910747732550512751e-02 6.377132662229538507e-02
+3.741145727501477697e-02 -8.864714831525213889e-02 -6.020233429774828060e-02 1.466601933320331799e-02 -1.467869260395932018e-01 -1.803631957625747087e-02 6.308563944001116530e-02
+3.859327950141102498e-02 -9.144749820313469169e-02 -6.210411685144560934e-02 1.512931664593098260e-02 -1.514239026337612093e-01 -1.860608415936151894e-02 6.507850516316573963e-02
+3.977510172780727299e-02 -9.424784809101724448e-02 -6.400589940514293807e-02 1.559261395865864722e-02 -1.560608792279291890e-01 -1.917584874246556700e-02 6.707137088632031396e-02
+4.095692395420352100e-02 -9.704819797889979727e-02 -6.590768195884026681e-02 1.605591127138631183e-02 -1.606978558220971964e-01 -1.974561332556961507e-02 6.906423660947487442e-02
+4.213874618059976901e-02 -9.984854786678235006e-02 -6.780946451253759555e-02 1.651920858411397644e-02 -1.653348324162652039e-01 -2.031537790867366314e-02 7.105710233262944875e-02
+4.332056840699601702e-02 -1.026488977546649028e-01 -6.971124706623491041e-02 1.698250589684164452e-02 -1.699718090104331836e-01 -2.088514249177771120e-02 7.304996805578402308e-02
+4.450239063339226503e-02 -1.054492476425474556e-01 -7.161302961993223914e-02 1.744580320956930913e-02 -1.746087856046011910e-01 -2.145490707488175580e-02 7.504283377893859741e-02
+4.568421285978851304e-02 -1.082495975304300084e-01 -7.351481217362956788e-02 1.790910052229697375e-02 -1.792457621987691985e-01 -2.202467165798580387e-02 7.703569950209315786e-02
+4.686603508618476105e-02 -1.110499474183125612e-01 -7.541659472732689662e-02 1.837239783502463836e-02 -1.838827387929372059e-01 -2.259443624108985194e-02 7.902856522524773220e-02
+4.804785731258100906e-02 -1.138502973061951140e-01 -7.731837728102422536e-02 1.883569514775230297e-02 -1.885197153871051856e-01 -2.316420082419390000e-02 8.102143094840230653e-02
+4.922967953897725707e-02 -1.166506471940776668e-01 -7.922015983472155409e-02 1.929899246047996758e-02 -1.931566919812731931e-01 -2.373396540729794807e-02 8.301429667155688086e-02
+4.773260247634546205e-02 -1.131032950705047335e-01 -7.681107073852529166e-02 1.871210911663017881e-02 -1.872827871383615228e-01 -2.301221431020953820e-02 8.048982768087206696e-02
+4.623552541371366009e-02 -1.095559429469318141e-01 -7.440198164232902922e-02 1.812522577278038657e-02 -1.814088822954498248e-01 -2.229046321312112486e-02 7.796535869018723919e-02
+4.473844835108185813e-02 -1.060085908233588808e-01 -7.199289254613275291e-02 1.753834242893059780e-02 -1.755349774525381545e-01 -2.156871211603271499e-02 7.544088969950242529e-02
+4.324137128845006312e-02 -1.024612386997859614e-01 -6.958380344993649047e-02 1.695145908508080557e-02 -1.696610726096264565e-01 -2.084696101894430512e-02 7.291642070881759752e-02
+4.174429422581826810e-02 -9.891388657621302816e-02 -6.717471435374022803e-02 1.636457574123101680e-02 -1.637871677667147863e-01 -2.012520992185589525e-02 7.039195171813278362e-02
+4.024721716318646614e-02 -9.536653445264009488e-02 -6.476562525754396560e-02 1.577769239738122456e-02 -1.579132629238031160e-01 -1.940345882476748191e-02 6.786748272744796973e-02
+3.875014010055466418e-02 -9.181918232906717547e-02 -6.235653616134770316e-02 1.519080905353143579e-02 -1.520393580808914180e-01 -1.868170772767907203e-02 6.534301373676314195e-02
+3.725306303792286916e-02 -8.827183020549424219e-02 -5.994744706515142685e-02 1.460392570968164355e-02 -1.461654532379797478e-01 -1.795995663059066216e-02 6.281854474607832806e-02
+3.575598597529107414e-02 -8.472447808192132279e-02 -5.753835796895516441e-02 1.401704236583185478e-02 -1.402915483950680497e-01 -1.723820553350224882e-02 6.029407575539350028e-02
+3.425890891265927218e-02 -8.117712595834838951e-02 -5.512926887275890198e-02 1.343015902198206428e-02 -1.344176435521563795e-01 -1.651645443641383895e-02 5.776960676470868639e-02
+3.045236347791935305e-02 -7.215744529630968573e-02 -4.900379455356346919e-02 1.193791913065072458e-02 -1.194823498241390086e-01 -1.468129283236785723e-02 5.135076156862994345e-02
+2.664581804317943392e-02 -6.313776463427096808e-02 -4.287832023436803641e-02 1.044567923931938314e-02 -1.045470560961216377e-01 -1.284613122832187551e-02 4.493191637255120052e-02
+2.283927260843951479e-02 -5.411808397223226430e-02 -3.675284591517260363e-02 8.953439347988043431e-03 -8.961176236810425300e-02 -1.101096962427589379e-02 3.851307117647245759e-02
+1.903272717369959566e-02 -4.509840331019355358e-02 -3.062737159597717085e-02 7.461199456656702859e-03 -7.467646864008688212e-02 -9.175808020229912071e-03 3.209422598039371466e-02
+1.522618173895967653e-02 -3.607872264815483593e-02 -2.450189727678173113e-02 5.968959565325361420e-03 -5.974117491206949737e-02 -7.340646416183928616e-03 2.567538078431497173e-02
+1.141963630421975739e-02 -2.705904198611613215e-02 -1.837642295758630528e-02 4.476719673994022583e-03 -4.480588118405212650e-02 -5.505484812137946896e-03 1.925653558823622880e-02
+7.613090869479838263e-03 -1.803936132407742143e-02 -1.225094863839086556e-02 2.984479782662681144e-03 -2.987058745603475562e-02 -3.670323208091963441e-03 1.283769039215748586e-02
+3.806545434739919131e-03 -9.019680662038717656e-03 -6.125474319195439721e-03 1.492239891331341439e-03 -1.493529372801738475e-02 -1.835161604045983455e-03 6.418845196078742932e-03
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00
+0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00 0.000000000000000000e+00

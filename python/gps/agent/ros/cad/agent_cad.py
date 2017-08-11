@@ -22,9 +22,11 @@ from tf.transformations import quaternion_matrix, quaternion_slerp
 from genpy import Duration, Time
 import tf
 import copy # So we can copy things
+from tf import TransformListener # So we can listen for transforms and that sort of thing
 
 # For the messages from the AR sensing thing
 from ar_track_alvar_msgs.msg import AlvarMarker, AlvarMarkers
+from apriltags_ros.msg import AprilTagDetectionArray, AprilTagDetection
 
 from gps.agent.ros.agent_ros import AgentROS
 from gps.agent.agent_utils import generate_noise, setup
@@ -103,7 +105,14 @@ class AgentCAD(AgentROS):
             'gripper_client',
             'visual_pub',
             'trial_manager',
-            'trajectories'
+            'trajectories',
+            'ar_marker_sub',
+            'head_pub',
+            'ik',
+            'traj_read',
+            'traj_display',
+            'ar_functions',
+            'tf'
     ]
 
     def __init__(self, hyperparams, init_node=True):
@@ -121,7 +130,9 @@ class AgentCAD(AgentROS):
         self.planning_time = hyperparams['planning_time']
         self.planning_attempts = hyperparams['plan_attempts']
         self.T_interpolation = hyperparams['T_interpolation']
+        self.require_approval = hyperparams['require_approval']
 
+        self.tf = TransformListener() # This is to listen for transforms and that sort of thing
         self.fk = rospy.ServiceProxy('pr2_left_arm_kinematics/get_fk', GetPositionFK)
         self.ik = rospy.ServiceProxy('pr2_left_arm_kinematics/get_ik', GetPositionIK)
         self.get_model_state_srv = rospy.ServiceProxy('gazebo/get_model_state', GetModelState)
@@ -133,7 +144,8 @@ class AgentCAD(AgentROS):
         print 'Waiting for gripper server to start'; self.gripper_client.wait_for_server()
         self.visual_pub = rospy.Publisher('move_group/ompl_planner_data_marker_array', MarkerArray)
         # Gonna subscribe to the thing publishing locations for all the AR tags
-        self.ar_marker_sub = rospy.Subscriber('/ar_pose_marker', AlvarMarkers, self.getAR)
+        #self.ar_marker_sub = rospy.Subscriber('/ar_pose_marker', AlvarMarkers, self.getAR)
+        self.ar_marker_sub = rospy.Subscriber('/tag_detections', AprilTagDetectionArray, self.getAR)
 
         self.cur_ar_markers = None # To store the AR information
 
@@ -145,9 +157,10 @@ class AgentCAD(AgentROS):
         self.ar = {} # Dictionary of AR objects
         self.ar_functions = {} # A dictionary of AR functions
         self.ee_goal = None # Set the EE goal (if this has been set or not)
-        self.ja_goal = None # Set the joint angle goal (if this has been set or not)
-        self.do_reset = True # If we are gonna reset or not
+        self.ja_goal = None # Set the joint angle goal (if this has been set or not)\
         self.reset_plans = [0] * 5 # Empty array for the reset plans
+
+        self.dumb_ilqr = False # If we are just going to use the end positions for the cost fns 
 
         self.trial_manager = ProxyTrialManager(self)
 
@@ -190,6 +203,15 @@ class AgentCAD(AgentROS):
     def getAR(self, msg):
         self.cur_ar_markers = msg # Store what we have gotten lmao
 
+    def get_AR_pose(self, number):
+        # Get the markers from the detections array
+        markers = self.get_AR_markers()
+        for tag in markers: # Go through all of them and look at them or something
+            if tag.id == number: # Check if it's the right thing
+                gottenPose = self.tf.transformPose('base_footprint', tag.pose)
+                return gottenPose.pose # Return the pose of the thing
+        return None # Otherwise, return none
+
     # Stores the gotten visual trajectory information in an instance variable
     def getTrajectory(self, msg):
         self.saved_traj = msg # Stores the trajectory that was received
@@ -197,16 +219,17 @@ class AgentCAD(AgentROS):
     # Just a nice function to get the current AR markers
     def get_AR_markers(self):
         # Returns the array of AR markers
-        return self.cur_ar_markers.markers
+        #return self.cur_ar_markers.markers
+        return self.cur_ar_markers.detections
 
     # Get the chosen tag of the AR markers
     # If the AR tag doesn't exist in the array, return None
-    def get_AR_pose(self, number):
-        the_markers = self.get_AR_markers()
-        for tag in the_markers: # Look through all the tags in the array
-            if tag.id == number: # If we found the ID we are looking for
-                return tag.pose.pose # Return the pose of the tag
-        return None # If we couldn't find anything, return None
+    #def get_AR_pose(self, number):
+    #    the_markers = self.get_AR_markers()
+    #    for tag in the_markers: # Look through all the tags in the array
+    #        if tag.id == number: # If we found the ID we are looking for
+    #            return tag.pose.pose # Return the pose of the tag
+    #    return None # If we couldn't find anything, return None
 
     # This will create an AR function that will return the pose of the
     # actual item depending on where the AR tag is placed (that's why offsets)
@@ -216,6 +239,7 @@ class AgentCAD(AgentROS):
             ar_pose = copy.deepcopy(self.get_AR_pose(id_number)) # Get the pose of AR marker
             if ar_pose is None: # If you can't find the AR marker
                 print("Item " + str(id_number) + " AR tag not found!")
+                return None, None
             # Consider the offsets
             ar_pose.position.x += x_offset
             ar_pose.position.y += y_offset
@@ -227,10 +251,10 @@ class AgentCAD(AgentROS):
             #print("Position: " + str(ar_pose.position)) # This is kind of for debugging
             #print("Euler: " + str(euler))
             # No idea why we have to do this but sometimes the orientation tracking is wonky
-            if euler[0] < 0:
-                euler[0] += 1.57
-            if euler[2] > 0:
-                euler[2] -= 1.57
+            #if euler[0] < 0:
+            #    euler[0] += 1.57
+            #if euler[2] > 0:
+            #    euler[2] -= 1.57
             # Do the euler offsets as well
             euler[0] += euler_offset_0
             euler[1] += euler_offset_1
@@ -244,7 +268,7 @@ class AgentCAD(AgentROS):
         # If this is not an object in the object dictionary
         if obj_name not in self.ar:
             print("No such object: " + str(obj_name))
-            return None
+            return None, None
         # Just run the ar_functions thing
         return self.ar_functions[self.ar[obj_name]]()
 
@@ -298,8 +322,13 @@ class AgentCAD(AgentROS):
 
         return pose, euler # Return the found pose and euler for convenience
 
-    # Publishes the given visual trajectory to rViz
-    def publishDisplayTrajectory(self, traj):
+    # Publishes the given visual plan to rViz
+    def publishDisplayTrajectory(self, plan):
+        traj = DisplayTrajectory()
+        traj.model_id = 'pr2' # It's the pr2!
+        traj.trajectory = [plan] # Put the plan in the array maybe?
+        # Get the current state of the robot or something
+        traj.trajectory_start = self.robot.get_current_state() 
         self.traj_display.publish(traj) # Publish the DisplayTrajectory
 
     def use_controller(self, target):
@@ -367,15 +396,12 @@ class AgentCAD(AgentROS):
     def reset(self, condition):
         self.use_controller('GPS')
         condition_data = self._hyperparams['reset_conditions'][condition]
-        if self.do_reset: # Only reset if we're supposed to reset lmao
-            try:
-                self.reset_arm(TRIAL_ARM, condition_data[TRIAL_ARM]['mode'],
-                    condition_data[TRIAL_ARM]['data'])
-            except Exception as e:
-                print(e)
-                print 'Trial arm reset timed out'
-        else:
-            self.do_reset = True # Set it to true now
+        try:
+            self.reset_arm(TRIAL_ARM, condition_data[TRIAL_ARM]['mode'],
+                condition_data[TRIAL_ARM]['data'])
+        except Exception as e:
+            print(e)
+            print 'Trial arm reset timed out'
         try:
             self.reset_arm(AUXILIARY_ARM, condition_data[AUXILIARY_ARM]['mode'],
                        condition_data[AUXILIARY_ARM]['data'])
@@ -433,12 +459,14 @@ class AgentCAD(AgentROS):
     		prevPoint = position # Aww man almost forgot this
     	return dist
 
-    def plan(self):
-        self.set_planning_time(self.planning_time)
+    def plan(self, attempts=None):
+        if attempts is None: # If there is nothing
+            attempts = self.planning_attempts
+        self.group.set_planning_time(self.planning_time)
         best_plan, best_dist = None, float("inf")  # Infinity itself
 
         # For as many attempts as allowed
-        for attempt in range(self.planning_attempts):
+        for attempt in range(attempts):
             plan = self.group.plan() # Use motion planning to plan
             if plan is not None:
                 cur_dist = self.get_dist(plan) # Get the distance of cur plan
@@ -446,10 +474,11 @@ class AgentCAD(AgentROS):
                 if cur_dist < best_dist:
                     best_dist = cur_dist # This is the current best distance
                     best_plan = plan # This is the best plan
+        print("After planning, best dist found: " + str(best_dist))
         return best_plan
 
 
-    def plan_end_effector(self, target_position, target_orientation=None):
+    def plan_end_effector(self, target_position, target_orientation=None, attempts=None):
         current_position = listify(self.group.get_current_pose().pose.position)
         target_position = listify(target_position)
         if target_orientation is None:
@@ -461,7 +490,7 @@ class AgentCAD(AgentROS):
             print 'Planning path from {} to {} with orientation {}'.format(
                     current_position, target_position, target_orientation)
             self.group.set_pose_target(target_position + target_orientation)
-        return self.plan()
+        return self.plan(attempts) # Send in the attempts lmao
 
     def plan_joints(self, target_joint_positions):
         self.group.set_joint_value_target(target_joint_positions)
@@ -514,19 +543,6 @@ class AgentCAD(AgentROS):
             joints.append(state.position[index])
         return self.forward_kinematics1(joints)
 
-    # Calculate the trajectory information from the ee and ja
-    def calc_trajectory_info(self, ref_ee, ref_ja):
-        ref_offsets = np.array([points - ref_ee[-1] for points in ref_ee])
-        ref_ja = np.array(ref_ja)
-        ref_ee = np.array(ref_ee)
-        ref_offsets = ref_ee - ref_ee[-1]
-        return {
-            'ja': ref_ja,
-            'ee': ref_ee,
-            'offsets': ref_offsets,
-            'flattened': ref_offsets.flatten()
-        }
-
     def get_initial(self, condition, arm=TRIAL_ARM):
         condition_data = self._hyperparams['reset_conditions'][condition]
         return condition_data[arm]['data']
@@ -571,18 +587,14 @@ class AgentCAD(AgentROS):
     # Do the initialization of the reset trajectory and policy and stuff??
     def init_reset_traj(self, condition, policy):
         plan = self.reset_plans[condition] # Get the plan for the reset trajectory
-        ref_ee, ref_ja = self.calc_ee_and_ja(plan) # Get the ref_ee and ref_ja
-        # Calculate the reset trajectory thing??
-        self.reset_trajectories[condition] = self.calc_trajectory_info(ref_ee, ref_ja)
+        # Compute the reference trajectory given the plan
+        self.reset_trajectories[condition] = self.compute_reference_trajectory(plan)
         # Now it's time to initialize this policy or something
-        policy.__init__(*init_pd_ref(self._hyperparams['init_traj_distr'], ref_ja, ref_ee))
-
-        with open('interesting.txt', 'w') as f:
-            f.write('this is the plan')
-            f.write('THIS IS THE NEW\n\n')
-            f.write(str(self.reset_trajectories[condition]))
-            f.write('\n\nTHE OLD\n\n\n')
-            f.write(str(self.trajectories[condition]))
+        ref_traj_info = self.reset_trajectories[condition]
+        ref_ja_pos = ref_traj_info['ja_pos']
+        ref_ja_vel = ref_traj_info['ja_vel']
+        ref_ee = ref_traj_info['ee']
+        policy.__init__(*init_pd_ref(self._hyperparams['init_traj_distr'], ref_ja_pos, ref_ja_vel, ref_ee))
 
     # This is if you run it in the real world! Set the current position as the goal!
     def set_current_as_goal(self):
@@ -601,10 +613,30 @@ class AgentCAD(AgentROS):
         return self.group.get_current_pose().pose
 
     # This is if you want to set the ultimate destination from the
-    def set_real_goal(self):
+    def set_real_goal(self, condition):
         self.ee_goal = self.get_ee_pose() # Use what is happening in real world (??)
-        self.ja_goal = self.group.get_current_joint_values() # Get the current joint values
+        self.ja_goal = self.group.get_current_joint_values() # Get the current joint values\
+        # Get the difference in position from real to the specified position
 
+    # Offset the plan depending on the differences
+    def offset_whole_plan(self, thePlan):
+        if self.ee_goal is None:
+            return # If there is no special end goal just end it lol
+        goalJoint = np.array(self.ja_goal)
+        endGoal = thePlan.joint_trajectory.points[-1].positions # This is the current goal
+        diff = np.array(goalJoint) - np.array(endGoal) # This is the difference
+        print("This is the difference: " + str(diff)) # Print this
+        #diffPos = np.array(listify(self.ee_goal.position)) - \
+        #    np.array(self._hyperparams['targets'][condition]['position'])
+        # Get the difference in orientation from real to specified position
+        #diffOri = np.array(listify(self.ee_goal.orientation)) - \
+        #    np.array(self._hyperparams['targets'][condition]['orientation'])
+        # For all the points in there
+        for i in range(len(thePlan.joint_trajectory.points)):
+            # Add the difference to the plan and hope for the best or something
+            thePlan.joint_trajectory.points[i].positions = \
+            np.array(thePlan.joint_trajectory.points[i].positions) + diff 
+        
     # Edit the plan according to the different joint angle plan lmao
     def edit_plan_if_necessary(self, thePlan):
         if self.ja_goal is None: # If there is no change to the end goal
@@ -612,12 +644,18 @@ class AgentCAD(AgentROS):
         # Otherwise, we must change the very last point to be the new goal or something?
         thePlan.joint_trajectory.points[-1].positions = self.ja_goal
 
+    # Shift the plan depending on the changes to the end 
+
     # This is if you start at the ending location and then want to move away
     def reverse_plan(self, thePlan):
-        # Lmao just use the list reversing thing
-        thePlan.joint_trajectory.points.reverse() # Reversed, awww yea
-        ref_offsets = np.array([points - ref_ee[-1] for points in ref_ee])
-        ref_ja = np.array(ref_ja)
+        newPlan = copy.deepcopy(thePlan)
+        newPlan.joint_trajectory.points.reverse() # Reverse the points
+        # Lmao just use the list reversing thingq
+        numPoints = len(thePlan.joint_trajectory.points) # How many points
+        for i in range(numPoints): # Just flip everything around or something
+            newPlan.joint_trajectory.points[i].time_from_start = \
+                thePlan.joint_trajectory.points[i].time_from_start
+        return newPlan
 
     def get_existing_plan(self, condition):
         filename = self._plan_file(condition)
@@ -664,6 +702,7 @@ class AgentCAD(AgentROS):
             plan = self.compute_plan(condition)
             filename = self._plan_file(condition)
             with open(filename, 'wb') as f:
+                print('Dumping the plan in a file right now.') 
                 pickle.dump(plan, f)
         self.trajectories[condition] = self.compute_reference_trajectory(plan)
 
@@ -758,8 +797,14 @@ class AgentCAD(AgentROS):
 
         sample = msg_to_sample(sample_msg, self)
         sample.set(NOISE, noise)
-        sample.set(REF_OFFSETS, ref_traj_info['offsets'])
-        sample.set(REF_TRAJ, np.array([ref_traj_info['flattened']]*self.T))
+
+        if self.dumb_ilqr: # If we are going to use the dumb ilqr cost fns
+            print("Doing the dumb ilqr thing")
+            sample.set(REF_OFFSETS, np.zeros((self.T, 9)))
+            sample.set(REF_TRAJ, np.zeros(self.T * 9))
+        else:
+            sample.set(REF_OFFSETS, ref_traj_info['offsets'])
+            sample.set(REF_TRAJ, np.array([ref_traj_info['flattened']]*self.T))
 
         if save and not self.reset_time: # If we are not gonna save this sample as reset
             self._samples[condition].append(sample)

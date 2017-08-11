@@ -1,0 +1,8 @@
+prefix=/home/melissachien/new_gps/devel
+
+Name: gazebo_world_plugin_loader
+Description: Description of gazebo_world_plugin_loader
+Version: 1.0.1
+Cflags: -I/home/melissachien/new_gps/src/gazebo-pkgs/gazebo_world_plugin_loader/include
+Libs: -L/home/melissachien/new_gps/devel/lib -lgazebo_world_plugin_loader
+Requires: roscpp gazebo_ros

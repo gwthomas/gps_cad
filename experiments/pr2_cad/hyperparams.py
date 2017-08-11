@@ -34,16 +34,14 @@ from gps.algorithm.policy.lin_gauss_init import init_lqr, init_pd
 from gps.gui.target_setup_gui import load_pose_from_npz
 from gps.proto.gps_pb2 import JOINT_ANGLES, JOINT_VELOCITIES, \
         END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, ACTION, \
-        TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE
+        TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE, REF_TRAJ, REF_OFFSETS
 from gps.utility.general_utils import get_ee_points
 from gps.gui.config import generate_experiment_info
 
 
 #NNLIB = 'caffe'
 NNLIB = None
-        TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE, REF_TRAJ, REF_OFFSETS
 from gps.utility.general_utils import get_ee_points
-from gps.gui.config import generate_experiment_info
 
 T = 200
 NNLIB = 'tf'
@@ -121,16 +119,15 @@ agent = {
                       END_EFFECTOR_POINT_VELOCITIES],
     'end_effector_points': EE_POINTS,
     'obs_include': [JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS,
-                    END_EFFECTOR_POINT_VELOCITIES],
+                    END_EFFECTOR_POINT_VELOCITIES, REF_TRAJ],
     #'planner': 'RRTStarkConfigDefault',
     'planner': 'RRTConnectkConfigDefault',
     # 'planner': 'PRMstarkConfigDefault',
     'planning_time': 15,
     'plan_attempts': 20,
-    'obs_include': [JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS, \
-            END_EFFECTOR_POINT_VELOCITIES, REF_TRAJ],
     'targets': [{'position': (0.5, 0.09, 0.555), 'orientation': (3.14, 0.0, -1.57)}
         for _ in range(common['conditions'])],
+        
     ###### THIS IS FOR THE ORIGINAL EXPERIMENT #######################
     #'targets': [{'position': (0.5, 0.09, 0.555), 'orientation': (3.14, 0.0, -1.57)}
     #    for _ in range(common['conditions'])],

@@ -48,32 +48,37 @@ class RealGearExperiment(AgentCAD):
 	# Initialize the AR function stuff and all that stuff
     def __init__(self, hyperparams, init_node=True):
         AgentCAD.__init__(self, hyperparams, init_node)
-        self.attempts = 20 # Make 20 plans 
-        self.use_saved_traj = None # Any saved trajectory??
         # Number of AR tag they have on them
-        self.ar = {'shaft2': 6, 'base_plate': 4, 'compound_gear': 8} 
+        self.ar = {'shaft2': 1, 'base_plate': 2, 'compound_gear': 8} 
 
         # Create the functions with the proper offsets and whatever
         self.ar_functions[self.ar['shaft2']] = self.create_AR_function( \
-        	self.ar['shaft2'], -0.02, 0, 0.015, -3.14, 0, 3.14)
+        	self.ar['shaft2'], -0.027, 0 - 0.01, -0.0067, -3.14, 0, 3.14)
 
         self.ar_functions[self.ar['base_plate']] = self.create_AR_function( \
-            #self.ar['base_plate'], 0.02, -0.005, 0, -1.45, 0, 0.785) #0.785
-            self.ar['base_plate'], 0.0126, 0, -0.01, 0, 0, -0.785) # z 0.0155
+            self.ar['base_plate'], 0 + 0.005, -0.01 - 0.014, 0.025, 0.0067, 0, 0) 
 
         self.ar_functions[self.ar['compound_gear']] = self.create_AR_function( \
             self.ar['compound_gear'], -0.055, 0, -0.0281, 0, 0, 0) #0.03
 
+        self.stored_poses = {} # Stored poses for the objects in the scene
+
         pdb.set_trace() # Need to stop and setup
+
+    # Call the super reset
+    def super_reset(self, condition):
+    	super(RealGearExperiment, self).reset(condition)
 
     # Time to set up the scene for the shaft2 experiment lmao
     def setup_shaft2(self):
+    	self.get_all_poses() # Store the poses lol
         self.configure_scene_base()
         self.configure_scene_shaft2()
         self.grasp_prep_shaft2()
 
     # Time to set up the scene for the compound gear experiment lmao
     def setup_compound_gear(self):
+    	self.get_all_poses() # Store the poses lol
         self.configure_scene_base()
         self.configure_scene_compound_gear()
         self.grasp_prep_compound_gear()
@@ -83,34 +88,59 @@ class RealGearExperiment(AgentCAD):
         self.scene.remove_world_object()
         self.scene.remove_attached_object(self.ee_link)
 
-        table_pose = self.get_AR_pose(7) # Get the AR position of the table
+        #table_pose = self.get_AR_pose(3) # Get the AR position of the table
+        table_pose = None
         if not table_pose: # If there isn't an AR marker
-            z = 0.72 # Ehh just some random height
+            z = 0.5 # Ehh just some random height
         else:
             z = table_pose.position.z # Otherwise get the z coordinate
         print 'Adding objects to planning scene'
-        self.add_object('table', position=[0.8,0.,z], size=[0.7,1.5,0.03], type='box')
+        self.add_object('table', position=[0.8,0.,z - 0.02], size=[0.7,1.5,0.03], type='box')
 
         for name in ['base_plate']:
             # Get the position of the objects using their AR tags
-            pose, euler = self.pose_from_AR(name)
+            pose = self.stored_poses[name]
             self.add_object(name, position=listify(pose.position), 
             	orientation=[0, 0, -0.36, 1], size=(0.025, 0.025, 0.025), 
             	filename=self._hyperparams[name])
+
+    # Store all the poses that we have available
+    #def get_all_poses(self):
+    #	for obj in self.ar: # For all the objects that we are keeping track of
+    #		pose, euler = self.pose_from_AR(obj) # Get the pose from the thing
+    #		self.stored_poses[obj] = pose # Store it in the dictionary
+
+    def get_all_poses(self):
+		for obj in self.ar: # For all the objects that we are keeping track of
+			pose = self.get_pose(obj) # Get the pose from the thing
+			self.stored_poses[obj] = pose # Store it in the dictionary
     
     # Configure the rviz scene so motion planning and stuff can work well
     def configure_scene_shaft2(self):
         # Get the position of the shaft using their AR tags
-        pose, euler = self.pose_from_AR('shaft2')
-        self.add_object('shaft2', position=listify(pose.position),
+        pose = self.stored_poses['base_plate']
+        newPose = copy.deepcopy(pose) # Make a deep copy of this
+        # Make some modifications lmao
+        #newPose.position.x += 0.08020783
+        #newPose.position.y -= 0.08020783
+
+        newPose.position.x += 0.0787
+        newPose.position.y -= 0.081
+        newPose.position.z += 0.104 #2719
+
+        #self.stored_poses['shaft2'] = newPose # Store this pose in relation
+        newPose = self.stored_poses['shaft2']
+        self.add_object('shaft2', position=listify(newPose.position),
                 orientation=[1, -0.027, 0, 0],
-                size=(0.025, 0.025, 0.025),
+                #size=(0.025, 0.025, 0.025),
+                size=(0.02, 0.02, 0.02),
+
                 filename=self._hyperparams['shaft2'])
 
     # Configure the rviz scene so motion planning and stuff can work well
     def configure_scene_compound_gear(self):
         # Get the position of the shaft using their AR tags
-        pose, euler = self.pose_from_AR('compound_gear')
+        pose = self.stored_poses['compound_gear']
         self.add_object('compound_gear', position=listify(pose.position),
                 orientation=[0, 0, 0, 1],
                 size=(0.025, 0.025, 0.025),
@@ -122,7 +152,7 @@ class RealGearExperiment(AgentCAD):
         self.ungrip(15)
         self.ungrip(15) # UGHHHH DO IT AGAIN ITS SO DUMB
         time.sleep(3)
-        pose, euler = self.pose_from_AR('compound_gear')
+        pose = self.stored_poses['compound_gear']
         pos = pose.position # Get the position from the pose
         # 0.238
         self.move_to(pos.x - 0.24, pos.y, pos.z + 0.008, 1.57, 0, 0)
@@ -134,9 +164,11 @@ class RealGearExperiment(AgentCAD):
         self.ungrip(15)
         self.ungrip(15) # UGHHHH DO IT AGAIN ITS SO DUMB
         time.sleep(3)
-        pose, euler = self.pose_from_AR('shaft2')
+        pose = self.stored_poses['shaft2']
         pos = pose.position # Get the position from the pose
-        self.move_to(pos.x - 0.205, pos.y, pos.z - 0.02, 0, 0, 0)
+        #self.move_to(pos.x, pos.y, pos.z + 0.183, 0, 1.57, 0)
+
+        self.move_to(pos.x, pos.y, pos.z + 0.15, 0, 1.57, 0)
         time.sleep(2) # Wait for a little bit
 
     # Grasp whatever object you wanna grasp or something
@@ -151,7 +183,7 @@ class RealGearExperiment(AgentCAD):
         self.use_controller('MoveIt')
         target_position = [pos_x, pos_y, pos_z]
         target_pose = [orient_x, orient_y, orient_z]
-        init_plan = self.plan_end_effector(target_position, target_pose)
+        init_plan = self.plan_end_effector(target_position, target_pose, 1)
         self.group.execute(init_plan)
 
     # Change the goal point depending on the location of the base plate lmao
@@ -170,101 +202,27 @@ class RealGearExperiment(AgentCAD):
 
     # Overrides the reset method to do nothing because we want to do learning
     def reset(self, condition):
-    	self.use_controller('GPS') # Make sure you are using GPS controller tho
+    	#self.use_controller('GPS') # Make sure you are using GPS controller tho
         pass
 
-    # Also override LMAOOOOOOO
-    def plan(self, use_plan=None):
-        # If already given a plan, just return it
-        if use_plan is not None:
-                return use_plan
-        used_time = 0 # We'll give them a total of 60 seconds
-        for time in self.planning_schedule:
-            print 'Planning with {} seconds'.format(time)
-            used_time += time # Increment the time used
-            self.group.set_planning_time(time)
-            plan = self.group.plan()
-            if len(plan.joint_trajectory.points) > 0:
-                print 'Success!'
-                dist = self.get_dist(plan) # Get the distance of the plan
-                print('The distance was ' + str(dist) + '\n')
-                return plan
-            else:
-                print 'Failed.'.format(time)
-        if self.indefatigable:
-            print 'Failed to find a valid plan under the given schedule, but trying again'
-            time = 1
-            while used_time <= 80:
-                print 'Planning with {} seconds'.format(time)
-                self.group.set_planning_time(time)
-                plan = self.group.plan()
-                if len(plan.joint_trajectory.points) > 0:
-                    print 'Success!'
-                    dist = self.get_dist(plan) # Get the distance of the plan
-                    print('The distance was ' + str(dist) + '\n')
-                    return plan
-                else:
-                    print 'Failed.'.format(time)
-                used_time += time
-                time *= 2
-        else:
-                return None
-        return None
-
     # Override so we make multiple plans and then choose one with best
-    def compute_reference_trajectory(self, condition, policy):
-    	#super(RealGearExperiment, self).reset(condition) # Call the super method
-        #self.reset(condition)
-        target = self._hyperparams['targets'][condition]
-        best_ref_ee = None # HAHAHAHAHA to store the best one
-        best_ref_ja = None # HAHAHAHAHA to store the best one
-        best_dist = float("inf") # Infinity itself
+    def determine_reference_trajectory(self, condition):
+        plan = self.get_existing_plan(condition)
+        if plan is None:
+            print 'No valid plan found for condition {}. Computing a fresh one'.format(condition)
+            plan = self.reverse_plan(self.compute_plan(condition))
+            self.edit_plan_if_necessary(plan) # Edit the plan if we have a diff end
 
-        while True:
-            for attempt in range(self.attempts): # Let's do asked attempts on plan
-                if self.use_saved_traj: # If there is a plan to read
-                    best_plan = self.load_plan(self.plan_filename)
-                    best_dist = self.get_dist(best_plan) # Best plan!
-                    break # We can leave this place
-                else: # Otherwise just create a motion plan
-                    plan = self.plan_end_effector(target['position'], target['orientation'])
- 
-
-                if plan is not None:
-                    cur_dist = self.get_dist(plan) # Get the distance of cur plan
-                    #self.dists.append(cur_dist)
-                    # If it beats it we need to use it! Woah!
-                    if cur_dist < best_dist:
-                        best_dist = cur_dist # This is the current best distance
-                        best_plan = plan # This is the best plan
-                        # Save the display trajectory and stuff
-                        self.best_saved_traj[condition] = self.saved_traj 
-
-            self.edit_plan_if_necessary(best_plan) # Edit the plan if we have a diff end
-            self.reset_plans[condition] = copy.deepcopy(best_plan) # Amazing really
-            self.reverse_plan(best_plan) # We have to reverse the plan in this case
-
-            # Only continue on with these calculations if necessary
-            best_ref_ee, best_ref_ja = self.calc_ee_and_ja(best_plan)
-
-            if self.best_saved_traj[condition] is not None:
-            	# Publish it so it is the last thing you see before question
-            	self.publishDisplayTrajectory(self.best_saved_traj[condition]) 
-
-            if not self.require_approval or yesno('Does this trajectory look ok?'):
-                print("this is the distance of the best one: " + str(best_dist))
-                break 
-
-        policy.__init__(*init_pd_ref(self._hyperparams['init_traj_distr'], best_ref_ja, best_ref_ee))
-
-        with open('pickled_robot_traj_cond' + str(condition), 'w') as f:
-            pickle.dump(self.best_saved_traj[condition], f)
-
+            filename = self._plan_file(condition)
+            with open(filename, 'wb') as f: # Put the plan into a file
+            	pickle.dump(plan, f)
+         # The reset plan is the reverse of the normal plan
+        self.reset_plans[condition] = self.reverse_plan(plan) # Amazing really
+        self.trajectories[condition] = self.compute_reference_trajectory(plan)
+        self.publishDisplayTrajectory(plan) # Publish the plan to the motion planner
+        self.use_controller('GPS')
         # Calculate the trajectory information using this
-        traj_info = self.calc_trajectory_info(best_ref_ee, best_ref_ja)
-        pdb.set_trace() # Ehh just stop here just in case real quick
-        self.trajectories[condition] = traj_info
-        self.reset(condition)
+        pdb.set_trace() # Ehh just stop here just in case real quick\
 
     # Hmmm some resetting things??? 
     '''

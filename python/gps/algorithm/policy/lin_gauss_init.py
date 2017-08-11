@@ -153,7 +153,7 @@ def init_pd_ref(hyperparams, ref_ja_pos, ref_ja_vel, ref_ee):
     config.update(hyperparams)
 
     dU, dQ, dX = config['dU'], config['dQ'], config['dX']
-    T = len(ref_ja)
+    T = len(ref_ja_pos)
 
     # Choose initialization mode.
     Kp = 1.0
@@ -175,12 +175,20 @@ def init_pd_ref(hyperparams, ref_ja_pos, ref_ja_vel, ref_ee):
     X = np.zeros((T,32))
     for t in range(T):
         X[t,:7] = ref_ja_pos[t]
-        X[t,7:14] = ref_ja_vel[t]
-        # X[t,14:(14+9)] = ref_ee[t]
+        #X[t,7:14] = ref_ja_vel[t]
+        X[t,14:(14+9)] = ref_ee[t]
 
     k = X.dot(-K[0, :, :].T)
     PSig = config['init_var'] * np.tile(np.eye(dU), [T, 1, 1])
     cholPSig = np.sqrt(config['init_var']) * np.tile(np.eye(dU), [T, 1, 1])
     invPSig = (1.0 / config['init_var']) * np.tile(np.eye(dU), [T, 1, 1])
+
+    #np.savetxt('K.txt', np.array(K))
+    #np.savetxt('k.txt', np.array(k))
+    np.set_printoptions(threshold=np.inf)
+    with open('hello.txt', 'w') as f:
+        f.write(np.array_str(K))
+        f.write("HELLO\n\n")
+        f.write(np.array_str(k))
 
     return (K, k, PSig, cholPSig, invPSig)
