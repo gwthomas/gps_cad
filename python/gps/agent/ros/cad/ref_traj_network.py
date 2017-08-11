@@ -118,19 +118,17 @@ def fc_layer(input, size, id, nonlinearity=tf.nn.relu):
     return sofar, [cur_weight], [cur_bias]
 
 def resnet_layer(input, id, nonlinearity=tf.nn.relu, nonlinear_output=True):
-    sofar = input
-    size = sofar.get_shape().dims[1].value
+    size = input.get_shape().dims[1].value
     cur_weight1 = init_weights([size, size], name='w1_' + str(id))
     cur_bias1 = init_bias([size], name='b1_' + str(id))
     cur_weight2 = init_weights([size,size], name='w2_' + str(id))
     cur_bias2 = init_bias([size], name='b2_' + str(id))
-    sofar = tf.nn.xw_plus_b(sofar, cur_weight1, cur_bias1)
-    sofar = nonlinearity(sofar)
-    sofar = tf.nn.xw_plus_b(sofar, cur_weight2, cur_bias2)
-    sofar = sofar + input
+    f = nonlinearity(tf.nn.xw_plus_b(input, cur_weight1, cur_bias1))
+    residual = tf.nn.xw_plus_b(f, cur_weight2, cur_bias2)
+    output = residual + input
     if nonlinear_output:
-        sofar = nonlinearity(sofar)
-    return sofar, [cur_weight1, cur_weight2], [cur_bias1, cur_bias2]
+        output = nonlinearity(output)
+    return output, [cur_weight1, cur_weight2], [cur_bias1, cur_bias2]
 
 def get_resnet_layers(input, num_layers, nonlinearity=tf.nn.relu, nonlinear_output=True):
     sofar = input
@@ -144,9 +142,10 @@ def get_resnet_layers(input, num_layers, nonlinearity=tf.nn.relu, nonlinear_outp
     return sofar, weights, biases
 
 def ref_traj_network_factory(attention, dim_input=27, dim_output=7, batch_size=25, network_config=None):
+    tf.reset_default_graph()
+
     T = network_config['T']
     ee_pos_indices = network_config['ee_pos_indices']
-    resnet = network_config['resnet']
     assert ee_pos_indices[1] - ee_pos_indices[0] == 9
     nn_input, action, precision = get_input_layer(dim_input, dim_output)
     pdb.set_trace()
@@ -166,15 +165,19 @@ def ref_traj_network_factory(attention, dim_input=27, dim_output=7, batch_size=2
 
     with tf.variable_scope('final'):
         mlp_sizes = network_config['mlp_hidden_sizes']
-        mlp_out, mlp_weights, mlp_biases = get_mlp_layers(augmented_state, len(mlp_sizes), mlp_sizes, nonlinear_output=True)
+        with tf.variable_scope('mlp'):
+            mlp_out, mlp_weights, mlp_biases = get_mlp_layers(augmented_state, len(mlp_sizes), mlp_sizes, nonlinear_output=True)
         resnet_n = network_config['resnet_n_hidden']
-        resnet_out, resnet_weights, resnet_biases = get_resnet_layers(augmented_state, resnet_n, nonlinear_output=True)
-        final_input = tf.concat([mlp_out, resnet_out], 1)
-        final_out, final_weights, final_biases = fc_layer(final_input, dim_output, 'final', nonlinearity=None)
-        weights = mlp_weights + resnet_weights + final_weights
-        biases = mlp_biases + resnet_biases + final_biases
+        with tf.variable_scope('resnet'):
+            resnet_out, resnet_weights, resnet_biases = get_resnet_layers(augmented_state, resnet_n, nonlinear_output=True)
+        fc_input = tf.concat([mlp_out, resnet_out], 1)
+        with tf.variable_scope('fc'):
+            fc_out, fc_weights, fc_biases = fc_layer(fc_input, dim_output, 'fc', nonlinearity=None)
+        final_weights = mlp_weights + resnet_weights + fc_weights
+        final_biases = mlp_biases + resnet_biases + fc_biases
 
-    all_vars = attn_weights + weights + biases
+    final_out = fc_out
+    all_vars = attn_weights + final_weights + final_biases
     loss_out = get_loss_layer(mlp_out=final_out, action=action, precision=precision, batch_size=batch_size)
     return TfMap.init_from_lists([nn_input, action, precision], [final_out], [loss_out]), all_vars, []
 

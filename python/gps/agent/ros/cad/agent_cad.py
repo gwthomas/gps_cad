@@ -70,7 +70,11 @@ class ProxyTrialManager(object):
         self.service = rospy.Service('proxy_control', ProxyControl, self.handle_request)
 
     def handle_request(self, request):
-        self.t += 1
+        try:
+            self.t += 1
+        except AttributeError:
+            print 'ProxyTrialManager: must call prep before run'
+            raise
         obs = self.agent.get_obs(request, self.condition)
         response = ProxyControlResponse()
         response.action = self.agent.get_action(self.policy, obs)
@@ -97,6 +101,7 @@ class AgentCAD(AgentROS):
             'scene',
             'group',
             'fk',
+            'ik',
             'get_model_state_srv',
             'set_model_state_srv',
             'spawn_model_srv',
@@ -123,8 +128,7 @@ class AgentCAD(AgentROS):
         self.scene = moveit_commander.PlanningSceneInterface()
         self.group = moveit_commander.MoveGroupCommander('left_arm')
         # This is for controlling the head or something like that
-        self.head_pub = actionlib.SimpleActionClient('/head_traj_controller/point_head_action',
-         PointHeadAction)
+        self.head_pub = actionlib.SimpleActionClient('/head_traj_controller/point_head_action', PointHeadAction)
 
         self.group.set_planner_id(hyperparams['planner'])
         self.planning_time = hyperparams['planning_time']
@@ -147,11 +151,11 @@ class AgentCAD(AgentROS):
         #self.ar_marker_sub = rospy.Subscriber('/ar_pose_marker', AlvarMarkers, self.getAR)
         self.ar_marker_sub = rospy.Subscriber('/tag_detections', AprilTagDetectionArray, self.getAR)
 
+        self.use_AR_markers = hyperparams['use_AR_markers']
         self.cur_ar_markers = None # To store the AR information
 
         self.traj_read = rospy.Subscriber('move_group/display_planned_path', DisplayTrajectory, self.getTrajectory)
         self.traj_display = rospy.Publisher('move_group/display_planned_path', DisplayTrajectory)
-        self.best_saved_traj = [0] * 5 # Set this to nothing for now
         self.saved_traj = None # Saved each time a thing is published
 
         self.ar = {} # Dictionary of AR objects
@@ -351,11 +355,17 @@ class AgentCAD(AgentROS):
             time.sleep(1)
 
     # Query Gazebo for the pose of a named object
-    def get_pose(self, name, relative_entity_name=''):
+    def get_gazebo_pose(self, name, relative_entity_name=''):
         response = self.get_model_state_srv(name, relative_entity_name)
         if not response.success:
             raise RuntimeError('Failed to get pose for model {}'.format(name))
         return response.pose
+
+    def get_pose(self, id):
+        if self.use_AR_markers:
+            return self.get_AR_pose(id)
+        else:
+            return self.get_gazebo_pose(id)
 
     def set_pose(self, name, pose, relative_entity_name=''):
         model_state = ModelState(name, pose, Twist(), relative_entity_name)
@@ -436,47 +446,43 @@ class AgentCAD(AgentROS):
             self.gripper_client.send_goal(goal)
         else:
             duration = rospy.Duration(wait)
-            self.gripper_client.send_goal_and_wait(goal, execute_timeout=duration)
+            result = self.gripper_client.send_goal_and_wait(goal, execute_timeout=duration)
+            import pdb; pdb.set_trace()
 
     def grip(self, wait):
         self.set_gripper(0.0, 50.0, wait)
 
-    # Lmao grip with specified effort or something
-    def grip_with(self, effort, wait):
-        self.set_gripper(0, effort, wait) # GRIP WITH STUFF
-
     def ungrip(self, wait):
         self.set_gripper(0.08, 50.0, wait)
 
-    # This calculates the distance of the joints in a trajectory
-    def get_dist(self, plan):
-    	prevPoint = None # Start off with nothing
-    	dist = 0 # Start off the distance as 0
-    	for thePoint in plan.joint_trajectory.points:
-    		position = np.array(thePoint.positions)
-    		if prevPoint is not None: # If there was a previous pt
-    			dist += np.sqrt(np.sum(np.square(position - prevPoint)))
-    		prevPoint = position # Aww man almost forgot this
-    	return dist
+    def compute_plan_cost(self, plan):
+    	# prevPoint = None # Start off with nothing
+    	# dist = 0 # Start off the distance as 0
+    	# for thePoint in plan.joint_trajectory.points:
+    	# 	position = np.array(thePoint.positions)
+    	# 	if prevPoint is not None: # If there was a previous pt
+    	# 		dist += np.sqrt(np.sum(np.square(position - prevPoint)))
+    	# 	prevPoint = position # Aww man almost forgot this
+    	# return dist
+        ref_traj = self.compute_reference_trajectory(plan)
+        ee_pos = ref_traj['ee']
+        return sum([np.sum((ee_pos[i] - ee_pos[i-1])**2) for i in range(1, len(ee_pos))])
 
-    def plan(self, attempts=None):
-        if attempts is None: # If there is nothing
-            attempts = self.planning_attempts
+    def plan(self, attempts=1):
         self.group.set_planning_time(self.planning_time)
-        best_plan, best_dist = None, float("inf")  # Infinity itself
+        best_plan, best_cost = None, float('inf')  # Infinity itself
 
         # For as many attempts as allowed
         for attempt in range(attempts):
-            plan = self.group.plan() # Use motion planning to plan
+            plan = self.group.plan()
             if plan is not None:
-                cur_dist = self.get_dist(plan) # Get the distance of cur plan
-                # If it beats it we need to use it! Woah!
-                if cur_dist < best_dist:
-                    best_dist = cur_dist # This is the current best distance
-                    best_plan = plan # This is the best plan
-        print("After planning, best dist found: " + str(best_dist))
+                cur_cost = self.compute_plan_cost(plan)
+                print cur_cost
+                if cur_cost < best_cost:
+                    best_cost = cur_cost    # update current best distance
+                    best_plan = plan        # update current best plan
+                    print 'New best cost:', best_cost
         return best_plan
-
 
     def plan_end_effector(self, target_position, target_orientation=None, attempts=None):
         current_position = listify(self.group.get_current_pose().pose.position)
@@ -492,9 +498,10 @@ class AgentCAD(AgentROS):
             self.group.set_pose_target(target_position + target_orientation)
         return self.plan(attempts) # Send in the attempts lmao
 
-    def plan_joints(self, target_joint_positions):
+
+    def plan_joints(self, target_joint_positions, attempts=1):
         self.group.set_joint_value_target(target_joint_positions)
-        return self.plan()
+        return self.plan(attempts)
 
     def forward_kinematics1(self, joint_angles, frame):
         header = Header(0, rospy.Time.now(), frame)
@@ -574,12 +581,13 @@ class AgentCAD(AgentROS):
     def compute_plan(self, condition):
         self.reset(condition)
         target = self._hyperparams['targets'][condition]
-        while True:
-            plan = self.plan_end_effector(target['position'], target['orientation'])
-            self.edit_plan_if_necessary(plan) # Just edit it if you need to change the goal lmao
-
-            if not self.require_approval or yesno('Does this trajectory look ok?'):
-                return plan
+        # while True:
+        #     plan = self.plan_end_effector(target['position'], target['orientation'])
+        #     self.edit_plan_if_necessary(plan) # Just edit it if you need to change the goal lmao
+        #
+        #     if not self.require_approval or yesno('Does this trajectory look ok?'):
+        #         return plan
+        return self.plan_end_effector(target['position'], target['orientation'], attempts=self.planning_attempts)
 
     def _plan_file(self, condition):
         return osp.join(self._hyperparams['exp_dir'], 'plan_{}.pkl'.format(condition))
@@ -721,8 +729,6 @@ class AgentCAD(AgentROS):
         policy.__init__(*init_pd_ref(self._hyperparams['init_traj_distr'], ref_ja_pos, ref_ja_vel, ref_ee))
         self.initialized.add(condition)
 
-    # Gets the reset trajectory by basically reversing
-
     # Does something different if reset is false
     def sample(self, policy, condition, verbose=True, save=True, noisy=True):
         """
@@ -755,10 +761,6 @@ class AgentCAD(AgentROS):
         self.initialize_controller(condition, policy)
         self.reset(condition)
 
-        if TfPolicy is not None:  # user has tf installed.
-            if isinstance(policy, TfPolicy):
-                self._init_tf(policy.dU)
-
         # Get the information from the trajectory information
         ref_traj_info = trajectories[condition]
         ref_ee = ref_traj_info['ee']
@@ -782,7 +784,7 @@ class AgentCAD(AgentROS):
         trial_command.state_datatypes = self._hyperparams['state_include']
         trial_command.obs_datatypes = self._hyperparams['state_include'] # changing this to 'obs_include' resulted in weird Gazebo memory corruption
 
-        if self.use_tf is False or not isinstance(policy, TfPolicy):
+        if not isinstance(policy, TfPolicy):
             sample_msg = self._trial_service.publish_and_wait(
                 trial_command, timeout=self._hyperparams['trial_timeout']
             )
@@ -814,8 +816,8 @@ class AgentCAD(AgentROS):
         return sample
 
     def get_action(self, policy, obs):
-        extra = ['distances', 'coeffs', 'ee_pos', 'attended', 'direction']
-        # extra = []
+        # extra = ['distances', 'coeffs', 'ee_pos', 'attended', 'direction']
+        extra = []
         action, debug = policy.act(None, obs, None, None, extra=extra)
         return action
 

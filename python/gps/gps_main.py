@@ -32,19 +32,19 @@ class GPSMain(object):
             config: Hyperparameters for experiment
             quit_on_end: When true, quit automatically on completion
         """
-        self.special_reset = True # L M A O
+        self.special_reset = False # L M A O
         self._quit_on_end = quit_on_end
         self._hyperparams = config
         self._conditions = config['common']['conditions']
-        # There's gonna be as many reset conditions as conditions l m a o 
-        self._reset_conditions = self._conditions # Heh 
+        # There's gonna be as many reset conditions as conditions l m a o
+        self._reset_conditions = self._conditions # Heh
         if 'train_conditions' in config['common']:
             self._train_idx = config['common']['train_conditions']
             self._test_idx = config['common']['test_conditions']
         else:
             self._train_idx = range(self._conditions)
             config['common']['train_conditions'] = config['common']['conditions']
-            self._hyperparams=config
+            self._hyperparams = config
             self._test_idx = self._train_idx
 
         self._data_files_dir = config['common']['data_files_dir']
@@ -73,7 +73,7 @@ class GPSMain(object):
                 for cond in self._train_idx:
                     for i in range(self._hyperparams['num_samples']):
                         self._take_sample(itr, cond, i)
-                        if self.special_reset: # If there is a special reset 
+                        if self.special_reset: # If there is a special reset
                             # Take a special sample
                             self._take_sample(itr, cond, i, reset=True)
 
@@ -228,16 +228,18 @@ class GPSMain(object):
                     redo = False
         else:
             # If reset is true something I dunno.... T_T
-            if reset:
-                self.agent.sample(
-                pol, cond,
-                verbose=(i < self._hyperparams['verbose_trials']), reset=True
-                )
-            else: 
-                self.agent.sample(
-                    pol, cond,
-                    verbose=(i < self._hyperparams['verbose_trials'])
-                )
+            # if reset:
+            #     self.agent.sample(
+            #     pol, cond,
+            #     verbose=(i < self._hyperparams['verbose_trials']), reset=True
+            #     )
+            # else:
+            #     self.agent.sample(
+            #         pol, cond,
+            #         verbose=(i < self._hyperparams['verbose_trials'])
+            #     )
+            verbose = i < self._hyperparams['verbose_trials']
+            self.agent.sample(pol, cond, verbose=verbose, reset=reset)
 
     def _take_iteration(self, itr, sample_lists):
         """

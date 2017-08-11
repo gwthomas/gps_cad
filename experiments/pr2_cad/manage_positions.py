@@ -41,11 +41,16 @@ def main(filename):
         assert isinstance(n, int) and n > 0
         positions = gen(n)
     else:
-        print 'Found existing positions'
-        change = input('Which index/indices would you like to re-generate? ')
-        if isinstance(change, int):
-            change = [change]
-        positions[change] = gen(len(change))
+        print 'Found existing positions of shape', positions.shape
+        if raw_input('Enter "n" to create new positions, or anything else to update ') == 'n':
+            n = input('How many would you like to generate? ')
+            assert isinstance(n, int) and n > 0
+            positions = np.vstack([positions, gen(n)])
+        else:
+            change = input('Which index/indices would you like to re-generate? ')
+            if isinstance(change, int):
+                change = [change]
+            positions[change] = gen(len(change))
 
     np.save(filename, positions)
 

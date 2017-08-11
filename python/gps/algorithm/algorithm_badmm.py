@@ -169,6 +169,7 @@ class AlgorithmBADMM(Algorithm):
         else:
             samples = SampleList([])
             mode = 'add' # Don't replace with empty samples
+
         policy_prior.update(samples, self.policy_opt, mode)
 
         # Fit linearization and store in pol_info.

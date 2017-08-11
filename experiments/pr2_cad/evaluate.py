@@ -9,18 +9,20 @@ from gps.proto.gps_pb2 import END_EFFECTOR_POINTS
 
 
 NORM = np.inf # which norm to use for computing distances
+STEPS = 5
 def ee_distances(X_ee):
     return np.array([np.linalg.norm(X_ee[:,3*i:3*(i+1)], ord=NORM, axis=1) for i in range(3)]).T
 
-SUCCESS_EPSILON = 0.02
-SUCCESS_STEPS = 5
-# a trial is considered successful if the end effectors' norms (distances)
-# are all at most SUCCESS_EPSILON for the last SUCCESS_STEPS timesteps
-def success(sample):
+def distance(sample):
     X_ee = sample.get(END_EFFECTOR_POINTS)
-    dist = ee_distances(X_ee[-SUCCESS_STEPS:])
-    # print dist
-    return np.all(dist <= SUCCESS_EPSILON)
+    dist = ee_distances(X_ee[-STEPS:])
+    return dist
+
+SUCCESS_THRESHOLD = 0.02
+# a trial is considered successful if the end effectors' norms (distances)
+# are all at most SUCCESS_THRESHOLD for the last STEPS timesteps
+def success(sample):
+    return np.all(distance(sample) <= SUCCESS_THRESHOLD)
 
 def unpickle(filename):
     f = open(filename, 'r')
@@ -29,7 +31,8 @@ def unpickle(filename):
     return data
 
 def list_files(dir):
-    return glob.glob(osp.join(dir, 'pol_sample_itr_*.pkl'))
+    # return glob.glob(osp.join(dir, 'pol_sample_itr_*.pkl'))
+    return glob.glob(osp.join(dir, 'traj_sample_itr_*.pkl'))
 
 def load_data(dir):
     all_files = list_files(dir)
@@ -70,17 +73,29 @@ def evaluate_sample_function(data, fn):
             results[itr].append([fn(sample) for sample in sample_list])
     return results
 
-def main(dir):
-    data = load_data(dir)
-    successes = evaluate_sample_function(data, success)
+def print_results(results):
+    for itr in results:
+        print 'Iteration', itr
+        for cond in range(len(results[itr])):
+            print '\tCondition', cond
+            print '\t\tDistances', results[itr][cond]
+
+def plot_results(values):
     for itr in successes:
         print 'Iteration', itr
         for cond in range(len(successes[itr])):
-            print '\t', successes[itr][cond]
+            print '\tCondition', cond
+            print '\t\tDistances', distances[itr][cond]
+            print '\t\tSuccess?', successes[itr][cond]
+
 
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='Evaluate results of policy trials')
     parser.add_argument('-d', '--dir', metavar='DIR', default='data_files')
     args = parser.parse_args()
-    main(args.dir)
+    data = load_data(dir)
+    distances = evaluate_sample_function(data, distance)
+    successes = evaluate_sample_function(data, success)
+    print_results(distances)
+    print_results(successes)
