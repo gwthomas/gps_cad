@@ -47,25 +47,36 @@ def load_data(dir, load_algorithm_too=True):
         algorithm_state = None
     return traj_samples, algorithm_state, itr
 
-def save_data(output_dir, sample_lists, itr):
+def save_data(output_dir, sample_lists):
     if not osp.isdir(output_dir):
         os.makedirs(output_dir)
-    DataLogger().pickle(osp.join(output_dir, 'pol_sample_itr_%02d_test.pkl' % itr), sample_lists)
+    DataLogger().pickle(osp.join(output_dir, 'pol_sample_itr_test.pkl'), sample_lists)
 
-def setup_policy_opt(hyperparams, arch, dO, dU):
+def setup_policy_opt(hyperparams, attention, structure, dO, dU):
     policy_opt = copy.copy(hyperparams.algorithm['policy_opt'])
-    if arch == 'mlp':
-        policy_opt['network_model'] = mlp_network
-    elif arch == 'fixed_distance':
-        policy_opt['network_model'] = fixed_distance_network
-    elif arch == 'distance':
-        policy_opt['network_model'] = distance_network
-    elif arch == 'distance_offset':
-        policy_opt['network_model'] = distance_offset_network
-    elif arch == 'ntm':
-        policy_opt['network_model'] = ntm_network
+    network_params = policy_opt['network_params']
+
+    if attention == 'none':
+        network_params['attention'] = None
+    elif attention == 'fixed_distance':
+        network_params['attention'] = fixed_distance_attention
+    elif attention == 'distance':
+        network_params['attention'] = distance_attention
+    elif attention == 'distance_offset':
+        network_params['attention'] = distance_offset_attention
+    elif attention == 'ntm':
+        network_params['attention'] = ntm_attention
     else:
-        raise RuntimeError('Invalid architecture: {}'.format(arch))
+        raise RuntimeError('Invalid attention: {}'.format(attention))
+
+    if structure == 'mlp':
+        network_params['structure'] = mlp_structure
+    elif structure == 'mlp_resnet':
+        network_params['structure'] = mlp_resnet_structure
+    elif structure == 'linear':
+        network_params['structure'] = linear_structure
+    else:
+        raise RuntimeError('Invalid structure: {}'.format(structure))
 
     from tensorflow.python.framework import ops
     ops.reset_default_graph()  # we need to destroy the default graph before re_init or checkpoint won't restore.

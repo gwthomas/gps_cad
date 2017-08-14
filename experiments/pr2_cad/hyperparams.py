@@ -7,11 +7,12 @@ import os.path as osp
 import cPickle as pickle
 
 from gps import __file__ as gps_filepath
+from gps.agent.ros.cad.util import ConditionInfo
 from gps.agent.ros.cad.agent_cad_experiment import AgentCADExperiment
 from gps.agent.ros.cad.j_piece_experiment import JPieceExperiment
 from gps.agent.ros.cad.gear_experiment import GearExperiment
 
-from gps.algorithm.algorithm_traj_opt import AlgorithmTrajOpt
+from gps.algorithm.algorithm_traj_opt_smart import AlgorithmTrajOptSmart
 from gps.algorithm.algorithm_traj_opt_pilqr import AlgorithmTrajOptPILQR
 from gps.algorithm.algorithm_badmm import AlgorithmBADMM
 from gps.algorithm.algorithm_mdgps_pilqr import AlgorithmMDGPSPILQR
@@ -38,10 +39,14 @@ from gps.proto.gps_pb2 import JOINT_ANGLES, JOINT_VELOCITIES, \
 from gps.utility.general_utils import get_ee_points
 from gps.gui.config import generate_experiment_info
 
+
 T = 200
-NN = True
-ALL_CONDITIONS = 20
+NN = False
+ALL_CONDITIONS = 25
+TRAIN = False
+
 EE_POINTS = np.array([[0.0, 0.0, 0.0], [0.15, 0.05, 0.0], [0.15, -0.05, 0.0]])
+PR2_GAINS = np.array([3.09, 1.08, 0.393, 0.674, 0.111, 0.152, 0.098])
 
 SENSOR_DIMS = {
     JOINT_ANGLES: 7,
@@ -52,62 +57,59 @@ SENSOR_DIMS = {
     REF_TRAJ: 9*T
 }
 
-PR2_GAINS = np.array([3.09, 1.08, 0.393, 0.674, 0.111, 0.152, 0.098])
-
-# BASE_DIR = '/'.join(str.split(gps_filepath, '/')[:-2])
-# EXP_DIR = BASE_DIR + '/../experiments/pr2_cad/'
-EXP_DIR = '/home/gwthomas/workspace/gps/experiments/pr2_cad'
-
+EXP_DIR = osp.dirname(osp.realpath(__file__))
 
 ################################################################################
-# determine conditions to train on based on current status
-needed = 4 # how many conditions to train on at once
-conditions = []
-for cond in range(ALL_CONDITIONS):
-    filename = 'condition_{}.pkl'.format(cond)
-    if osp.isfile(filename):
-        print 'Found data for condition', cond
+conditions, condition_info = [], []
+if TRAIN:
+    # determine conditions to train on based on current status
+    atmost = 4 # how many conditions to train on at once
+    for cond in range(ALL_CONDITIONS):
+        filename = osp.join(EXP_DIR, 'condition_info', 'info%02d.pkl' % cond)
+        if osp.isfile(filename):
+            with open(filename, 'rb') as f:
+                info = pickle.load(f)
+            if info.good:
+                print 'Condition {} is good, skipping'.format(cond)
+                continue
+        else:
+            print 'ERROR: No data for condition', cond
+            exit()
+        conditions.append(cond)
+        condition_info.append(info)
+        atmost -= 1
+        if atmost == 0:
+            print "That's all folks"
+            break
+else:
+    for cond in range(ALL_CONDITIONS):
+        filename = osp.join(EXP_DIR, 'condition_info', 'info%02d.pkl' % cond)
+        assert osp.isfile(filename)
         with open(filename, 'rb') as f:
-            data = pickle.load(f)
-        if data['done']:
-            continue
-    else:
-        print 'No data for condition', cond
-    conditions.append(cond)
-    needed -= 1
-    if needed == 0:
-        print "That's all the conditions we need"
-        break
-print conditions
+            info = pickle.load(f)
+        conditions.append(cond)
+        condition_info.append(info)
 ################################################################################
 
 common = {
     'experiment_name': 'my_experiment' + '_' + \
             datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M'),
     'experiment_dir': EXP_DIR,
-    'iterations': 50,
+    'iterations': 15,
     'data_files_dir': osp.join(EXP_DIR, 'data_files/'),
     'target_filename': osp.join(EXP_DIR, 'target.npz'),
     'log_filename': osp.join(EXP_DIR, 'log.txt'),
-    'train_conditions': conditions,
-    'iterations': 25,
+    'conditions': len(conditions),
 }
-
-train_joint_positions = np.array([
-    [0.4, -0.25, 1.0, -0.5, 0.5, -0.5, 1.25],
-    [-0.2, 0.0, 1.0, -0.75, 0.0, -0.6, 1.25]
-])
-test_joint_positions = np.load(osp.join(EXP_DIR, 'test_positions.npy'))
-all_joint_positions = np.vstack([train_joint_positions, test_joint_positions])
 
 x0s = []
 ee_tgts = []
 reset_conditions = []
-for cond in conditions:
+for info in condition_info:
     x0s.append(np.zeros(32))
     ee_tgts.append(np.zeros(9))
     reset_condition = {
-        TRIAL_ARM:     {'data': all_joint_positions[cond], 'mode': 1},
+        TRIAL_ARM:     {'data': info.initial, 'mode': 1},
         AUXILIARY_ARM: {'data': np.array([-1.25, 0.0, 0.0, -2.0, 0.0, 0.0, 0.0]), 'mode': 1}
     }
     reset_conditions.append(reset_condition)
@@ -118,7 +120,9 @@ if not osp.exists(common['data_files_dir']):
 agent = {
     'type': AgentCADExperiment,
     'dt': 0.05,
-    'train_conditions': common['train_conditions'],
+    'conditions': common['conditions'],
+    'actual_conditions': conditions,
+    'condition_info': condition_info,
     'T': T,
     'T_interpolation': int(0.75*T),
     'x0': x0s,
@@ -143,23 +147,24 @@ agent = {
     'j_box': osp.join(EXP_DIR, 'j_box.stl'),
     'the_gear': osp.join(EXP_DIR, 'gear_teeth.stl'),
     'use_AR_markers': False,
-    'reset_timeout': 15,
+    'reset_timeout': 10,
     'trial_timeout': 30,
     'exp_dir': EXP_DIR,
     'cad_path': osp.join(EXP_DIR, 'piece.stl')
 }
 
 algorithm_no_nn = {
-    'type': AlgorithmTrajOpt,
-    'train_conditions': common['train_conditions'],
-    'iterations': common['iterations']
+    'type': AlgorithmTrajOptSmart,
+    'iterations': common['iterations'],
+    'conditions': agent['conditions'],
+    'actual_conditions': conditions,
+    'condition_info': condition_info
 }
 algorithm_nn = {
     'type': AlgorithmBADMM,
-    'train_conditions': common['train_conditions'],
-    'train_conditions': common['train_conditions'],
-    'test_conditions': common['test_conditions'],
     'iterations': common['iterations'],
+    'conditions': agent['conditions'],
+    'condition_info': condition_info,
     'lg_step_schedule': np.array([1e-4, 1e-3, 1e-2, 1e-1]),
     'policy_dual_rate': 0.1,
     'ent_reg_schedule': np.array([1e-3, 1e-3, 1e-2, 1e-1]),
@@ -212,20 +217,23 @@ algorithm['policy_opt'] = {
         'obs_image_data': [END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, REF_TRAJ],
         'sensor_dims': SENSOR_DIMS,
         'hidden_attention': [100,100],
-        'mlp_hidden_sizes': [100,100],
-        'resnet_n_hidden': 3,
+        'mlp_hidden_sizes': [200,150,100],
+        'resnet_n_hidden': 0,
         'T': T,
         'ee_pos_indices': (14,23),
-        'fixed_scale': 100
+        'fixed_scale': 100,
+        'attention': fixed_distance_attention,
+        'structure': mlp_structure,
     },
-    'network_model': fixed_distance_network,
+    'network_model': ref_traj_network_factory,
+    # 'lr': 1e-4,
+    'batch_size': 64,
     'max_iterations': 25000,
     'period': 500,
     'termination_history_length': 5,
-    'termination_epsilon': 0.01,
+    'termination_epsilon': 0.005,
     'weights_file_prefix': osp.join(EXP_DIR, 'policy'),
-    'normalize': False,
-    # 'inner_iterations': 3
+    'normalize': False
 }
 
 algorithm['policy_prior'] = {

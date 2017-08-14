@@ -2,8 +2,65 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import pdb
-
+import cPickle as pickle
+import re
+import rospy
 from geometry_msgs.msg import Point, Quaternion
+from gps_agent_pkg.srv import ProxyControl, ProxyControlResponse
+from gps.agent.ros.ros_utils import TimeoutException
+
+
+class ConditionInfo:
+    def __init__(self, initial, path, data_path):
+        self.initial = initial
+        self.path = path
+        self.data_path = data_path
+        self.plan = None
+        self.good = False
+        self.actual = int(re.findall('[0-9]{2}', path)[-1])
+
+    def save(self):
+        with open(self.path, 'wb') as f:
+            pickle.dump(self, f)
+
+    def save_data(self, samples, traj_distr):
+        with open(self.data_path, 'wb') as f:
+            pickle.dump({'samples': samples, 'traj_distr': traj_distr}, f)
+
+    def load_data(self):
+        with open(self.data_path, 'rb') as f:
+            return pickle.load(f)
+
+
+class ProxyTrialManager(object):
+    def __init__(self, agent, dt=0.01):
+        self.agent = agent
+        self.dt = dt
+        self.service = rospy.Service('proxy_control', ProxyControl, self.handle_request)
+
+    def handle_request(self, request):
+        try:
+            self.t += 1
+        except AttributeError:
+            print 'ProxyTrialManager: must call prep before run'
+            raise
+        obs = self.agent.get_obs(request, self.condition)
+        response = ProxyControlResponse()
+        response.action = self.agent.get_action(self.policy, obs)
+        return response
+
+    def prep(self, policy, condition):
+        self.policy = policy
+        self.condition = condition
+        self.t = 0
+
+    def run(self, time_to_run):
+        time_elapsed = 0
+        while self.t < self.agent.T:
+            rospy.sleep(self.dt)
+            time_elapsed += self.dt
+            if time_elapsed > time_to_run:
+                raise TimeoutException(time_elapsed)
 
 
 def listify(o):
@@ -73,7 +130,7 @@ def find_closest_T(ref_ja, ref_ee, goal_ref_ja, goal_ref_ee):
         cur_count += 1 # Increment the current count
 
     # Average the closest things and it will be good
-    return (closest_T_ee + closest_T_ja) // 2 
+    return (closest_T_ee + closest_T_ja) // 2
 
 def yesno(s):
     while True:

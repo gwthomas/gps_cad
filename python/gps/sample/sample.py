@@ -91,13 +91,13 @@ class Sample(object):
                 self.agent.pack_data_meta(meta, data, data_types=[data_type])
         return meta
 
-    # # For pickling.
-    # def __getstate__(self):
-    #     state = self.__dict__.copy()
-    #     # state.pop('agent')
-    #     return state
-    #
-    # # For unpickling.
-    # def __setstate__(self, state):
-    #     self.__dict__ = state
-    #     # self.__dict__['agent'] = None
+    # For pickling.
+    def __getstate__(self):
+        state = self.__dict__.copy()
+        state.pop('agent')
+        return state
+
+    # For unpickling.
+    def __setstate__(self, state):
+        self.__dict__ = state
+        self.__dict__['agent'] = None

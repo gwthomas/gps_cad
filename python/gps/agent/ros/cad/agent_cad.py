@@ -38,7 +38,6 @@ from gps.proto.gps_pb2 import TRIAL_ARM, AUXILIARY_ARM, JOINT_ANGLES, \
         REF_TRAJ, REF_OFFSETS, PROXY_CONTROLLER, NOISE
 from gps_agent_pkg.msg import TrialCommand, SampleResult, PositionCommand, \
         RelaxCommand, DataRequest
-from gps_agent_pkg.srv import ProxyControl, ProxyControlResponse
 from gps.utility.general_utils import get_ee_points
 from gps.agent.ros.cad.util import *
 
@@ -59,37 +58,6 @@ JOINT_NAMES = [
         'l_wrist_flex_joint',
         'l_wrist_roll_joint'
 ]
-
-
-class ProxyTrialManager(object):
-    def __init__(self, agent, dt=0.01):
-        self.agent = agent
-        self.dt = dt
-        self.service = rospy.Service('proxy_control', ProxyControl, self.handle_request)
-
-    def handle_request(self, request):
-        try:
-            self.t += 1
-        except AttributeError:
-            print 'ProxyTrialManager: must call prep before run'
-            raise
-        obs = self.agent.get_obs(request, self.condition)
-        response = ProxyControlResponse()
-        response.action = self.agent.get_action(self.policy, obs)
-        return response
-
-    def prep(self, policy, condition):
-        self.policy = policy
-        self.condition = condition
-        self.t = 0
-
-    def run(self, time_to_run):
-        time_elapsed = 0
-        while self.t < self.agent.T:
-            rospy.sleep(self.dt)
-            time_elapsed += self.dt
-            if time_elapsed > time_to_run:
-                raise TimeoutException(time_elapsed)
 
 
 class AgentCAD(AgentROS):
@@ -117,6 +85,8 @@ class AgentCAD(AgentROS):
 
     def __init__(self, hyperparams, init_node=True):
         AgentROS.__init__(self, hyperparams, init_node)
+        self.actual_conditions = hyperparams['actual_conditions']
+        self.condition_info = hyperparams['condition_info']
 
         moveit_commander.roscpp_initialize([])
         self.robot = moveit_commander.RobotCommander()
@@ -170,11 +140,6 @@ class AgentCAD(AgentROS):
         self.reset_trajectories = {} # For dat fancy reset or something
         self.current_controller = None
         self.initialized = set()
-
-        print 'Checking existence of plans'
-        for condition in range(hyperparams['conditions']):
-            if self.get_existing_plan(condition) is None:
-                print 'WARNING: no existing plan for condition', condition
 
     # Move the head to look at the designated point (so camera point in right dir)
     def move_head(self, x, y, z):
@@ -454,7 +419,7 @@ class AgentCAD(AgentROS):
         # For as many attempts as allowed
         for attempt in range(attempts):
             plan = self.group.plan()
-            if plan is not None:
+            if plan is not None and len(plan.joint_trajectory.points) > 0:
                 cur_cost = self.compute_plan_cost(plan)
                 print cur_cost
                 if cur_cost < best_cost:
@@ -557,7 +522,7 @@ class AgentCAD(AgentROS):
 
     def reset(self, condition):
         self.use_controller('GPS')
-        print 'Resetting to condition', condition
+        print 'Resetting to condition {} (actually {})'.format(condition, self.actual_conditions[condition])
 
         try:
             self.reset_arm(TRIAL_ARM, JOINT_SPACE, self.get_initial(condition, arm=TRIAL_ARM))
@@ -581,7 +546,7 @@ class AgentCAD(AgentROS):
         return self.plan_end_effector(target['position'], target['orientation'], attempts=self.planning_attempts)
 
     def _plan_file(self, condition):
-        return osp.join(self._hyperparams['exp_dir'], 'plan_{}.pkl'.format(condition))
+        return osp.join(self._hyperparams['exp_dir'], 'plans', 'cond{}.pkl'.format(condition))
 
     # Do the initialization of the reset trajectory and policy and stuff??
     def init_reset_traj(self, condition, policy):
@@ -635,12 +600,7 @@ class AgentCAD(AgentROS):
         ref_ja = np.array(ref_ja)
 
     def get_existing_plan(self, condition):
-        filename = self._plan_file(condition)
-        if osp.exists(filename):
-            print 'Found existing reference trajectory for condition', condition
-            with open(filename, 'rb') as f:
-                return pickle.load(f)
-        return None
+        return self.condition_info[condition].plan
 
     def compute_reference_trajectory(self, plan):
         plan_ja_pos = [np.array(point.positions) for point in plan.joint_trajectory.points]
@@ -657,8 +617,6 @@ class AgentCAD(AgentROS):
             rotation_mat = quaternion_matrix(orientation)[:3,:3]
             points = np.ndarray.flatten(get_ee_points(ee_offsets, position, rotation_mat).T)
             ref_ee.append(points)
-
-            # plot_trajectories([ref_ee])
 
         ref_ja_pos = np.array(ref_ja_pos)
         ref_ja_vel = np.array(ref_ja_vel)
@@ -677,14 +635,10 @@ class AgentCAD(AgentROS):
         if plan is None:
             print 'No valid plan found for condition {}. Computing a fresh one'.format(condition)
             plan = self.compute_plan(condition)
-            filename = self._plan_file(condition)
-            with open(filename, 'wb') as f:
-                pickle.dump(plan, f)
+            info = self.condition_info[condition]
+            info.plan = plan
+            info.save()
         self.trajectories[condition] = self.compute_reference_trajectory(plan)
-
-    def determine_all(self):
-        for condition in range(self._hyperparams['conditions']):
-            self.determine_reference_trajectory(condition)
 
     def initialize_controller(self, condition, policy):
         if condition in self.initialized or not isinstance(policy, LinearGaussianPolicy):

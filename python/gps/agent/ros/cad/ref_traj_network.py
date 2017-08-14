@@ -108,7 +108,7 @@ def ntm_attention(network_config, state, ee_pos, ref_traj):
     attended, weights = _head(_ntm_coeffs, network_config, state, ee_pos, ref_traj, None)
     return attended, weights
 
-def fc_layer(input, size, id, nonlinearity=tf.nn.relu):
+def _fc_layer(input, size, id, nonlinearity=tf.nn.relu):
     sofar = input
     in_shape = sofar.get_shape().dims[1].value
     cur_weight = init_weights([in_shape, size], name='w_' + str(id))
@@ -117,7 +117,7 @@ def fc_layer(input, size, id, nonlinearity=tf.nn.relu):
     sofar = nonlinearity(sofar) if nonlinearity is not None else sofar
     return sofar, [cur_weight], [cur_bias]
 
-def resnet_layer(input, id, nonlinearity=tf.nn.relu, nonlinear_output=True):
+def _resnet_layer(input, id, nonlinearity=tf.nn.relu, nonlinear_output=True):
     size = input.get_shape().dims[1].value
     cur_weight1 = init_weights([size, size], name='w1_' + str(id))
     cur_bias1 = init_bias([size], name='b1_' + str(id))
@@ -130,21 +130,56 @@ def resnet_layer(input, id, nonlinearity=tf.nn.relu, nonlinear_output=True):
         output = nonlinearity(output)
     return output, [cur_weight1, cur_weight2], [cur_bias1, cur_bias2]
 
-def get_resnet_layers(input, num_layers, nonlinearity=tf.nn.relu, nonlinear_output=True):
+def _get_resnet_layers(input, num_layers, nonlinearity=tf.nn.relu, nonlinear_output=True):
     sofar = input
     size = sofar.get_shape().dims[1].value
     weights, biases = [], []
     for i in range(num_layers):
         nonlinear_output_i = nonlinear_output or i + 1 < num_layers
-        sofar, weights_i, biases_i = resnet_layer(sofar, i, nonlinearity, nonlinear_output_i)
+        sofar, weights_i, biases_i = _resnet_layer(sofar, i, nonlinearity, nonlinear_output_i)
         weights.extend(weights_i)
         biases.extend(biases_i)
     return sofar, weights, biases
 
-def ref_traj_network_factory(attention, dim_input=27, dim_output=7, batch_size=25, network_config=None):
+def mlp_structure(state, ee_pos, attended, network_config, dim_output):
+    augmented_state = tf.concat([state, attended], 1)
+    with tf.variable_scope('structure'):
+        mlp_sizes = network_config['mlp_hidden_sizes'] + [dim_output]
+        mlp_out, weights, biases = get_mlp_layers(augmented_state, len(mlp_sizes), mlp_sizes, nonlinear_output=False)
+    return mlp_out, weights + biases
+
+def mlp_resnet_structure(state, ee_pos, attended, network_config, dim_output):
+    with tf.variable_scope('structure'):
+        mlp_sizes = network_config['mlp_hidden_sizes']
+        with tf.variable_scope('mlp'):
+            mlp_out, mlp_weights, mlp_biases = get_mlp_layers(augmented_state, len(mlp_sizes), mlp_sizes, nonlinear_output=True)
+        resnet_n = network_config['resnet_n_hidden']
+        if resnet_n == 0:
+            fc_input = mlp_out
+            resnet_weights, resnet_biases = [], []
+        else:
+            with tf.variable_scope('resnet'):
+                resnet_out, resnet_weights, resnet_biases = _get_resnet_layers(augmented_state, resnet_n, nonlinear_output=True)
+            fc_input = tf.concat([mlp_out, resnet_out], 1)
+        with tf.variable_scope('fc'):
+            fc_out, fc_weights, fc_biases = _fc_layer(fc_input, dim_output, 'fc', nonlinearity=None)
+        final_weights = mlp_weights + resnet_weights + fc_weights
+        final_biases = mlp_biases + resnet_biases + fc_biases
+    return fc_out, weights
+
+def linear_structure(state, ee_pos, attended, network_config, dim_output):
+    attention_direction = attended - ee_pos
+    state_dim = attention_direction.shape[1].value
+    with tf.variable_scope('structure'):
+        K = tf.get_variable('K', [state_dim, dim_output])
+    return tf.matmul(attention_direction, K), [K]
+
+def ref_traj_network_factory(dim_input=27, dim_output=7, batch_size=25, network_config=None):
     tf.reset_default_graph()
 
     T = network_config['T']
+    attention = network_config['attention']
+    structure = network_config['structure']
     ee_pos_indices = network_config['ee_pos_indices']
     assert ee_pos_indices[1] - ee_pos_indices[0] == 9
     nn_input, action, precision = get_input_layer(dim_input, dim_output)
@@ -156,44 +191,17 @@ def ref_traj_network_factory(attention, dim_input=27, dim_output=7, batch_size=2
     if attention:
         attended, attn_weights = attention(network_config, state, ee_pos, ref_traj)
         attended = tf.identity(attended, name='attended')
-        attention_direction = attended - ee_pos
-        attention_direction = tf.identity(attention_direction, name='direction')
-        augmented_state = tf.concat([state, attended, attention_direction], 1)
+        # attention_direction = attended - ee_pos
+        # attention_direction = tf.identity(attention_direction, name='direction')
+        # augmented_state = tf.concat([state, attended, attention_direction], 1)
     else:
-        augmented_state, attn_weights = state, []
+        attended, attn_weights = None, []
+        # augmented_state, attn_weights = state, []
 
-    with tf.variable_scope('final'):
-        mlp_sizes = network_config['mlp_hidden_sizes']
-        with tf.variable_scope('mlp'):
-            mlp_out, mlp_weights, mlp_biases = get_mlp_layers(augmented_state, len(mlp_sizes), mlp_sizes, nonlinear_output=True)
-        resnet_n = network_config['resnet_n_hidden']
-        with tf.variable_scope('resnet'):
-            resnet_out, resnet_weights, resnet_biases = get_resnet_layers(augmented_state, resnet_n, nonlinear_output=True)
-        fc_input = tf.concat([mlp_out, resnet_out], 1)
-        with tf.variable_scope('fc'):
-            fc_out, fc_weights, fc_biases = fc_layer(fc_input, dim_output, 'fc', nonlinearity=None)
-        final_weights = mlp_weights + resnet_weights + fc_weights
-        final_biases = mlp_biases + resnet_biases + fc_biases
-
-    final_out = fc_out
-    all_vars = attn_weights + final_weights + final_biases
+    final_out, structure_weights = structure(state, ee_pos, attended, network_config, dim_output)
+    all_vars = attn_weights + structure_weights
     loss_out = get_loss_layer(mlp_out=final_out, action=action, precision=precision, batch_size=batch_size)
     return TfMap.init_from_lists([nn_input, action, precision], [final_out], [loss_out]), all_vars, []
-
-def mlp_network(*args, **kwargs):
-    return ref_traj_network_factory(None, *args, **kwargs)
-
-def fixed_distance_network(*args, **kwargs):
-    return ref_traj_network_factory(fixed_distance_attention, *args, **kwargs)
-
-def distance_network(*args, **kwargs):
-    return ref_traj_network_factory(distance_attention, *args, **kwargs)
-
-def distance_offset_network(*args, **kwargs):
-    return ref_traj_network_factory(distance_attention_offset, *args, **kwargs)
-
-def ntm_network(*args, **kwargs):
-    return ref_traj_network_factory(ntm_attention, *args, **kwargs)
 
 
 if __name__ == '__main__':

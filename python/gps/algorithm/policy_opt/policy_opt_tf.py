@@ -150,7 +150,12 @@ class PolicyOptTf(PolicyOpt):
             obs[:, self.x_idx] = obs[:, self.x_idx].dot(self.policy.scale) + self.policy.bias
 
         # Assuming that N*T >= self.batch_size.
-        batches_per_epoch = np.floor(N*T / self.batch_size)
+        if self.batch_size == -1:
+            batch_size = len(obs)
+            batches_per_epoch = 1
+        else:
+            batch_size = self.batch_size
+            batches_per_epoch = np.floor(N*T / self.batch_size)
         idx = range(N*T)
         total_loss = 0
         np.random.shuffle(idx)
@@ -160,9 +165,9 @@ class PolicyOptTf(PolicyOpt):
             num_values = obs.shape[0]
             conv_values = self.solver.get_last_conv_values(self.sess, feed_dict, num_values, self.batch_size)
             for i in range(self._hyperparams['fc_only_iterations'] ):
-                start_idx = int(i * self.batch_size %
-                                (batches_per_epoch * self.batch_size))
-                idx_i = idx[start_idx:start_idx+self.batch_size]
+                start_idx = int(i * batch_size %
+                                (batches_per_epoch * batch_size))
+                idx_i = idx[start_idx:start_idx+batch_size]
                 feed_dict = {self.last_conv_vars: conv_values[idx_i],
                              self.action_tensor: tgt_mu[idx_i],
                              self.precision_tensor: tgt_prc[idx_i]}
@@ -181,17 +186,20 @@ class PolicyOptTf(PolicyOpt):
         period = self._hyperparams['period']
         termination_history_length = self._hyperparams['termination_history_length']
         termination_epsilon = self._hyperparams['termination_epsilon']
-        for i in range(self._hyperparams['max_iterations']):
+        i = 0
+        max_iters = self._hyperparams['max_iterations']
+        while i < max_iters or max_iters < 0:
             # Load in data for this batch.
-            start_idx = int(i * self.batch_size %
-                            (batches_per_epoch * self.batch_size))
-            idx_i = idx[start_idx:start_idx+self.batch_size]
+            start_idx = int(i * batch_size %
+                            (batches_per_epoch * batch_size))
+            idx_i = idx[start_idx:start_idx+batch_size]
             feed_dict = {self.obs_tensor: obs[idx_i],
                          self.action_tensor: tgt_mu[idx_i],
                          self.precision_tensor: tgt_prc[idx_i]}
             fc_params = self.sess.run(self.fc_vars)
             train_loss = self.solver(feed_dict, self.sess, device_string=self.device_string)
             if np.isnan(train_loss):
+                print 'nan loss :('
                 import pdb; pdb.set_trace()
 
             total_loss += train_loss
@@ -207,6 +215,7 @@ class PolicyOptTf(PolicyOpt):
                     relative_range = (np.max(recent) - np.min(recent)) / np.mean(recent)
                     if relative_range < termination_epsilon:
                         break
+            i += 1
 
         feed_dict = {self.obs_tensor: obs}
         num_values = obs.shape[0]

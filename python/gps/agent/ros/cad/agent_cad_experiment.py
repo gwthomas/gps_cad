@@ -66,10 +66,9 @@ class AgentCADExperiment(AgentCAD):
             pdb.set_trace()     # for optional setup, not debugging
 
     def all_resets(self, repetitions=1):
-        conditions = self._hyperparams['conditions']
         for _ in range(repetitions):
-            for i in range(conditions):
-                self.reset(i)
+            for condition in range(self._hyperparams['conditions']):
+                self.reset(condition)
 
     def setup(self):
         self.configure_scene()
