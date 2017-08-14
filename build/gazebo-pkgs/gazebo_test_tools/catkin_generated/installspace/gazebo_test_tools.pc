@@ -1,8 +1,0 @@
-prefix=/home/melissachien/new_gps/install
-
-Name: gazebo_test_tools
-Description: Description of gazebo_test_tools
-Version: 1.0.1
-Cflags: -I/home/melissachien/new_gps/install/include
-Libs: -L/home/melissachien/new_gps/install/lib -lgazebo_test_tools
-Requires: object_msgs gazebo_ros geometry_msgs roscpp std_msgs message_runtime

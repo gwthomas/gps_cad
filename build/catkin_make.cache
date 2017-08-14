@@ -1,2 +1,0 @@
-gazebo-pkgs/gazebo_grasp_plugin:gazebo-pkgs/gazebo_state_plugins:gazebo-pkgs/gazebo_test_tools:gazebo-pkgs/gazebo_world_plugin_loader
--DCATKIN_DEVEL_PREFIX=/home/melissachien/new_gps/devel -DCMAKE_INSTALL_PREFIX=/home/melissachien/new_gps/install -G Unix Makefiles
