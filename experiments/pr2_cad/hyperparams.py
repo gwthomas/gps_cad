@@ -36,6 +36,7 @@ from gps.gui.target_setup_gui import load_pose_from_npz
 from gps.proto.gps_pb2 import JOINT_ANGLES, JOINT_VELOCITIES, \
         END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, ACTION, \
         TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE, REF_TRAJ, REF_OFFSETS
+
 from gps.utility.general_utils import get_ee_points
 from gps.gui.config import generate_experiment_info
 
@@ -43,7 +44,7 @@ from gps.gui.config import generate_experiment_info
 T = 200
 NN = False
 ALL_CONDITIONS = 25
-TRAIN = False
+TRAIN = True
 
 EE_POINTS = np.array([[0.0, 0.0, 0.0], [0.15, 0.05, 0.0], [0.15, -0.05, 0.0]])
 PR2_GAINS = np.array([3.09, 1.08, 0.393, 0.674, 0.111, 0.152, 0.098])
@@ -133,7 +134,7 @@ agent = {
                       END_EFFECTOR_POINT_VELOCITIES],
     'end_effector_points': EE_POINTS,
     'obs_include': [JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS,
-                    END_EFFECTOR_POINT_VELOCITIES],
+                    END_EFFECTOR_POINT_VELOCITIES, REF_TRAJ],
     #'planner': 'RRTStarkConfigDefault',
     'planner': 'RRTConnectkConfigDefault',
     # 'planner': 'PRMstarkConfigDefault',
@@ -142,6 +143,21 @@ agent = {
     'obs_include': [JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS, \
             END_EFFECTOR_POINT_VELOCITIES, REF_TRAJ],
     'targets': [{'position': (0.5, 0.09, 0.55), 'orientation': (3.14, 0.0, -1.57)} for _ in conditions],
+
+    ###### THIS IS FOR THE ORIGINAL EXPERIMENT #######################
+    #'targets': [{'position': (0.5, 0.09, 0.555), 'orientation': (3.14, 0.0, -1.57)}
+    #    for _ in range(common['conditions'])],
+    ##################################################################
+
+    ###### THIS IS FOR THE J PIECE EXPERIMENT ########################
+    #'targets': [{'position': (0.7, -0.11, 0.85), 'orientation': (1.57, 1.57, -1.57)}
+    #    for _ in range(common['conditions'])],
+    ##################################################################
+    #0.657
+    ###### THIS IS FOR THE GEAR EXPERIMENT ###########################
+    #'targets': [{'position': (0.658, -0.074, 0.7), 'orientation': (1.57, 0, 0.07)}
+    #    for _ in range(common['conditions'])],
+    ###################################################################
     'cad_path': osp.join(EXP_DIR, 'piece.stl'),
     'j_piece': osp.join(EXP_DIR, 'j_piece.stl'),
     'j_box': osp.join(EXP_DIR, 'j_box.stl'),

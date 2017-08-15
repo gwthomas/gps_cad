@@ -34,5 +34,6 @@
 	<!--include file="$(find gps_agent_pkg)/launch/primesense_startup.launch" /-->
 
 	<!-- The AR tracking node /-->
-	<include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch" />
+	<!--include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch"/-->
+	<include file="$(find apriltags_ros)/launch/example.launch" />
 </launch>

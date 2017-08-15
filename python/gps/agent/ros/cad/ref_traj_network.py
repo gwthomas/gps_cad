@@ -183,6 +183,7 @@ def ref_traj_network_factory(dim_input=27, dim_output=7, batch_size=25, network_
     ee_pos_indices = network_config['ee_pos_indices']
     assert ee_pos_indices[1] - ee_pos_indices[0] == 9
     nn_input, action, precision = get_input_layer(dim_input, dim_output)
+    pdb.set_trace()
     state = nn_input[:,:-9*T]
     ref_traj = tf.reshape(nn_input[:,-9*T:], [-1,T,9])
     ee_pos = nn_input[:,ee_pos_indices[0]:ee_pos_indices[1]]

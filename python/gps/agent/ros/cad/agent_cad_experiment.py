@@ -47,8 +47,8 @@ from gps.proto.gps_pb2 import JOINT_ANGLES, END_EFFECTOR_POINTS, \
 class AgentCADExperiment(AgentCAD):
     def __init__(self, hyperparams, init_node=True, trace=True):
         self.fixed_pose = Pose(Point(0.5, -0.1628, 0.5), Quaternion(0.5, -0.5, -0.5, 0.5))
-        with open('/home/gwthomas/.gazebo/models/piece/model-static.sdf', 'r') as f:
-            self.piece_xml = f.read()
+        #with open('/home/gwthomas/.gazebo/models/piece/model-static.sdf', 'r') as f:
+        #    self.piece_xml = f.read()
 
         AgentCAD.__init__(self, hyperparams, init_node)
 
@@ -79,12 +79,6 @@ class AgentCADExperiment(AgentCAD):
         self.scene.remove_world_object()
         self.scene.remove_attached_object(self.ee_link)
 
-        # table_pose = self.get_AR_pose(2) # Get the AR position of the table
-        # if not table_pose: # If there isn't an AR marker
-        #     z = 0.72 # Ehh just some random height
-        # else:
-        #     z = table_pose.position.z # Otherwise get the z coordinate
-
         self.reset_held_piece()
 
         print 'Adding objects to planning scene'
@@ -93,11 +87,14 @@ class AgentCADExperiment(AgentCAD):
 
         for name in ('held_piece', 'fixed_piece'):
             pose = self.get_pose(name)
+
+            # Get the position of the objects using their AR tags
+            #pose, euler = self.pose_from_AR(name)
             self.add_object(name, position=listify(pose.position),
                     orientation=listify(pose.orientation),
                     size=(0.045,0.045,0.02286),
                     filename=self._hyperparams['cad_path'])
-        # self.change_goal() # Change the goal depending on where the goal piece is lmao
+
 
     def reset_held_piece(self):
         print 'Resetting held piece'
@@ -106,12 +103,12 @@ class AgentCADExperiment(AgentCAD):
         self.set_pose('held_piece', pose)
 
     def reset(self, condition):
-        try:
-            self.delete_model('fixed_piece')
-        except:
-            pass
+        #try:
+        #    self.delete_model('fixed_piece')
+        #except:
+        #    pass
         AgentCAD.reset(self, condition)
-        self.spawn_model('fixed_piece', self.piece_xml, self.fixed_pose)
+        #self.spawn_model('fixed_piece', self.piece_xml, self.fxied_pose)
 
     def grasp_prep(self):
         self.use_controller('MoveIt')
@@ -159,3 +156,22 @@ class AgentCADExperiment(AgentCAD):
         self.use_controller('MoveIt')
         init_plan = self.plan_end_effector(position, orientation, attempts=1)
         self.group.execute(init_plan)
+
+    # Override so we make multiple plans and then choose one with best
+    # def determine_reference_trajectory(self, condition):
+    #     plan = self.get_existing_plan(condition)
+    #     if plan is None:
+    #         print 'No valid plan found for condition {}. Computing a fresh one'.format(condition)
+    #         plan = self.reverse_plan(self.compute_plan(condition))
+    #         self.edit_plan_if_necessary(plan) # Edit the plan if we have a diff end
+    #
+    #         filename = self._plan_file(condition)
+    #         with open(filename, 'wb') as f: # Put the plan into a file
+    #             pickle.dump(plan, f)
+    #      # The reset plan is the reverse of the normal plan
+    #     plan = self.reverse_plan(plan) # Amazing really
+    #     self.trajectories[condition] = self.compute_reference_trajectory(plan)
+    #     self.publishDisplayTrajectory(plan) # Publish the plan to the motion planner
+    #     self.use_controller('GPS')
+    #     # Calculate the trajectory information using this
+    #     pdb.set_trace() # Ehh just stop here just in case real quick\
