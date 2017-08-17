@@ -664,6 +664,7 @@ class AgentCAD(AgentROS):
         plan = self.get_existing_plan(condition)
         if plan is None:
             print 'No valid plan found for condition {}. Computing a fresh one'.format(condition)
+            plan = self.compute_plan(condition)
             info = self.condition_info[condition]
             info.plan = plan
             info.save()

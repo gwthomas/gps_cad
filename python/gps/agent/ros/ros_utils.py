@@ -5,7 +5,7 @@ import rospy
 
 from gps.algorithm.policy.lin_gauss_policy import LinearGaussianPolicy
 from gps_agent_pkg.msg import ControllerParams, LinGaussParams, TfParams, CaffeParams, TfActionCommand
-#from gps_agent_pkg.msg import ProxyParams
+from gps_agent_pkg.msg import ProxyParams
 from gps.sample.sample import Sample
 from gps.proto.gps_pb2 import LIN_GAUSS_CONTROLLER, CAFFE_CONTROLLER, TF_CONTROLLER, PROXY_CONTROLLER
 import logging

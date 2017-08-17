@@ -146,7 +146,7 @@ def mlp_structure(state, ee_pos, attended, network_config, dim_output):
     with tf.variable_scope('structure'):
         mlp_sizes = network_config['mlp_hidden_sizes'] + [dim_output]
         mlp_out, weights, biases = get_mlp_layers(augmented_state, len(mlp_sizes), mlp_sizes, nonlinear_output=False)
-    return mlp_out, weights + biases
+    return mlp_out, weights + biases, []
 
 def mlp_resnet_structure(state, ee_pos, attended, network_config, dim_output):
     with tf.variable_scope('structure'):
@@ -165,14 +165,27 @@ def mlp_resnet_structure(state, ee_pos, attended, network_config, dim_output):
             fc_out, fc_weights, fc_biases = _fc_layer(fc_input, dim_output, 'fc', nonlinearity=None)
         final_weights = mlp_weights + resnet_weights + fc_weights
         final_biases = mlp_biases + resnet_biases + fc_biases
-    return fc_out, weights
+    return fc_out, weights, []
 
 def linear_structure(state, ee_pos, attended, network_config, dim_output):
     attention_direction = attended - ee_pos
     state_dim = attention_direction.shape[1].value
     with tf.variable_scope('structure'):
         K = tf.get_variable('K', [state_dim, dim_output])
-    return tf.matmul(attention_direction, K), [K]
+    return tf.matmul(attention_direction, K), [K], []
+
+def corrected_linear_structure(state, ee_pos, attended, network_config, dim_output):
+    attention_direction = attended - ee_pos
+    state_dim = attention_direction.shape[1].value
+    with tf.variable_scope('structure'):
+        K = tf.get_variable('K', [state_dim, dim_output])
+        mlp_sizes = network_config['mlp_hidden_sizes'] + [dim_output]
+        with tf.variable_scope('mlp'):
+            mlp_out, mlp_weights, mlp_biases = get_mlp_layers(state, len(mlp_sizes), mlp_sizes)
+    linear_term = tf.matmul(attention_direction, K)
+    correction = mlp_out
+    reg = network_config['regularization'] * tf.nn.l2_loss(correction)
+    return linear_term + correction, [K] + mlp_weights + mlp_biases, [reg]
 
 def ref_traj_network_factory(dim_input=27, dim_output=7, batch_size=25, network_config=None):
     tf.reset_default_graph()
@@ -183,7 +196,6 @@ def ref_traj_network_factory(dim_input=27, dim_output=7, batch_size=25, network_
     ee_pos_indices = network_config['ee_pos_indices']
     assert ee_pos_indices[1] - ee_pos_indices[0] == 9
     nn_input, action, precision = get_input_layer(dim_input, dim_output)
-    pdb.set_trace()
     state = nn_input[:,:-9*T]
     ref_traj = tf.reshape(nn_input[:,-9*T:], [-1,T,9])
     ee_pos = nn_input[:,ee_pos_indices[0]:ee_pos_indices[1]]
@@ -199,9 +211,11 @@ def ref_traj_network_factory(dim_input=27, dim_output=7, batch_size=25, network_
         attended, attn_weights = None, []
         # augmented_state, attn_weights = state, []
 
-    final_out, structure_weights = structure(state, ee_pos, attended, network_config, dim_output)
+    final_out, structure_weights, extra_loss_terms = structure(state, ee_pos, attended, network_config, dim_output)
     all_vars = attn_weights + structure_weights
     loss_out = get_loss_layer(mlp_out=final_out, action=action, precision=precision, batch_size=batch_size)
+    for term in extra_loss_terms:
+        loss_out = loss_out + term
     return TfMap.init_from_lists([nn_input, action, precision], [final_out], [loss_out]), all_vars, []
 
 

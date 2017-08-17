@@ -43,7 +43,7 @@ from gps.gui.config import generate_experiment_info
 
 T = 200
 NN = False
-ALL_CONDITIONS = 25
+ALL_CONDITIONS = 30
 TRAIN = True
 
 EE_POINTS = np.array([[0.0, 0.0, 0.0], [0.15, 0.05, 0.0], [0.15, -0.05, 0.0]])
@@ -240,6 +240,7 @@ algorithm['policy_opt'] = {
         'fixed_scale': 100,
         'attention': fixed_distance_attention,
         'structure': mlp_structure,
+        'regularization': 0.01,
     },
     'network_model': ref_traj_network_factory,
     # 'lr': 1e-4,

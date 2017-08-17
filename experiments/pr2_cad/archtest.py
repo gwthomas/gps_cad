@@ -75,6 +75,8 @@ def setup_policy_opt(hyperparams, attention, structure, dO, dU):
         network_params['structure'] = mlp_resnet_structure
     elif structure == 'linear':
         network_params['structure'] = linear_structure
+    elif structure == 'corrected_linear':
+        network_params['structure'] = corrected_linear_structure
     else:
         raise RuntimeError('Invalid structure: {}'.format(structure))
 

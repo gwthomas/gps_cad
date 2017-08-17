@@ -61,7 +61,7 @@ def train_data(condition_data):
         obs_data = np.concatenate((obs_data, samples.get_obs()))
     return obs_data, tgt_mu, tgt_prc, tgt_wt
 
-def main(attention, structure, n, sgd):
+def main(attention, structure, batchsize, n, sgd):
     hyperparams = imp.load_source('hyperparams', 'hyperparams.py')
     archtest = imp.load_source('archtest', 'archtest.py')
     manage = imp.load_source('manage', 'manage.py')
@@ -88,8 +88,8 @@ def main(attention, structure, n, sgd):
 
     if sgd:
         hyperparams.algorithm['policy_opt']['solver_type'] = 'momentum'
-    hyperparams.algorithm['policy_opt']['max_iterations'] = 1000000
-    hyperparams.algorithm['policy_opt']['batch_size'] = 10000
+    hyperparams.algorithm['policy_opt']['max_iterations'] = int(1e5)
+    hyperparams.algorithm['policy_opt']['batch_size'] = batchsize
     hyperparams.algorithm['policy_opt']['termination_epsilon'] = 0.0
     policy_opt = archtest.setup_policy_opt(hyperparams, attention, structure, dO, dU)
     try:
@@ -108,7 +108,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Train and test policy with given attention and structure')
     parser.add_argument('attention', metavar='ATTENTION')
     parser.add_argument('structure', metavar='STRUCTURE')
+    parser.add_argument('--batchsize', metavar='BATCHSIZE', type=int, default=100)
     parser.add_argument('-n', metavar='N', type=int, default=1)
     parser.add_argument('--sgd', action='store_true') # use (momentum) SGD instead of Adam
     args = parser.parse_args()
-    main(args.attention, args.structure, args.n, args.sgd)
+    main(args.attention, args.structure, args.batchsize, args.n, args.sgd)
