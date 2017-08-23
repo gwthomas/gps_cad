@@ -26,7 +26,8 @@ enum SampleType {
   NOISE = 19;
   REF_TRAJ = 20;
   REF_OFFSETS = 21;
-  TOTAL_DATA_TYPES = 22;
+  TIMESTEP = 22;
+  TOTAL_DATA_TYPES = 23;
 }
 
 // Message containing the data for a single sample.

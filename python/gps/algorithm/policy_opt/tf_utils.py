@@ -151,9 +151,15 @@ class TfSolver:
 
     def __call__(self, feed_dict, sess, device_string="/cpu:0", use_fc_solver=False):
         with tf.device(device_string):
+            sw, scoeffs, sref_range, st = 'attention/w:0', 'coeffs:0', 'ref_range:0', 't:0'
             if use_fc_solver:
-                loss = sess.run([self.loss_scalar, self.fc_solver_op], feed_dict)
+                ops = [self.loss_scalar, self.fc_solver_op]
             else:
-                loss = sess.run([self.loss_scalar, self.solver_op], feed_dict)
-            return loss[0]
-
+                ops = [self.loss_scalar, self.solver_op]
+            ops.extend([sw, scoeffs, sref_range, st])
+            results = sess.run(ops, feed_dict)
+            loss, _, w, coeffs, ref_range, t = results
+            # print 'w:', w
+            # print 'coeffs:', coeffs
+            # print 'ref_range:', ref_range
+            return loss

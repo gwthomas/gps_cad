@@ -35,7 +35,7 @@ from gps.algorithm.policy.lin_gauss_init import init_lqr, init_pd
 from gps.gui.target_setup_gui import load_pose_from_npz
 from gps.proto.gps_pb2 import JOINT_ANGLES, JOINT_VELOCITIES, \
         END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, ACTION, \
-        TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE, REF_TRAJ, REF_OFFSETS
+        TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE, REF_TRAJ, REF_OFFSETS, TIMESTEP
 
 from gps.utility.general_utils import get_ee_points
 from gps.gui.config import generate_experiment_info
@@ -44,7 +44,7 @@ from gps.gui.config import generate_experiment_info
 T = 200
 NN = False
 ALL_CONDITIONS = 30
-TRAIN = True
+TRAIN = False
 
 EE_POINTS = np.array([[0.0, 0.0, 0.0], [0.15, 0.05, 0.0], [0.15, -0.05, 0.0]])
 PR2_GAINS = np.array([3.09, 1.08, 0.393, 0.674, 0.111, 0.152, 0.098])
@@ -55,7 +55,8 @@ SENSOR_DIMS = {
     END_EFFECTOR_POINTS: 3 * EE_POINTS.shape[0],
     END_EFFECTOR_POINT_VELOCITIES: 3 * EE_POINTS.shape[0],
     ACTION: 7,
-    REF_TRAJ: 9*T
+    REF_TRAJ: 9*T,
+    TIMESTEP: 1
 }
 
 EXP_DIR = osp.dirname(osp.realpath(__file__))
@@ -134,14 +135,12 @@ agent = {
                       END_EFFECTOR_POINT_VELOCITIES],
     'end_effector_points': EE_POINTS,
     'obs_include': [JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS,
-                    END_EFFECTOR_POINT_VELOCITIES, REF_TRAJ],
+                    END_EFFECTOR_POINT_VELOCITIES, REF_TRAJ, TIMESTEP],
     #'planner': 'RRTStarkConfigDefault',
     'planner': 'RRTConnectkConfigDefault',
     # 'planner': 'PRMstarkConfigDefault',
     'planning_time': 15,
     'plan_attempts': 20,
-    'obs_include': [JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS, \
-            END_EFFECTOR_POINT_VELOCITIES, REF_TRAJ],
     'targets': [{'position': (0.5, 0.09, 0.55), 'orientation': (3.14, 0.0, -1.57)} for _ in conditions],
 
     ###### THIS IS FOR THE ORIGINAL EXPERIMENT #######################
@@ -230,17 +229,19 @@ algorithm['policy_opt'] = {
     'type': PolicyOptTf,
     'network_params': {
         'obs_include': agent['obs_include'],
-        'obs_image_data': [END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, REF_TRAJ],
+        'obs_image_data': [END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, REF_TRAJ, TIMESTEP],
         'sensor_dims': SENSOR_DIMS,
         'hidden_attention': [100,100],
         'mlp_hidden_sizes': [200,150,100],
         'resnet_n_hidden': 0,
         'T': T,
         'ee_pos_indices': (14,23),
-        'fixed_scale': 100,
+        'temperature': 0.1,
         'attention': fixed_distance_attention,
         'structure': mlp_structure,
         'regularization': 0.01,
+        'state_dependent': False,
+        'time_k': 10
     },
     'network_model': ref_traj_network_factory,
     # 'lr': 1e-4,

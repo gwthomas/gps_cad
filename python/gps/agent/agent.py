@@ -152,11 +152,14 @@ class Agent(object):
         # Shape checks.
         insert_shape = list(existing_mat.shape)
         for i in range(num_sensor):
-            # Make sure to slice along X.
-            if existing_mat.shape[axes[i]] != self.dO:
-                raise ValueError('Axes must be along an dX=%d dimensional axis',
-                                 self.dO)
-            insert_shape[axes[i]] = len(self._obs_data_idx[data_types[i]])
+            try:
+                # Make sure to slice along X.
+                if existing_mat.shape[axes[i]] != self.dO:
+                    raise ValueError('Axes must be along an dX=%d dimensional axis',
+                                     self.dO)
+                insert_shape[axes[i]] = len(self._obs_data_idx[data_types[i]])
+            except:
+                import pdb; pdb.set_trace()
         if tuple(insert_shape) != data_to_insert.shape:
             raise ValueError('Data has shape %s. Expected %s',
                              data_to_insert.shape, tuple(insert_shape))

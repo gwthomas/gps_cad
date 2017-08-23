@@ -7,7 +7,16 @@ import re
 import rospy
 from geometry_msgs.msg import Point, Quaternion
 from gps_agent_pkg.srv import ProxyControl, ProxyControlResponse
+from gps.agent.agent import Agent
 from gps.agent.ros.ros_utils import TimeoutException
+
+
+# Samples don't pickle their agents, but they need the indices (_x_data_idx and its ilk).
+# We use this to avoid launching a ROS node upon __init__ (which AgentROS does)
+# so it can be instantiated without fucking up any training happening at the time.
+class FakeAgent(Agent):
+    def sample(self, policy, condition, verbose=True, save=True, noisy=True):
+        pass
 
 
 class ConditionInfo:
@@ -62,6 +71,9 @@ class ProxyTrialManager(object):
             if time_elapsed > time_to_run:
                 raise TimeoutException(time_elapsed)
 
+
+def center_trajectory(ee_pos, ref_traj):
+    pass
 
 def listify(o):
     if isinstance(o, Point):

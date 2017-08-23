@@ -10,21 +10,12 @@ import re
 from gps.sample.sample_list import SampleList
 from gps.utility.data_logger import DataLogger
 from gps.agent.ros.cad.ref_traj_network import *
-from gps.agent.agent import Agent
 from gps.agent.ros.cad.agent_cad_experiment import AgentCADExperiment
+from gps.agent.ros.cad.util import FakeAgent
 from gps.algorithm.algorithm_utils import PolicyInfo
 
 
-# Samples don't pickle their agents, but they need the indices (_x_data_idx and its ilk).
-# We use this because it doesn't launch a ROS node upon __init__ (unlike descendants of AgentROS)
-# so it can be instantiated without fucking up any training happening at the time.
-class FakeAgent(Agent):
-    def sample(self, policy, condition, verbose=True, save=True, noisy=True):
-        pass
-
-
-def train_data(condition_data):
-    dO, dU, T = 1832, 7, 200
+def train_data(condition_data, T, dO, dU):
     pol_info = PolicyInfo({
         'init_pol_wt': 0.01,
         'T': T,
@@ -68,14 +59,15 @@ def main(attention, structure, batchsize, n, sgd):
     agent = FakeAgent(hyperparams.config['agent'])
 
     T = hyperparams.T
-    dO, dU = 32 + 9*T, 7
+    dO, dU = 32 + 9*T + 1, 7
     output_dir = osp.join(hyperparams.common['data_files_dir'], '{}_{}'.format(attention, structure))
 
     condition_info = manage.load_all()
+    max_cond = 15
     relevant_data = {}
     # put the agent back
     for cond, info in condition_info.iteritems():
-        if info.good:
+        if len(relevant_data) < max_cond and info.good:
             data = info.load_data()
             for sample in data['samples'].get_samples():
                 sample.agent = agent
@@ -88,13 +80,14 @@ def main(attention, structure, batchsize, n, sgd):
 
     if sgd:
         hyperparams.algorithm['policy_opt']['solver_type'] = 'momentum'
-    hyperparams.algorithm['policy_opt']['max_iterations'] = int(1e5)
+    hyperparams.algorithm['policy_opt']['max_iterations'] = int(1e6)
     hyperparams.algorithm['policy_opt']['batch_size'] = batchsize
     hyperparams.algorithm['policy_opt']['termination_epsilon'] = 0.0
     policy_opt = archtest.setup_policy_opt(hyperparams, attention, structure, dO, dU)
+
     try:
-        policy_opt.update(*train_data(relevant_data))
-    except:
+        policy_opt.update(*train_data(relevant_data, T, dO, dU))
+    except KeyboardInterrupt:
         pass
 
     raw_input('Finished training. Press enter to begin taking policy samples')
@@ -108,7 +101,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Train and test policy with given attention and structure')
     parser.add_argument('attention', metavar='ATTENTION')
     parser.add_argument('structure', metavar='STRUCTURE')
-    parser.add_argument('--batchsize', metavar='BATCHSIZE', type=int, default=100)
+    parser.add_argument('--batchsize', metavar='BATCHSIZE', type=int, default=32)
     parser.add_argument('-n', metavar='N', type=int, default=1)
     parser.add_argument('--sgd', action='store_true') # use (momentum) SGD instead of Adam
     args = parser.parse_args()

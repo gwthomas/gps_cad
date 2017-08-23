@@ -66,6 +66,10 @@ def setup_policy_opt(hyperparams, attention, structure, dO, dU):
         network_params['attention'] = distance_offset_attention
     elif attention == 'ntm':
         network_params['attention'] = ntm_attention
+    elif attention == 'time':
+        network_params['attention'] = time_attention
+    elif attention == 'centering':
+        network_params['attention'] = centering_attention
     else:
         raise RuntimeError('Invalid attention: {}'.format(attention))
 

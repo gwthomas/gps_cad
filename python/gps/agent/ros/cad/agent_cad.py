@@ -402,6 +402,7 @@ class AgentCAD(AgentROS):
 
     def set_gripper(self, position, max_effort, wait):
         self.gripper_client.cancel_all_goals()
+        rospy.sleep(1)
 
         goal = Pr2GripperCommandGoal()
         goal.command.position = position
@@ -769,7 +770,8 @@ class AgentCAD(AgentROS):
 
     def get_action(self, policy, obs):
         # extra = ['distances', 'coeffs', 'ee_pos', 'attended', 'direction']
-        extra = []
+        extra = ['centered_traj', 'coeffs', 'ee_pos', 'attended']
+        # extra = []
         action, debug = policy.act(None, obs, None, None, extra=extra)
         return action
 
@@ -777,7 +779,7 @@ class AgentCAD(AgentROS):
         array = np.array(request.obs)
         # print array[14:23]
         ref_flattened = self.trajectories[condition]['flattened']
-        obs = np.concatenate([array, ref_flattened])
+        obs = np.concatenate([array, ref_flattened, [self.trial_manager.t]])
         return obs
 
     # Gets the difference between the goal and the estimated goal

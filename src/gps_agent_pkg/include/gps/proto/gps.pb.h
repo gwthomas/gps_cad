@@ -59,7 +59,8 @@ enum SampleType {
   NOISE = 19,
   REF_TRAJ = 20,
   REF_OFFSETS = 21,
-  TOTAL_DATA_TYPES = 22
+  TIMESTEP = 22,
+  TOTAL_DATA_TYPES = 23
 };
 bool SampleType_IsValid(int value);
 const SampleType SampleType_MIN = ACTION;

@@ -14,7 +14,7 @@ from google.protobuf import descriptor_pb2
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='gps.proto',
   package='gps',
-  serialized_pb='\n\tgps.proto\x12\x03gps\"}\n\x06Sample\x12\x0e\n\x01T\x18\x01 \x01(\r:\x03\x31\x30\x30\x12\n\n\x02\x64X\x18\x02 \x01(\r\x12\n\n\x02\x64U\x18\x03 \x01(\r\x12\n\n\x02\x64O\x18\x04 \x01(\r\x12\r\n\x01X\x18\x05 \x03(\x02\x42\x02\x10\x01\x12\r\n\x01U\x18\x06 \x03(\x02\x42\x02\x10\x01\x12\x0f\n\x03obs\x18\x07 \x03(\x02\x42\x02\x10\x01\x12\x10\n\x04meta\x18\x08 \x03(\x02\x42\x02\x10\x01*\xb2\x04\n\nSampleType\x12\n\n\x06\x41\x43TION\x10\x00\x12\x10\n\x0cJOINT_ANGLES\x10\x01\x12\x14\n\x10JOINT_VELOCITIES\x10\x02\x12\x17\n\x13\x45ND_EFFECTOR_POINTS\x10\x03\x12!\n\x1d\x45ND_EFFECTOR_POINT_VELOCITIES\x10\x04\x12 \n\x1c\x45ND_EFFECTOR_POINT_JACOBIANS\x10\x05\x12$\n END_EFFECTOR_POINT_ROT_JACOBIANS\x10\x06\x12\x1a\n\x16\x45ND_EFFECTOR_POSITIONS\x10\x07\x12\x1a\n\x16\x45ND_EFFECTOR_ROTATIONS\x10\x08\x12\x1a\n\x16\x45ND_EFFECTOR_JACOBIANS\x10\t\x12\x19\n\x15\x45ND_EFFECTOR_HESSIANS\x10\n\x12\r\n\tRGB_IMAGE\x10\x0b\x12\x0f\n\x0b\x44\x45PTH_IMAGE\x10\x0c\x12\x12\n\x0eRGB_IMAGE_SIZE\x10\r\x12\x11\n\rCONTEXT_IMAGE\x10\x0e\x12\x16\n\x12\x43ONTEXT_IMAGE_SIZE\x10\x0f\x12\x0e\n\nIMAGE_FEAT\x10\x10\x12!\n\x1d\x45ND_EFFECTOR_POINTS_NO_TARGET\x10\x11\x12+\n\'END_EFFECTOR_POINT_VELOCITIES_NO_TARGET\x10\x12\x12\t\n\x05NOISE\x10\x13\x12\x0c\n\x08REF_TRAJ\x10\x14\x12\x0f\n\x0bREF_OFFSETS\x10\x15\x12\x14\n\x10TOTAL_DATA_TYPES\x10\x16*J\n\x0c\x41\x63tuatorType\x12\r\n\tTRIAL_ARM\x10\x00\x12\x11\n\rAUXILIARY_ARM\x10\x01\x12\x18\n\x14TOTAL_ACTUATOR_TYPES\x10\x02*_\n\x13PositionControlMode\x12\x0e\n\nNO_CONTROL\x10\x00\x12\x0f\n\x0bJOINT_SPACE\x10\x01\x12\x0e\n\nTASK_SPACE\x10\x02\x12\x17\n\x13TOTAL_CONTROL_MODES\x10\x03*\x85\x01\n\x0e\x43ontrollerType\x12\x18\n\x14LIN_GAUSS_CONTROLLER\x10\x00\x12\x14\n\x10\x43\x41\x46\x46\x45_CONTROLLER\x10\x01\x12\x11\n\rTF_CONTROLLER\x10\x02\x12\x14\n\x10PROXY_CONTROLLER\x10\x03\x12\x1a\n\x16TOTAL_CONTROLLER_TYPES\x10\x04')
+  serialized_pb='\n\tgps.proto\x12\x03gps\"}\n\x06Sample\x12\x0e\n\x01T\x18\x01 \x01(\r:\x03\x31\x30\x30\x12\n\n\x02\x64X\x18\x02 \x01(\r\x12\n\n\x02\x64U\x18\x03 \x01(\r\x12\n\n\x02\x64O\x18\x04 \x01(\r\x12\r\n\x01X\x18\x05 \x03(\x02\x42\x02\x10\x01\x12\r\n\x01U\x18\x06 \x03(\x02\x42\x02\x10\x01\x12\x0f\n\x03obs\x18\x07 \x03(\x02\x42\x02\x10\x01\x12\x10\n\x04meta\x18\x08 \x03(\x02\x42\x02\x10\x01*\xc0\x04\n\nSampleType\x12\n\n\x06\x41\x43TION\x10\x00\x12\x10\n\x0cJOINT_ANGLES\x10\x01\x12\x14\n\x10JOINT_VELOCITIES\x10\x02\x12\x17\n\x13\x45ND_EFFECTOR_POINTS\x10\x03\x12!\n\x1d\x45ND_EFFECTOR_POINT_VELOCITIES\x10\x04\x12 \n\x1c\x45ND_EFFECTOR_POINT_JACOBIANS\x10\x05\x12$\n END_EFFECTOR_POINT_ROT_JACOBIANS\x10\x06\x12\x1a\n\x16\x45ND_EFFECTOR_POSITIONS\x10\x07\x12\x1a\n\x16\x45ND_EFFECTOR_ROTATIONS\x10\x08\x12\x1a\n\x16\x45ND_EFFECTOR_JACOBIANS\x10\t\x12\x19\n\x15\x45ND_EFFECTOR_HESSIANS\x10\n\x12\r\n\tRGB_IMAGE\x10\x0b\x12\x0f\n\x0b\x44\x45PTH_IMAGE\x10\x0c\x12\x12\n\x0eRGB_IMAGE_SIZE\x10\r\x12\x11\n\rCONTEXT_IMAGE\x10\x0e\x12\x16\n\x12\x43ONTEXT_IMAGE_SIZE\x10\x0f\x12\x0e\n\nIMAGE_FEAT\x10\x10\x12!\n\x1d\x45ND_EFFECTOR_POINTS_NO_TARGET\x10\x11\x12+\n\'END_EFFECTOR_POINT_VELOCITIES_NO_TARGET\x10\x12\x12\t\n\x05NOISE\x10\x13\x12\x0c\n\x08REF_TRAJ\x10\x14\x12\x0f\n\x0bREF_OFFSETS\x10\x15\x12\x0c\n\x08TIMESTEP\x10\x16\x12\x14\n\x10TOTAL_DATA_TYPES\x10\x17*J\n\x0c\x41\x63tuatorType\x12\r\n\tTRIAL_ARM\x10\x00\x12\x11\n\rAUXILIARY_ARM\x10\x01\x12\x18\n\x14TOTAL_ACTUATOR_TYPES\x10\x02*_\n\x13PositionControlMode\x12\x0e\n\nNO_CONTROL\x10\x00\x12\x0f\n\x0bJOINT_SPACE\x10\x01\x12\x0e\n\nTASK_SPACE\x10\x02\x12\x17\n\x13TOTAL_CONTROL_MODES\x10\x03*\x85\x01\n\x0e\x43ontrollerType\x12\x18\n\x14LIN_GAUSS_CONTROLLER\x10\x00\x12\x14\n\x10\x43\x41\x46\x46\x45_CONTROLLER\x10\x01\x12\x11\n\rTF_CONTROLLER\x10\x02\x12\x14\n\x10PROXY_CONTROLLER\x10\x03\x12\x1a\n\x16TOTAL_CONTROLLER_TYPES\x10\x04')
 
 _SAMPLETYPE = _descriptor.EnumDescriptor(
   name='SampleType',
@@ -111,14 +111,18 @@ _SAMPLETYPE = _descriptor.EnumDescriptor(
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='TOTAL_DATA_TYPES', index=22, number=22,
+      name='TIMESTEP', index=22, number=22,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='TOTAL_DATA_TYPES', index=23, number=23,
       options=None,
       type=None),
   ],
   containing_type=None,
   options=None,
   serialized_start=146,
-  serialized_end=708,
+  serialized_end=722,
 )
 
 SampleType = enum_type_wrapper.EnumTypeWrapper(_SAMPLETYPE)
@@ -143,8 +147,8 @@ _ACTUATORTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=710,
-  serialized_end=784,
+  serialized_start=724,
+  serialized_end=798,
 )
 
 ActuatorType = enum_type_wrapper.EnumTypeWrapper(_ACTUATORTYPE)
@@ -173,8 +177,8 @@ _POSITIONCONTROLMODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=786,
-  serialized_end=881,
+  serialized_start=800,
+  serialized_end=895,
 )
 
 PositionControlMode = enum_type_wrapper.EnumTypeWrapper(_POSITIONCONTROLMODE)
@@ -207,8 +211,8 @@ _CONTROLLERTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=884,
-  serialized_end=1017,
+  serialized_start=898,
+  serialized_end=1031,
 )
 
 ControllerType = enum_type_wrapper.EnumTypeWrapper(_CONTROLLERTYPE)
@@ -234,7 +238,8 @@ END_EFFECTOR_POINT_VELOCITIES_NO_TARGET = 18
 NOISE = 19
 REF_TRAJ = 20
 REF_OFFSETS = 21
-TOTAL_DATA_TYPES = 22
+TIMESTEP = 22
+TOTAL_DATA_TYPES = 23
 TRIAL_ARM = 0
 AUXILIARY_ARM = 1
 TOTAL_ACTUATOR_TYPES = 2
