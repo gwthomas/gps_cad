@@ -71,22 +71,22 @@ def _linear_combo(coeffs, points):
     n = points.shape[1].value
     return tf.reduce_sum(tf.reshape(coeffs, [-1,n,1]) * points, axis=1)
 
-def _head(coeff_fn, args, offset):
+def _head(coeff_fn, config, args, offset):
     ref_traj = args['ref_traj']
     coeffs, weights = coeff_fn(config, args, offset)
     coeffs = tf.identity(coeffs, name='coeffs')
     return _linear_combo(coeffs, ref_traj), weights
 
 def fixed_distance_attention(config, args):
-    return _head(_fixed_distance_coeffs, args, 0)
+    return _head(_fixed_distance_coeffs, config, args, 0)
 
 def distance_attention(config, args):
-    return _head(_distance_coeffs, args, 0)
+    return _head(_distance_coeffs, config, args, 0)
 
 def distance_attention_offset(config, args):
     offset = 5 if 'offset' not in config else config['offset']
-    attended0, weights0 = _head(_distance_coeffs, args, 0)
-    attendedk, weightsk = _head(_distance_coeffs, args, offset)
+    attended0, weights0 = _head(_distance_coeffs, config, args, 0)
+    attendedk, weightsk = _head(_distance_coeffs, config, args, offset)
     return tf.concat([attended0, attendedk], 1), weights0 + weightsk
 
 def centering_attention(config, args):

@@ -78,8 +78,8 @@
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>model://piece/meshes/piece.stl</uri>
-              <scale>0.05 0.05 0.0254</scale>
+              <uri>model://held_piece/meshes/held_piece.stl</uri>
+              <scale>0.001 0.001 0.001</scale>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -99,8 +99,8 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://piece/meshes/piece.stl</uri>
-              <scale>0.05 0.05 0.0254</scale>
+              <uri>model://held_piece/meshes/held_piece.stl</uri>
+              <scale>0.001 0.001 0.001</scale>
             </mesh>
           </geometry>
         </visual>
@@ -121,8 +121,8 @@
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>model://piece/meshes/piece.stl</uri>
-              <scale>0.05 0.05 0.0254</scale>
+              <uri>model://fixed_piece/meshes/fixed_piece.stl</uri>
+              <scale>0.001 0.001 0.001</scale>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -142,8 +142,8 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://piece/meshes/piece.stl</uri>
-              <scale>0.05 0.05 0.0254</scale>
+              <uri>model://fixed_piece/meshes/fixed_piece.stl</uri>
+              <scale>0.001 0.001 0.001</scale>
             </mesh>
           </geometry>
         </visual>
@@ -161,6 +161,12 @@
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1</real_time_factor>
       <real_time_update_rate>1000.0</real_time_update_rate>
+      <ode>
+        <solver>
+            <type>quick</type>
+            <iters>200</iters>
+        </solver>
+      </ode>
       <gravity>0 0 -9.8</gravity>
     </physics>
     <scene>

@@ -37,14 +37,12 @@ from gps.agent.ros.ros_utils import ServiceEmulator, TimeoutException, msg_to_sa
 from gps.proto.gps_pb2 import TRIAL_ARM, AUXILIARY_ARM, JOINT_ANGLES, \
         JOINT_VELOCITIES, END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, \
         ACTION, TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE, \
-        REF_TRAJ, REF_OFFSETS, PROXY_CONTROLLER, NOISE
+        REF_TRAJ, REF_OFFSETS, PROXY_CONTROLLER, NOISE, TIMESTEP
 from gps_agent_pkg.msg import TrialCommand, SampleResult, PositionCommand, \
         RelaxCommand, DataRequest
 from gps.utility.general_utils import get_ee_points
 from gps.agent.ros.cad.util import *
 
-from gps.proto.gps_pb2 import JOINT_ANGLES, END_EFFECTOR_POINTS, \
-        END_EFFECTOR_POINT_JACOBIANS, REF_OFFSETS, REF_TRAJ
 
 try:
     from gps.algorithm.policy.tf_policy import TfPolicy
@@ -400,7 +398,7 @@ class AgentCAD(AgentROS):
         reset_command.id = self._get_next_seq_id()
         self._reset_service.publish_and_wait(reset_command, timeout=timeout)
 
-    def set_gripper(self, position, max_effort, wait):
+    def set_gripper(self, position, wait, max_effort):
         self.gripper_client.cancel_all_goals()
         rospy.sleep(1)
 
@@ -414,11 +412,11 @@ class AgentCAD(AgentROS):
             result = self.gripper_client.send_goal_and_wait(goal, execute_timeout=duration)
             import pdb; pdb.set_trace()
 
-    def grip(self, wait):
-        self.set_gripper(0.0, 50.0, wait)
+    def grip(self, wait, max_effort=10000):
+        self.set_gripper(0.0, wait, max_effort)
 
-    def ungrip(self, wait):
-        self.set_gripper(0.08, 50.0, wait)
+    def ungrip(self, wait, max_effort=10000):
+        self.set_gripper(0.08, 50.0, max_effort)
 
     def compute_plan_cost(self, plan):
     	# prevPoint = None # Start off with nothing
@@ -429,9 +427,10 @@ class AgentCAD(AgentROS):
     	# 		dist += np.sqrt(np.sum(np.square(position - prevPoint)))
     	# 	prevPoint = position # Aww man almost forgot this
     	# return dist
-        ref_traj = self.compute_reference_trajectory(plan)
-        ee_pos = ref_traj['ee']
-        return sum([np.sum((ee_pos[i] - ee_pos[i-1])**2) for i in range(1, len(ee_pos))])
+        # ref_traj = self.compute_reference_trajectory(plan)
+        # ee_pos = ref_traj['ee']
+        # return sum([np.sum((ee_pos[i] - ee_pos[i-1])**2) for i in range(1, len(ee_pos))])
+        return len(plan.joint_trajectory.points)
 
     def plan(self, attempts=1):
         self.group.set_planning_time(self.planning_time)
@@ -546,12 +545,6 @@ class AgentCAD(AgentROS):
     def compute_plan(self, condition):
         self.reset(condition)
         target = self._hyperparams['targets'][condition]
-        # while True:
-        #     plan = self.plan_end_effector(target['position'], target['orientation'])
-        #     self.edit_plan_if_necessary(plan) # Just edit it if you need to change the goal lmao
-        #
-        #     if not self.require_approval or yesno('Does this trajectory look ok?'):
-        #         return plan
         return self.plan_end_effector(target['position'], target['orientation'], attempts=self.planning_attempts)
 
     def _plan_file(self, condition):
@@ -632,6 +625,14 @@ class AgentCAD(AgentROS):
 
     def get_existing_plan(self, condition):
         return self.condition_info[condition].plan
+
+    def execute(self, plan):
+        self.use_controller('MoveIt')
+        self.group.execute(plan)
+
+    def run_moveit(self, condition):
+        self.reset(condition)
+        self.execute(self.condition_info[condition].plan)
 
     def compute_reference_trajectory(self, plan):
         plan_ja_pos = [np.array(point.positions) for point in plan.joint_trajectory.points]
@@ -752,6 +753,7 @@ class AgentCAD(AgentROS):
 
         sample = msg_to_sample(sample_msg, self)
         sample.set(NOISE, noise)
+        sample.set(TIMESTEP, np.arange(self.T).reshape((self.T,1)))
 
         if self.dumb_ilqr: # If we are going to use the dumb ilqr cost fns
             print("Doing the dumb ilqr thing")
@@ -770,8 +772,8 @@ class AgentCAD(AgentROS):
 
     def get_action(self, policy, obs):
         # extra = ['distances', 'coeffs', 'ee_pos', 'attended', 'direction']
-        extra = ['centered_traj', 'coeffs', 'ee_pos', 'attended']
-        # extra = []
+        # extra = ['centered_traj', 'coeffs', 'ee_pos', 'attended']
+        extra = []
         action, debug = policy.act(None, obs, None, None, extra=extra)
         return action
 

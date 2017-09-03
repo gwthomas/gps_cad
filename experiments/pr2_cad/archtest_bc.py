@@ -63,7 +63,7 @@ def main(attention, structure, batchsize, n, sgd):
     output_dir = osp.join(hyperparams.common['data_files_dir'], '{}_{}'.format(attention, structure))
 
     condition_info = manage.load_all()
-    max_cond = 15
+    max_cond = 10
     relevant_data = {}
     # put the agent back
     for cond, info in condition_info.iteritems():
