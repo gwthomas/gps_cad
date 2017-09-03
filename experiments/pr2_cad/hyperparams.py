@@ -42,9 +42,10 @@ from gps.gui.config import generate_experiment_info
 
 
 T = 200
-NN = False
-ALL_CONDITIONS = 30
-TRAIN = False
+ALL_CONDITIONS = 6
+TRAIN_CONDITIONS = 2
+MODE = 'iLQR subset'
+assert MODE in ('GPS', 'iLQR subset', 'NN test')
 
 EE_POINTS = np.array([[0.0, 0.0, 0.0], [0.15, 0.05, 0.0], [0.15, -0.05, 0.0]])
 PR2_GAINS = np.array([3.09, 1.08, 0.393, 0.674, 0.111, 0.152, 0.098])
@@ -63,9 +64,8 @@ EXP_DIR = osp.dirname(osp.realpath(__file__))
 
 ################################################################################
 conditions, condition_info = [], []
-if TRAIN:
+if MODE == 'iLQR subset':
     # determine conditions to train on based on current status
-    atmost = 4 # how many conditions to train on at once
     for cond in range(ALL_CONDITIONS):
         filename = osp.join(EXP_DIR, 'condition_info', 'info%02d.pkl' % cond)
         if osp.isfile(filename):
@@ -79,8 +79,7 @@ if TRAIN:
             exit()
         conditions.append(cond)
         condition_info.append(info)
-        atmost -= 1
-        if atmost == 0:
+        if len(conditions) == TRAIN_CONDITIONS:
             print "That's all folks"
             break
 else:
@@ -97,11 +96,13 @@ common = {
     'experiment_name': 'my_experiment' + '_' + \
             datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M'),
     'experiment_dir': EXP_DIR,
-    'iterations': 15,
+    'iterations': 50,
     'data_files_dir': osp.join(EXP_DIR, 'data_files/'),
     'target_filename': osp.join(EXP_DIR, 'target.npz'),
     'log_filename': osp.join(EXP_DIR, 'log.txt'),
     'conditions': len(conditions),
+    'train_conditions': range(TRAIN_CONDITIONS),
+    'test_conditions': range(ALL_CONDITIONS)
 }
 
 x0s = []
@@ -146,8 +147,9 @@ agent = {
     # 'planner': 'PRMstarkConfigDefault',
     'planning_time': 15,
     'plan_attempts': 20,
-    'targets': [{'position': (0.5, 0.09, 0.55), 'orientation': (3.14, 0.0, -1.57)} for _ in conditions],
-
+    # 'targets': [{'position': (0.5, 0.09, 0.55), 'orientation': (3.14, 0.0, -1.57)} for _ in conditions],
+    'targets': [{'position': (0.475, 0.09, 0.549), 'orientation': (3.14, 0.0, -1.57)} for _ in conditions],
+#
     ###### THIS IS FOR THE ORIGINAL EXPERIMENT #######################
     #'targets': [{'position': (0.5, 0.09, 0.555), 'orientation': (3.14, 0.0, -1.57)}
     #    for _ in range(common['conditions'])],
@@ -175,17 +177,19 @@ agent = {
     'exp_dir': EXP_DIR,
 }
 
-algorithm_no_nn = {
+algorithm_ilqr = {
     'type': AlgorithmTrajOptSmart,
     'iterations': common['iterations'],
-    'conditions': agent['conditions'],
+    'conditions': common['conditions'],
     'actual_conditions': conditions,
     'condition_info': condition_info
 }
-algorithm_nn = {
+algorithm_gps = {
     'type': AlgorithmBADMM,
     'iterations': common['iterations'],
-    'conditions': agent['conditions'],
+    'conditions': common['conditions'],
+    'train_conditions': common['train_conditions'],
+    'test_conditions': common['test_conditions'],
     'condition_info': condition_info,
     'lg_step_schedule': np.array([1e-4, 1e-3, 1e-2, 1e-1]),
     'policy_dual_rate': 0.1,
@@ -204,13 +208,13 @@ algorithm_nn = {
     'max_policy_samples': 6,
     'policy_sample_mode': 'add',
 }
-algorithm = algorithm_nn if NN else algorithm_no_nn
+algorithm = algorithm_gps if MODE == 'GPS' else algorithm_ilqr
 
 algorithm['init_traj_distr'] = {
     'type': init_pd,
     'pos_gains': 15.0,
     'vel_gains_mult': 0.1,
-    'init_var': 1.0,
+    'init_var': 0.25,
     'dQ': 7, # set this to action dim based on another file, but effect of changing unclear
     'dt': agent['dt'],
     'T': agent['T'],
@@ -244,7 +248,7 @@ algorithm['policy_opt'] = {
         'T': T,
         'ee_pos_indices': (14,23),
         'temperature': 0.1,
-        'attention': fixed_distance_attention,
+        'attention': time_attention,
         'structure': mlp_structure,
         'regularization': 0.01,
         'state_dependent': False,
@@ -313,7 +317,7 @@ config = {
     'algorithm': algorithm,
     'num_samples': 5, # must be >1 to fit dynamics
 }
-if NN:
+if MODE == 'GPS':
     config['verbose_policy_trials'] = 1
 
 common['info'] = generate_experiment_info(config)

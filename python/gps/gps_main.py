@@ -56,7 +56,9 @@ class GPSMain(object):
         config['algorithm']['agent'] = self.agent
         self.algorithm = config['algorithm']['type'](config['algorithm'])
         # Gonna make the algorithm for the reset ones as well
-        self.reset_algorithm = config['algorithm']['type'](config['algorithm'])
+        import tensorflow as tf
+        with tf.variable_scope('reset'): # to avoid variable naming conflicts
+            self.reset_algorithm = config['algorithm']['type'](config['algorithm'])
 
     def run(self, itr_load=None):
         """
@@ -259,6 +261,7 @@ class GPSMain(object):
         if self.gui:
             self.gui.set_status_text('Calculating.')
             self.gui.start_display_calculating()
+        self.agent.reset(0) # so the arm doesn't roll
         self.algorithm.iteration(sample_lists)
         if self.gui:
             self.gui.stop_display_calculating()

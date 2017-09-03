@@ -11,6 +11,7 @@ class Sample(object):
     Note: must be serializable for easy saving, no C++ references!
     """
     def __init__(self, agent):
+        assert agent is not None
         self.agent = agent
 
         self.T = agent.T

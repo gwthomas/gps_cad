@@ -94,7 +94,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Evaluate results of policy trials')
     parser.add_argument('-d', '--dir', metavar='DIR', default='data_files')
     args = parser.parse_args()
-    data = load_data(dir)
+    data = load_data(args.dir)
     distances = evaluate_sample_function(data, distance)
     successes = evaluate_sample_function(data, success)
     print_results(distances)

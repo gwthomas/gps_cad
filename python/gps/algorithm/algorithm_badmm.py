@@ -374,7 +374,10 @@ class AlgorithmBADMM(Algorithm):
             traj, pol_info = self.cur[m].traj_distr, self.cur[m].pol_info
             samples = self.cur[m].sample_list
         N = len(samples)
-        X, obs = samples.get_X(), samples.get_obs()
+        try:
+            X, obs = samples.get_X(), samples.get_obs()
+        except:
+            import pdb; pdb.set_trace()
         kl, kl_m = np.zeros((N, T)), np.zeros(T)
         kl_l, kl_lm = np.zeros((N, T)), np.zeros(T)
         # Compute policy mean and covariance at each sample.

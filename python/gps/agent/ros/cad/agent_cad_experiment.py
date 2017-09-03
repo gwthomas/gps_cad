@@ -1,4 +1,5 @@
 import copy
+import os.path as osp
 import pdb
 import time
 import get_plan
@@ -47,8 +48,8 @@ from gps.proto.gps_pb2 import JOINT_ANGLES, END_EFFECTOR_POINTS, \
 class AgentCADExperiment(AgentCAD):
     def __init__(self, hyperparams, init_node=True, trace=True):
         self.fixed_pose = Pose(Point(0.5, -0.1628, 0.5), Quaternion(0.5, -0.5, -0.5, 0.5))
-        with open('/home/gwthomas/.gazebo/models/piece/model-static.sdf', 'r') as f:
-           self.piece_xml = f.read()
+        with open('/home/gwthomas/.gazebo/models/fixed_piece/model-static.sdf', 'r') as f:
+           self.fixed_piece_xml = f.read()
 
         AgentCAD.__init__(self, hyperparams, init_node)
 
@@ -85,6 +86,7 @@ class AgentCADExperiment(AgentCAD):
         self.add_object('table', position=[0.75,0.,0.42], size=[0.9,1.5,0.03], type='box')
         # self.add_object('table', position=[0.8,0.,z], size=[0.7,1.5,0.03], type='box')
 
+        exp_dir = self._hyperparams['exp_dir']
         for name in ('held_piece', 'fixed_piece'):
             pose = self.get_pose(name)
 
@@ -92,9 +94,8 @@ class AgentCADExperiment(AgentCAD):
             #pose, euler = self.pose_from_AR(name)
             self.add_object(name, position=listify(pose.position),
                     orientation=listify(pose.orientation),
-                    size=(0.045,0.045,0.02286),
-                    filename=self._hyperparams['cad_path'])
-
+                    size=(0.001, 0.001, 0.001),
+                    filename=osp.join(exp_dir, '%s.stl' % name))
 
     def reset_held_piece(self):
         print 'Resetting held piece'
@@ -108,23 +109,34 @@ class AgentCADExperiment(AgentCAD):
         except:
            pass
         AgentCAD.reset(self, condition)
-        self.spawn_model('fixed_piece', self.piece_xml, self.fixed_pose)
+        self.spawn_model('fixed_piece', self.fixed_piece_xml, self.fixed_pose)
 
-    def grasp_prep(self):
+    def compute_plan(self, condition, dx=0.0, dy=0.0, dz=0.0):
+        self.reset(condition)
+        target = self._hyperparams['targets'][condition]
+        position = list(target['position'])
+        position[0] += dx
+        position[1] += dy
+        position[2] += dz
+        return self.plan_end_effector(position, target['orientation'], attempts=self.planning_attempts)
+
+    def grasp_prep(self, dx=-0.2, dy=0.023, dz=0.00375):
         self.use_controller('MoveIt')
         self.ungrip(15)
 
-        # Get the position of the held piece using their AR tags
-        # pose, euler = self.pose_from_AR('held_piece')
-        # target_position = listify(pose.position) # Get the position as list
         target_position = listify(self.get_pose('held_piece').position)
-        target_position[0] -= 0.2
-        target_position[2] += 0.0075
+        target_position[0] += dx - 0.03
+        target_position[1] += dy
+        target_position[2] += dz
+        self.move_to(target_position, [0,0,0])
+
+        target_position[0] += 0.03
         self.move_to(target_position, [0,0,0])
 
     def grasp(self):
-        self.grip(None)
-        time.sleep(5)
+        # self.grip(None)
+        # time.sleep(5)
+        self.grip(3)
         self.attach('held_piece', touch_links=['l_gripper_l_finger_tip_link', 'l_gripper_r_finger_tip_link', \
             'l_gripper_r_finger_link', 'l_gripper_l_finger_link'])
 
@@ -133,8 +145,6 @@ class AgentCADExperiment(AgentCAD):
         # Remove the thing from where it was in the rviz scene
         self.scene.remove_world_object('fixed_piece')
 
-        # Get the pose twice just in case or whatever
-        pose, euler = self.pose_from_AR('fixed_piece')
         pose, euler = self.pose_from_AR('fixed_piece')
         posi = pose.position # Get the position from the pose
 
