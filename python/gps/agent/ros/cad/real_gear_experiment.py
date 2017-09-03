@@ -55,13 +55,16 @@ class RealGearExperiment(AgentCAD):
         self.ar_functions[self.ar['shaft2']] = self.create_AR_function( \
         	self.ar['shaft2'], -0.027, 0 - 0.01, -0.0067, -3.14, 0, 3.14)
 
+        #self.ar_functions[self.ar['base_plate']] = self.create_AR_function( \
+        #    self.ar['base_plate'], 0 + 0.005 - 0.02, -0.01 - 0.045 + 0.02, 0.04 + 0.01, 0.0067, 0, 0) 
         self.ar_functions[self.ar['base_plate']] = self.create_AR_function( \
-            self.ar['base_plate'], 0 + 0.005, -0.01 - 0.014, 0.025, 0.0067, 0, 0) 
+            self.ar['base_plate'], 0.025, -0.01 - 0.01, -0.005, 0.0067, 0, 0) 
 
         self.ar_functions[self.ar['compound_gear']] = self.create_AR_function( \
             self.ar['compound_gear'], -0.055, 0, -0.0281, 0, 0, 0) #0.03
 
         self.stored_poses = {} # Stored poses for the objects in the scene
+        self.change_conds_to_goals() # Because we want to reverse plan
 
         pdb.set_trace() # Need to stop and setup
 
@@ -88,8 +91,8 @@ class RealGearExperiment(AgentCAD):
         self.scene.remove_world_object()
         self.scene.remove_attached_object(self.ee_link)
 
-        #table_pose = self.get_AR_pose(3) # Get the AR position of the table
-        table_pose = None
+        table_pose = self.get_AR_pose(3) # Get the AR position of the table
+        #table_pose = None
         if not table_pose: # If there isn't an AR marker
             z = 0.5 # Ehh just some random height
         else:
@@ -101,14 +104,8 @@ class RealGearExperiment(AgentCAD):
             # Get the position of the objects using their AR tags
             pose = self.stored_poses[name]
             self.add_object(name, position=listify(pose.position), 
-            	orientation=[0, 0, -0.36, 1], size=(0.025, 0.025, 0.025), 
+            	orientation=[0, 0, -0.3825, 0.9239557], size=(0.025, 0.025, 0.025), 
             	filename=self._hyperparams[name])
-
-    # Store all the poses that we have available
-    #def get_all_poses(self):
-    #	for obj in self.ar: # For all the objects that we are keeping track of
-    #		pose, euler = self.pose_from_AR(obj) # Get the pose from the thing
-    #		self.stored_poses[obj] = pose # Store it in the dictionary
 
     def get_all_poses(self):
 		for obj in self.ar: # For all the objects that we are keeping track of
@@ -121,20 +118,19 @@ class RealGearExperiment(AgentCAD):
         pose = self.stored_poses['base_plate']
         newPose = copy.deepcopy(pose) # Make a deep copy of this
         # Make some modifications lmao
-        #newPose.position.x += 0.08020783
-        #newPose.position.y -= 0.08020783
+        newPose.position.x += 0.08020783
+        newPose.position.y -= 0.08020783
 
-        newPose.position.x += 0.0787
-        newPose.position.y -= 0.081
-        newPose.position.z += 0.104 #2719
+        #newPose.position.x += 0.0787
+        #newPose.position.y -= 0.081
+        newPose.position.z += 0.1042719
 
-        #self.stored_poses['shaft2'] = newPose # Store this pose in relation
-        newPose = self.stored_poses['shaft2']
+        self.stored_poses['shaft2'] = newPose # Store this pose in relation
+        #newPose = self.stored_poses['shaft2']
         self.add_object('shaft2', position=listify(newPose.position),
                 orientation=[1, -0.027, 0, 0],
                 #size=(0.025, 0.025, 0.025),
-                size=(0.02, 0.02, 0.02),
-
+                size=(0.022, 0.022, 0.025),
                 filename=self._hyperparams['shaft2'])
 
     # Configure the rviz scene so motion planning and stuff can work well
@@ -166,15 +162,20 @@ class RealGearExperiment(AgentCAD):
         time.sleep(3)
         pose = self.stored_poses['shaft2']
         pos = pose.position # Get the position from the pose
-        #self.move_to(pos.x, pos.y, pos.z + 0.183, 0, 1.57, 0)
+        self.move_to(pos.x, pos.y, pos.z + 0.183 + 0.01, 0, 1.57, 0)
 
-        self.move_to(pos.x, pos.y, pos.z + 0.15, 0, 1.57, 0)
+        #self.move_to(pos.x, pos.y, pos.z + 0.15, 0, 1.57, 0)
         time.sleep(2) # Wait for a little bit
 
     # Grasp whatever object you wanna grasp or something
     def grasp(self, object):
         self.grip(None)
         time.sleep(3)
+        self.attach(object, touch_links=['l_gripper_l_finger_tip_link', 'l_gripper_r_finger_tip_link', \
+            'l_gripper_r_finger_link', 'l_gripper_l_finger_link'])
+
+    # Just for attaching so we can create a motion plan, hilariously
+    def attach_mesh(self, object):
         self.attach(object, touch_links=['l_gripper_l_finger_tip_link', 'l_gripper_r_finger_tip_link', \
             'l_gripper_r_finger_link', 'l_gripper_l_finger_link'])
 
@@ -205,24 +206,26 @@ class RealGearExperiment(AgentCAD):
     	#self.use_controller('GPS') # Make sure you are using GPS controller tho
         pass
 
-    # Override so we make multiple plans and then choose one with best
+    # Override of this because we want to compute all the reference trajectories now
+    # Otherwise there would be a lot of annoying manual resetting and all that to do.
     def determine_reference_trajectory(self, condition):
+        for i in range(self.conditions): # Let's do this for all the conditions now
+            # Just the janky version because of the reversing we have to do... :/
+            self.determine_reference_trajectory_2(i)
+        pdb.set_trace() # Just stop here and check things out
+
+    def determine_reference_trajectory_2(self, condition):
         plan = self.get_existing_plan(condition)
+        plan = None
         if plan is None:
             print 'No valid plan found for condition {}. Computing a fresh one'.format(condition)
             plan = self.reverse_plan(self.compute_plan(condition))
-            self.edit_plan_if_necessary(plan) # Edit the plan if we have a diff end
-
-            filename = self._plan_file(condition)
-            with open(filename, 'wb') as f: # Put the plan into a file
-            	pickle.dump(plan, f)
-         # The reset plan is the reverse of the normal plan
-        self.reset_plans[condition] = self.reverse_plan(plan) # Amazing really
+            self.edit_plan_if_necessary(plan)
+            # The reset plan is the reverse of the normal plan
+            self.reset_plans[condition] = self.reverse_plan(plan) # Amazing really
+            info = self.condition_info[condition]
+            info.plan = plan
         self.trajectories[condition] = self.compute_reference_trajectory(plan)
-        self.publishDisplayTrajectory(plan) # Publish the plan to the motion planner
-        self.use_controller('GPS')
-        # Calculate the trajectory information using this
-        pdb.set_trace() # Ehh just stop here just in case real quick\
 
     # Hmmm some resetting things??? 
     '''

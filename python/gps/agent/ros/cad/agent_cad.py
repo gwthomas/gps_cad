@@ -90,6 +90,7 @@ class AgentCAD(AgentROS):
 
     def __init__(self, hyperparams, init_node=True):
         AgentROS.__init__(self, hyperparams, init_node)
+        self.conditions = hyperparams['conditions']
         self.actual_conditions = hyperparams['actual_conditions']
         self.condition_info = hyperparams['condition_info']
 
@@ -129,7 +130,7 @@ class AgentCAD(AgentROS):
 
         self.ar = {} # Dictionary of AR objects
         self.ar_functions = {} # A dictionary of AR functions
-        self.ee_goal = None # Set the EE goal (if this has been set or not)
+        self.ee_goal = None # Set the EE goal (if this has been set or not
         self.ja_goal = None # Set the joint angle goal (if this has been set or not)\
         self.reset_plans = [0] * 5 # Empty array for the reset plans
 
@@ -148,6 +149,13 @@ class AgentCAD(AgentROS):
         self.reset_trajectories = {} # For dat fancy reset or something
         self.current_controller = None
         self.initialized = set()
+
+
+    def all_resets(self, repetitions=1):
+        conditions = self._hyperparams['conditions']
+        for _ in range(repetitions):
+            for i in range(conditions):
+                self.reset(i)
 
     # Move the head to look at the designated point (so camera point in right dir)
     def move_head(self, x, y, z):
@@ -171,6 +179,7 @@ class AgentCAD(AgentROS):
     def getAR(self, msg):
         self.cur_ar_markers = msg # Store what we have gotten lmao
 
+    # Get the pose of the AR tag (it's the center) given the number
     def get_AR_pose(self, number):
         # Get the markers from the detections array
         markers = self.get_AR_markers()
@@ -231,7 +240,7 @@ class AgentCAD(AgentROS):
             return ar_pose, euler # Return both the ar_pose and the euler angle
         return get_item_pose # Return the function
 
-    # Just a nicer function to get the pose of the thing
+    # Get the pose of an object (using the AR tag and AR tag dictionary)
     def pose_from_AR(self, obj_name):
         # If this is not an object in the object dictionary
         if obj_name not in self.ar:
@@ -327,7 +336,7 @@ class AgentCAD(AgentROS):
 
     def get_pose(self, id):
         if self.use_AR_markers:
-            return self.get_AR_pose(id)
+            return self.pose_from_AR(id)[0]
         else:
             return self.get_gazebo_pose(id)
 
@@ -477,6 +486,15 @@ class AgentCAD(AgentROS):
         pose = response.pose_stamped[0].pose
         return np.array(listify(pose.position) + listify(pose.orientation))
 
+    def forward_kinematics_pose(self, joint_angles, frame):
+        header = Header(0, rospy.Time.now(), frame)
+        rs = moveit_msgs.msg.RobotState()
+        rs.joint_state.name = JOINT_NAMES
+        rs.joint_state.position = joint_angles
+        response = self.fk(header, [self.ee_link], rs)
+        pose = response.pose_stamped[0].pose
+        return response.pose_stamped[0]
+
     def forward_kinematics(self, joint_angles, frame):
         return [self.forward_kinematics1(angles, frame) for angles in joint_angles]
 
@@ -498,6 +516,18 @@ class AgentCAD(AgentROS):
         # let's call it now and get a response
         response = self.ik(request)
         return response.solution # Return the solution found (hopefully something)
+
+    # Change the condition joint angles to the goal positions for the hyperparams
+    def change_conds_to_goals(self):
+        # For as many conditions there are
+        for i in range(self.conditions):
+            joint_val = self.get_initial(i, arm=TRIAL_ARM) # The initial joint values
+            the_list = self.forward_kinematics1(joint_val, 'base_footprint')
+            # Change the hyperparams so the conditions are now the goals
+            self._hyperparams['targets'][i]['position'] = the_list[:3]
+            self._hyperparams['targets'][i]['orientation'] = the_list[3:]
+            print("This is now the target: " + str(the_list))
+
 
     # Get the joint angles of a pose that is some m[meters]_above the current pose (of the end
     # effector) that we have lmao
@@ -578,7 +608,7 @@ class AgentCAD(AgentROS):
         for i in range(self._hyperparams['conditions']):
             # Set the goal to the current position
             self._hyperparams['targets'][i]['position'] = listify(pose.position)
-            self._hyperparams['targets'][i]['orientaton'] = list(tf.transformations.euler_from_quaternion( \
+            self._hyperparams['targets'][i]['orientation'] = list(tf.transformations.euler_from_quaternion( \
                 listify(pose.orientation)))
 
     # Lmao for when using the real robot and you have set the pose
@@ -586,11 +616,34 @@ class AgentCAD(AgentROS):
         return self.group.get_current_pose().pose
 
     # This is if you want to set the ultimate destination from the
-    def set_real_goal(self, condition):
+    def set_real_goal(self):
         self.ee_goal = self.get_ee_pose() # Use what is happening in real world (??)
         self.ja_goal = self.group.get_current_joint_values() # Get the current joint values\
         # Get the difference in position from real to the specified position
 
+    '''   
+    def offset_whole_plan(self, thePlan):
+        diffPos = np.array(self._hyperparams['targets'][0]['position']) - np.array(listify(self.ee_goal.position))
+        diffOri = np.array(tf.transformations.quaternion_from_euler(*self._hyperparams['targets'][0]['orientation'])) \
+         - np.array(listify(self.ee_goal.orientation))
+        print("These are the offsets: " + str(diffPos) + " " + str(diffOri))
+        for i in range(len(thePlan.joint_trajectory.points)):
+            old_ja = thePlan.joint_trajectory.points[i].positions # Old joint angles
+            # Get the pose stamped using forward kinematics and whatever
+            thePoint = self.forward_kinematics_pose(old_ja, 'base_footprint')  
+            thePoint.pose.position.x += diffPos[0]
+            thePoint.pose.position.y += diffPos[1]
+            thePoint.pose.position.z += diffPos[2]
+            thePoint.pose.orientation.x += diffOri[0]
+            thePoint.pose.orientation.y += diffOri[1]
+            thePoint.pose.orientation.z += diffOri[2]
+            thePoint.pose.orientation.w += diffOri[3]
+            print("The new pose-stamped is this: " + str(thePoint))
+            ja = self.inverse_kinematics1(thePoint) # Get the joint angles
+            thePlan.joint_trajectory.points[i].positions = ja.joint_state.position # Set to new joint angle
+            print("Old ja: " + str(old_ja) + " new ja: " + str(ja))
+
+    '''
     # Offset the plan depending on the differences
     def offset_whole_plan(self, thePlan):
         if self.ee_goal is None:
@@ -599,12 +652,6 @@ class AgentCAD(AgentROS):
         endGoal = thePlan.joint_trajectory.points[-1].positions # This is the current goal
         diff = np.array(goalJoint) - np.array(endGoal) # This is the difference
         print("This is the difference: " + str(diff)) # Print this
-        #diffPos = np.array(listify(self.ee_goal.position)) - \
-        #    np.array(self._hyperparams['targets'][condition]['position'])
-        # Get the difference in orientation from real to specified position
-        #diffOri = np.array(listify(self.ee_goal.orientation)) - \
-        #    np.array(self._hyperparams['targets'][condition]['orientation'])
-        # For all the points in there
         for i in range(len(thePlan.joint_trajectory.points)):
             # Add the difference to the plan and hope for the best or something
             thePlan.joint_trajectory.points[i].positions = \
@@ -652,6 +699,15 @@ class AgentCAD(AgentROS):
         ref_ja_pos = np.array(ref_ja_pos)
         ref_ja_vel = np.array(ref_ja_vel)
         ref_ee = np.array(ref_ee)
+        # If dumb ilqr, just use target position
+        if self.dumb_ilqr:
+            # For all the time steps or something
+            for i in range(ref_ja_pos.shape[0]):
+                ref_ja_pos[i, :] = ref_ja_pos[-1, :]
+                ref_ja_vel[i, :] = ref_ja_vel[-1, :]
+                ref_ee[i, :] = ref_ee[-1, :]
+            pdb.set_trace()
+
         ref_offsets = ref_ee - ref_ee[-1]
         return {
             'ja_pos': ref_ja_pos,
@@ -672,6 +728,7 @@ class AgentCAD(AgentROS):
         self.trajectories[condition] = self.compute_reference_trajectory(plan)
 
     def initialize_controller(self, condition, policy):
+        # If we already initialized the controller
         if condition in self.initialized or not isinstance(policy, LinearGaussianPolicy):
             return
 

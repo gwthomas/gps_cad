@@ -121,6 +121,11 @@ if not osp.exists(common['data_files_dir']):
 
 agent = {
     'type': AgentCADExperiment,
+    #'type': RealAgentCADExperiment,
+    #'type': JPieceExperiment,
+    #'type': GearExperiment,
+    #'type': FullGearExperiment,
+    #'type': RealGearExperiment,
     'dt': 0.05,
     'conditions': common['conditions'],
     'actual_conditions': conditions,
@@ -161,11 +166,13 @@ agent = {
     'j_piece': osp.join(EXP_DIR, 'j_piece.stl'),
     'j_box': osp.join(EXP_DIR, 'j_box.stl'),
     'the_gear': osp.join(EXP_DIR, 'gear_teeth.stl'),
+    'compound_gear': osp.join(EXP_DIR, 'compound_gear.stl'),
+    'base_plate': osp.join(EXP_DIR, 'base_plate.stl'),
+    'shaft2': osp.join(EXP_DIR, 'shaft2.stl'),
     'use_AR_markers': False,
     'reset_timeout': 10,
     'trial_timeout': 30,
     'exp_dir': EXP_DIR,
-    'cad_path': osp.join(EXP_DIR, 'piece.stl')
 }
 
 algorithm_no_nn = {

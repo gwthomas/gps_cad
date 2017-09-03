@@ -46,29 +46,29 @@ from gps.proto.gps_pb2 import JOINT_ANGLES, END_EFFECTOR_POINTS, \
 
 class RealAgentCADExperiment(AgentCAD):
     def __init__(self, hyperparams, init_node=True, trace=True):
+
+        #self.cur_T = [0] * 5 # For storing the T of each of the conditions!
+        #self.final_T = self.T # This is the original T WOWOWOWOWOWOWOWWOW
+        #self.varying_T = False # If you want T to vary depending on a whole bunch of stuff
+        #self.the_tolerance = 0.01 # If the difference is that large it's concerning
+
+
         self.fixed_pose = Pose(Point(0.5, -0.1628, 0.5), Quaternion(0.5, -0.5, -0.5, 0.5))
-        #with open('/home/gwthomas/.gazebo/models/piece/model-static.sdf', 'r') as f:
-        #    self.piece_xml = f.read()
         self.diffPos, self.diffOri = None, None # Just set these
 
         AgentCAD.__init__(self, hyperparams, init_node)
-        self.ar = {'held_piece': 6, 'fixed_piece': 5} # Number of AR tag they have on them
+        self.ar = {'held_piece': 28, 'fixed_piece': 24} # Number of AR tag they have on them
 
         # Create the functions with the proper offsets and whatever
         self.ar_functions[self.ar['held_piece']] = self.create_AR_function( \
-            self.ar['held_piece'], 0.003, -0.02, -0.0265, 0, 0, -1.57)
+            self.ar['held_piece'], 0.003 - 0.01, -0.02, -0.026, 1.57 - 0.1, 0, -1.57) #0, 1.57, 0)
             #self.ar['held_piece'], 0.035, 0, -0.0465, 0, 0, -1.57)
         self.ar_functions[self.ar['fixed_piece']] = self.create_AR_function( \
-            self.ar['fixed_piece'], -0.015, -0.025, -0.0325 - 0.015, 1.57, 0, 0)
+            #self.ar['fixed_piece'], -0.015, -0.025, -0.0325 - 0.015, 1.57, 0, 0)
+            self.ar['fixed_piece'], -0.015 + 0.0165 + 0.01, -0.025 + 0.005, -0.032 - 0.02, 0, 0, 0)
 
         if trace:
             pdb.set_trace()     # for optional setup, not debugging
-
-    def all_resets(self, repetitions=1):
-        conditions = self._hyperparams['conditions']
-        for _ in range(repetitions):
-            for i in range(conditions):
-                self.reset(i)
 
     def setup(self):
         self.configure_scene()
@@ -81,7 +81,7 @@ class RealAgentCADExperiment(AgentCAD):
 
         #print 'Resetting piece'
         #self.reset_piece()
-        table_pose = self.get_AR_pose(7) # Get the AR position of the table
+        table_pose = self.get_AR_pose(26) # Get the AR position of the table
         if not table_pose: # If there isn't an AR marker
             z = 0.72 # Ehh just some random height
         else:
@@ -97,6 +97,7 @@ class RealAgentCADExperiment(AgentCAD):
             #pose = self.get_pose(name)
             # Get the position of the objects using their AR tags
             pose, euler = self.pose_from_AR(name)
+            print("Euler: " + str(euler) + " " + name)
             self.add_object(name, position=listify(pose.position),
                     orientation=listify(pose.orientation),
                     size=(0.045,0.045,0.02286),
@@ -130,7 +131,6 @@ class RealAgentCADExperiment(AgentCAD):
         target_pose = [0,0,0]
         init_plan = self.plan_end_effector(target_position, target_pose, 1)
         self.group.execute(init_plan)
-
         self.ungrip(15)
 
     def grasp(self):
@@ -173,11 +173,17 @@ class RealAgentCADExperiment(AgentCAD):
     # Override of this because we want to use a different plan [offsetted] (???)
     def determine_reference_trajectory(self, condition):
         plan = self.get_existing_plan(condition)
+        #plan = None
         if plan is None:
             print 'No valid plan found for condition {}. Computing a fresh one'.format(condition)
             plan = self.compute_plan(condition)
             self.offset_whole_plan(plan) # LMAO offset the plan as desired
-            filename = self._plan_file(condition)
-            with open(filename, 'wb') as f:
-                pickle.dump(plan, f)
+            self.publishDisplayTrajectory(plan) # Display to RVIZ
+            info = self.condition_info[condition]
+            info.plan = plan
+            info.save()
         self.trajectories[condition] = self.compute_reference_trajectory(plan)
+        pdb.set_trace()
+
+
+

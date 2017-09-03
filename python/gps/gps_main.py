@@ -32,7 +32,7 @@ class GPSMain(object):
             config: Hyperparameters for experiment
             quit_on_end: When true, quit automatically on completion
         """
-        self.special_reset = False # L M A O
+        self.special_reset = True # L M A O
         self._quit_on_end = quit_on_end
         self._hyperparams = config
         self._conditions = config['common']['conditions']
@@ -147,10 +147,18 @@ class GPSMain(object):
                 self.gui.set_status_text('Press \'go\' to begin.')
             return 0
         else:
+            print("HELLO THIS IS STARTING OFF FROM ITR_LOAD" + str(itr_load))
             algorithm_file = self._data_files_dir + 'algorithm_itr_%02d.pkl' % itr_load
             self.algorithm = self.data_logger.unpickle(algorithm_file)
             if self.algorithm is None:
                 print("Error: cannot find '%s.'" % algorithm_file)
+                os._exit(1) # called instead of sys.exit(), since this is in a thread
+            pdb.set_trace()
+            # unpickle the agent and whatever
+            agent_file = self._data_files_dir + 'agent_itr_%02d.pkl' % itr_load
+            self.agent = self.data_logger.unpickle(agent_file)
+            if self.agent is None:
+                print("Error: cannot find '%s.'" % agent_file)
                 os._exit(1) # called instead of sys.exit(), since this is in a thread
 
             if self.gui:
@@ -328,6 +336,11 @@ class GPSMain(object):
         self.data_logger.pickle(
             self._data_files_dir + ('traj_sample_itr_%02d.pkl' % itr),
             copy.copy(traj_sample_lists)
+        )
+        # Maybe pickle the agent to help out?
+        self.data_logger.pickle(
+            self._data_files_dir + ('agent_itr_%02d.pkl' % itr),
+            copy.copy(self.agent)
         )
         if pol_sample_lists:
             self.data_logger.pickle(
