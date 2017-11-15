@@ -130,9 +130,32 @@ class AgentCAD(AgentROS):
         self.ar_functions = {} # A dictionary of AR functions
         self.ee_goal = None # Set the EE goal (if this has been set or not
         self.ja_goal = None # Set the joint angle goal (if this has been set or not)\
-        self.reset_plans = [0] * 5 # Empty array for the reset plans
+        self.reset_plans = [0] * self.conditions # Empty array for the reset plans
+        self.num_samples = 5
 
         self.dumb_ilqr = False # If we are just going to use the end positions for the cost fns
+
+        self.samples_taken = [0] * self.conditions
+        self.full_ref_ee = [0] * self.conditions # Lol for the reference ee
+        self.full_ref_ja = [0] * self.conditions # For the full reference ja
+        self.full_ref_vel = [0] * self.conditions # For the full reference vel
+        self.saved_samples = [[] * self.conditions] # Just for storing this real quick
+
+        self.cur_T = [self.T] * self.conditions # For storing the T of each of the conditions!
+        self.final_T = self.T # This is the original T WOWOWOWOWOWOWOWWOW
+        self.varying_T = False # If you want T to vary depending on a whole bunch of stuff
+        self.the_tolerance = 0.015 # If the difference is that large it's concerning
+        self.padding = 10 # How many timesteps to put as padding for each of the segments
+        self.iter_per_seg = 1 # Let's train this many iterations per segment
+        self.iter_count = 0 # Count iterations
+        self.chosen_parts = None #[70, 70, 200, 200]
+        #[70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 200, 200, 200, 
+        #200, 200, 200, 200, 200, 200, 200]
+        #[100, 100, 100, 100, 100, 100, 100,
+        #100, 100, 100, 100, 100, 100, 100, 100, 200, 200, 200, 200, 200, 200, 200,
+        # 200, 200, 200] 
+        # SET THIS TO NONE IF YOU WANT TO USE FRACTIONS LMAO
+        self.cur_part = -1 # Current index
 
         self.trial_manager = ProxyTrialManager(self)
 
@@ -148,6 +171,155 @@ class AgentCAD(AgentROS):
         self.current_controller = None
         self.initialized = set()
 
+    # For the conditions specified (startInd - endInd, inclusive), use the reset
+    def set_reset_pos(self, startInd, endInd):
+        # For all the conditions in this nice range
+        for i in range(startInd, endInd + 1):
+            self._hyperparams['reset_conditions'][i] = \
+                self.condition_info[i].initial
+
+    # Wipe the plans of all the conditions lmao
+    def wipe_plans(self):
+        for i in range(self.conditions):
+            self.condition_info[i].plan = None
+
+    # Wipe the plan of the condition specified
+    def wipe_plan(self, condition):
+        self.condition_info[i].plan = None
+
+    # Calculate the T depending on how much of the trajectory we are using
+    def change_T(self, condition):
+        print("Change T is being called")
+        # Length of the trajectory
+        traj_length = len(self.trajectories[condition]['ee'])
+        cur_T = self.cur_T[condition] # What we have right now!!
+
+        # If we are using varying T, and it's time to check if we need to change
+        if self.varying_T:
+            the_cutoff = self.calculate_cutoff(condition) # Calculate the cutoff!
+            if the_cutoff is None: # If we don't need a cutoff or something
+                 # Just double the length of traj or something
+                self.T = min((cur_T - self.padding) * 2 + self.padding, self.final_T)
+            else: # Otherwise let's use the cutoff suggested
+                self.T = the_cutoff 
+        elif self.chosen_parts is not None:
+            self.cur_part += 1 # Increment the current part or something
+            self.cur_part = min(self.cur_part, len(self.chosen_parts) - 1)
+            self.T = self.chosen_parts[self.cur_part] # Change the current one
+            self.T += self.padding # If not the full trajectory, add the padding
+            self.T = min(self.T, self.final_T) # Choose the min of this
+
+        print("cur_T: " + str(cur_T) + " and new self.T " + str(self.T))
+        if cur_T != self.T: # If the current T is different from the new T
+            return True # Things have changed
+        else: # Otherwise, things haven't changed
+            return False
+
+    # This is for updating the T and then the policy after we've passed a certain number
+    # of iterations!
+    def update_T_then_policy(self, policy, condition):
+        print(str(self.iter_per_seg * 5) + ' samples have passed lmao')
+        changed = self.change_T(condition) # Call this now that everything has changed
+
+        if not changed: # If T has not changed, just return
+            return 
+
+        if self.T >= self.T_interpolation: # If we've reached T_interpolation already
+            self.T = self.final_T # Just use the whole trajectory lmao
+            ref_ja, ref_ee = self.full_ref_ja[condition], self.full_ref_ee[condition]
+            ref_vel = self.full_ref_vel[condition]
+        else:
+            ref_ja = list(self.full_ref_ja[condition][:(self.T - self.padding)])     
+            ref_ee = list(self.full_ref_ee[condition][:(self.T - self.padding)])
+            ref_vel = list(self.full_ref_vel[condition][:(self.T - self.padding)])
+            # This is adding more timesteps to the last step in the segment
+            ref_ja.extend([self.full_ref_ja[condition][self.T-1]] * self.padding)
+            ref_ee.extend([self.full_ref_ee[condition][self.T-1]] * self.padding)
+            ref_vel.extend([self.full_ref_vel[condition][self.T-1]] * self.padding)
+
+        self.cur_T[condition] = self.T # Update!
+
+        # We're gonna change policies - initialize with the old stuff learned tho
+        self.change_policy(condition, policy, ref_ja, ref_vel, ref_ee)
+
+    # This is initializing a new policy with more timesteps using the
+    # information from the old policy! :D
+    def change_policy(self, condition, policy, new_ref_ja, new_ref_vel, new_ref_ee):
+        
+        print("Changing the policy")
+        # Save all of these because we're about to initialize with something newww
+        old_K, old_k = copy.deepcopy(policy.K), copy.deepcopy(policy.k)
+        # This was how many timesteps there were before, not including the padding!
+        old_T = old_K.shape[0] - self.padding
+        pdb.set_trace()
+        with open('old_policy.txt', 'w') as f:
+            noise = np.zeros((old_K.shape[0], self.dU))
+            f.write(str(policy_to_msg(policy, noise)))
+
+        old_pol_covar, old_chol_pol_covar = copy.deepcopy(policy.pol_covar), copy.deepcopy(policy.chol_pol_covar)
+        old_inv_pol_covar = copy.deepcopy(policy.inv_pol_covar)
+        old_T = min(old_T, self.T) # Make sure to choose the smaller one I think (???)
+        # Now we change the initial values to match what we learned before
+        policy.__init__(*init_pd_ref(self._hyperparams['init_traj_distr'], new_ref_ja, new_ref_vel, new_ref_ee))
+        policy.K[:old_T, :, :], policy.k[:old_T, :] = old_K[:old_T, :, :], old_k[:old_T, :]
+        policy.pol_covar[:old_T, :, :], policy.chol_pol_covar[:old_T, :, :] = old_pol_covar[:old_T, :, :], old_chol_pol_covar[:old_T, :, :]
+        policy.inv_pol_covar[:old_T, :, :] = old_inv_pol_covar[:old_T, :, :]
+
+        # Writing the new policy to a text file just so we can examine
+        with open('new_policy.txt', 'w') as f:
+            noise = np.zeros((self.T, self.dU))
+            f.write(str(policy_to_msg(policy, noise)))
+        pdb.set_trace()
+
+    def calculate_cutoff(self, condition):
+        use_prev = 5 # Randomly use the last 5 samples to figure this out
+        check_every = 10 # Check every 10 samples for the proper cutoff
+        # If there are no saved samples for this condition
+        if len(self.saved_samples[condition]) == 0:
+            return None # Cannot calculate the cutoff, return none
+
+        T = self.saved_samples[condition][-1].T # Use the T of the samples
+        chosen_samples = self.saved_samples[condition][-1 * use_prev:] # Get the last couple of samples
+        avg = np.zeros(self.saved_samples[condition][-1].get(REF_OFFSETS).shape)[:T, :] # Get the shape
+
+        for sample in chosen_samples: # For all the samples we are using
+            tgt = sample.get(REF_OFFSETS)[:T, :]
+            pt = sample.get(END_EFFECTOR_POINTS)[:T, :]
+            dist = pt - tgt # Figure out the distance
+            avg += dist # Add the found distance to the average
+
+        avg /= float(use_prev) # Get the average and stuff
+        new_thing = np.zeros((avg.shape[0], 3))
+        # Gonna actually calculate the distances because these are three vectors
+        new_thing[:, 0] = np.sqrt(np.sum(np.square(avg[:, :3]), axis=1))
+        new_thing[:, 1] = np.sqrt(np.sum(np.square(avg[:, 3:6]), axis=1))
+        new_thing[:, 2] = np.sqrt(np.sum(np.square(avg[:, 6:9]), axis=1))
+        summed_dist = np.sum(new_thing, axis=1) # Sum the distances from end effector pts
+        summed_dist /= 3 # This should be a T x 1 Thing
+
+        best_cutoff, largest_diff = 0, 0 # Just initialize these
+        the_ratio = 0 # The ratio
+        # Start off with each little chunk
+        for i in range(7 * check_every, T, check_every):
+            #earlier_part = np.mean(avg[:i, :])
+            #later_part = np.mean(avg[i:, :])
+            earlier_part = np.mean(summed_dist[:i])
+            later_part = np.mean(summed_dist[i:])
+            the_diff = later_part - earlier_part
+            if the_diff > largest_diff: # If the difference is larger
+                best_cutoff, largest_diff = i, the_diff
+                the_ratio = later_part / earlier_part
+
+        print("The best cutoff found was at timestep: " + str(best_cutoff))
+        print("Largest diff: " + str(largest_diff) + " Ratio: " + str(the_ratio))
+        #pdb.set_trace()
+
+        self.saved_samples[condition] = [] # Clear this as well
+
+        if largest_diff >= self.the_tolerance:
+            return best_cutoff
+        else:
+            return None
 
     def all_resets(self, repetitions=1):
         conditions = self._hyperparams['conditions']
@@ -223,13 +395,6 @@ class AgentCAD(AgentROS):
             euler = list(tf.transformations.euler_from_quaternion(listify( \
                 ar_pose.orientation)))
 
-            #print("Position: " + str(ar_pose.position)) # This is kind of for debugging
-            #print("Euler: " + str(euler))
-            # No idea why we have to do this but sometimes the orientation tracking is wonky
-            #if euler[0] < 0:
-            #    euler[0] += 1.57
-            #if euler[2] > 0:
-            #    euler[2] -= 1.57
             # Do the euler offsets as well
             euler[0] += euler_offset_0
             euler[1] += euler_offset_1
@@ -305,6 +470,14 @@ class AgentCAD(AgentROS):
         # Get the current state of the robot or something
         traj.trajectory_start = self.robot.get_current_state()
         self.traj_display.publish(traj) # Publish the DisplayTrajectory
+
+    # Publich part of a trajectory
+    def publish_part(self, plan, point):
+        newPlan = copy.deepcopy(plan) # Make a copy of the plan
+        # Take up to T or the points and stuff like that
+        newPlan.joint_trajectory.points = plan.joint_trajectory.points[:point]
+        pdb.set_trace()
+        self.publishDisplayTrajectory(newPlan) # Publish part of the new plan
 
     def use_controller(self, target):
         assert target in ('GPS', 'MoveIt')
@@ -580,6 +753,13 @@ class AgentCAD(AgentROS):
     def _plan_file(self, condition):
         return osp.join(self._hyperparams['exp_dir'], 'plans', 'cond{}.pkl'.format(condition))
 
+    # Creates a RobotState with the specified joint values or something like that
+    def create_rs(self, joint_angles):
+        rs = moveit_msgs.msg.RobotState()
+        rs.joint_state.name = JOINT_NAMES
+        rs.joint_state.position = joint_angles
+        return rs # Return the robot state nice
+
     # Do the initialization of the reset trajectory and policy and stuff??
     def init_reset_traj(self, condition, policy):
         plan = self.reset_plans[condition] # Get the plan for the reset trajectory
@@ -593,16 +773,14 @@ class AgentCAD(AgentROS):
         policy.__init__(*init_pd_ref(self._hyperparams['init_traj_distr'], ref_ja_pos, ref_ja_vel, ref_ee))
 
     # This is if you run it in the real world! Set the current position as the goal!
-    def set_current_as_goal(self):
+    def set_current_as_goal(self, cond):
         pose = self.get_ee_pose() # Get the current pose of the group
         pose = self.get_ee_pose() # Get the current pose of the group
 
-        # For as many conditions there are
-        for i in range(self._hyperparams['conditions']):
-            # Set the goal to the current position
-            self._hyperparams['targets'][i]['position'] = listify(pose.position)
-            self._hyperparams['targets'][i]['orientation'] = list(tf.transformations.euler_from_quaternion( \
-                listify(pose.orientation)))
+        # Set the goal to the current position for the specified condition
+        self._hyperparams['targets'][cond]['position'] = listify(pose.position)
+        self._hyperparams['targets'][cond]['orientation'] = list(tf.transformations.euler_from_quaternion( \
+            listify(pose.orientation)))
 
     # Lmao for when using the real robot and you have set the pose
     def get_ee_pose(self):
@@ -613,8 +791,8 @@ class AgentCAD(AgentROS):
         self.ee_goal = self.get_ee_pose() # Use what is happening in real world (??)
         self.ja_goal = self.group.get_current_joint_values() # Get the current joint values\
         # Get the difference in position from real to the specified position
-
-    '''   
+  
+    '''
     def offset_whole_plan(self, thePlan):
         diffPos = np.array(self._hyperparams['targets'][0]['position']) - np.array(listify(self.ee_goal.position))
         diffOri = np.array(tf.transformations.quaternion_from_euler(*self._hyperparams['targets'][0]['orientation'])) \
@@ -635,8 +813,9 @@ class AgentCAD(AgentROS):
             ja = self.inverse_kinematics1(thePoint) # Get the joint angles
             thePlan.joint_trajectory.points[i].positions = ja.joint_state.position # Set to new joint angle
             print("Old ja: " + str(old_ja) + " new ja: " + str(ja))
-
     '''
+
+    
     # Offset the plan depending on the differences
     def offset_whole_plan(self, thePlan):
         if self.ee_goal is None:
@@ -645,10 +824,14 @@ class AgentCAD(AgentROS):
         endGoal = thePlan.joint_trajectory.points[-1].positions # This is the current goal
         diff = np.array(goalJoint) - np.array(endGoal) # This is the difference
         print("This is the difference: " + str(diff)) # Print this
-        for i in range(len(thePlan.joint_trajectory.points)):
+        plen = len(thePlan.joint_trajectory.points)
+        for i in range(plen):
             # Add the difference to the plan and hope for the best or something
+            #np.array(thePlan.joint_trajectory.points[i].positions) + diff
             thePlan.joint_trajectory.points[i].positions = \
-            np.array(thePlan.joint_trajectory.points[i].positions) + diff
+            np.array(thePlan.joint_trajectory.points[i].positions) + ((i / float(plen - 1)) * diff)
+            print("Offsetting by: " + str(((i / float(plen - 1)) * diff)))
+    
 
     # Edit the plan according to the different joint angle plan lmao
     def edit_plan_if_necessary(self, thePlan):
@@ -656,8 +839,6 @@ class AgentCAD(AgentROS):
             return thePlan # Just return the normal plan
         # Otherwise, we must change the very last point to be the new goal or something?
         thePlan.joint_trajectory.points[-1].positions = self.ja_goal
-
-    # Shift the plan depending on the changes to the end
 
     # This is if you start at the ending location and then want to move away
     def reverse_plan(self, thePlan):
@@ -668,10 +849,14 @@ class AgentCAD(AgentROS):
         for i in range(numPoints): # Just flip everything around or something
             newPlan.joint_trajectory.points[i].time_from_start = \
                 thePlan.joint_trajectory.points[i].time_from_start
+            # The velocities have to be reversed too maybe?? no ideas
+            newPlan.joint_trajectory.points[i].velocities = \
+                np.array(newPlan.joint_trajectory.points[i].velocities) * -1
         return newPlan
 
     def get_existing_plan(self, condition):
         return self.condition_info[condition].plan
+        condition_info[condition].save()
 
     def execute(self, plan):
         self.use_controller('MoveIt')
@@ -727,12 +912,16 @@ class AgentCAD(AgentROS):
             info.plan = plan
             info.save()
         self.trajectories[condition] = self.compute_reference_trajectory(plan)
+        # Copy these real quick or something like that
+        self.full_ref_ee[condition] = np.copy(self.trajectories[condition]['ee'])
+        self.full_ref_ja[condition] = np.copy(self.trajectories[condition]['ja_pos'])
+        self.full_ref_vel[condition] = np.copy(self.trajectories[condition]['ja_vel'])
 
     def initialize_controller(self, condition, policy):
-        # If we already initialized the controller
-        if condition in self.initialized or not isinstance(policy, LinearGaussianPolicy):
+        # If we already initialized the controller or we are loading
+        if condition in self.initialized or not isinstance(policy, LinearGaussianPolicy) or self.itr_load:
             return
-
+        print("Initializing the controller and what not")
         ref_traj_info = self.trajectories[condition]
         ref_ja_pos = ref_traj_info['ja_pos']
         ref_ja_vel = ref_traj_info['ja_vel']
@@ -776,6 +965,23 @@ class AgentCAD(AgentROS):
         ref_traj_info = trajectories[condition]
         ref_ee = ref_traj_info['ee']
 
+        if not self.reset_time: # If it's not reset time or something
+            if self.samples_taken[condition] % (self.num_samples * self.iter_per_seg) == 0 \
+                and (self.T != self.final_T or self.varying_T or self.chosen_parts is not None):
+                self.update_T_then_policy(policy, condition)
+            self.T = self.cur_T[condition] # Make sure the T is correct for the condition we are on
+            ref_traj_info = trajectories[condition]
+            # This is how long the current trajectory we're using is - self.T
+            if self.T == self.final_T: # If we have gotten to the whole trajectory
+                ref_ee = trajectories[condition]['ee'] # Current reference trajectory
+            else: # Otherwise pad the reference trajectory as well
+                ref_ee = list(trajectories[condition]['ee'][:self.T - self.padding])
+                ref_ee.extend([trajectories[condition]['ee'][self.T-self.padding-1]] * self.padding)
+        else:
+            self.T = self.final_T # Reset trajectories always have the full T or something
+
+        print('The length of the trajectory we are currently using is ' + str(self.T))
+        #pdb.set_trace()
         # Generate noise.
         if noisy:
             noise = generate_noise(self.T, self.dU, self._hyperparams)
@@ -822,17 +1028,32 @@ class AgentCAD(AgentROS):
 
         if save and not self.reset_time: # If we are not gonna save this sample as reset
             self._samples[condition].append(sample)
+            if self.varying_T: # Save if using varying T
+                self.saved_samples[condition].append(sample)
         if save and self.reset_time: # If we are going to save the reset sample
             self._reset_samples[condition].append(sample)
+
+        if not self.reset_time: # If it's not reset time or something weird like that
+            self.samples_taken[condition] += 1 # Increment number of samples taken
+            if self.samples_taken[condition] % self.num_samples == 0 and self.samples_taken[condition] != 0:
+                self.iter_count += 1 # This is the full count
+
         self.reset_time = False # It's not reset time after this lmaoo???
+
         return sample
 
     def get_action(self, policy, obs):
         # extra = ['distances', 'coeffs', 'ee_pos', 'attended', 'direction']
         # extra = ['centered_traj', 'coeffs', 'ee_pos', 'attended']
+        # extra = []
+        #extra = ['state_part', 'attn_part']
         extra = []
-        action, debug = policy.act(None, obs, None, None, extra=extra)
+        action = policy.act(None, obs, None, None, extra=extra)
+        # print('ACTION: *********************')
+        # print(action)
+        # print debug
         return action
+        #return np.random.randn(7)
 
     def get_obs(self, request, condition):
         array = np.array(request.obs)

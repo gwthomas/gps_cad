@@ -222,7 +222,7 @@ class TrajOptLQRPython(TrajOpt):
         # Compute state-action marginals from specified conditional
         # parameters and current traj_info.
         Fm = traj_info.dynamics.Fm
-        T = traj_distr.K.shape[0] # Here is some shape?? :(())
+        T = min(traj_distr.K.shape[0], Fm.shape[0]) # Here is some shape?? :(())
         #T = Fm.shape[0] # Here is some shape
         dU = traj_distr.dU
         dX = traj_distr.dX

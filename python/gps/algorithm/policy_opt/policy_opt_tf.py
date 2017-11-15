@@ -24,6 +24,9 @@ class PolicyOptTf(PolicyOpt):
     """ Policy optimization using tensor flow for DAG computations/nonlinear function approximation. """
     def __init__(self, hyperparams, dO, dU):
         config = copy.deepcopy(POLICY_OPT_TF)
+        if hyperparams is None:
+            return
+
         config.update(hyperparams)
 
         PolicyOpt.__init__(self, config, dO, dU)

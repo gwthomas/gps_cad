@@ -34,6 +34,14 @@ class AlgorithmBADMM(Algorithm):
             self._hyperparams['policy_opt'], self.dO, self.dU
         )
 
+    # Reinitialize policy information??
+    def re_init_pol_info(self, hyperparams):
+        policy_prior = self._hyperparams['policy_prior']
+        for m in range(self.M):
+            self.cur[m].pol_info = PolicyInfo(self._hyperparams)
+            self.cur[m].pol_info.policy_prior = \
+                    policy_prior['type'](policy_prior)
+
     def iteration(self, sample_lists):
         """
         Run iteration of BADMM-based guided policy search.

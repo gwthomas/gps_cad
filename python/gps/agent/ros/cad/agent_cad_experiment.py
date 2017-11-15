@@ -48,8 +48,8 @@ from gps.proto.gps_pb2 import JOINT_ANGLES, END_EFFECTOR_POINTS, \
 class AgentCADExperiment(AgentCAD):
     def __init__(self, hyperparams, init_node=True, trace=True):
         self.fixed_pose = Pose(Point(0.5, -0.1628, 0.5), Quaternion(0.5, -0.5, -0.5, 0.5))
-        with open('/home/gwthomas/.gazebo/models/fixed_piece/model-static.sdf', 'r') as f:
-           self.fixed_piece_xml = f.read()
+        #with open('/home/gwthomas/.gazebo/models/fixed_piece/model-static.sdf', 'r') as f:
+        #   self.fixed_piece_xml = f.read()
 
         AgentCAD.__init__(self, hyperparams, init_node)
 
@@ -109,7 +109,7 @@ class AgentCADExperiment(AgentCAD):
         except:
            pass
         AgentCAD.reset(self, condition)
-        self.spawn_model('fixed_piece', self.fixed_piece_xml, self.fixed_pose)
+        #self.spawn_model('fixed_piece', self.fixed_piece_xml, self.fixed_pose)
 
     def compute_plan(self, condition, dx=0.0, dy=0.0, dz=0.0):
         self.reset(condition)

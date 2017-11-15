@@ -57,7 +57,7 @@ class RealAgentCADExperiment(AgentCAD):
         self.diffPos, self.diffOri = None, None # Just set these
 
         AgentCAD.__init__(self, hyperparams, init_node)
-        self.ar = {'held_piece': 28, 'fixed_piece': 24} # Number of AR tag they have on them
+        self.ar = {'held_piece': 4, 'fixed_piece': 24} # Number of AR tag they have on them
 
         # Create the functions with the proper offsets and whatever
         self.ar_functions[self.ar['held_piece']] = self.create_AR_function( \
@@ -66,6 +66,7 @@ class RealAgentCADExperiment(AgentCAD):
         self.ar_functions[self.ar['fixed_piece']] = self.create_AR_function( \
             #self.ar['fixed_piece'], -0.015, -0.025, -0.0325 - 0.015, 1.57, 0, 0)
             self.ar['fixed_piece'], -0.015 + 0.0165 + 0.01, -0.025 + 0.005, -0.032 - 0.02, 0, 0, 0)
+        #self.wipe_plans() # Get rid of all the plans because we need to replan
 
         if trace:
             pdb.set_trace()     # for optional setup, not debugging
@@ -170,6 +171,18 @@ class RealAgentCADExperiment(AgentCAD):
         init_plan = self.plan_end_effector(target_position, target_pose, 1)
         self.group.execute(init_plan)
 
+    # Overrides the reset method to do nothing because we want to do learning
+    def reset(self, condition):
+        if self.reset_time:
+            pass
+        else:
+            self.super_reset(condition)
+            time.sleep(2.0)
+
+    # Call the super reset
+    def super_reset(self, condition):
+        super(RealAgentCADExperiment, self).reset(condition)
+
     # Override of this because we want to use a different plan [offsetted] (???)
     def determine_reference_trajectory(self, condition):
         plan = self.get_existing_plan(condition)
@@ -182,6 +195,7 @@ class RealAgentCADExperiment(AgentCAD):
             info = self.condition_info[condition]
             info.plan = plan
             info.save()
+        self.reset_plans[condition] = self.reverse_plan(plan) # Amazing really
         self.trajectories[condition] = self.compute_reference_trajectory(plan)
         pdb.set_trace()
 

@@ -42,8 +42,8 @@ from gps.gui.config import generate_experiment_info
 
 
 T = 200
-ALL_CONDITIONS = 6
-TRAIN_CONDITIONS = 2
+ALL_CONDITIONS = 2
+TRAIN_CONDITIONS = 1
 MODE = 'iLQR subset'
 assert MODE in ('GPS', 'iLQR subset', 'NN test')
 
@@ -101,8 +101,7 @@ common = {
     'target_filename': osp.join(EXP_DIR, 'target.npz'),
     'log_filename': osp.join(EXP_DIR, 'log.txt'),
     'conditions': len(conditions),
-    'train_conditions': range(TRAIN_CONDITIONS),
-    'test_conditions': range(ALL_CONDITIONS)
+c
 }
 
 x0s = []

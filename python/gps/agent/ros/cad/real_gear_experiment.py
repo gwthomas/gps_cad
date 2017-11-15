@@ -55,17 +55,18 @@ class RealGearExperiment(AgentCAD):
         self.ar_functions[self.ar['shaft2']] = self.create_AR_function( \
         	self.ar['shaft2'], -0.027, 0 - 0.01, -0.0067, -3.14, 0, 3.14)
 
-        #self.ar_functions[self.ar['base_plate']] = self.create_AR_function( \
-        #    self.ar['base_plate'], 0 + 0.005 - 0.02, -0.01 - 0.045 + 0.02, 0.04 + 0.01, 0.0067, 0, 0) 
         self.ar_functions[self.ar['base_plate']] = self.create_AR_function( \
-            self.ar['base_plate'], 0.025, -0.01 - 0.01, -0.005, 0.0067, 0, 0) 
+            self.ar['base_plate'], 0 + 0.005 - 0.01, -0.01 - 0.045 + 0.03, 0.04 + 0.01, 0.0067, 0, 0) 
+        #self.ar_functions[self.ar['base_plate']] = self.create_AR_function( \
+        #    self.ar['base_plate'], 0.025, -0.01 - 0.01, -0.005, 0.0067, 0, 0) 
 
         self.ar_functions[self.ar['compound_gear']] = self.create_AR_function( \
             self.ar['compound_gear'], -0.055, 0, -0.0281, 0, 0, 0) #0.03
 
+        self.plans_made = False # Plans made or not
         self.stored_poses = {} # Stored poses for the objects in the scene
         self.change_conds_to_goals() # Because we want to reverse plan
-
+        #self.wipe_plans() # Get rid of all the plans because we need to replan
         pdb.set_trace() # Need to stop and setup
 
     # Call the super reset
@@ -80,7 +81,7 @@ class RealGearExperiment(AgentCAD):
         self.grasp_prep_shaft2()
 
     # Time to set up the scene for the compound gear experiment lmao
-    def setup_compound_gear(self):
+    def setup_gear(self):
     	self.get_all_poses() # Store the poses lol
         self.configure_scene_base()
         self.configure_scene_compound_gear()
@@ -98,7 +99,7 @@ class RealGearExperiment(AgentCAD):
         else:
             z = table_pose.position.z # Otherwise get the z coordinate
         print 'Adding objects to planning scene'
-        self.add_object('table', position=[0.8,0.,z - 0.02], size=[0.7,1.5,0.03], type='box')
+        self.add_object('table', position=[0.8,0.,z - 0.03], size=[0.7,1.5,0.03], type='box')
 
         for name in ['base_plate']:
             # Get the position of the objects using their AR tags
@@ -130,23 +131,31 @@ class RealGearExperiment(AgentCAD):
         self.add_object('shaft2', position=listify(newPose.position),
                 orientation=[1, -0.027, 0, 0],
                 #size=(0.025, 0.025, 0.025),
-                size=(0.022, 0.022, 0.025),
+                size=(0.023, 0.023, 0.0245),
                 filename=self._hyperparams['shaft2'])
 
     # Configure the rviz scene so motion planning and stuff can work well
     def configure_scene_compound_gear(self):
+        pose = self.stored_poses['base_plate']
+        newPose = copy.deepcopy(pose) # Make a deep copy of this
+        # Make some modifications lmao
+        newPose.position.x += 0.000243
+        newPose.position.y += 0.000227
+        newPose.position.z += 0.039#7507
+
+        self.stored_poses['compound_gear'] = newPose # Store this pose in relation
+
         # Get the position of the shaft using their AR tags
         pose = self.stored_poses['compound_gear']
         self.add_object('compound_gear', position=listify(pose.position),
                 orientation=[0, 0, 0, 1],
-                size=(0.025, 0.025, 0.025),
+                size=(0.026, 0.026, 0.025),
                 filename=self._hyperparams['compound_gear'])
 
     # Move the hand to a proper position to grasp the shaft2
     def grasp_prep_compound_gear(self):
         self.use_controller('MoveIt')
-        self.ungrip(15)
-        self.ungrip(15) # UGHHHH DO IT AGAIN ITS SO DUMB
+        self.set_gripper(0.1, 50.0, 10000)
         time.sleep(3)
         pose = self.stored_poses['compound_gear']
         pos = pose.position # Get the position from the pose
@@ -162,7 +171,7 @@ class RealGearExperiment(AgentCAD):
         time.sleep(3)
         pose = self.stored_poses['shaft2']
         pos = pose.position # Get the position from the pose
-        self.move_to(pos.x, pos.y, pos.z + 0.183 + 0.01, 0, 1.57, 0)
+        self.move_to(pos.x, pos.y, pos.z + 0.183, 0, 1.57, 0)
 
         #self.move_to(pos.x, pos.y, pos.z + 0.15, 0, 1.57, 0)
         time.sleep(2) # Wait for a little bit
@@ -179,7 +188,7 @@ class RealGearExperiment(AgentCAD):
         self.attach(object, touch_links=['l_gripper_l_finger_tip_link', 'l_gripper_r_finger_tip_link', \
             'l_gripper_r_finger_link', 'l_gripper_l_finger_link'])
 
-    # Just a function to use MoveIt controllers to move to a certin position
+    # Just a function to use MoveIt controllers to move to a certain position
     def move_to(self, pos_x, pos_y, pos_z, orient_x, orient_y, orient_z):
         self.use_controller('MoveIt')
         target_position = [pos_x, pos_y, pos_z]
@@ -203,29 +212,72 @@ class RealGearExperiment(AgentCAD):
 
     # Overrides the reset method to do nothing because we want to do learning
     def reset(self, condition):
-    	#self.use_controller('GPS') # Make sure you are using GPS controller tho
-        pass
+        if self.reset_time or self.plans_made is False:
+            pass
+        else:
+            pass
+            #self.super_reset(condition)
+            #time.sleep(2.0)
 
     # Override of this because we want to compute all the reference trajectories now
     # Otherwise there would be a lot of annoying manual resetting and all that to do.
     def determine_reference_trajectory(self, condition):
-        for i in range(self.conditions): # Let's do this for all the conditions now
+        for i in self.actual_conditions: # Let's do this for all the conditions now
             # Just the janky version because of the reversing we have to do... :/
             self.determine_reference_trajectory_2(i)
-        pdb.set_trace() # Just stop here and check things out
+            self.set_current_as_goal(i)
+        self.plans_made = True # Set this to true
+
 
     def determine_reference_trajectory_2(self, condition):
         plan = self.get_existing_plan(condition)
-        plan = None
         if plan is None:
             print 'No valid plan found for condition {}. Computing a fresh one'.format(condition)
             plan = self.reverse_plan(self.compute_plan(condition))
-            self.edit_plan_if_necessary(plan)
+            self.offset_whole_plan(plan)
             # The reset plan is the reverse of the normal plan
             self.reset_plans[condition] = self.reverse_plan(plan) # Amazing really
             info = self.condition_info[condition]
             info.plan = plan
+            info.save() 
+        self.offset_whole_plan(plan)            
+        info = self.condition_info[condition]
+        info.plan = plan
+        info.save() 
+        self.reset_plans[condition] = self.reverse_plan(plan) # Amazing really
         self.trajectories[condition] = self.compute_reference_trajectory(plan)
+        pdb.set_trace()
+        # Copy these real quick or something like that
+        self.full_ref_ee[condition] = np.copy(self.trajectories[condition]['ee'])
+        self.full_ref_ja[condition] = np.copy(self.trajectories[condition]['ja_pos'])
+        self.full_ref_vel[condition] = np.copy(self.trajectories[condition]['ja_vel'])
+
+    '''
+    def compute_plan(self, condition):
+        self.reset(condition)
+        self.group.set_start_state_to_current_state() # Set the start state to current
+        # And the target to a few cm above the current position 
+        target = self.group.get_current_pose().pose
+        target.position.z += 0.04
+        midPlan = self.plan_end_effector(listify(target.position), listify(target.orientation), attempts=self.planning_attempts)
+
+        # Set the start state to the end state of the midPlan
+        self.group.set_start_state(self.create_rs(midPlan.joint_trajectory.points[-1].positions))
+
+        target.position.z += 0.04
+        midmidPlan = self.plan_end_effector(listify(target.position), listify(target.orientation), attempts=self.planning_attempts)
+
+        self.group.set_start_state(self.create_rs(midmidPlan.joint_trajectory.points[-1].positions))
+
+        target = self._hyperparams['targets'][condition]
+        endPlan = self.plan_end_effector(target['position'], target['orientation'], attempts=self.planning_attempts)
+        # Append the two motion plans together to create a master plan
+        midPlan.joint_trajectory.points.extend(midmidPlan.joint_trajectory.points)
+
+        midPlan.joint_trajectory.points.extend(endPlan.joint_trajectory.points)
+        self.group.set_start_state_to_current_state() # Set the start state to current again
+        return midPlan
+    '''
 
     # Hmmm some resetting things??? 
     '''

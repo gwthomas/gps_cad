@@ -48,6 +48,7 @@ class ProxyTrialManager(object):
         self.service = rospy.Service('proxy_control', ProxyControl, self.handle_request)
 
     def handle_request(self, request):
+        print("Request being handled!")
         try:
             self.t += 1
         except AttributeError:
@@ -70,6 +71,8 @@ class ProxyTrialManager(object):
             time_elapsed += self.dt
             if time_elapsed > time_to_run:
                 raise TimeoutException(time_elapsed)
+
+        print("Time elapsed is this: " + str(self.t))
 
 
 def center_trajectory(ee_pos, ref_traj):

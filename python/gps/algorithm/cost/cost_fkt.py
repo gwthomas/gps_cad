@@ -48,8 +48,8 @@ class CostFKT(Cost):
         lux = np.zeros((T, dU, dX))
 
         # Choose target.
-        tgt = sample.get(REF_OFFSETS)
-        pt = sample.get(END_EFFECTOR_POINTS)
+        tgt = sample.get(REF_OFFSETS)[:T, :]
+        pt = sample.get(END_EFFECTOR_POINTS)[:T, :]
         dist = pt - tgt
         # TODO - These should be partially zeros so we're not double
         #        counting.

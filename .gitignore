@@ -1,6 +1,7 @@
 src/stereo_click
 src/gazebo-pkgs
-experiments/pr2_cad_new/good_data_files/*
+experiments/pr2_cad_new/good_data_files/
+experiments/pr2_cad_new/data_files/
 *.caffemodel
 *.pkl
 *.solverstate
@@ -10,3 +11,10 @@ experiments/pr2_cad_new/good_data_files/*
 *.gv
 *.pdf
 *.png
+build/
+src/gps_agent_pkg/CMakeFiles/
+src/gps_agent_pkg/msg_gen/
+src/gps_agent_pkg/srv_gen/
+cuda/
+*.swp
+*.swo

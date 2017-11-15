@@ -110,7 +110,7 @@ def centering_attention(config, args):
     attended = _linear_combo(coeffs, centered_traj)
     return attended, weights
 
-def time_attention(config, args):
+def time_fixed_attention(config, args):
     T, k, temperature = config['T'], config['time_k'], config['temperature']
     ref_traj, ee_pos, t = args['ref_traj'], args['ee_pos'], args['t']
     centered_traj = ref_traj - tf.reshape(ee_pos, [-1,1,9])
@@ -136,6 +136,36 @@ def time_attention(config, args):
     attended = _linear_combo(coeffs, ref_range)
     return attended, []
 
+def batch_flatten(input):
+    return tf.reshape(input, [-1, int(np.prod(input.shape[1:]))])
+
+def time_attention(config, args):
+    T, k, temperature = config['T'], config['time_k'], config['temperature']
+    ref_flat, ee_pos, ee_vel, t = args['ref_flat'], args['ee_pos'], args['ee_vel'], args['t']
+
+    t_range = tf.reshape(t, [-1, 1]) + tf.range(-k, k+1)
+    t_range_clipped = tf.clip_by_value(t_range, 0, T-1)
+    n_range = 2*k + 1
+    def f(ref_and_idx):
+        ref = tf.reshape(ref_and_idx[:-n_range], [T,9])
+        idx = tf.cast(ref_and_idx[-n_range:], tf.int32)
+        return tf.gather(ref, idx, axis=0)
+    map_in = tf.concat([ref_flat, tf.cast(t_range_clipped, tf.float32)], axis=1)
+    ref_range = tf.map_fn(f, map_in)
+    ref_range = tf.identity(ref_range, name='ref_range')
+
+    centered_range = ref_range - tf.reshape(ee_pos, [-1,1,9])
+    centered_range = tf.identity(centered_range, name='centered_range')
+    centered_flat = tf.reshape(centered_range, [-1, 9*n_range])
+
+    mlp_in = tf.concat([centered_flat, ee_vel], 1)
+    mlp_sizes = config['mlp_hidden_sizes'] + [n_range]
+    with tf.variable_scope('attention'):
+        mlp_out, mlp_weights, mlp_biases = get_mlp_layers(mlp_in, len(mlp_sizes), mlp_sizes, nonlinear_output=False)
+    coeffs, weights = tf.nn.softmax(mlp_out / temperature), mlp_weights + mlp_biases
+    attended = _linear_combo(coeffs, centered_range)
+    return attended, weights
+
 def _fc_layer(input, size, id, nonlinearity=tf.nn.relu):
     sofar = input
     in_shape = sofar.get_shape().dims[1].value
@@ -145,10 +175,27 @@ def _fc_layer(input, size, id, nonlinearity=tf.nn.relu):
     sofar = nonlinearity(sofar) if nonlinearity is not None else sofar
     return sofar, [cur_weight], [cur_bias]
 
+def factored_mlp_structure(config, args):
+    dim_output = args['dim_output']
+    state, attended = args['state'], args['attended']
+    with tf.variable_scope('structure'):
+        mlp_sizes = config['mlp_hidden_sizes'] + [dim_output]
+        with tf.variable_scope('state'):
+            state_mlp_out, state_weights, state_biases = get_mlp_layers(state, len(mlp_sizes), mlp_sizes, nonlinear_output=False)
+        with tf.variable_scope('attended'):
+            attended_mlp_out, attended_weights, attended_biases = get_mlp_layers(attended, len(mlp_sizes), mlp_sizes, nonlinear_output=False)
+    state_mlp_out = tf.identity(state_mlp_out, 'state_part')
+    attended_mlp_out = tf.identity(attended_mlp_out, 'attn_part')
+    final_out = state_mlp_out + attended_mlp_out
+    weights = state_weights + attended_weights
+    biases = state_biases + attended_biases
+    reg = config['regularization'] * tf.nn.l2_loss(state_mlp_out)
+    return final_out, weights + biases, []
+
 def mlp_structure(config, args):
     dim_output = args['dim_output']
     state, attended = args['state'], args['attended']
-    augmented_state = tf.concat([state, attended], 1)
+    augmented_state = tf.concat([state, attended], 1) if attended is not None else state
     with tf.variable_scope('structure'):
         mlp_sizes = config['mlp_hidden_sizes'] + [dim_output]
         mlp_out, weights, biases = get_mlp_layers(augmented_state, len(mlp_sizes), mlp_sizes, nonlinear_output=False)
@@ -182,23 +229,28 @@ def ref_traj_network_factory(dim_input=27, dim_output=7, batch_size=25, network_
     attention = config['attention']
     structure = config['structure']
     ee_pos_indices = config['ee_pos_indices']
+    ee_vel_indices = config['ee_vel_indices']
     assert ee_pos_indices[1] - ee_pos_indices[0] == 9
+    assert ee_vel_indices[1] - ee_vel_indices[0] == 9
     nn_input, action, precision = get_input_layer(dim_input, dim_output)
     state = nn_input[:,:-(9*T+1)]
     non_state = nn_input[:,-(9*T+1):]
     t = tf.cast(non_state[:,-1], tf.int32, name='t')
-    ref_flattened = non_state[:,:-1]
-    ref_traj = tf.reshape(ref_flattened, [-1,T,9])
+    ref_flat = non_state[:,:-1]
+    ref_traj = tf.reshape(ref_flat, [-1,T,9])
     ee_pos = nn_input[:,ee_pos_indices[0]:ee_pos_indices[1]]
     ee_pos = tf.identity(ee_pos, name='ee_pos')
+    ee_vel = nn_input[:,ee_vel_indices[0]:ee_vel_indices[1]]
+    ee_vel = tf.identity(ee_vel, name='ee_vel')
 
     args = {
         'state': state,
         'non_state': non_state,
         't': t,
-        'ref_flattened': ref_flattened,
+        'ref_flat': ref_flat,
         'ref_traj': ref_traj,
         'ee_pos': ee_pos,
+        'ee_vel': ee_vel,
     }
 
     if attention:
