@@ -66,6 +66,7 @@ class Agent(object):
         self._meta_data_idx = {d: i for d, i in zip(self.meta_data_types,
                                                    self._meta_idx)}
         self.reset_time = False # If it's reset time or not lmao
+        self.itr_load = None # If from itr_load
 
     @abc.abstractmethod
     def sample(self, policy, condition, verbose=True, save=True, noisy=True):

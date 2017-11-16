@@ -1,0 +1,56 @@
+<launch>
+  <node pkg="apriltags_ros" type="apriltag_detector_node" name="apriltag_detector" output="screen">
+    <!-- Remap topic required by the node to custom topics -->
+    <!--remap from="image_rect" to="image_rect" />
+    <remap from="camera_info" to="camera_info" /-->
+    <remap from="image_rect" to="/narrow_stereo/left/image_rect_color" />
+    <remap from="camera_info" to="/narrow_stereo/left/camera_info" />
+
+    <!-- Optional: Subscribe to the compressed stream-->
+    <!--param name="image_transport" type="str" value="uncompressed" /-->
+
+    <!-- Select the tag family: 16h5, 25h7, 25h9, 36h9, or 36h11(default) -->
+    <param name="tag_family" type="str" value="36h11" />
+
+    <!-- Enable projected optical measurements for more accurate tag transformations -->
+    <!-- This exists for backwards compatability and should be left true for new setups -->
+    <param name="projected_optics" type="bool" value="true" />
+
+    <!-- Describe the tags -->
+    <rosparam param="tag_descriptions">[
+      {id: 0, size: 0.163513},
+      {id: 1, size: 0.163513},
+      {id: 2, size: 0.163513},
+      {id: 3, size: 0.163513},
+      {id: 4, size: 0.163513},
+      {id: 5, size: 0.163513},
+      {id: 6, size: 0.163513},
+      {id: 7, size: 0.163513},
+      {id: 8, size: 0.163513},
+      {id: 8, size: 0.163513},
+      {id: 9, size: 0.163513},
+      {id: 10, size: 0.163513},
+      {id: 11, size: 0.163513},
+      {id: 12, size: 0.163513},
+      {id: 13, size: 0.163513},
+      {id: 14, size: 0.163513},
+      {id: 15, size: 0.163513},
+      {id: 16, size: 0.163513},
+      {id: 17, size: 0.163513},
+      {id: 18, size: 0.163513},
+      {id: 18, size: 0.163513},
+      {id: 19, size: 0.163513},
+      {id: 20, size: 0.163513},
+      {id: 21, size: 0.163513},
+      {id: 22, size: 0.163513},
+      {id: 23, size: 0.163513},
+      {id: 24, size: 0.163513},
+      {id: 25, size: 0.163513},
+      {id: 26, size: 0.163513},
+      {id: 27, size: 0.163513},
+      {id: 28, size: 0.163513},
+      {id: 28, size: 0.163513},
+      {id: 29, size: 0.163513}
+    ]</rosparam>
+  </node>
+</launch>

@@ -2,6 +2,7 @@
 import copy
 import numpy as np
 import scipy as sp
+import pdb
 
 from gps.algorithm.dynamics.dynamics_utils import guess_dynamics
 from gps.algorithm.policy.lin_gauss_policy import LinearGaussianPolicy
@@ -149,6 +150,9 @@ def init_pd_ref(hyperparams, ref_ja_pos, ref_ja_vel, ref_ee):
     position gains are controlled by the variable pos_gains, velocity
     gains are controlled by pos_gains*vel_gans_mult.
     """
+    wrist_mult = 1
+    ja_stuff = np.diag([3.09, 1.08 , 0.393 * 1.0, 0.674, 0.111 * 1.0, 0.152 * wrist_mult, 0.098])
+
     config = copy.deepcopy(INIT_LG_PD)
     config.update(hyperparams)
 
@@ -158,16 +162,23 @@ def init_pd_ref(hyperparams, ref_ja_pos, ref_ja_vel, ref_ee):
     # Choose initialization mode.
     Kp = 1.0
     Kv = config['vel_gains_mult']
+
     if dU < dQ:
+        #pdb.set_trace()
         K = -config['pos_gains'] * np.tile(
-            [np.eye(dU) * Kp, np.zeros((dU, dQ-dU)),
-             np.eye(dU) * Kv, np.zeros((dU, dQ-dU))],
+             [ja_stuff * Kp, np.zeros((dU, dQ-dU)),
+             #[np.eye(dU) * Kp, np.zeros((dU, dQ-dU)),
+             ja_stuff * Kv, np.zeros((dU, dQ-dU))],
+             #np.eye(dU) * Kv, np.zeros((dU, dQ-dU))],
             [T, 1, 1]
         )
     else:
+        #pdb.set_trace()
         K = -config['pos_gains'] * np.tile(
             np.hstack([
-                np.eye(dU) * Kp, np.eye(dU) * Kv,
+                ja_stuff * Kp, 
+                ja_stuff * Kv,
+                #np.eye(dU) * Kp, np.eye(dU) * Kv,
                 np.zeros((dU, dX - dU*2))
             ]), [T, 1, 1]
         )
@@ -176,12 +187,16 @@ def init_pd_ref(hyperparams, ref_ja_pos, ref_ja_vel, ref_ee):
     for t in range(T):
         X[t,:7] = ref_ja_pos[t]
         X[t,7:14] = ref_ja_vel[t]
-        # X[t,14:(14+9)] = ref_ee[t]
+        #X[t,14:(14+9)] = ref_ee[t]
 
     k = X.dot(-K[0, :, :].T)
     PSig = config['init_var'] * np.tile(np.eye(dU), [T, 1, 1])
     cholPSig = np.sqrt(config['init_var']) * np.tile(np.eye(dU), [T, 1, 1])
     invPSig = (1.0 / config['init_var']) * np.tile(np.eye(dU), [T, 1, 1])
+
+    #PSig = config['init_var'] * np.tile(ja_stuff, [T, 1, 1])
+    #cholPSig = np.sqrt(config['init_var']) * np.tile(ja_stuff, [T, 1, 1])
+    #invPSig = (1.0 / config['init_var']) * np.tile(ja_stuff, [T, 1, 1])
 
     #np.savetxt('K.txt', np.array(K))
     #np.savetxt('k.txt', np.array(k))
@@ -192,3 +207,4 @@ def init_pd_ref(hyperparams, ref_ja_pos, ref_ja_vel, ref_ee):
         f.write(np.array_str(k))
 
     return (K, k, PSig, cholPSig, invPSig)
+

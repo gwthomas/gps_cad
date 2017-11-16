@@ -1,0 +1,90 @@
+
+
+exp_name:   my_experiment_08-14-17_19-04
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 4
+samples:    5
+
+
+
+exp_name:   my_experiment_08-15-17_13-30
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 4
+samples:    5
+
+
+
+exp_name:   my_experiment_08-15-17_13-37
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 4
+samples:    5
+
+
+
+exp_name:   my_experiment_08-15-17_14-43
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 4
+samples:    5
+
+
+
+exp_name:   my_experiment_08-15-17_16-00
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 4
+samples:    5
+
+
+
+exp_name:   my_experiment_08-15-17_16-57
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 4
+samples:    5
+
+
+
+exp_name:   my_experiment_08-15-17_17-02
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 4
+samples:    5
+
+
+
+exp_name:   my_experiment_08-15-17_17-14
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 4
+samples:    5
+
+
+
+exp_name:   my_experiment_08-15-17_18-33
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 4
+samples:    5
+

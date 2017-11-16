@@ -1,0 +1,7 @@
+<launch>
+	<include file="$(find gps_agent_pkg)/launch/pr2_moveit.launch" />
+	<node name="unspawn_arms" pkg="pr2_controller_manager" type="unspawner" args="l_arm_controller r_arm_controller" />
+	<!--param name="robot_description" textfile="$(find gps_agent_pkg)/launch/robot.xml" /-->
+	<include file="$(find gps_agent_pkg)/launch/pr2_only_controller.launch" />
+	<include file="$(find apriltags_ros)/launch/example.launch" />
+</launch>

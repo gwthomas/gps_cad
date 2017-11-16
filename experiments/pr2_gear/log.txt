@@ -1,0 +1,5885 @@
+
+
+exp_name:   my_experiment_08-07-17_14-24
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-07-17_15-36
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-07-17_15-53
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-07-17_15-54
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-07-17_15-55
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-08-17_11-59
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-08-17_12-08
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-08-17_12-16
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-08-17_15-25
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-08-17_17-39
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-08-17_17-41
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-08-17_17-44
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-08-17_17-57
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-08-17_18-04
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-08-17_18-17
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-08-17_18-29
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    2
+
+
+
+exp_name:   my_experiment_08-08-17_18-47
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    2
+
+
+
+exp_name:   my_experiment_08-08-17_18-57
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    2
+
+my_experiment_08-08-17_18-57
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 | -1425.59 | -1425.59     0.20 -1938.40
+
+
+exp_name:   my_experiment_08-08-17_19-00
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    2
+
+my_experiment_08-08-17_19-00
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 | -1427.47 | -1427.47     0.20 -1938.40
+
+
+exp_name:   my_experiment_08-09-17_10-23
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    2
+
+
+
+exp_name:   my_experiment_08-09-17_10-24
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    2
+
+
+
+exp_name:   my_experiment_08-09-17_10-24
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    2
+
+my_experiment_08-09-17_10-24
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 | -1441.02 | -1441.02     0.20 -1938.40
+  1 | -1446.29 | -1446.29     0.22 -2050.72
+
+
+exp_name:   my_experiment_08-09-17_14-52
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-09-17_14-54
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-09-17_15-12
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+my_experiment_08-09-17_15-12
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 | -1430.30 | -1430.30     1.00 -1939.93
+  1 | -1439.80 | -1439.80     2.00 -1955.13
+
+
+exp_name:   my_experiment_08-09-17_15-27
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+my_experiment_08-09-17_15-27
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 | -1421.78 | -1421.78     1.00 -1939.73
+  1 | -1498.11 | -1498.11     2.00 -1962.45
+  2 | -1531.13 | -1531.13     2.00 -2066.56
+  3 | -1585.58 | -1585.58     2.00 -2212.07
+  4 | -1630.13 | -1630.13     2.00 -2369.51
+
+
+exp_name:   my_experiment_08-09-17_15-51
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+my_experiment_08-09-17_15-51
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 | -1524.32 | -1524.32     0.14 -1938.78
+  1 | -1562.16 | -1562.16     0.07 -1939.17
+  2 | -1569.14 | -1569.14     1.77 -1940.34
+  3 | -1630.30 | -1630.30     0.02 -1982.01
+  4 | -1631.67 | -1631.67     0.03 -1983.50
+  5 | -1637.16 | -1637.16     0.00 -1984.52
+  6 | -1639.26 | -1639.26     0.01 -1984.71
+  7 | -1637.03 | -1637.03     0.25 -1994.15
+  8 | -1660.23 | -1660.23     0.80 -2048.63
+  9 | -1696.50 | -1696.50     0.97 -2190.94
+ 10 | -1737.94 | -1737.94     2.00 -2389.90
+ 11 | -1778.16 | -1778.16     2.00 -2691.28
+
+
+exp_name:   my_experiment_08-09-17_18-18
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+my_experiment_08-09-17_18-18
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 | -1528.48 | -1528.48     1.00 -1939.20
+  1 | -1573.77 | -1573.77     2.00 -1949.73
+  2 | -1602.46 | -1602.46     1.00 -1966.72
+  3 | -1622.72 | -1622.72     2.00 -2027.82
+  4 | -1662.14 | -1662.14     1.00 -2087.56
+  5 | -1701.99 | -1701.99     2.00 -2277.62
+  6 | -1717.19 | -1717.19     1.47 -2524.32
+  7 | -1776.71 | -1776.71     1.64 -2703.42
+  8 | -1810.38 | -1810.38     2.00 -3040.87
+
+
+exp_name:   my_experiment_08-10-17_10-44
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_10-47
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+my_experiment_08-10-17_10-47
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 | -1526.16 | -1526.16     1.00 -1939.20
+  1 | -1565.34 | -1565.34     0.50 -1941.36
+  2 | -1567.49 | -1567.49     2.00 -1947.88
+
+
+exp_name:   my_experiment_08-10-17_10-58
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_10-59
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_13-00
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_13-02
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_13-10
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_13-18
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_13-34
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_13-41
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+my_experiment_08-10-17_13-41
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 | -1524.91 | -1524.91     1.00 -1939.17
+  1 | -1558.70 | -1558.70     1.72 -1941.98
+  2 | -1542.80 | -1542.80     2.00 -1946.93
+  3 | -1613.72 | -1613.72     2.00 -2109.95
+  4 | -1652.77 | -1652.77     1.00 -2239.48
+  5 | -1694.32 | -1694.32     2.00 -2316.14
+
+
+exp_name:   my_experiment_08-10-17_15-20
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_15-24
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_16-20
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_16-26
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_16-40
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_17-15
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_17-25
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+my_experiment_08-10-17_17-25
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 | -1515.54 | -1515.54     1.00 -1939.35
+  1 | -1558.82 | -1558.82     2.00 -1948.58
+  2 | -1580.38 | -1580.38     2.00 -1994.86
+
+
+exp_name:   my_experiment_08-10-17_17-59
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_18-02
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_18-30
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_18-32
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_18-34
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-10-17_18-35
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_10-19
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_10-20
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_10-24
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_10-43
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_10-53
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_10-55
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_10-57
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_11-00
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_11-01
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_11-03
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_11-04
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_11-10
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_11-20
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_11-21
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_11-27
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_11-31
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_12-07
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_12-09
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_12-11
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_12-16
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_12-22
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_12-31
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_12-33
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_12-34
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_12-35
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_12-37
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_12-51
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_12-52
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_13-07
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_13-09
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_13-10
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+my_experiment_08-11-17_13-10
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 | -1427.38 | -1427.38     0.20 -7414.32
+  1 | -1374.25 | -1374.25     0.02 -7414.65
+
+
+exp_name:   my_experiment_08-11-17_13-25
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_13-26
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_13-34
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_13-36
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+my_experiment_08-11-17_13-36
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 | -1272.30 | -1272.30     1.00 -7414.35
+
+
+exp_name:   my_experiment_08-11-17_13-45
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_13-50
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_13-50
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_13-55
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_13-59
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_14-01
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-11-17_14-04
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+my_experiment_08-11-17_14-04
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 | -1611.64 | -1611.64     1.00 -7414.71
+  1 | -1652.02 | -1652.02     0.01 -7415.63
+  2 | -1633.84 | -1633.84     0.01 -7415.69
+
+
+exp_name:   my_experiment_08-23-17_13-44
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 10
+samples:    5
+
+
+
+exp_name:   my_experiment_08-23-17_14-03
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 10
+samples:    5
+
+
+
+exp_name:   my_experiment_08-23-17_14-11
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 10
+samples:    5
+
+
+
+exp_name:   my_experiment_08-23-17_14-24
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+my_experiment_08-23-17_14-24
+    |          |          condition 0       |          condition 1      
+itr | avg_cost |   cost     step   entropy  |   cost     step   entropy 
+  0 |    19.61 |   -41.93     0.20     0.00 |    81.16     0.20     0.00
+  1 |   790.98 |   854.32     0.02   -25.83 |   727.64     1.00    -0.09
+  2 |   765.53 |   834.29     0.10   -25.85 |   696.78     2.00   -10.58
+  3 |   724.68 |   820.11     0.50   -32.03 |   629.24     2.00   -42.89
+  4 |   670.52 |   783.31     2.00   -46.50 |   557.72     2.00   -76.25
+  5 |   575.34 |   674.27     2.00   -77.57 |   476.40     2.00  -113.19
+  6 |   511.78 |   604.91     2.00  -112.05 |   418.64     2.00  -151.16
+  7 |   460.66 |   548.70     2.00  -145.18 |   372.62     2.00  -190.16
+  8 |   400.86 |   478.69     2.00  -181.90 |   323.04     2.00  -230.21
+  9 |   349.57 |   425.54     2.00  -217.12 |   273.61     2.00  -274.29
+ 10 |   304.76 |   375.60     2.00  -256.11 |   233.93     2.00  -316.30
+
+
+exp_name:   my_experiment_08-24-17_11-47
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_08-24-17_11-49
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_08-24-17_11-50
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_08-24-17_12-03
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_08-24-17_12-48
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_08-24-17_12-56
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_08-24-17_13-08
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_08-24-17_13-13
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_08-24-17_13-17
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_08-24-17_13-25
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_08-24-17_13-43
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_08-24-17_17-34
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+my_experiment_08-24-17_17-34
+    |          |          condition 0       |          condition 1      
+itr | avg_cost |   cost     step   entropy  |   cost     step   entropy 
+  0 |  -202.41 |  -203.62     1.00   -26.37 |  -201.19     1.00    -1.45
+  1 |  -210.86 |  -219.69     0.03  -132.28 |  -202.02     2.00   -35.12
+  2 |  -215.79 |  -219.83     0.02  -137.16 |  -211.74     1.00   -70.19
+  3 |  -216.48 |  -219.83     0.38  -175.66 |  -213.13     2.00  -409.42
+  4 |  -223.09 |  -229.85     0.00  -305.16 |  -216.32     1.19  -891.59
+  5 |  -230.89 |  -231.58     0.10  -314.24 |  -230.20     2.00 -1117.31
+  6 |  -237.95 |  -233.00     2.00  -513.21 |  -242.89     1.43 -1435.06
+
+
+exp_name:   my_experiment_08-25-17_11-45
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_08-25-17_11-48
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+my_experiment_08-25-17_11-48
+    |          |          condition 0       |          condition 1      
+itr | avg_cost |   cost     step   entropy  |   cost     step   entropy 
+  0 |  -204.76 |  -205.00     1.00   -18.36 |  -204.53     1.00    -6.49
+  1 |  -213.32 |  -219.82     0.50   -80.45 |  -206.83     0.50   -26.14
+  2 |  -214.91 |  -219.41     2.00  -125.60 |  -210.41     0.50   -37.88
+  3 |  -223.71 |  -230.40     2.00  -685.26 |  -217.01     2.00  -510.20
+  4 |  -231.87 |  -243.21     0.69 -1378.45 |  -220.53     1.00 -1008.99
+  5 |  -235.54 |  -244.56     2.00 -1618.81 |  -226.52     2.00 -1218.27
+
+
+exp_name:   my_experiment_08-25-17_13-03
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_08-25-17_13-54
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_08-25-17_14-06
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_08-28-17_18-41
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_08-28-17_18-43
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 2
+samples:    5
+
+my_experiment_08-28-17_18-43
+    |          |          condition 0       |          condition 1      
+itr | avg_cost |   cost     step   entropy  |   cost     step   entropy 
+  0 |   442.56 |   725.78     0.20     0.00 |   159.34     0.20     0.00
+  1 |   523.34 |   889.56     0.02    -2.95 |   157.12     0.04   -16.02
+  2 |   525.16 |   895.93     0.10    -3.17 |   154.40     0.08   -19.52
+  3 |   527.68 |   900.39     0.50    -4.30 |   154.98     0.01   -27.76
+  4 |   525.17 |   891.39     2.00    -7.53 |   158.96     0.00   -28.14
+  5 |   494.78 |   834.65     1.41   -54.85 |   154.92     0.01   -28.18
+  6 |   474.50 |   796.50     0.81   -76.16 |   152.49     0.05   -28.32
+  7 |   467.11 |   777.46     0.47   -96.52 |   156.75     0.03   -28.83
+  8 |   457.61 |   758.90     0.26  -117.54 |   156.31     0.00   -29.44
+  9 |   454.03 |   750.20     0.17  -127.63 |   157.86     0.00   -29.54
+ 10 |   447.44 |   736.52     0.11  -141.36 |   158.37     0.01   -29.57
+
+
+exp_name:   my_experiment_08-29-17_12-00
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-29-17_12-05
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-29-17_12-07
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-29-17_12-09
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-29-17_12-12
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-29-17_12-18
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 15
+conditions: 1
+samples:    5
+
+my_experiment_08-29-17_12-18
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -166.36 |  -166.36     0.20     0.00
+  1 |  -167.63 |  -167.63     0.02   -16.23
+  2 |  -168.40 |  -168.40     0.00   -16.69
+  3 |  -171.05 |  -171.05     0.01   -16.70
+  4 |  -168.43 |  -168.43     0.05   -16.79
+  5 |  -168.30 |  -168.30     0.01   -17.04
+  6 |  -168.74 |  -168.74     0.03   -17.09
+  7 |  -169.09 |  -169.09     0.01   -17.28
+  8 |  -170.33 |  -170.33     0.04   -17.38
+  9 |  -168.33 |  -168.33     0.05   -17.72
+ 10 |  -169.11 |  -169.11     0.01   -18.13
+ 11 |  -169.21 |  -169.21     0.03   -18.24
+ 12 |  -170.56 |  -170.56     0.01   -18.60
+ 13 |  -169.90 |  -169.90     0.04   -18.73
+ 14 |  -171.20 |  -171.20     0.01   -20.26
+
+
+exp_name:   my_experiment_08-29-17_13-34
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-29-17_13-42
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+my_experiment_08-29-17_13-42
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -119.19 |  -119.19     0.20 -1264.17
+  1 |  -117.36 |  -117.36     0.02 -1266.58
+  2 |  -117.71 |  -117.71     0.10 -1266.70
+  3 |  -117.34 |  -117.34     0.14 -1268.12
+  4 |  -117.82 |  -117.82     0.01 -1270.93
+  5 |  -118.29 |  -118.29     0.01 -1271.12
+
+
+exp_name:   my_experiment_08-29-17_18-01
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-29-17_18-08
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+my_experiment_08-29-17_18-08
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -115.22 |  -115.22     0.20 -1264.17
+  1 |  -112.38 |  -112.38     1.00 -1264.87
+  2 |  -116.48 |  -116.48     0.16 -1268.47
+  3 |  -117.17 |  -117.17     0.81 -1269.03
+  4 |  -113.40 |  -113.40     0.62 -1275.54
+  5 |  -117.13 |  -117.13     0.06 -1283.43
+
+
+exp_name:   my_experiment_08-29-17_18-18
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+my_experiment_08-29-17_18-18
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -114.39 |  -114.39     0.20 -1264.17
+  1 |  -113.91 |  -113.91     0.07 -1268.62
+  2 |  -114.90 |  -114.90     0.02 -1270.43
+  3 |  -113.73 |  -113.73     0.04 -1271.08
+  4 |  -114.90 |  -114.90     0.01 -1272.43
+  5 |  -114.66 |  -114.66     0.03 -1272.82
+  6 |  -115.44 |  -115.44     0.02 -1273.72
+  7 |  -115.02 |  -115.02     0.08 -1274.44
+
+
+exp_name:   my_experiment_08-29-17_18-30
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-29-17_18-32
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+my_experiment_08-29-17_18-32
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -116.12 |  -116.12     0.20 -1264.17
+  1 |  -115.54 |  -115.54     1.00 -1277.46
+  2 |  -114.14 |  -114.14     0.52 -1341.14
+  3 |  -118.92 |  -118.92     2.00 -1399.16
+  4 |  -120.61 |  -120.61     2.00 -1564.69
+  5 |  -124.90 |  -124.90     1.59 -1731.66
+  6 |  -128.81 |  -128.81     1.70 -1832.41
+  7 |  -131.62 |  -131.62     1.73 -1909.46
+  8 |  -135.20 |  -135.20     2.00 -1995.17
+  9 |  -138.65 |  -138.65     1.49 -2135.72
+ 10 |  -142.56 |  -142.56     0.19 -2257.41
+ 11 |  -142.11 |  -142.11     0.02 -2274.80
+ 12 |  -140.72 |  -140.72     0.09 -2275.68
+ 13 |  -140.11 |  -140.11     0.37 -2285.32
+ 14 |  -141.29 |  -141.29     1.83 -2308.97
+ 15 |  -143.00 |  -143.00     2.00 -2453.26
+ 16 |  -143.94 |  -143.94     0.20 -2650.61
+ 17 |  -137.98 |  -137.98     1.00 -2651.39
+ 18 |  -144.13 |  -144.13     0.14 -2653.57
+ 19 |  -153.06 |  -153.06     0.72 -2655.98
+ 20 |  -143.43 |  -143.43     2.00 -2659.65
+ 21 |  -152.37 |  -152.37     1.16 -2672.54
+
+
+exp_name:   my_experiment_08-29-17_19-04
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-29-17_19-08
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+my_experiment_08-29-17_19-08
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -115.50 |  -115.50     0.20 -1264.17
+  1 |  -114.80 |  -114.80     1.00 -1283.79
+  2 |  -115.87 |  -115.87     0.51 -1388.70
+  3 |  -118.95 |  -118.95     2.00 -1432.19
+  4 |  -121.21 |  -121.21     0.31 -1579.84
+  5 |  -124.39 |  -124.39     0.06 -1595.54
+  6 |  -124.79 |  -124.79     0.03 -1598.88
+  7 |  -124.38 |  -124.38     0.17 -1601.22
+  8 |  -125.32 |  -125.32     0.09 -1619.72
+  9 |  -126.47 |  -126.47     0.03 -1632.26
+ 10 |  -126.25 |  -126.25     0.00 -1637.97
+ 11 |  -125.35 |  -125.35     0.02 -1639.34
+ 12 |  -126.45 |  -126.45     0.01 -1642.69
+ 13 |  -126.15 |  -126.15     0.01 -1644.48
+ 14 |  -126.40 |  -126.40     0.05 -1646.52
+ 15 |  -126.15 |  -126.15     0.05 -1653.58
+ 16 |  -125.34 |  -125.34     0.01 -1659.85
+ 17 |  -127.06 |  -127.06     0.03 -1661.04
+ 18 |  -127.05 |  -127.05     0.00 -1664.66
+ 19 |  -127.35 |  -127.35     0.01 -1665.45
+ 20 |  -127.77 |  -127.77     0.07 -1667.39
+ 21 |  -127.68 |  -127.68     0.06 -1675.23
+ 22 |  -128.09 |  -128.09     0.02 -1682.64
+ 23 |  -128.06 |  -128.06     0.01 -1687.50
+ 24 |  -127.94 |  -127.94     0.01 -1690.71
+
+
+exp_name:   my_experiment_08-29-17_19-39
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+my_experiment_08-29-17_19-39
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -114.33 |  -114.33     0.20 -1264.17
+  1 |  -115.06 |  -115.06     0.10 -1336.46
+  2 |  -114.35 |  -114.35     0.02 -1371.47
+  3 |  -116.97 |  -116.97     0.01 -1382.73
+  4 |  -115.32 |  -115.32     0.00 -1386.90
+  5 |  -115.99 |  -115.99     0.01 -1388.97
+  6 |  -115.06 |  -115.06     0.00 -1396.60
+  7 |  -115.12 |  -115.12     0.01 -1400.24
+  8 |  -115.70 |  -115.70     0.00 -1410.30
+  9 |  -115.86 |  -115.86     0.01 -1413.26
+ 10 |  -115.26 |  -115.26     0.00 -1422.01
+ 11 |  -115.20 |  -115.20     0.00 -1427.26
+ 12 |  -116.11 |  -116.11     0.00 -1430.82
+ 13 |  -115.91 |  -115.91     0.01 -1432.92
+ 14 |  -116.52 |  -116.52     0.05 -1440.17
+ 15 |  -115.37 |  -115.37     0.02 -1460.26
+ 16 |  -116.69 |  -116.69     0.10 -1471.48
+
+
+exp_name:   my_experiment_08-29-17_20-00
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 25
+conditions: 1
+samples:    5
+
+my_experiment_08-29-17_20-00
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -115.93 |  -115.93     0.20 -1264.17
+  1 |  -114.92 |  -114.92     0.49 -1292.26
+  2 |  -114.76 |  -114.76     0.28 -1374.60
+  3 |  -117.58 |  -117.58     0.15 -1437.63
+  4 |  -117.84 |  -117.84     0.03 -1473.55
+  5 |  -117.14 |  -117.14     0.17 -1484.58
+  6 |  -118.76 |  -118.76     0.11 -1537.04
+  7 |  -120.07 |  -120.07     0.05 -1571.25
+  8 |  -120.35 |  -120.35     0.02 -1591.88
+  9 |  -120.74 |  -120.74     0.00 -1599.76
+ 10 |  -122.28 |  -122.28     0.01 -1601.45
+ 11 |  -120.50 |  -120.50     0.00 -1605.46
+ 12 |  -121.79 |  -121.79     0.01 -1607.25
+ 13 |  -121.50 |  -121.50     0.00 -1612.72
+ 14 |  -121.78 |  -121.78     0.00 -1614.18
+ 15 |  -121.78 |  -121.78     0.01 -1615.05
+ 16 |  -121.22 |  -121.22     0.05 -1620.86
+ 17 |  -122.77 |  -122.77     0.02 -1635.04
+ 18 |  -123.14 |  -123.14     0.11 -1645.10
+ 19 |  -124.80 |  -124.80     0.14 -1669.08
+ 20 |  -126.05 |  -126.05     0.09 -1693.44
+ 21 |  -126.49 |  -126.49     0.44 -1711.40
+ 22 |  -127.59 |  -127.59     0.17 -1760.20
+ 23 |  -129.70 |  -129.70     0.25 -1786.05
+ 24 |  -129.95 |  -129.95     0.08 -1821.81
+
+
+exp_name:   my_experiment_08-29-17_20-33
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-29-17_20-36
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-29-17_20-39
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_08-29-17_20-39
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -116.05 |  -116.05     0.20 -1264.17
+  1 |  -115.33 |  -115.33     0.07 -1321.49
+  2 |  -114.43 |  -114.43     0.01 -1349.73
+  3 |  -118.49 |  -118.49     0.06 -1355.70
+  4 |  -116.30 |  -116.30     0.02 -1373.27
+  5 |  -116.13 |  -116.13     0.00 -1380.44
+  6 |  -116.08 |  -116.08     0.00 -1382.37
+  7 |  -116.40 |  -116.40     0.01 -1382.65
+  8 |  -116.08 |  -116.08     0.01 -1389.34
+  9 |  -117.58 |  -117.58     0.00 -1400.14
+ 10 |  -115.85 |  -115.85     0.00 -1404.38
+ 11 |  -116.46 |  -116.46     0.02 -1408.84
+ 12 |  -117.79 |  -117.79     0.00 -1423.40
+ 13 |  -116.56 |  -116.56     0.00 -1428.42
+ 14 |  -118.32 |  -118.32     0.01 -1429.77
+ 15 |  -117.95 |  -117.95     0.01 -1437.18
+ 16 |  -116.76 |  -116.76     0.03 -1440.67
+ 17 |  -118.84 |  -118.84     0.03 -1457.17
+ 18 |  -117.82 |  -117.82     0.04 -1472.03
+ 19 |  -118.95 |  -118.95     0.00 -1503.27
+ 20 |  -119.90 |  -119.90     0.02 -1504.66
+ 21 |  -118.51 |  -118.51     0.11 -1509.39
+ 22 |  -119.04 |  -119.04     0.02 -1530.50
+ 23 |  -118.98 |  -118.98     0.09 -1535.65
+ 24 |  -122.14 |  -122.14     0.16 -1580.81
+ 25 |  -122.83 |  -122.83     0.19 -1625.66
+ 26 |  -124.29 |  -124.29     0.13 -1665.59
+ 27 |  -124.66 |  -124.66     0.16 -1692.19
+ 28 |  -125.88 |  -125.88     0.19 -1717.42
+ 29 |  -127.35 |  -127.35     0.21 -1745.76
+ 30 |  -127.78 |  -127.78     0.20 -1772.04
+ 31 |  -130.06 |  -130.06     0.43 -1799.06
+
+
+exp_name:   my_experiment_08-29-17_21-18
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_08-29-17_21-18
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -113.62 |  -113.62     0.20 -1264.17
+  1 |  -114.55 |  -114.55     1.00 -1270.71
+  2 |  -115.42 |  -115.42     2.00 -1295.52
+  3 |  -120.29 |  -120.29     1.62 -1419.33
+  4 |  -123.45 |  -123.45     2.00 -1510.19
+  5 |  -129.09 |  -129.09     1.43 -1662.38
+  6 |  -131.51 |  -131.51     2.00 -1760.00
+  7 |  -136.20 |  -136.20     2.00 -1876.81
+  8 |  -140.15 |  -140.15     2.00 -2002.94
+  9 |  -143.70 |  -143.70     1.96 -2192.22
+ 10 |  -145.39 |  -145.39     0.20 -2380.10
+ 11 |  -145.61 |  -145.61     0.98 -2398.45
+ 12 |  -146.40 |  -146.40     0.56 -2501.26
+
+
+exp_name:   my_experiment_08-30-17_16-32
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-30-17_16-38
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-30-17_16-45
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_08-30-17_16-45
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -119.09 |  -119.09     0.20 -1264.17
+  1 |  -119.78 |  -119.78     0.02 -1269.84
+  2 |  -119.05 |  -119.05     0.10 -1270.59
+  3 |  -120.88 |  -120.88     0.01 -1272.85
+  4 |  -119.93 |  -119.93     0.05 -1273.11
+  5 |  -119.75 |  -119.75     0.02 -1279.40
+  6 |  -120.70 |  -120.70     0.00 -1283.47
+  7 |  -119.92 |  -119.92     0.00 -1284.64
+  8 |  -121.26 |  -121.26     0.00 -1285.18
+  9 |  -121.53 |  -121.53     0.00 -1285.68
+ 10 |  -121.17 |  -121.17     0.01 -1285.92
+
+
+exp_name:   my_experiment_08-30-17_16-59
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_08-30-17_16-59
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -119.55 |  -119.55     0.20 -1264.17
+  1 |  -120.30 |  -120.30     0.13 -1273.37
+  2 |  -120.26 |  -120.26     0.42 -1282.51
+  3 |  -121.64 |  -121.64     2.00 -1307.56
+  4 |  -127.09 |  -127.09     2.00 -1459.59
+  5 |  -130.89 |  -130.89     0.47 -1566.37
+  6 |  -132.45 |  -132.45     2.00 -1591.64
+  7 |  -135.48 |  -135.48     2.00 -1669.88
+  8 |  -139.32 |  -139.32     2.00 -1758.89
+  9 |  -143.48 |  -143.48     2.00 -1872.28
+ 10 |  -147.27 |  -147.27     0.99 -2041.72
+ 11 |  -149.23 |  -149.23     2.00 -2127.56
+ 12 |  -147.09 |  -147.09     0.23 -2364.80
+ 13 |  -147.16 |  -147.16     0.07 -2411.17
+ 14 |  -151.57 |  -151.57     0.01 -2419.15
+ 15 |  -151.19 |  -151.19     0.03 -2419.62
+ 16 |  -153.16 |  -153.16     0.01 -2422.27
+ 17 |  -147.54 |  -147.54     0.00 -2423.14
+ 18 |  -147.09 |  -147.09     0.01 -2423.27
+ 19 |  -144.22 |  -144.22     0.00 -2424.30
+ 20 |  -153.42 |  -153.42     0.00 -2424.52
+ 21 |  -145.41 |  -145.41     0.00 -2424.72
+ 22 |  -155.03 |  -155.03     0.01 -2424.75
+ 23 |  -152.02 |  -152.02     0.00 -2425.34
+ 24 |  -152.85 |  -152.85     0.01 -2425.70
+ 25 |  -146.76 |  -146.76     0.05 -2427.18
+
+
+exp_name:   my_experiment_08-30-17_18-15
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-30-17_18-21
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_08-30-17_18-21
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -115.67 |  -115.67     0.20 -1264.17
+  1 |  -113.80 |  -113.80     1.00 -1267.02
+  2 |  -118.15 |  -118.15     0.22 -1284.14
+  3 |  -118.86 |  -118.86     1.11 -1298.42
+  4 |  -123.47 |  -123.47     0.11 -1343.11
+  5 |  -122.49 |  -122.49     0.56 -1344.79
+  6 |  -123.91 |  -123.91     0.18 -1350.22
+  7 |  -124.52 |  -124.52     0.90 -1352.48
+  8 |  -123.57 |  -123.57     0.15 -1358.53
+  9 |  -124.01 |  -124.01     0.75 -1359.97
+ 10 |  -124.24 |  -124.24     0.20 -1378.66
+ 11 |  -126.03 |  -126.03     0.02 -1383.59
+ 12 |  -125.60 |  -125.60     0.10 -1383.98
+ 13 |  -125.80 |  -125.80     0.02 -1391.53
+ 14 |  -125.33 |  -125.33     0.01 -1393.25
+ 15 |  -125.01 |  -125.01     0.00 -1394.53
+ 16 |  -125.71 |  -125.71     0.00 -1395.25
+ 17 |  -126.27 |  -126.27     0.01 -1395.60
+ 18 |  -125.96 |  -125.96     0.00 -1397.24
+ 19 |  -124.86 |  -124.86     0.01 -1397.46
+ 20 |  -126.59 |  -126.59     0.05 -1398.03
+ 21 |  -125.53 |  -125.53     0.04 -1402.13
+ 22 |  -125.92 |  -125.92     0.03 -1406.40
+ 23 |  -126.00 |  -126.00     0.01 -1410.39
+ 24 |  -126.77 |  -126.77     0.00 -1411.87
+ 25 |  -126.63 |  -126.63     0.00 -1412.69
+ 26 |  -127.37 |  -127.37     0.00 -1413.38
+ 27 |  -126.74 |  -126.74     0.01 -1413.57
+ 28 |  -126.39 |  -126.39     0.05 -1414.64
+ 29 |  -127.09 |  -127.09     0.01 -1419.11
+ 30 |  -127.69 |  -127.69     0.04 -1420.16
+ 31 |  -127.81 |  -127.81     0.01 -1423.03
+ 32 |  -127.46 |  -127.46     0.00 -1424.29
+ 33 |  -127.64 |  -127.64     0.01 -1424.69
+ 34 |  -127.94 |  -127.94     0.00 -1426.01
+ 35 |  -127.91 |  -127.91     0.02 -1426.67
+ 36 |  -127.69 |  -127.69     0.00 -1429.07
+ 37 |  -127.99 |  -127.99     0.01 -1429.56
+
+
+exp_name:   my_experiment_08-30-17_19-08
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_08-30-17_19-08
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -119.33 |  -119.33     0.20 -1264.17
+  1 |  -118.86 |  -118.86     1.00 -1289.48
+  2 |  -120.90 |  -120.90     0.10 -1391.36
+  3 |  -122.44 |  -122.44     0.50 -1397.76
+  4 |  -122.68 |  -122.68     2.00 -1432.17
+  5 |  -127.21 |  -127.21     2.00 -1601.00
+  6 |  -132.27 |  -132.27     2.00 -1750.29
+  7 |  -136.42 |  -136.42     0.20 -1868.83
+  8 |  -136.30 |  -136.30     1.00 -1875.70
+  9 |  -138.04 |  -138.04     0.54 -1926.11
+ 10 |  -138.57 |  -138.57     2.00 -1958.92
+ 11 |  -141.64 |  -141.64     0.38 -2066.56
+ 12 |  -142.01 |  -142.01     0.04 -2081.60
+ 13 |  -141.97 |  -141.97     0.19 -2083.50
+ 14 |  -142.36 |  -142.36     0.94 -2098.48
+ 15 |  -143.69 |  -143.69     0.19 -2179.77
+ 16 |  -144.02 |  -144.02     0.14 -2199.70
+ 17 |  -144.08 |  -144.08     0.22 -2218.98
+ 18 |  -144.45 |  -144.45     1.11 -2239.72
+ 19 |  -145.06 |  -145.06     0.29 -2354.06
+ 20 |  -145.76 |  -145.76     0.19 -2387.29
+ 21 |  -145.55 |  -145.55     0.02 -2413.35
+ 22 |  -146.11 |  -146.11     0.00 -2417.23
+ 23 |  -145.38 |  -145.38     0.00 -2418.11
+ 24 |  -145.36 |  -145.36     0.01 -2418.68
+ 25 |  -146.24 |  -146.24     0.05 -2420.17
+ 26 |  -146.17 |  -146.17     0.25 -2423.07
+ 27 |  -145.74 |  -145.74     1.25 -2436.35
+ 28 |  -146.09 |  -146.09     0.81 -2511.93
+ 29 |  -146.40 |  -146.40     1.78 -2570.30
+ 30 |  -147.54 |  -147.54     0.47 -2696.76
+ 31 |  -147.90 |  -147.90     0.07 -2738.74
+ 32 |  -147.46 |  -147.46     0.02 -2746.00
+ 33 |  -147.16 |  -147.16     0.00 -2750.31
+ 34 |  -147.71 |  -147.71     0.00 -2751.72
+ 35 |  -147.83 |  -147.83     0.01 -2752.70
+
+
+exp_name:   my_experiment_08-30-17_19-52
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_08-30-17_19-52
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -118.54 |  -118.54     0.20 -1264.17
+  1 |  -120.17 |  -120.17     1.00 -1309.69
+  2 |  -123.62 |  -123.62     0.10 -1452.63
+  3 |  -123.73 |  -123.73     0.50 -1461.15
+  4 |  -124.97 |  -124.97     0.48 -1482.45
+  5 |  -126.04 |  -126.04     2.00 -1511.91
+  6 |  -131.15 |  -131.15     0.43 -1653.43
+  7 |  -132.04 |  -132.04     0.49 -1674.54
+  8 |  -133.70 |  -133.70     0.22 -1702.17
+  9 |  -134.26 |  -134.26     1.11 -1715.13
+ 10 |  -136.84 |  -136.84     0.33 -1771.95
+ 11 |  -138.14 |  -138.14     1.65 -1797.10
+ 12 |  -140.93 |  -140.93     0.36 -1887.20
+ 13 |  -141.22 |  -141.22     1.81 -1903.17
+ 14 |  -143.55 |  -143.55     1.22 -2019.57
+ 15 |  -144.17 |  -144.17     0.12 -2119.16
+ 16 |  -142.90 |  -142.90     0.61 -2126.54
+ 17 |  -144.83 |  -144.83     0.18 -2190.04
+ 18 |  -145.50 |  -145.50     0.91 -2213.71
+ 19 |  -146.14 |  -146.14     0.22 -2350.06
+ 20 |  -146.90 |  -146.90     0.09 -2379.83
+ 21 |  -147.20 |  -147.20     0.45 -2396.73
+ 22 |  -148.03 |  -148.03     0.19 -2457.64
+ 23 |  -148.04 |  -148.04     0.03 -2496.55
+ 24 |  -148.52 |  -148.52     0.00 -2504.04
+ 25 |  -148.18 |  -148.18     0.00 -2505.60
+
+
+exp_name:   my_experiment_08-30-17_20-23
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_08-30-17_20-23
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -119.87 |  -119.87     0.20 -1264.17
+  1 |  -121.24 |  -121.24     0.02 -1281.12
+  2 |  -121.26 |  -121.26     0.00 -1282.52
+  3 |  -122.03 |  -122.03     0.01 -1282.60
+  4 |  -122.26 |  -122.26     0.05 -1283.81
+
+
+exp_name:   my_experiment_08-30-17_20-31
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_08-30-17_20-31
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -119.68 |  -119.68     0.20 -1264.17
+  1 |  -121.73 |  -121.73     0.02 -1290.67
+  2 |  -120.88 |  -120.88     0.00 -1293.65
+  3 |  -120.52 |  -120.52     0.01 -1293.88
+  4 |  -121.71 |  -121.71     0.05 -1295.89
+  5 |  -121.12 |  -121.12     0.04 -1299.98
+  6 |  -121.98 |  -121.98     0.19 -1303.90
+  7 |  -122.14 |  -122.14     0.96 -1315.25
+  8 |  -125.12 |  -125.12     0.39 -1366.13
+  9 |  -126.35 |  -126.35     0.64 -1392.81
+ 10 |  -127.12 |  -127.12     2.00 -1421.34
+ 11 |  -131.37 |  -131.37     0.46 -1527.36
+ 12 |  -133.01 |  -133.01     2.00 -1550.16
+ 13 |  -137.40 |  -137.40     1.63 -1636.60
+ 14 |  -141.37 |  -141.37     1.57 -1748.48
+ 15 |  -144.19 |  -144.19     0.36 -1893.73
+ 16 |  -145.11 |  -145.11     0.13 -1935.05
+ 17 |  -145.75 |  -145.75     0.30 -1949.24
+ 18 |  -147.96 |  -147.96     0.03 -1982.63
+ 19 |  -128.49 |  -128.49     0.00 -1985.97
+ 20 |  -148.78 |  -148.78     0.01 -1985.99
+ 21 |  -148.14 |  -148.14     0.07 -1987.54
+ 22 |  -147.30 |  -147.30     0.01 -1990.04
+ 23 |  -146.55 |  -146.55     0.04 -1991.02
+ 24 |  -148.95 |  -148.95     0.00 -2003.11
+ 25 |  -148.21 |  -148.21     0.00 -2004.59
+ 26 |  -146.32 |  -146.32     0.01 -2005.45
+ 27 |  -127.35 |  -127.35     0.00 -2008.84
+ 28 |  -146.46 |  -146.46     0.01 -2008.85
+ 29 |  -146.04 |  -146.04     0.05 -2011.94
+ 30 |  -146.33 |  -146.33     0.01 -2023.46
+
+
+exp_name:   my_experiment_08-30-17_21-13
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-31-17_11-33
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-31-17_12-00
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-31-17_12-00
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_08-31-17_12-00
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -117.42 |  -117.42     0.20 -1264.17
+  1 |  -119.09 |  -119.09     0.02 -1268.81
+  2 |  -116.47 |  -116.47     0.00 -1269.55
+  3 |  -117.36 |  -117.36     0.01 -1270.00
+  4 |  -118.44 |  -118.44     0.05 -1271.02
+  5 |  -117.62 |  -117.62     0.25 -1272.92
+  6 |  -119.08 |  -119.08     0.52 -1280.07
+  7 |  -121.06 |  -121.06     0.14 -1291.83
+  8 |  -122.10 |  -122.10     0.72 -1297.70
+  9 |  -124.34 |  -124.34     0.27 -1319.59
+ 10 |  -124.73 |  -124.73     0.04 -1329.03
+ 11 |  -124.35 |  -124.35     0.18 -1330.93
+ 12 |  -126.06 |  -126.06     0.02 -1337.43
+ 13 |  -125.29 |  -125.29     0.09 -1338.45
+ 14 |  -126.63 |  -126.63     0.46 -1342.45
+ 15 |  -127.58 |  -127.58     0.05 -1364.54
+ 16 |  -128.40 |  -128.40     0.23 -1367.22
+ 17 |  -127.76 |  -127.76     0.07 -1378.82
+ 18 |  -128.02 |  -128.02     0.01 -1383.93
+ 19 |  -129.20 |  -129.20     0.00 -1384.92
+ 20 |  -128.08 |  -128.08     0.01 -1385.29
+ 21 |  -129.19 |  -129.19     0.00 -1388.25
+ 22 |  -128.55 |  -128.55     0.01 -1389.47
+ 23 |  -129.20 |  -129.20     0.00 -1392.44
+ 24 |  -128.92 |  -128.92     0.00 -1393.66
+ 25 |  -129.41 |  -129.41     0.01 -1394.26
+ 26 |  -130.20 |  -130.20     0.00 -1396.55
+
+
+exp_name:   my_experiment_08-31-17_12-34
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_08-31-17_12-34
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -116.61 |  -116.61     0.20 -1264.17
+  1 |  -118.56 |  -118.56     0.02 -1266.63
+  2 |  -115.51 |  -115.51     0.10 -1267.13
+  3 |  -116.15 |  -116.15     0.30 -1271.33
+  4 |  -119.28 |  -119.28     1.50 -1282.84
+  5 |  -123.01 |  -123.01     0.17 -1346.05
+  6 |  -123.22 |  -123.22     0.86 -1352.07
+  7 |  -124.94 |  -124.94     2.00 -1373.48
+  8 |  -128.22 |  -128.22     0.32 -1416.41
+  9 |  -128.20 |  -128.20     1.61 -1425.11
+ 10 |  -131.39 |  -131.39     0.17 -1475.35
+ 11 |  -131.38 |  -131.38     0.05 -1482.38
+ 12 |  -131.87 |  -131.87     0.24 -1485.23
+ 13 |  -132.00 |  -132.00     0.10 -1497.30
+ 14 |  -133.28 |  -133.28     0.51 -1504.42
+ 15 |  -134.42 |  -134.42     0.40 -1533.24
+ 16 |  -136.96 |  -136.96     0.05 -1558.17
+ 17 |  -136.08 |  -136.08     0.26 -1564.15
+ 18 |  -137.81 |  -137.81     1.32 -1583.44
+ 19 |  -139.93 |  -139.93     0.40 -1624.84
+ 20 |  -141.63 |  -141.63     0.08 -1646.00
+ 21 |  -141.25 |  -141.25     0.41 -1651.01
+ 22 |  -141.43 |  -141.43     2.00 -1670.05
+ 23 |  -144.81 |  -144.81     1.66 -1750.54
+ 24 |  -146.05 |  -146.05     2.00 -1831.20
+ 25 |  -149.59 |  -149.59     0.36 -1952.89
+ 26 |  -150.75 |  -150.75     1.80 -1980.25
+ 27 |  -153.68 |  -153.68     1.47 -2083.31
+ 28 |  -153.89 |  -153.89     0.64 -2186.94
+ 29 |  -153.86 |  -153.86     0.17 -2250.44
+ 30 |  -155.93 |  -155.93     0.85 -2276.42
+ 31 |  -157.00 |  -157.00     0.35 -2378.80
+ 32 |  -157.82 |  -157.82     0.12 -2434.17
+
+
+exp_name:   my_experiment_08-31-17_21-02
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-31-17_21-08
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-31-17_21-13
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-31-17_21-15
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-31-17_21-15
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-31-17_21-20
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_08-31-17_21-20
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_08-31-17_21-20
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -119.43 |  -119.43     0.20 -1264.17
+  1 |  -114.86 |  -114.86     0.17 -1271.03
+  2 |  -119.41 |  -119.41     0.35 -1276.66
+  3 |  -120.06 |  -120.06     0.31 -1293.74
+  4 |  -119.81 |  -119.81     0.03 -1321.63
+  5 |  -121.09 |  -121.09     0.16 -1322.82
+  6 |  -121.14 |  -121.14     0.79 -1338.15
+  7 |  -122.04 |  -122.04     0.13 -1388.02
+  8 |  -119.68 |  -119.68     0.09 -1390.79
+  9 |  -121.29 |  -121.29     0.10 -1393.33
+ 10 |  -120.99 |  -120.99     0.02 -1396.83
+ 11 |  -117.66 |  -117.66     0.01 -1397.88
+ 12 |  -120.93 |  -120.93     0.03 -1398.16
+ 13 |  -121.21 |  -121.21     0.14 -1399.39
+ 14 |  -121.95 |  -121.95     0.05 -1406.16
+ 15 |  -119.84 |  -119.84     0.01 -1408.10
+ 16 |  -118.69 |  -118.69     0.06 -1408.72
+ 17 |  -122.15 |  -122.15     0.01 -1411.93
+ 18 |  -122.90 |  -122.90     0.05 -1412.44
+ 19 |  -122.49 |  -122.49     0.01 -1417.20
+ 20 |  -123.34 |  -123.34     0.03 -1417.55
+
+
+exp_name:   my_experiment_08-31-17_21-47
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_08-31-17_21-47
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |   -97.06 |   -97.06     0.20 -1264.17
+  1 |   -98.72 |   -98.72     0.14 -1265.38
+  2 |   -93.40 |   -93.40     0.01 -1266.52
+  3 |   -97.24 |   -97.24     0.07 -1266.60
+
+
+exp_name:   my_experiment_09-01-17_15-30
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-01-17_15-31
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-01-17_15-32
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-01-17_15-33
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-01-17_15-33
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |   -99.43 |   -99.43     0.03 -1265.54
+  1 |  -118.11 |  -118.11     0.01 -1266.26
+  2 |  -118.02 |  -118.02     0.01 -1275.30
+  3 |  -117.50 |  -117.50     0.16 -1281.62
+  4 |  -117.68 |  -117.68     0.31 -1336.24
+  5 |  -119.62 |  -119.62     0.80 -1409.54
+  6 |  -123.65 |  -123.65     2.00 -1537.26
+  7 |  -127.29 |  -127.29     1.00 -1622.29
+  8 |  -131.00 |  -131.00     2.00 -1669.39
+  9 |  -135.99 |  -135.99     2.00 -1763.68
+ 10 |  -137.18 |  -137.18     2.00 -1876.81
+ 11 |  -139.11 |  -139.11     1.80 -2003.87
+
+
+exp_name:   my_experiment_09-01-17_17-27
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-03-17_13-29
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-03-17_13-31
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-03-17_13-38
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-03-17_13-38
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |   -86.07 |   -86.07     1.00 -1269.42
+  1 |  -118.84 |  -118.84     2.00 -1292.31
+  2 |  -120.17 |  -120.17     1.00 -1318.73
+  3 |  -118.71 |  -118.71     2.00 -1381.98
+  4 |  -126.93 |  -126.93     1.18 -1491.48
+  5 |  -131.57 |  -131.57     2.00 -1631.92
+  6 |  -134.89 |  -134.89     1.00 -1809.63
+  7 |  -139.66 |  -139.66     2.00 -1905.71
+
+
+exp_name:   my_experiment_09-03-17_14-50
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 6
+samples:    5
+
+
+
+exp_name:   my_experiment_09-03-17_15-02
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_09-03-17_15-13
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_09-03-17_15-36
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_09-03-17_15-40
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_09-03-17_15-42
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 2
+samples:    5
+
+my_experiment_09-03-17_15-42
+    |                       |          condition 0                                 
+itr | avg_cost avg_pol_cost |   cost     step   entropy  pol_cost kl_div_i kl_div_f
+  0 |  -118.06      -114.40 |  -118.06     1.04 -1272.67  -115.50     0.04     0.04
+  1 |  -117.18      -108.94 |  -117.18     0.52 -1275.50  -111.13     0.09     0.15
+
+
+exp_name:   my_experiment_09-03-17_18-09
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 2
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_18-26
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    2
+
+
+
+exp_name:   my_experiment_09-04-17_18-28
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    2
+
+my_experiment_09-04-17_18-28
+    |                       |          condition 0                                 
+itr | avg_cost avg_pol_cost |   cost     step   entropy  pol_cost kl_div_i kl_div_f
+  0 |   -83.02      -104.78 |   -83.02     0.50 -1269.14  -104.78     0.07     0.17
+
+
+exp_name:   my_experiment_09-04-17_18-39
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    2
+
+my_experiment_09-04-17_18-39
+    |                       |          condition 0                                 
+itr | avg_cost avg_pol_cost |   cost     step   entropy  pol_cost kl_div_i kl_div_f
+  0 |  -114.53      -107.70 |  -114.53     0.50 -1326.02  -107.70     0.11     0.62
+  1 |  -113.54      -112.61 |  -113.54     1.52 -1329.71  -112.61     0.19     0.25
+
+
+exp_name:   my_experiment_09-04-17_19-20
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    2
+
+
+
+exp_name:   my_experiment_09-04-17_19-21
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    2
+
+
+
+exp_name:   my_experiment_09-04-17_19-22
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    2
+
+
+
+exp_name:   my_experiment_09-04-17_19-24
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-04-17_19-24
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -123.88 |  -123.88     1.00 -1264.40
+  1 |  -121.99 |  -121.99     2.00 -1267.68
+  2 |  -122.66 |  -122.66     2.00 -1348.66
+  3 |  -130.16 |  -130.16     2.00 -1570.81
+  4 |  -135.63 |  -135.63     2.00 -1726.62
+  5 |  -143.46 |  -143.46     2.00 -2016.99
+  6 |  -147.23 |  -147.23     1.17 -2268.90
+  7 |  -147.84 |  -147.84     0.01 -2376.57
+  8 |  -147.88 |  -147.88     0.01 -2381.77
+  9 |  -148.40 |  -148.40     0.26 -2390.11
+
+
+exp_name:   my_experiment_09-04-17_19-46
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_19-47
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-04-17_19-47
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -123.46 |  -123.46     1.00 -1696.40
+  1 |  -124.45 |  -124.45     2.00 -1833.76
+  2 |  -130.54 |  -130.54     0.03 -1947.08
+  3 |  -131.88 |  -131.88     0.85 -1962.39
+  4 |  -135.79 |  -135.79     0.96 -2034.61
+  5 |  -139.83 |  -139.83     2.00 -2191.17
+  6 |  -144.58 |  -144.58     0.75 -2386.72
+  7 |  -147.50 |  -147.50     0.66 -2489.46
+
+
+exp_name:   my_experiment_09-04-17_20-23
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_20-24
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_20-24
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_20-31
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-04-17_20-31
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -125.54 |  -125.54     1.00 -1699.47
+  1 |  -128.81 |  -128.81     0.69 -1762.53
+  2 |  -133.61 |  -133.61     2.00 -1930.76
+
+
+exp_name:   my_experiment_09-04-17_20-38
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-04-17_20-38
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -125.53 |  -125.53     1.00 -1690.68
+  1 |  -122.39 |  -122.39     2.00 -1709.90
+  2 |  -125.84 |  -125.84     1.00 -1750.45
+  3 |  -130.71 |  -130.71     2.00 -1992.85
+  4 |  -138.18 |  -138.18     1.86 -2166.93
+  5 |  -144.06 |  -144.06     2.00 -2400.10
+  6 |  -146.69 |  -146.69     1.74 -2574.72
+  7 |  -149.97 |  -149.97     1.76 -2743.42
+  8 |  -148.14 |  -148.14     0.88 -2873.73
+  9 |  -152.48 |  -152.48     2.00 -3005.23
+ 10 |  -146.12 |  -146.12     0.48 -3116.40
+ 11 |  -147.52 |  -147.52     0.16 -3147.83
+ 12 |  -148.49 |  -148.49     2.00 -3198.02
+ 13 |  -151.03 |  -151.03     1.00 -3350.03
+ 14 |  -151.40 |  -151.40     1.97 -3402.78
+ 15 |  -155.40 |  -155.40     2.00 -3651.09
+ 16 |  -142.57 |  -142.57     1.00 -3830.71
+
+
+exp_name:   my_experiment_09-04-17_21-13
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_21-14
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_21-15
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_21-15
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_21-16
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_21-16
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_21-17
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_21-18
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_21-19
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_21-20
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-04-17_21-20
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -121.92 |  -121.92     1.00 -1708.01
+  1 |  -124.44 |  -124.44     1.94 -1778.79
+  2 |  -128.01 |  -128.01     0.09 -1889.42
+  3 |  -131.15 |  -131.15     2.00 -1916.36
+  4 |  -135.52 |  -135.52     2.00 -2035.86
+  5 |  -139.62 |  -139.62     2.00 -2156.99
+  6 |  -142.69 |  -142.69     2.00 -2280.97
+  7 |  -144.57 |  -144.57     1.27 -2407.67
+  8 |  -145.51 |  -145.51     2.00 -2557.62
+  9 |  -147.25 |  -147.25     1.83 -2760.45
+
+
+exp_name:   my_experiment_09-04-17_21-48
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-04-17_21-48
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -162.60 |  -162.60     1.00 -2656.44
+  1 |  -161.94 |  -161.94     2.00 -2661.10
+  2 |  -164.43 |  -164.43     2.00 -2674.55
+  3 |  -171.11 |  -171.11     2.00 -2820.16
+  4 |  -173.93 |  -173.93     2.00 -3000.28
+  5 |  -181.60 |  -181.60     2.00 -3198.81
+  6 |  -183.74 |  -183.74     1.00 -3293.30
+  7 |  -189.94 |  -189.94     2.00 -3373.06
+  8 |  -193.07 |  -193.07     2.00 -3537.75
+  9 |  -192.03 |  -192.03     1.00 -3674.48
+ 10 |  -194.07 |  -194.07     2.00 -3780.34
+ 11 |  -191.20 |  -191.20     1.50 -4008.71
+ 12 |  -186.47 |  -186.47     0.75 -4060.98
+ 13 |  -193.41 |  -193.41     2.00 -4150.52
+ 14 |  -196.55 |  -196.55     1.00 -4269.73
+ 15 |  -197.50 |  -197.50     0.29 -4345.22
+ 16 |  -197.50 |  -197.50     0.14 -4358.28
+ 17 |  -199.41 |  -199.41     0.28 -4381.72
+ 18 |  -198.74 |  -198.74     0.14 -4418.61
+ 19 |  -197.93 |  -197.93     0.07 -4439.86
+
+
+exp_name:   my_experiment_09-04-17_22-59
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_22-59
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_23-00
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_23-04
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_23-08
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_23-09
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_23-10
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-04-17_23-11
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-04-17_23-11
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -163.50 |  -163.50     1.00 -2656.51
+
+
+exp_name:   my_experiment_09-05-17_11-13
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-05-17_11-13
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -160.45 |  -160.45     1.00 -2665.82
+
+
+exp_name:   my_experiment_09-05-17_11-21
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-05-17_11-21
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -163.88 |  -163.88     1.00 -2662.44
+  1 |  -166.23 |  -166.23     0.25 -2699.63
+  2 |  -168.48 |  -168.48     0.06 -2743.44
+  3 |  -169.15 |  -169.15     0.65 -2779.40
+  4 |  -173.62 |  -173.62     2.00 -2936.61
+  5 |  -179.69 |  -179.69     1.45 -3107.68
+  6 |  -184.25 |  -184.25     2.00 -3248.06
+
+
+exp_name:   my_experiment_09-05-17_11-56
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-05-17_11-56
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -158.25 |  -158.25     1.00 -3223.89
+
+
+exp_name:   my_experiment_09-05-17_12-02
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-05-17_12-02
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -157.83 |  -157.83     1.00 -3224.12
+
+
+exp_name:   my_experiment_09-05-17_12-11
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-05-17_12-11
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -157.84 |  -157.84     1.00 -3228.60
+
+
+exp_name:   my_experiment_09-05-17_12-25
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-05-17_12-27
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-05-17_12-27
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -157.76 |  -157.76     1.00 -3223.79
+
+
+exp_name:   my_experiment_09-05-17_12-38
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-05-17_12-38
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -157.48 |  -157.48     1.00 -3228.71
+
+
+exp_name:   my_experiment_09-05-17_12-48
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-05-17_12-58
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_13-23
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_13-31
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-06-17_13-31
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -158.61 |  -158.61     1.00 -3235.84
+  1 |   -47.21 |   -47.21     0.50 -1151.52
+
+
+exp_name:   my_experiment_09-06-17_13-43
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-06-17_13-43
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |    26.83 |    26.83     1.00 -3226.94
+  1 |    24.72 |    24.72     0.61 -3241.05
+  2 |   149.36 |   149.36     0.30  -817.35
+
+
+exp_name:   my_experiment_09-06-17_13-53
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_13-56
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-06-17_13-56
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -159.33 |  -159.33     1.00 -3224.18
+  1 |  -161.06 |  -161.06     0.82 -3226.12
+  2 |   -33.76 |   -33.76     0.01  -808.24
+  3 |   -33.96 |   -33.96     0.22  -808.49
+
+
+exp_name:   my_experiment_09-06-17_14-13
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_14-15
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-06-17_14-15
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |   157.09 |   157.09     1.00 -3239.57
+  1 |   161.12 |   161.12     1.32 -3289.64
+  2 |   227.98 |   227.98     0.01 -1838.49
+  3 |   227.94 |   227.94     0.33 -1838.60
+
+
+exp_name:   my_experiment_09-06-17_14-32
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_14-39
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-06-17_14-39
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |   155.16 |   155.16     1.00 -3224.52
+  1 |   204.64 |   204.64     2.00 -2099.67
+  2 |   153.35 |   153.35     1.00 -3232.45
+  3 |   224.12 |   224.12     2.00 -1832.28
+  4 |   125.66 |   125.66     2.00 -3333.78
+  5 |   164.99 |   164.99     0.02 -2056.43
+  6 |   102.38 |   102.38     0.50 -3352.04
+  7 |   130.84 |   130.84     0.01 -2394.94
+
+
+exp_name:   my_experiment_09-06-17_17-21
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_17-25
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_18-35
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_18-40
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_18-47
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_19-12
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_19-14
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_19-15
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_19-15
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_19-20
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_19-23
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_19-32
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_19-37
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-06-17_19-37
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |   119.56 |   119.56     1.00 -3252.45
+  1 |   124.43 |   124.43     1.36 -3330.74
+  2 |   118.80 |   118.80     0.20 -3405.32
+
+
+exp_name:   my_experiment_09-06-17_19-48
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_19-50
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_20-08
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_20-11
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_20-16
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_20-26
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_20-29
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_20-32
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_20-38
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_20-40
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_20-42
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_20-45
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_20-50
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_20-51
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-06-17_20-51
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -156.22 |  -156.22     0.08 -3228.73
+  1 |   -60.38 |   -60.38     0.00 -1294.84
+  2 |  -118.39 |  -118.39     0.01 -2423.88
+  3 |   -61.86 |   -61.86     0.01 -1296.30
+  4 |   -61.57 |   -61.57     0.21 -1309.94
+
+
+exp_name:   my_experiment_09-06-17_21-04
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_21-11
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-06-17_21-11
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -156.89 |  -156.89     1.00 -3225.06
+  1 |   -82.72 |   -82.72     2.00 -1802.53
+  2 |  -158.95 |  -158.95     1.00 -3285.95
+
+
+exp_name:   my_experiment_09-06-17_21-21
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-06-17_21-21
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -155.85 |  -155.85     1.00 -3226.04
+
+
+exp_name:   my_experiment_09-06-17_21-26
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-06-17_21-26
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -156.58 |  -156.58     1.00 -3228.90
+  1 |  -102.21 |  -102.21     0.04 -2111.91
+
+
+exp_name:   my_experiment_09-06-17_21-33
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_21-34
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_21-34
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-06-17_21-38
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-06-17_21-38
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -156.26 |  -156.26     1.00 -3228.35
+  1 |   -85.02 |   -85.02     2.00 -1826.91
+  2 |   -85.64 |   -85.64     0.27 -1880.14
+  3 |   -87.60 |   -87.60     0.36 -1883.15
+  4 |   -87.13 |   -87.13     2.00 -1956.72
+  5 |   -96.69 |   -96.69     2.00 -2037.21
+  6 |  -101.32 |  -101.32     2.00 -2132.79
+  7 |  -107.32 |  -107.32     1.53 -2219.49
+  8 |  -111.50 |  -111.50     2.00 -2439.57
+  9 |  -114.92 |  -114.92     1.29 -2588.60
+ 10 |  -111.62 |  -111.62     0.64 -2691.86
+ 11 |  -111.75 |  -111.75     0.56 -2788.30
+
+
+exp_name:   my_experiment_09-06-17_22-05
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-06-17_22-05
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -156.32 |  -156.32     1.00 -3225.31
+
+
+exp_name:   my_experiment_09-06-17_22-10
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-06-17_22-10
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -159.29 |  -159.29     0.20 -3223.62
+  1 |   -93.44 |   -93.44     1.00 -1934.55
+  2 |   -94.06 |   -94.06     2.00 -1934.94
+  3 |   -93.66 |   -93.66     2.00 -1935.99
+  4 |   -91.04 |   -91.04     0.20 -1948.43
+  5 |   -92.97 |   -92.97     0.08 -1953.95
+  6 |   -95.25 |   -95.25     0.42 -1956.47
+  7 |   -94.71 |   -94.71     2.00 -1963.81
+  8 |  -100.36 |  -100.36     0.20 -1976.81
+  9 |   -97.18 |   -97.18     1.00 -1977.16
+ 10 |   -99.43 |   -99.43     0.10 -1983.01
+ 11 |   -99.06 |   -99.06     0.01 -1983.68
+ 12 |   -99.72 |   -99.72     0.00 -1983.84
+ 13 |   -99.48 |   -99.48     0.01 -1983.89
+ 14 |  -100.19 |  -100.19     0.05 -1984.06
+ 15 |  -100.22 |  -100.22     0.25 -1984.44
+ 16 |  -162.71 |  -162.71     1.25 -3276.10
+
+
+exp_name:   my_experiment_09-07-17_11-19
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-07-17_11-24
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-07-17_11-24
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -158.55 |  -158.55     0.20 -3223.62
+  1 |   -92.85 |   -92.85     1.00 -1934.33
+  2 |   -94.14 |   -94.14     2.00 -1935.55
+  3 |   -96.83 |   -96.83     2.00 -1938.24
+  4 |  -102.25 |  -102.25     0.20 -1955.48
+  5 |  -104.58 |  -104.58     0.10 -1960.21
+  6 |  -103.84 |  -103.84     0.48 -1962.46
+  7 |  -105.02 |  -105.02     0.27 -1992.31
+  8 |  -106.34 |  -106.34     0.03 -2009.98
+  9 |  -106.13 |  -106.13     0.13 -2012.59
+ 10 |  -106.87 |  -106.87     0.12 -2023.50
+ 11 |  -108.33 |  -108.33     0.01 -2032.93
+ 12 |  -108.42 |  -108.42     0.06 -2033.99
+ 13 |  -109.03 |  -109.03     0.01 -2040.72
+ 14 |  -108.59 |  -108.59     0.03 -2041.75
+ 15 |  -109.75 |  -109.75     0.15 -2047.03
+ 16 |  -169.11 |  -169.11     0.01 -3347.29
+ 17 |  -163.45 |  -163.45     0.07 -3348.89
+
+
+exp_name:   my_experiment_09-07-17_11-54
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-07-17_11-56
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-07-17_11-56
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |   -82.21 |   -82.21     0.20 -1772.99
+  1 |   -83.22 |   -83.22     1.00 -1773.15
+  2 |   -83.45 |   -83.45     0.10 -1774.94
+  3 |   -83.50 |   -83.50     0.50 -1775.01
+  4 |   -84.86 |   -84.86     0.05 -1781.75
+  5 |   -84.87 |   -84.87     0.25 -1781.98
+  6 |   -84.64 |   -84.64     1.25 -1783.54
+  7 |   -86.95 |   -86.95     0.73 -1816.85
+  8 |   -89.55 |   -89.55     0.82 -1860.51
+  9 |   -92.97 |   -92.97     2.00 -1907.93
+ 10 |   -96.06 |   -96.06     2.00 -1985.76
+ 11 |   -99.16 |   -99.16     2.00 -2059.63
+ 12 |  -102.25 |  -102.25     2.00 -2123.09
+ 13 |  -105.49 |  -105.49     2.00 -2205.52
+ 14 |  -108.52 |  -108.52     2.00 -2308.92
+ 15 |  -163.54 |  -163.54     0.20 -3871.66
+ 16 |  -168.25 |  -168.25     1.00 -3884.15
+ 17 |  -171.84 |  -171.84     0.10 -3918.99
+ 18 |  -172.55 |  -172.55     0.50 -3923.78
+ 19 |  -172.13 |  -172.13     0.29 -3967.51
+ 20 |  -174.71 |  -174.71     0.56 -3986.53
+ 21 |  -180.62 |  -180.62     2.00 -4027.36
+ 22 |  -183.12 |  -183.12     1.56 -4196.55
+ 23 |  -187.04 |  -187.04     1.98 -4323.38
+ 24 |  -191.09 |  -191.09     2.00 -4563.00
+ 25 |  -193.30 |  -193.30     2.00 -4815.19
+ 26 |  -194.68 |  -194.68     1.30 -5048.99
+ 27 |  -195.76 |  -195.76     1.27 -5187.91
+ 28 |  -197.29 |  -197.29     0.20 -5321.77
+
+
+exp_name:   my_experiment_09-07-17_12-41
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-07-17_12-41
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -180.46 |  -180.46     0.20 -3223.62
+  1 |  -175.82 |  -175.82     0.04 -3243.51
+
+
+exp_name:   my_experiment_09-07-17_12-47
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-07-17_13-04
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-07-17_13-04
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -174.16 |  -174.16     0.20 -3223.62
+  1 |  -170.44 |  -170.44     1.00 -3223.73
+
+
+exp_name:   my_experiment_09-07-17_13-08
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-07-17_13-09
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-07-17_13-09
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -179.16 |  -179.16     0.20 -3223.62
+
+
+exp_name:   my_experiment_09-07-17_13-12
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-07-17_13-12
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -169.07 |  -169.07     0.20 -6447.24
+  1 |  -167.97 |  -167.97     0.11 -6449.51
+  2 |  -169.13 |  -169.13     0.07 -6451.07
+  3 |  -170.10 |  -170.10     0.03 -6453.25
+  4 |  -171.08 |  -171.08     0.00 -6454.55
+  5 |  -170.96 |  -170.96     0.00 -6454.97
+
+
+exp_name:   my_experiment_09-07-17_13-26
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-07-17_13-26
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -169.94 |  -169.94     0.20 -4194.03
+  1 |  -166.92 |  -166.92     0.02 -4201.69
+
+
+exp_name:   my_experiment_09-07-17_13-30
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-07-17_13-34
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-07-17_13-35
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-07-17_13-35
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |   -55.00 |   -55.00     0.20 -1677.61
+  1 |   -55.04 |   -55.04     0.02 -1681.29
+  2 |   -55.18 |   -55.18     0.10 -1682.05
+
+
+exp_name:   my_experiment_09-07-17_13-38
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-07-17_13-39
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-07-17_13-41
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-07-17_13-43
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-07-17_13-43
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |   -55.01 |   -55.01     0.20 -1677.61
+  1 |   -54.52 |   -54.52     0.02 -1686.72
+  2 |   -55.29 |   -55.29     0.10 -1692.25
+  3 |   -55.25 |   -55.25     0.50 -1708.51
+  4 |   -55.86 |   -55.86     0.51 -1730.33
+  5 |   -55.47 |   -55.47     0.06 -1752.14
+  6 |   -56.37 |   -56.37     0.31 -1763.77
+  7 |   -56.57 |   -56.57     0.11 -1777.18
+  8 |   -56.80 |   -56.80     0.04 -1785.42
+  9 |   -56.65 |   -56.65     0.18 -1788.89
+ 10 |  -150.57 |  -150.57     0.02 -4302.65
+
+
+exp_name:   my_experiment_09-07-17_17-31
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-07-17_17-31
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-07-17_17-42
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-07-17_17-46
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-07-17_17-46
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |   -42.61 |   -42.61     0.20 -1677.61
+  1 |   -46.03 |   -46.03     0.23 -1767.90
+
+
+exp_name:   my_experiment_09-07-17_17-50
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-07-17_17-50
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |   -42.86 |   -42.86     0.20 -2578.90
+  1 |   -42.76 |   -42.76     0.02 -2578.93
+  2 |  -122.57 |  -122.57     0.10 -6447.28
+  3 |  -122.53 |  -122.53     0.50 -6447.31
+
+
+exp_name:   my_experiment_09-07-17_18-12
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-07-17_18-14
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-07-17_18-15
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-07-17_18-15
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |   -42.61 |   -42.61     0.20 -1677.61
+  1 |   -42.63 |   -42.63     1.00 -1677.65
+
+
+exp_name:   my_experiment_09-07-17_18-18
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-07-17_18-18
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |   -42.63 |   -42.63     0.20 -1677.61
+  1 |   -42.62 |   -42.62     1.00 -1677.66
+
+
+exp_name:   my_experiment_09-08-17_13-30
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_14-05
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_14-06
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_14-09
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_14-19
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_14-22
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_14-27
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_14-29
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_14-32
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_14-50
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_14-55
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_14-59
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_15-02
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-08-17_15-02
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -156.25 |  -156.25     0.20 -4194.03
+
+
+exp_name:   my_experiment_09-08-17_15-06
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_15-09
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_15-15
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_15-17
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_15-17
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_15-18
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_15-19
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_15-20
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_15-21
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-08-17_15-21
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -172.15 |  -172.15     0.20 -2655.97
+  1 |  -172.68 |  -172.68     0.15 -2684.36
+  2 |  -174.40 |  -174.40     0.10 -2715.64
+  3 |  -175.30 |  -175.30     0.09 -2737.21
+  4 |  -177.31 |  -177.31     0.06 -2756.48
+  5 |  -178.38 |  -178.38     0.06 -2767.96
+  6 |  -178.45 |  -178.45     0.05 -2775.66
+  7 |  -178.45 |  -178.45     0.03 -2786.70
+  8 |  -179.11 |  -179.11     0.02 -2793.86
+  9 |  -180.05 |  -180.05     0.03 -2798.51
+ 10 |  -179.96 |  -179.96     0.01 -2805.66
+ 11 |  -181.09 |  -181.09     0.01 -2811.32
+ 12 |  -180.36 |  -180.36     0.01 -2815.75
+ 13 |  -182.40 |  -182.40     0.00 -2820.58
+ 14 |  -182.59 |  -182.59     0.01 -2822.87
+
+
+exp_name:   my_experiment_09-08-17_20-09
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_20-14
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_20-21
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-08-17_20-21
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -172.29 |  -172.29     1.00 -2706.94
+  1 |  -178.58 |  -178.58     2.00 -2845.91
+  2 |  -188.77 |  -188.77     2.00 -3044.59
+  3 |  -197.57 |  -197.57     0.02 -3218.91
+  4 |  -202.38 |  -202.38     0.00 -3223.74
+  5 |  -202.98 |  -202.98     0.05 -3227.00
+  6 |  -202.60 |  -202.60     0.02 -3233.90
+
+
+exp_name:   my_experiment_09-08-17_20-55
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_20-59
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-08-17_20-59
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -164.44 |  -164.44     1.00 -2669.09
+  1 |  -171.52 |  -171.52     1.85 -2740.19
+  2 |  -173.86 |  -173.86     2.00 -2846.26
+  3 |  -171.97 |  -171.97     1.00 -3004.44
+  4 |  -187.23 |  -187.23     0.01 -3072.00
+  5 |  -176.34 |  -176.34     0.25 -3085.16
+
+
+exp_name:   my_experiment_09-08-17_21-48
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_21-55
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-08-17_22-00
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-08-17_22-00
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -178.86 |  -178.86     1.00 -2658.97
+  1 |  -179.47 |  -179.47     2.00 -2688.56
+  2 |  -182.95 |  -182.95     2.00 -2820.54
+  3 |  -194.91 |  -194.91     2.00 -3008.79
+  4 |  -202.23 |  -202.23     2.00 -3270.80
+  5 |  -207.17 |  -207.17     2.00 -3524.33
+
+
+exp_name:   my_experiment_09-08-17_22-32
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-09-17_12-00
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-09-17_12-03
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-09-17_12-03
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -168.78 |  -168.78     1.00 -2683.90
+  1 |  -168.64 |  -168.64     1.50 -2780.29
+  2 |  -168.80 |  -168.80     0.98 -2881.63
+  3 |  -168.64 |  -168.64     2.00 -2982.31
+  4 |  -169.90 |  -169.90     2.00 -3168.06
+  5 |  -167.81 |  -167.81     1.00 -3289.57
+  6 |  -168.12 |  -168.12     0.20 -3324.82
+  7 |  -169.03 |  -169.03     0.51 -3411.49
+
+
+exp_name:   my_experiment_09-10-17_11-47
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-10-17_12-06
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-10-17_12-12
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-10-17_12-32
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-10-17_12-36
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-10-17_12-41
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-10-17_12-50
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-10-17_12-51
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-10-17_12-52
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-10-17_13-08
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-10-17_13-19
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-10-17_13-21
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-10-17_13-25
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-10-17_13-26
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-10-17_13-26
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -169.84 |  -169.84     1.00 -2656.72
+  1 |  -169.85 |  -169.85     2.00 -2664.61
+  2 |  -170.19 |  -170.19     2.00 -2686.74
+  3 |  -173.40 |  -173.40     2.00 -2782.95
+  4 |  -176.07 |  -176.07     1.35 -2911.54
+  5 |  -178.13 |  -178.13     2.00 -3009.50
+  6 |  -190.40 |  -190.40     1.53 -3260.92
+  7 |  -202.29 |  -202.29     2.00 -3576.44
+
+
+exp_name:   my_experiment_09-10-17_14-05
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_14-47
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_14-56
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_14-58
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_14-59
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_15-00
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_15-01
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_15-03
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-11-17_15-03
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -160.88 |  -160.88     0.20 -2655.97
+  1 |  -161.63 |  -161.63     0.08 -2668.64
+  2 |  -161.24 |  -161.24     0.39 -2676.21
+  3 |  -163.63 |  -163.63     0.04 -2704.65
+
+
+exp_name:   my_experiment_09-11-17_15-25
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_15-28
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_15-28
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-11-17_15-28
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -161.05 |  -161.05     0.20 -2253.21
+  1 |  -163.53 |  -163.53     0.03 -2256.98
+  2 |  -162.47 |  -162.47     0.13 -2259.04
+
+
+exp_name:   my_experiment_09-11-17_15-34
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-11-17_15-34
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -156.82 |  -156.82     0.20 -2253.21
+  1 |  -156.80 |  -156.80     0.02 -2263.38
+
+
+exp_name:   my_experiment_09-11-17_15-38
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_15-39
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_15-39
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_15-40
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_15-41
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-11-17_15-41
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -160.94 |  -160.94     0.20 -2253.21
+  1 |  -157.17 |  -157.17     0.02 -2285.84
+  2 |  -159.41 |  -159.41     0.10 -2287.32
+
+
+exp_name:   my_experiment_09-11-17_15-47
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-11-17_15-47
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -163.26 |  -163.26     0.20 -2253.21
+  1 |  -157.43 |  -157.43     0.02 -2293.90
+  2 |  -164.41 |  -164.41     0.10 -2297.04
+  3 |  -164.78 |  -164.78     0.50 -2311.46
+  4 |  -164.25 |  -164.25     0.19 -2385.38
+  5 |  -166.86 |  -166.86     0.02 -2422.97
+  6 |  -167.04 |  -167.04     0.09 -2426.92
+  7 |  -167.69 |  -167.69     0.01 -2451.94
+  8 |  -167.43 |  -167.43     0.01 -2459.99
+  9 |  -168.20 |  -168.20     0.00 -2467.71
+
+
+exp_name:   my_experiment_09-11-17_16-05
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-06
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-09
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-11
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-11
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-12
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-13
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-14
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-15
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-16
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-17
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-19
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-11-17_16-19
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -151.73 |  -151.73     0.20 -11241.07
+
+
+exp_name:   my_experiment_09-11-17_16-21
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-23
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-24
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-25
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-26
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-27
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-29
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-29
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-30
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-31
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-32
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-33
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-33
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-34
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-34
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-35
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-36
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-36
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-37
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-38
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-39
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-40
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-41
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_16-44
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-11-17_16-44
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -175.51 |  -175.51     0.20 -12282.15
+  1 |  -175.36 |  -175.36     0.02 -8365.21
+
+
+exp_name:   my_experiment_09-11-17_16-49
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-11-17_16-49
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -171.46 |  -171.46     0.20  -358.08
+
+
+exp_name:   my_experiment_09-11-17_16-51
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-11-17_16-51
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -173.39 |  -173.39     0.20 -1640.88
+
+
+exp_name:   my_experiment_09-11-17_16-54
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-11-17_16-54
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -174.27 |  -174.27     0.20 -2611.29
+  1 |  -162.11 |  -162.11     0.02  1305.65
+  2 |  -163.06 |  -163.06     0.00  1241.01
+  3 |  -164.26 |  -164.26     0.01  1229.22
+  4 |  -163.08 |  -163.08     0.05  1190.73
+
+
+exp_name:   my_experiment_09-11-17_17-05
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-11-17_17-05
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -162.47 |  -162.47     0.20 -2611.29
+
+
+exp_name:   my_experiment_09-11-17_17-08
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_17-09
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-11-17_17-09
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -164.34 |  -164.34     0.20 -4864.50
+
+
+exp_name:   my_experiment_09-11-17_17-15
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_17-15
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_17-17
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_17-17
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_17-18
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_17-21
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-11-17_17-21
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -167.00 |  -167.00     0.02  -947.57
+  1 |  -166.37 |  -166.37     0.50 -1129.75
+  2 |  -168.51 |  -168.51     1.23 -1761.16
+  3 |  -176.60 |  -176.60     2.00 -2488.81
+  4 |  -185.81 |  -185.81     2.00 -3156.75
+
+
+exp_name:   my_experiment_09-11-17_17-38
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-11-17_17-38
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -172.95 |  -172.95     0.02  -947.57
+  1 |  -171.84 |  -171.84     0.50  -949.48
+  2 |  -168.00 |  -168.00     2.00 -1786.94
+  3 |  -171.02 |  -171.02     2.00 -2566.19
+  4 |  -187.04 |  -187.04     2.00 -3199.92
+  5 |  -190.56 |  -190.56     1.00 -3568.39
+  6 |  -199.11 |  -199.11     2.00 -3981.51
+
+
+exp_name:   my_experiment_09-11-17_18-01
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-11-17_18-01
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -285.61 |  -285.61     0.02  -947.57
+  1 |  -288.52 |  -288.52     0.50  -953.07
+  2 |  -285.79 |  -285.79     2.00  -992.96
+  3 |  -291.51 |  -291.51     2.00 -2229.61
+  4 |  -302.84 |  -302.84     2.00 -2740.23
+  5 |  -300.93 |  -300.93     0.91 -3023.87
+  6 |   187.21 |   187.21     0.01 -3162.84
+
+
+exp_name:   my_experiment_09-11-17_18-39
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 3
+samples:    5
+
+
+
+exp_name:   my_experiment_09-11-17_18-49
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 2
+samples:    5
+
+my_experiment_09-11-17_18-49
+    |                       |          condition 0                                  |          condition 1                                 
+itr | avg_cost avg_pol_cost |   cost     step   entropy  pol_cost kl_div_i kl_div_f |   cost     step   entropy  pol_cost kl_div_i kl_div_f
+  0 |  -144.56        -4.59 |  -173.48     0.50 -1350.32  -157.60     0.21     0.31 |  -115.65     0.50 -1350.32   148.42     0.33     0.44
+  1 |  -144.73      -143.97 |  -171.73     0.05 -1699.77  -170.73     0.97     1.10 |  -117.73     2.68 -1421.24  -117.21     0.67     1.04
+
+
+exp_name:   my_experiment_09-12-17_11-51
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-12-17_11-55
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-12-17_11-56
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-12-17_11-57
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-12-17_12-06
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-12-17_12-33
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-12-17_12-38
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-12-17_12-54
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-12-17_12-55
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-12-17_13-04
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-12-17_13-12
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-12-17_13-13
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-12-17_13-16
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-12-17_13-17
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    2
+
+
+
+exp_name:   my_experiment_09-12-17_13-20
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    2
+
+
+
+exp_name:   my_experiment_09-12-17_13-32
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    2
+
+
+
+exp_name:   my_experiment_09-12-17_13-34
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    2
+
+my_experiment_09-12-17_13-34
+    |          |          condition 0       |          condition 1      
+itr | avg_cost |   cost     step   entropy  |   cost     step   entropy 
+  0 |  -176.92 |  -180.69     0.02 -2656.06 |  -173.15     1.00 -2656.23
+
+
+exp_name:   my_experiment_09-12-17_13-38
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    2
+
+my_experiment_09-12-17_13-38
+    |          |          condition 0       |          condition 1       |          condition 2       |          condition 3       |          condition 4       |          condition 5      
+itr | avg_cost |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy 
+  0 |  -169.45 |  -175.56     1.00 -2657.72 |  -171.60     0.02 -2656.66 |  -172.04     0.02 -2663.21 |  -177.00     0.02 -2656.21 |  -176.52     0.02 -2659.98 |  -143.98     0.02 -2656.40
+  1 |  -170.84 |  -174.87     2.00 -2664.60 |  -179.68     0.50 -2658.31 |  -172.97     0.01 -2663.51 |  -177.27     0.00 -2656.27 |  -176.23     0.00 -2660.36 |  -144.03     0.00 -2656.58
+
+
+exp_name:   my_experiment_09-12-17_17-36
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-12-17_17-41
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-12-17_17-42
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-12-17_17-43
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+my_experiment_09-12-17_17-43
+    |          |          condition 0       |          condition 1       |          condition 2       |          condition 3       |          condition 4       |          condition 5      
+itr | avg_cost |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy 
+  0 |  -169.90 |  -176.62     1.00 -2656.81 |  -174.23     1.00 -2656.67 |  -173.63     1.00 -2656.54 |  -177.77     0.02 -2656.39 |  -175.42     1.00 -2657.14 |  -141.72     0.73 -2657.10
+
+
+exp_name:   my_experiment_09-12-17_18-04
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+my_experiment_09-12-17_18-04
+    |          |          condition 0       |          condition 1       |          condition 2       |          condition 3       |          condition 4       |          condition 5      
+itr | avg_cost |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy 
+  0 |  -167.94 |  -175.28     1.00 -2674.39 |  -172.95     1.00 -2656.39 |  -170.38     1.00 -2656.58 |  -175.54     1.00 -2656.38 |  -173.45     1.00 -2656.97 |  -140.05     1.00 -2656.86
+  1 |  -169.70 |  -179.77     0.01 -2737.13 |  -172.34     2.00 -2660.92 |  -170.94     2.00 -2661.42 |  -175.85     0.01 -2657.51 |  -174.71     2.00 -2664.58 |  -144.59     0.01 -2659.97
+  2 |  -168.51 |  -176.11     0.01 -2737.80 |  -172.72     2.00 -2670.86 |  -170.20     1.00 -2666.59 |  -176.35     0.01 -2657.58 |  -174.36     1.00 -2671.71 |  -141.33     0.25 -2660.62
+  3 |  -171.59 |  -177.39     0.12 -2739.39 |  -178.64     1.00 -2781.17 |  -172.95     2.00 -2881.68 |  -176.14     0.06 -2678.67 |  -178.45     2.00 -2783.71 |  -146.00     0.26 -2718.53
+  4 |  -176.57 |  -177.94     2.00 -2753.77 |  -178.31     2.00 -2907.08 |  -181.66     1.00 -3071.40 |  -178.05     0.01 -2712.12 |  -188.93     2.00 -3100.11 |  -154.51     1.47 -2802.82
+
+
+exp_name:   my_experiment_09-13-17_11-28
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-13-17_12-15
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-13-17_12-25
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-13-17_12-32
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+my_experiment_09-13-17_12-32
+    |          |          condition 0       |          condition 1       |          condition 2       |          condition 3       |          condition 4       |          condition 5      
+itr | avg_cost |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy 
+  5 |  -177.46 |  -178.49     2.00 -2825.50 |  -181.62     1.00 -3071.08 |  -181.65     2.00 -3201.39 |  -178.18     0.28 -2721.60 |  -187.10     0.65 -3299.67 |  -157.70     1.95 -2973.47
+  6 |  -183.72 |  -185.90     0.02 -2910.40 |  -183.32     2.00 -3227.25 |  -187.94     1.93 -3410.99 |  -182.43     0.56 -2784.41 |  -191.78     0.93 -3411.24 |  -170.97     2.00 -3302.01
+  7 |  -184.16 |  -189.07     0.00 -2913.69 |  -161.28     0.02 -3392.26 |  -190.16     1.89 -3678.11 |  -187.41     2.00 -2955.35 |  -197.33     2.00 -3715.76 |  -179.73     2.00 -3612.91
+  8 |  -189.68 |  -187.02     0.02 -2915.95 |  -186.76     0.50 -3393.31 |  -191.62     1.36 -3917.70 |  -196.15     2.00 -3378.33 |  -198.64     2.00 -4114.15 |  -177.92     1.35 -3885.84
+  9 |  -195.43 |  -187.12     0.36 -2922.89 |  -189.27     2.00 -3417.74 |  -198.31     1.46 -4070.13 |  -201.59     2.00 -3785.28 |  -204.71     2.00 -4588.51 |  -191.60     2.00 -4141.80
+ 10 |  -196.58 |  -187.70     0.67 -2940.38 |  -196.27     2.00 -3672.10 |  -192.90     0.73 -4212.19 |  -203.20     1.96 -4093.82 |  -204.38     1.00 -4949.01 |  -195.04     1.00 -4358.55
+ 11 |  -199.24 |  -189.21     0.77 -2964.12 |  -198.34     1.00 -3921.75 |  -196.60     0.59 -4284.14 |  -208.81     0.98 -4493.75 |  -212.29     2.00 -5170.12 |  -190.17     0.53 -4474.42
+ 12 |  -199.59 |  -192.37     2.00 -3035.29 |  -209.48     2.00 -4233.28 |  -192.58     0.36 -4328.04 |  -205.12     0.54 -4665.76 |  -214.25     2.00 -5498.72 |  -183.76     0.42 -4537.23
+
+
+exp_name:   my_experiment_09-13-17_22-02
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+my_experiment_09-13-17_22-02
+    |          |          condition 0       |          condition 1       |          condition 2       |          condition 3       |          condition 4       |          condition 5      
+itr | avg_cost |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy 
+ 13 |  -191.55 |  -194.08     1.00 -3098.02 |  -177.72     1.00 -4473.00 |  -192.78     0.58 -4369.77 |  -200.62     0.27 -4799.81 |  -199.15     1.00 -5718.49 |  -184.96     0.62 -4596.58
+ 14 |  -197.00 |  -194.73     1.18 -3159.57 |  -192.15     2.00 -4571.63 |  -195.11     0.73 -4422.56 |  -202.05     1.46 -4863.91 |  -206.22     0.96 -5792.70 |  -191.76     0.65 -4699.67
+ 15 |  -198.84 |  -194.78     1.58 -3220.02 |  -194.39     1.40 -4674.69 |  -198.86     2.00 -4565.78 |  -203.66     0.73 -4950.11 |  -207.31     2.00 -5937.44 |  -194.04     2.00 -4862.81
+ 16 |  -199.93 |  -197.27     2.00 -3303.27 |  -196.65     2.00 -4791.93 |  -199.74     1.92 -4732.32 |  -204.83     0.36 -4962.09 |  -205.00     1.00 -6101.19 |  -196.12     2.00 -5092.95
+
+
+exp_name:   my_experiment_09-13-17_23-26
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-13-17_23-28
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-13-17_23-32
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-14-17_01-38
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+
+
+exp_name:   my_experiment_09-14-17_01-59
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 9
+samples:    5
+
+my_experiment_09-14-17_01-59
+    |          |          condition 0       |          condition 1       |          condition 2       |          condition 3       |          condition 4       |          condition 5      
+itr | avg_cost |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy  |   cost     step   entropy 
+ 17 |  -198.73 |  -193.06     1.00 -3364.21 |  -189.19     1.00 -4888.41 |  -201.82     2.00 -4915.92 |  -205.96     2.00 -5083.49 |  -206.87     0.73 -6216.00 |  -195.50     1.69 -5287.48
+
+
+exp_name:   my_experiment_09-14-17_02-48
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-14-17_02-53
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-14-17_02-54
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-14-17_02-55
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-14-17_02-58
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-14-17_03-00
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-14-17_03-00
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-14-17_03-02
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-14-17_03-02
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-14-17_03-05
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-14-17_03-06
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-14-17_03-08
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-14-17_03-09
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-14-17_03-10
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-14-17_03-18
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-14-17_03-18
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -159.59 |  -159.59     1.00 -2689.20
+  1 |  -165.11 |  -165.11     0.50 -2788.74
+  2 |  -164.88 |  -164.88     2.00 -2912.67
+  3 |  -180.16 |  -180.16     1.35 -3137.80
+  4 |  -198.20 |  -198.20     0.02 -3273.32
+  5 |  -199.36 |  -199.36     0.00 -3283.82
+  6 |  -200.09 |  -200.09     0.05 -3289.32
+
+
+exp_name:   my_experiment_09-14-17_03-56
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-14-17_03-59
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-14-17_03-59
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -152.88 |  -152.88     1.00 -2656.14
+  1 |  -153.67 |  -153.67     0.50 -2656.56
+  2 |  -154.07 |  -154.07     2.00 -2914.81
+  3 |  -157.40 |  -157.40     2.00 -3305.68
+  4 |  -159.18 |  -159.18     0.34 -3626.01
+  5 |  -159.84 |  -159.84     1.48 -3775.25
+
+
+exp_name:   my_experiment_09-14-17_04-28
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-14-17_04-28
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -153.23 |  -153.23     0.03 -2656.01
+  1 |  -154.48 |  -154.48     0.80 -2657.03
+  2 |  -153.67 |  -153.67     2.00 -3145.45
+  3 |  -155.89 |  -155.89     2.00 -3745.00
+
+
+exp_name:   my_experiment_09-14-17_04-43
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_09-14-17_04-47
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_09-14-17_04-47
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  4 |  -154.29 |  -154.29     0.02 -4032.35
+
+
+exp_name:   my_experiment_09-14-17_04-53
+alg_type:   AlgorithmTrajOptSmart
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+

@@ -63,11 +63,12 @@ class TfPolicy(Policy):
             action_mean = results[0]
             for i, op_name in enumerate(extra):
                 print '{}:'.format(op_name), results[i+1]
+            # action_mean = self.sess.run(self.act_op, feed_dict={self.obs_tensor: obs})
         if noise is None:
             u = action_mean
         else:
             u = action_mean + self.chol_pol_covar.T.dot(noise)
-        return u[0], results[1:]  # the DAG computations are batched by default, but we use batch size 1.
+        return u[0] #, results[1:]  # the DAG computations are batched by default, but we use batch size 1.
 
     def get_features(self, obs):
         """
