@@ -23,7 +23,7 @@ src/gps_agent_pkg/devel/
 src/gps_agent_pkg/gtest/
 src/gps_agent_pkg/lib/
 src/gps_agent_pkg/src/gps_agent_pkg/srv
-src/gps_agent_pkg/MakeFile
+src/gps_agent_pkg/Makefile
 src/gps_agent_pkg/CMakeCache.txt
 experiments/pr2_example/log.txt
 
