@@ -156,9 +156,10 @@ class TfSolver:
                 ops = [self.loss_scalar, self.fc_solver_op]
             else:
                 ops = [self.loss_scalar, self.solver_op]
-            #ops.extend([sw, scoeffs, sref_range, st])
+            # ops.extend([sw, scoeffs, sref_range, st])
             results = sess.run(ops, feed_dict)
             loss, _ = results
+            # loss, _, w, coeffs, ref_range, t = results
             # print 'w:', w
             # print 'coeffs:', coeffs
             # print 'ref_range:', ref_range

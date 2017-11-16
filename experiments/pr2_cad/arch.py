@@ -47,11 +47,6 @@ def load_data(dir, load_algorithm_too=True):
         algorithm_state = None
     return traj_samples, algorithm_state, itr
 
-def save_data(output_dir, sample_lists):
-    if not osp.isdir(output_dir):
-        os.makedirs(output_dir)
-    DataLogger().pickle(osp.join(output_dir, 'pol_sample_itr_test.pkl'), sample_lists)
-
 def setup_policy_opt(hyperparams, attention, structure, dO, dU):
     policy_opt = copy.copy(hyperparams.algorithm['policy_opt'])
     network_params = policy_opt['network_params']
@@ -66,6 +61,8 @@ def setup_policy_opt(hyperparams, attention, structure, dO, dU):
         network_params['attention'] = distance_offset_attention
     elif attention == 'ntm':
         network_params['attention'] = ntm_attention
+    elif attention == 'time_fixed':
+        network_params['attention'] = time_fixed_attention
     elif attention == 'time':
         network_params['attention'] = time_attention
     elif attention == 'centering':
@@ -75,6 +72,8 @@ def setup_policy_opt(hyperparams, attention, structure, dO, dU):
 
     if structure == 'mlp':
         network_params['structure'] = mlp_structure
+    elif structure == 'factored_mlp':
+        network_params['structure'] = factored_mlp_structure
     elif structure == 'mlp_resnet':
         network_params['structure'] = mlp_resnet_structure
     elif structure == 'linear':
@@ -88,8 +87,6 @@ def setup_policy_opt(hyperparams, attention, structure, dO, dU):
     ops.reset_default_graph()  # we need to destroy the default graph before re_init or checkpoint won't restore.
     return policy_opt['type'](policy_opt, dO, dU)
 
-def take_policy_samples(agent, policy, conditions, n):
-    return [SampleList([agent.sample(policy, cond, save=False, noisy=False) for _ in range(n)]) for cond in range(conditions)]
 
 def main(arch, n):
     hyperparams = imp.load_source('hyperparams', 'hyperparams.py')

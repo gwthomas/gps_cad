@@ -87,36 +87,68 @@ def listify(o):
         return list(o)
 
 
+# def interpolate(points, T):
+#     n = len(points)
+#     if n > T:
+#         raise RuntimeError('Cannot interpolate {} points over {} timesteps'.format(n,T))
+#
+#     interpolated_points = []
+#     segment_lengths = []
+#     num_segments = n - 1
+#     base_pps = T // num_segments    # points per segment
+#     leftover = T - base_pps * num_segments
+#     for segment_idx in range(num_segments):
+#         prev, next = points[segment_idx], points[segment_idx+1]
+#         segment = []
+#         if segment_idx < num_segments - 1:
+#             if leftover:
+#                 extra = np.random.binomial(leftover, 1.0/num_segments)
+#                 leftover -= extra
+#             else:
+#                 extra = 0
+#             points_in_this_segment = base_pps + extra
+#             close = False
+#         else:
+#             points_in_this_segment = T - sum(segment_lengths)   # los demas
+#             close = True
+#
+#         segment_lengths.append(points_in_this_segment)
+#
+#         for i in range(points_in_this_segment):
+#             if close:
+#                 progress = float(i) / (points_in_this_segment - 1)
+#             else:
+#                 progress = float(i) / points_in_this_segment
+#             interpolated_point = prev + progress * (next - prev)
+#             interpolated_points.append(interpolated_point)
+#             segment.append(interpolated_point)
+#
+#     print 'Interpolation segment lengths', segment_lengths
+#     return interpolated_points
+
 def interpolate(points, T):
     n = len(points)
     if n > T:
         raise RuntimeError('Cannot interpolate {} points over {} timesteps'.format(n,T))
 
     interpolated_points = []
-    segment_lengths = []
     num_segments = n - 1
-    base_pps = T // num_segments    # points per segment
-    leftover = T - base_pps * num_segments
+    segment_lengths = np.array([T // num_segments] * num_segments)
+    uniform = np.ones(num_segments) / num_segments
+    for i in range(T - sum(segment_lengths)):
+        segment_lengths[i] += 1
     for segment_idx in range(num_segments):
         prev, next = points[segment_idx], points[segment_idx+1]
         segment = []
-        if segment_idx < num_segments - 1:
-            if leftover:
-                extra = np.random.binomial(leftover, 1.0/num_segments)
-                leftover -= extra
-            else:
-                extra = 0
-            points_in_this_segment = base_pps + extra
-            close = False
-        else:
-            points_in_this_segment = T - sum(segment_lengths)   # los demas
-            close = True
-
-        segment_lengths.append(points_in_this_segment)
+        points_in_this_segment = segment_lengths[segment_idx]
+        close = segment_idx == num_segments - 1
 
         for i in range(points_in_this_segment):
             if close:
-                progress = float(i) / (points_in_this_segment - 1)
+                if points_in_this_segment > 1:
+                    progress = float(i) / (points_in_this_segment - 1)
+                else:
+                    progress = 1.0
             else:
                 progress = float(i) / points_in_this_segment
             interpolated_point = prev + progress * (next - prev)
@@ -124,6 +156,7 @@ def interpolate(points, T):
             segment.append(interpolated_point)
 
     print 'Interpolation segment lengths', segment_lengths
+    assert sum(segment_lengths) == T
     return interpolated_points
 
 def find_closest_T(ref_ja, ref_ee, goal_ref_ja, goal_ref_ee):

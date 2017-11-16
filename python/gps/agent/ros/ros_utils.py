@@ -118,11 +118,11 @@ class ServiceEmulator(object):
             self._subscriber_msg = message
             self._waiting = False
 
-    def publish(self, pub_msg):
-        """ Publish a message without waiting for response. """
-        assert not self._waiting
+    def publish(self, pub_msg, wait=False):
+        if wait:
+            assert not self._waiting
+            self._waiting = True
         self._pub.publish(pub_msg)
-        self._waiting = True
 
     def publish_and_wait(self, pub_msg, timeout=5.0, poll_delay=0.01,
                          check_id=False):
@@ -140,7 +140,7 @@ class ServiceEmulator(object):
         """
         if check_id:  # This is not yet implemented in C++.
             raise NotImplementedError()
-        self.publish(pub_msg)
+        self.publish(pub_msg, wait=True)
 
         time_waited = 0
         while self._waiting:

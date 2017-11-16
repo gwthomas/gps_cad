@@ -159,7 +159,7 @@ def time_attention(config, args):
     centered_flat = tf.reshape(centered_range, [-1, 9*n_range])
 
     mlp_in = tf.concat([centered_flat, ee_vel], 1)
-    mlp_sizes = config['mlp_hidden_sizes'] + [n_range]
+    mlp_sizes = config['hidden_attention'] + [n_range]
     with tf.variable_scope('attention'):
         mlp_out, mlp_weights, mlp_biases = get_mlp_layers(mlp_in, len(mlp_sizes), mlp_sizes, nonlinear_output=False)
     coeffs, weights = tf.nn.softmax(mlp_out / temperature), mlp_weights + mlp_biases
@@ -190,7 +190,7 @@ def factored_mlp_structure(config, args):
     weights = state_weights + attended_weights
     biases = state_biases + attended_biases
     reg = config['regularization'] * tf.nn.l2_loss(state_mlp_out)
-    return final_out, weights + biases, []
+    return final_out, weights + biases, [reg]
 
 def mlp_structure(config, args):
     dim_output = args['dim_output']

@@ -1,4 +1,5 @@
 import glob
+import matplotlib.pyplot as plt
 import numpy as np
 import os.path as osp
 import pdb
@@ -9,32 +10,36 @@ from gps.proto.gps_pb2 import END_EFFECTOR_POINTS
 
 
 NORM = np.inf # which norm to use for computing distances
-STEPS = 5
+# a trial is considered successful if there exists a t
+# such that the end effectors' norms (distances) are at most a given threshold
+
 def ee_distances(X_ee):
     return np.array([np.linalg.norm(X_ee[:,3*i:3*(i+1)], ord=NORM, axis=1) for i in range(3)]).T
 
 def distance(sample):
     X_ee = sample.get(END_EFFECTOR_POINTS)
-    dist = ee_distances(X_ee[-STEPS:])
+    # dist = ee_distances(X_ee[-STEPS:])
+    dist = ee_distances(X_ee)
     return dist
 
-SUCCESS_THRESHOLD = 0.02
-# a trial is considered successful if the end effectors' norms (distances)
-# are all at most SUCCESS_THRESHOLD for the last STEPS timesteps
-def success(sample):
-    return np.all(distance(sample) <= SUCCESS_THRESHOLD)
+def success_fn(threshold):
+    def success(sample):
+        dists = ee_distances(sample.get(END_EFFECTOR_POINTS))
+        return np.any([np.all(d_i <= threshold) for d_i in dists])
+    return success
 
 def unpickle(filename):
-    f = open(filename, 'r')
-    data = pickle.load(f)
-    f.close()
-    return data
+    with open(filename, 'r') as f:
+        return pickle.load(f)
 
-def list_files(dir):
+def list_files(dir, kind='traj'):
     # return glob.glob(osp.join(dir, 'pol_sample_itr_*.pkl'))
-    return glob.glob(osp.join(dir, 'traj_sample_itr_*.pkl'))
+    return glob.glob(osp.join(dir, '{}_sample_itr_*.pkl'.format(kind)))
 
-def load_data(dir):
+def load_data(filename, dir):
+    if osp.isfile(filename):
+        return {'test': unpickle(filename)}
+
     all_files = list_files(dir)
     itrs = {}
     for filename in all_files:
@@ -78,24 +83,30 @@ def print_results(results):
         print 'Iteration', itr
         for cond in range(len(results[itr])):
             print '\tCondition', cond
-            print '\t\tDistances', results[itr][cond]
+            print '\tDistances', results[itr][cond]
 
 def plot_results(values):
     for itr in successes:
-        print 'Iteration', itr
         for cond in range(len(successes[itr])):
-            print '\tCondition', cond
-            print '\t\tDistances', distances[itr][cond]
-            print '\t\tSuccess?', successes[itr][cond]
+            pass
 
 
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='Evaluate results of policy trials')
+    parser.add_argument('-f', '--filename', metavar='FILENAME', default='')
     parser.add_argument('-d', '--dir', metavar='DIR', default='data_files')
     args = parser.parse_args()
-    data = load_data(args.dir)
-    distances = evaluate_sample_function(data, distance)
-    successes = evaluate_sample_function(data, success)
-    print_results(distances)
-    print_results(successes)
+    data = load_data(args.filename, args.dir)
+    # distances = evaluate_sample_function(data, distance)
+    # print_results(distances)
+    for threshold in [0.01, 0.015, 0.02, 0.025]:
+        successes = evaluate_sample_function(data, success_fn(threshold))
+        # print_results(successes)
+        for itr in successes:
+            print 'Itr:', itr
+            print 'Threshold:', threshold
+            print '\tTotal successes:', np.sum(successes[itr])
+            print '\tSuccess rate:', np.mean(successes[itr])
+            for cond in range(len(successes[itr])):
+                print '\t\tCondition', cond, ':', successes[itr][cond]

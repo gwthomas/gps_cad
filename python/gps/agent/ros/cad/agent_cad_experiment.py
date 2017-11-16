@@ -28,12 +28,11 @@ from pr2_mechanism_msgs.srv import SwitchController
 from tf.transformations import quaternion_matrix, quaternion_slerp
 import tf
 
-from gps.agent.ros.agent_ros import AgentROS
 from gps.agent.agent_utils import generate_noise, setup
 from gps.agent.config import AGENT_ROS
 from gps.algorithm.policy.lin_gauss_init import init_lqr, init_pd
-from gps.agent.ros.ros_utils import ServiceEmulator, msg_to_sample, \
-        policy_to_msg
+from gps.agent.ros.ros_utils import ServiceEmulator, TimeoutException, msg_to_sample, policy_to_msg
+
 from gps.algorithm.policy.lin_gauss_init import init_pd_ref
 from gps.proto.gps_pb2 import TRIAL_ARM, AUXILIARY_ARM, JOINT_ANGLES, \
         JOINT_VELOCITIES, END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, \
@@ -45,11 +44,14 @@ from gps.utility.general_utils import get_ee_points
 from gps.proto.gps_pb2 import JOINT_ANGLES, END_EFFECTOR_POINTS, \
         END_EFFECTOR_POINT_JACOBIANS, REF_OFFSETS, REF_TRAJ
 
+
 class AgentCADExperiment(AgentCAD):
     def __init__(self, hyperparams, init_node=True, trace=True):
         self.fixed_pose = Pose(Point(0.5, -0.1628, 0.5), Quaternion(0.5, -0.5, -0.5, 0.5))
 
-        with open('/home/gwthomas/.gazebo/models/fixed_piece/model-static.sdf', 'r') as f:
+        # self.fixed_pose = Pose(Point(0.35, -0.1628, 0.5), Quaternion(0.5, -0.5, -0.5, 0.5))
+        # with open('/home/gwthomas/.gazebo/models/fixed_piece/model-static.sdf', 'r') as f:
+        with open('/home/gwthomas/.gazebo/models/piece/model-static.sdf', 'r') as f:
            self.fixed_piece_xml = f.read()
 
         AgentCAD.__init__(self, hyperparams, init_node)
@@ -64,6 +66,9 @@ class AgentCADExperiment(AgentCAD):
             self.ar_functions[self.ar['fixed_piece']] = self.create_AR_function( \
                 self.ar['fixed_piece'], 0, -0.025, -0.0325, 0, 0, 0)
 
+        self.hack = -1.0
+        self.try_mp = False
+
         if trace:
             pdb.set_trace()     # for optional setup, not debugging
 
@@ -75,6 +80,7 @@ class AgentCADExperiment(AgentCAD):
     def setup(self):
         self.configure_scene()
         self.grasp_prep()
+        self.configure_scene()
 
     def configure_scene(self):
         print 'Clearing planning scene'
@@ -84,7 +90,8 @@ class AgentCADExperiment(AgentCAD):
         self.reset_held_piece()
 
         print 'Adding objects to planning scene'
-        self.add_object('table', position=[0.75,0.,0.42], size=[0.9,1.5,0.03], type='box')
+        self.add_object('table', position=[0.6,0.,0.42], size=[0.9,1.5,0.03], type='box')
+        # self.add_object('table', position=[0.75,0.,0.42], size=[0.9,1.5,0.03], type='box')
         # self.add_object('table', position=[0.8,0.,z], size=[0.7,1.5,0.03], type='box')
 
         exp_dir = self._hyperparams['exp_dir']
@@ -95,8 +102,9 @@ class AgentCADExperiment(AgentCAD):
             #pose, euler = self.pose_from_AR(name)
             self.add_object(name, position=listify(pose.position),
                     orientation=listify(pose.orientation),
-                    size=(0.001, 0.001, 0.001),
-                    filename=osp.join(exp_dir, '%s.stl' % name))
+                    size=(0.05, 0.05, 0.0254),
+                    filename=osp.join(exp_dir, 'piece.stl'))
+                    # filename=osp.join(exp_dir, '%s.stl' % name))
 
     def reset_held_piece(self):
         print 'Resetting held piece'
@@ -104,15 +112,45 @@ class AgentCADExperiment(AgentCAD):
         pose = Pose(Point(0.841529, 0.209424, 0.501394), quat)
         self.set_pose('held_piece', pose)
 
+    def reset_arm(self, ja, arm=TRIAL_ARM):
+        self.use_controller('GPS')
+        if self.close_to_ja(ja):
+            print 'Ignoring reset (within tolerance)'
+            return
+
+        timeout = self._hyperparams['reset_timeout']
+        if arm == TRIAL_ARM:
+            if self.try_mp:
+                try:
+                    plan = self.plan_joints(ja)
+                    if plan:
+                        self.execute(plan)
+                    else:
+                        print 'Failed to generate reset plan'
+                except Exception as e:
+                    print 'Exception thrown:', e
+                    pass # just let GPS reset try
+                print 'Post-MoveIt', self.get_joint_angles()
+
+            if self.hack is not None:
+                hack_idx = 1   # yikes
+                ja_hack = np.array(ja)
+                ja_hack[hack_idx] = self.hack
+                try:
+                    self.issue_position_command(ja_hack, timeout, arm=arm)
+                except TimeoutException:
+                    pass
+
+        self.issue_position_command(ja, timeout, arm=arm)
+
     def reset(self, condition):
         try:
            self.delete_model('fixed_piece')
-        except:
-           pass
+        except: pass
         AgentCAD.reset(self, condition)
         self.spawn_model('fixed_piece', self.fixed_piece_xml, self.fixed_pose)
 
-    def compute_plan(self, condition, dx=0.0, dy=0.0, dz=0.0):
+    def plan_for_condition(self, condition, dx=0.0, dy=0.0, dz=0.0):
         self.reset(condition)
         target = self._hyperparams['targets'][condition]
         position = list(target['position'])
@@ -121,25 +159,53 @@ class AgentCADExperiment(AgentCAD):
         position[2] += dz
         return self.plan_end_effector(position, target['orientation'], attempts=self.planning_attempts)
 
-    def grasp_prep(self, dx=-0.2, dy=0.023, dz=0.00375):
+    # def grasp_prep(self, dx=-0.2, dy=0.023, dz=0.00375):
+    def grasp_prep(self, dx=-0.2, dy=0.0, dz=0.0075):
         self.use_controller('MoveIt')
         self.ungrip(15)
 
         target_position = listify(self.get_pose('held_piece').position)
-        target_position[0] += dx - 0.03
+        target_position[0] += dx - 0.05
         target_position[1] += dy
         target_position[2] += dz
         self.move_to(target_position, [0,0,0])
 
-        target_position[0] += 0.03
+        target_position[0] += 0.05
         self.move_to(target_position, [0,0,0])
 
     def grasp(self):
-        # self.grip(None)
-        # time.sleep(5)
-        self.grip(3)
+        self.grip(None)
+        time.sleep(3)
         self.attach('held_piece', touch_links=['l_gripper_l_finger_tip_link', 'l_gripper_r_finger_tip_link', \
             'l_gripper_r_finger_link', 'l_gripper_l_finger_link'])
+
+    def random_initial(self):
+        x, y = np.random.uniform(low=[0.2, -0.3], high=[0.6, 0.7])
+        z = 0.525
+
+        print x, y
+
+        rot_x = np.random.choice([0.0, np.pi])
+        rot_z = np.random.choice([0.0, np.pi/2, 3*np.pi/2])
+        orientation = [rot_x, 0.0, rot_z]
+
+        if self.move_to([x,y,z], orientation):
+            time.sleep(2)
+            ja = self.get_joint_angles()
+            return list(ja)
+            # ja_moveit = self.get_joint_angles()
+            # try:
+            #     self.issue_position_command(ja_moveit, 1.0)
+            # except TimeoutException:
+            #     pass
+            # ja_gps = self.get_joint_angles()
+            # return list(ja_gps)
+        else:
+            # try again u scrub
+            return self.random_initial()
+
+    def random_initials(self, n):
+        return [self.random_initial() for _ in range(n)]
 
     # Calculate the goal position depending on where the fixed piece is
     def change_goal(self):
@@ -162,11 +228,6 @@ class AgentCADExperiment(AgentCAD):
         for i in range(self._hyperparams['conditions']):
             self._hyperparams['targets'][i]['position'] = new_pos
             print("This is the new position " + str(new_pos))
-
-    def move_to(self, position, orientation):
-        self.use_controller('MoveIt')
-        init_plan = self.plan_end_effector(position, orientation, attempts=1)
-        self.group.execute(init_plan)
 
     # Override so we make multiple plans and then choose one with best
     # def determine_reference_trajectory(self, condition):

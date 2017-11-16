@@ -59,6 +59,26 @@ JOINT_NAMES = [
         'l_wrist_roll_joint'
 ]
 
+def normalize_ja(ja, limits):
+    ja = np.array(ja)
+    for idx, vmin, vmax in limits:
+        while ja[idx] < vmin:
+            ja[idx] += 2*np.pi
+        while ja[idx] > vmax:
+            ja[idx] -= 2*np.pi
+    return ja
+
+def normalize_ja_moveit(ja):
+    return normalize_ja(ja, [
+        (4, -np.pi, np.pi),
+        (6, -np.pi, np.pi)
+    ])
+
+def normalize_ja_gps(ja):
+    return normalize_ja(ja, [
+        (4, 0, 2*np.pi),
+        (6, -2*np.pi, 0)
+    ])
 
 class AgentCAD(AgentROS):
 
@@ -91,6 +111,10 @@ class AgentCAD(AgentROS):
         self.conditions = hyperparams['conditions']
         self.actual_conditions = hyperparams['actual_conditions']
         self.condition_info = hyperparams['condition_info']
+
+        for info in self.condition_info:
+            info.plan = None    # disregard saved plans (for debugging)
+            # pass
 
         moveit_commander.roscpp_initialize([])
         self.robot = moveit_commander.RobotCommander()
@@ -170,6 +194,11 @@ class AgentCAD(AgentROS):
         self.reset_trajectories = {} # For dat fancy reset or something
         self.current_controller = None
         self.initialized = set()
+
+        self.plotter_xml = None
+        self.plotted_names = []
+
+        self.traj_plot_period = 5
 
     # For the conditions specified (startInd - endInd, inclusive), use the reset
     def set_reset_pos(self, startInd, endInd):
@@ -529,6 +558,22 @@ class AgentCAD(AgentROS):
         if not response.success:
             raise RuntimeError('Failed to delete model {}'.format(name))
 
+    def gazebo_plot(self, positions, reference_frame=''):
+        if self.plotter_xml is None:
+            with open('/home/gwthomas/.gazebo/models/cube_20k/model-smol.sdf', 'r') as f:
+                self.plotter_xml = f.read()
+
+        for i in range(self.T_interpolation):
+            try:
+                self.delete_model('point%d' % i)
+            except: pass
+
+        for i, position in enumerate(positions):
+            name = 'point%d' % i
+            pose = Pose(Point(*position), Quaternion(0,0,0,0))
+            self.spawn_model(name, self.plotter_xml, pose, reference_frame=reference_frame)
+            self.plotted_names.append(name)
+
     def add_object(self, name, position, orientation=(0,0,0,0), size=(1,1,1), type=None, filename=None):
         assert type or filename
         pose = Pose(Point(*position), Quaternion(*orientation))
@@ -546,22 +591,6 @@ class AgentCAD(AgentROS):
         self.scene.attach_mesh(self.ee_link, name, touch_links=touch_links)
         time.sleep(2) # Just rest for a little bit before removing
         self.scene.remove_world_object(name)
-
-    def reset(self, condition):
-        self.use_controller('GPS')
-        condition_data = self._hyperparams['reset_conditions'][condition]
-        try:
-            self.reset_arm(TRIAL_ARM, condition_data[TRIAL_ARM]['mode'],
-                condition_data[TRIAL_ARM]['data'])
-        except Exception as e:
-            print(e)
-            print 'Trial arm reset timed out'
-        try:
-            self.reset_arm(AUXILIARY_ARM, condition_data[AUXILIARY_ARM]['mode'],
-                       condition_data[AUXILIARY_ARM]['data'])
-        except Exception as e:
-            print(e)
-            print 'Auxiliary arm reset timed out'
 
     # Reset the arm and wait the alloted time or something
     def reset_arm_and_wait(self, arm, mode, data, timeout):
@@ -601,18 +630,12 @@ class AgentCAD(AgentROS):
         self.set_gripper(0.08, 50.0, max_effort)
 
     def compute_plan_cost(self, plan):
-    	# prevPoint = None # Start off with nothing
-    	# dist = 0 # Start off the distance as 0
-    	# for thePoint in plan.joint_trajectory.points:
-    	# 	position = np.array(thePoint.positions)
-    	# 	if prevPoint is not None: # If there was a previous pt
-    	# 		dist += np.sqrt(np.sum(np.square(position - prevPoint)))
-    	# 	prevPoint = position # Aww man almost forgot this
-    	# return dist
-        # ref_traj = self.compute_reference_trajectory(plan)
-        # ee_pos = ref_traj['ee']
-        # return sum([np.sum((ee_pos[i] - ee_pos[i-1])**2) for i in range(1, len(ee_pos))])
-        return len(plan.joint_trajectory.points)
+        ref_traj = self.compute_reference_trajectory(plan)
+        ee_pos = ref_traj['ee']
+        diff_magnitudes = [np.sum((ee_pos[i] - ee_pos[i-1])**2) for i in range(1, len(ee_pos))]
+        return max(diff_magnitudes)
+        # return sum(diff_magnitudes)
+        # return len(plan.joint_trajectory.points)
 
     def plan(self, attempts=1):
         self.group.set_planning_time(self.planning_time)
@@ -644,9 +667,9 @@ class AgentCAD(AgentROS):
             self.group.set_pose_target(target_position + target_orientation)
         return self.plan(attempts) # Send in the attempts lmao
 
-
     def plan_joints(self, target_joint_positions, attempts=1):
-        self.group.set_joint_value_target(target_joint_positions)
+        ja = normalize_ja_moveit(target_joint_positions)
+        self.group.set_joint_value_target(ja)
         return self.plan(attempts)
 
     def forward_kinematics1(self, joint_angles, frame):
@@ -709,43 +732,68 @@ class AgentCAD(AgentROS):
         # Return the array of values lmao
         return solution.joint_state.position
 
-    def get_end_effector_pose(self):
-        state = self.robot.get_current_state().joint_state
-        joints = []
-        for joint in JOINT_NAMES:
-            index = state.name.index(joint)
-            joints.append(state.position[index])
-        return self.forward_kinematics1(joints)
+    def get_joint_angles(self):
+        if self.current_controller == 'MoveIt':
+            state = self.robot.get_current_state().joint_state
+            joints = []
+            for joint in JOINT_NAMES:
+                index = state.name.index(joint)
+                joints.append(state.position[index])
+            return np.array(joints)
+        elif self.current_controller == 'GPS':
+            sample = self.get_data(arm=TRIAL_ARM)
+            ja = sample.get(JOINT_ANGLES)
+            return ja.flatten()
+        else:
+            raise NotImplementedError
+
+    def close_to_ja(self, ja):
+        return np.allclose(self.get_joint_angles(), ja, atol=1e-2)
 
     def get_initial(self, condition, arm=TRIAL_ARM):
         condition_data = self._hyperparams['reset_conditions'][condition]
         return condition_data[arm]['data']
 
-    def reset_arm(self, arm, mode, data):
-        reset_command = PositionCommand()
-        reset_command.mode = mode
-        reset_command.data = data
-        reset_command.pd_gains = self._hyperparams['pid_params']
-        reset_command.arm = arm
+    def issue_position_command(self, ja, timeout, arm=TRIAL_ARM):
+        self.use_controller('GPS')
+        if self.close_to_ja(ja):
+            print 'Ignoring position command (within tolerance)'
+            return
+
+        pos_command = PositionCommand()
+        pos_command.mode = JOINT_SPACE
+        pos_command.data = ja
+        pos_command.pd_gains = self._hyperparams['pid_params']
+        pos_command.arm = arm
+        pos_command.id = self._get_next_seq_id()
+        self._reset_service.publish_and_wait(pos_command, timeout=timeout)
+
+    def reset_arm(self, ja, arm=TRIAL_ARM):
+        self.use_controller('GPS')
+        if self.close_to_ja(ja):
+            print 'Ignoring reset (within tolerance)'
+            return
+
         timeout = self._hyperparams['reset_timeout']
-        reset_command.id = self._get_next_seq_id()
-        self._reset_service.publish_and_wait(reset_command, timeout=timeout)
+        self.issue_position_command(ja, timeout, arm=arm)
 
     def reset(self, condition):
-        self.use_controller('GPS')
         print 'Resetting to condition {} (actually {})'.format(condition, self.actual_conditions[condition])
+        for arm in [TRIAL_ARM, AUXILIARY_ARM]:
+            ja = self.get_initial(condition, arm=arm)
+            try:
+                self.reset_arm(ja, arm=arm)
+            except TimeoutException:
+                print 'Reset timed out for arm', arm
 
-        try:
-            self.reset_arm(TRIAL_ARM, JOINT_SPACE, self.get_initial(condition, arm=TRIAL_ARM))
-        except TimeoutException:
-            print 'Trial arm reset timed out'
+    def move_to(self, position, orientation):
+        plan = self.plan_end_effector(position, orientation, attempts=1)
+        plan_exists = plan is not None
+        if plan_exists:
+            self.execute(plan)
+        return plan_exists # n.b. this doesn't check if it actually reached the target
 
-        try:
-            self.reset_arm(AUXILIARY_ARM, JOINT_SPACE, self.get_initial(condition, arm=AUXILIARY_ARM))
-        except TimeoutException:
-            print 'Auxiliary arm reset timed out'
-
-    def compute_plan(self, condition):
+    def plan_for_condition(self, condition):
         self.reset(condition)
         target = self._hyperparams['targets'][condition]
         return self.plan_end_effector(target['position'], target['orientation'], attempts=self.planning_attempts)
@@ -915,7 +963,7 @@ class AgentCAD(AgentROS):
         plan = self.get_existing_plan(condition)
         if plan is None:
             print 'No valid plan found for condition {}. Computing a fresh one'.format(condition)
-            plan = self.compute_plan(condition)
+            plan = self.plan_for_condition(condition)
             info = self.condition_info[condition]
             info.plan = plan
             info.save()
@@ -990,6 +1038,16 @@ class AgentCAD(AgentROS):
 
         print('The length of the trajectory we are currently using is ' + str(self.T))
         #pdb.set_trace()
+
+        if self.traj_plot_period is not None:
+            positions = []
+            for i, ee in enumerate(ref_ee):
+                if i % self.traj_plot_period == 0 and i < self.T_interpolation:
+                    position = (ee[3:6] + ee[6:9]) / 2
+                    position[2] -= 0.5
+                    positions.append(position)
+            self.gazebo_plot(positions, reference_frame='torso_lift_link')
+
         # Generate noise.
         if noisy:
             noise = generate_noise(self.T, self.dU, self._hyperparams)
@@ -1015,7 +1073,7 @@ class AgentCAD(AgentROS):
             )
         else:
             self.trial_manager.prep(policy, condition)
-            self._trial_service.publish(trial_command)
+            self._trial_service.publish(trial_command, wait=True)
             self.trial_manager.run(self._hyperparams['trial_timeout'])
             while self._trial_service._waiting:
                 print 'Waiting for sample to come in'
@@ -1055,9 +1113,8 @@ class AgentCAD(AgentROS):
         # extra = ['centered_traj', 'coeffs', 'ee_pos', 'attended']
         extra = []
         action, debug = policy.act(None, obs, None, None, extra=extra)
-        # print('ACTION: *********************')
-        # print(action)
-        # print debug
+        if np.any(np.isnan(action)):
+            pdb.set_trace()
         return action
 
     def get_obs(self, request, condition):

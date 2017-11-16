@@ -42,9 +42,10 @@ from gps.gui.config import generate_experiment_info
 
 
 T = 200
-ALL_CONDITIONS = 6
-TRAIN_CONDITIONS = 2
-MODE = 'iLQR subset'
+ALL_CONDITIONS = 30
+TRAIN_CONDITIONS = 4
+# MODE = 'iLQR subset'
+MODE = 'NN test'
 assert MODE in ('GPS', 'iLQR subset', 'NN test')
 
 EE_POINTS = np.array([[0.0, 0.0, 0.0], [0.15, 0.05, 0.0], [0.15, -0.05, 0.0]])
@@ -80,7 +81,7 @@ if MODE == 'iLQR subset':
         conditions.append(cond)
         condition_info.append(info)
         if len(conditions) == TRAIN_CONDITIONS:
-            print "That's all folks"
+            print "That's all folks:", conditions
             break
 else:
     for cond in range(ALL_CONDITIONS):
@@ -112,8 +113,8 @@ for info in condition_info:
     x0s.append(np.zeros(32))
     ee_tgts.append(np.zeros(9))
     reset_condition = {
-        TRIAL_ARM:     {'data': info.initial, 'mode': 1},
-        AUXILIARY_ARM: {'data': np.array([-1.25, 0.0, 0.0, -2.0, 0.0, 0.0, 0.0]), 'mode': 1}
+        TRIAL_ARM:     {'data': info.initial, 'mode': JOINT_SPACE},
+        AUXILIARY_ARM: {'data': np.array([-1.25, 0.0, 0.0, -2.0, 0.0, 0.0, 0.0]), 'mode': JOINT_SPACE}
     }
     reset_conditions.append(reset_condition)
 
@@ -143,12 +144,13 @@ agent = {
     'obs_include': [JOINT_ANGLES, JOINT_VELOCITIES, END_EFFECTOR_POINTS,
                     END_EFFECTOR_POINT_VELOCITIES, REF_TRAJ, TIMESTEP],
     #'planner': 'RRTStarkConfigDefault',
-    'planner': 'RRTConnectkConfigDefault',
-    # 'planner': 'PRMstarkConfigDefault',
-    'planning_time': 15,
+    # 'planner': 'RRTConnectkConfigDefault',
+    'planner': 'PRMstarkConfigDefault',
+    'planning_time': 5,
     'plan_attempts': 20,
-    # 'targets': [{'position': (0.5, 0.09, 0.55), 'orientation': (3.14, 0.0, -1.57)} for _ in conditions],
-    'targets': [{'position': (0.475, 0.09, 0.549), 'orientation': (3.14, 0.0, -1.57)} for _ in conditions],
+    'targets': [{'position': (0.5, 0.09, 0.55), 'orientation': (3.14, 0.0, -1.57)} for _ in conditions],
+    # 'targets': [{'position': (0.35, 0.09, 0.55), 'orientation': (3.14, 0.0, -1.57)} for _ in conditions],
+    # 'targets': [{'position': (0.475, 0.09, 0.549), 'orientation': (3.14, 0.0, -1.57)} for _ in conditions],
 #
     ###### THIS IS FOR THE ORIGINAL EXPERIMENT #######################
     #'targets': [{'position': (0.5, 0.09, 0.555), 'orientation': (3.14, 0.0, -1.57)}
@@ -172,7 +174,7 @@ agent = {
     'base_plate': osp.join(EXP_DIR, 'base_plate.stl'),
     'shaft2': osp.join(EXP_DIR, 'shaft2.stl'),
     'use_AR_markers': False,
-    'reset_timeout': 10,
+    'reset_timeout': 5,
     'trial_timeout': 30,
     'exp_dir': EXP_DIR,
 }
@@ -207,17 +209,20 @@ algorithm_gps = {
     'exp_step_lower': 1.0,
     'max_policy_samples': 6,
     'policy_sample_mode': 'add',
+    'inner_iterations': 3
 }
 algorithm = algorithm_gps if MODE == 'GPS' else algorithm_ilqr
 
 algorithm['init_traj_distr'] = {
     'type': init_pd,
-    'pos_gains': 15.0,
+    'pos_gains': 50.0,
     'vel_gains_mult': 0.1,
     'init_var': 0.25,
     'dQ': 7, # set this to action dim based on another file, but effect of changing unclear
     'dt': agent['dt'],
     'T': agent['T'],
+    'gains': PR2_GAINS
+
 }
 agent['init_traj_distr'] = algorithm['init_traj_distr']
 
@@ -247,17 +252,18 @@ algorithm['policy_opt'] = {
         'resnet_n_hidden': 0,
         'T': T,
         'ee_pos_indices': (14,23),
+        'ee_vel_indices': (23,32),
         'temperature': 0.1,
         'attention': time_attention,
         'structure': mlp_structure,
         'regularization': 0.01,
         'state_dependent': False,
-        'time_k': 10
+        'time_k': 5
     },
     'network_model': ref_traj_network_factory,
     # 'lr': 1e-4,
     'batch_size': 64,
-    'max_iterations': 25000,
+    'max_iterations': 1000,
     'period': 500,
     'termination_history_length': 5,
     'termination_epsilon': 0.005,
@@ -297,6 +303,7 @@ fk_cost2 = {
     'l2': 0.0,
     'wp_final_multiplier': 1.0,  # Weight multiplier on final timestep.
     'ramp_option': RAMP_FINAL_ONLY,
+
 }
 
 algorithm['cost'] = {

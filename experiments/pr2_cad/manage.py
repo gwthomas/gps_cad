@@ -18,9 +18,9 @@ JOINT_LIMITS = np.array([
 ])
 LOWER, UPPER = JOINT_LIMITS[:,0], JOINT_LIMITS[:,1]
 DIM = len(JOINT_LIMITS)
-DIR = osp.join(osp.dirname(osp.realpath(__file__)), 'condition_info')
+DIR = osp.join(osp.dirname(osp.realpath(__file__)), 'condition_info') # this may be overwritten
 
-def initial():
+def rand_initial():
     return np.random.uniform(low=LOWER, high=UPPER, size=[DIM])
 
 def info_path(cond):
@@ -55,7 +55,7 @@ def summarize(condition_info):
     print 'Good conditions:', [cond for cond in sorted_conds if condition_info[cond].good]
 
 def new_info(cond):
-    return ConditionInfo(initial(), info_path(cond), data_path(cond))
+    return ConditionInfo(rand_initial(), info_path(cond), data_path(cond))
 
 def fill(condition_info, conds):
     for cond in conds:
@@ -71,7 +71,7 @@ def regenerate(condition_info, cond):
     else:
         info = condition_info[cond]
         if not info.good or yesno('This condition has been marked good. Are you sure you want to regenerate?'):
-            info.initial = initial()
+            info.initial = rand_initial()
 
 def mark_good_as(condition_info, cond, value):
     if cond not in condition_info:
@@ -85,6 +85,11 @@ def mark_good(condition_info, cond):
 def mark_bad(condition_info, cond):
     mark_good_as(condition_info, cond, False)
 
+def manual_initials(condition_info, conds, initials):
+    assert len(conds) == len(initials)
+    for i, cond in enumerate(conds):
+        condition_info[cond].initial = np.array(initials[i])
+
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='Manage condition info')
@@ -93,7 +98,10 @@ if __name__ == '__main__':
     parser.add_argument('-r', metavar='COND', type=int, default=-1, help="regenerate COND's initial")
     parser.add_argument('-g', metavar='COND', type=int, default=-1, help='mark COND as good')
     parser.add_argument('-b', metavar='COND', type=int, default=-1, help='mark COND as bad')
+    parser.add_argument('--dir', '-d', metavar='DIR', type=str, default='condition_info', help='directory of info')
     args = parser.parse_args()
+
+    DIR = osp.join(osp.dirname(osp.realpath(__file__)), args.dir)
 
     condition_info = load_all()
 

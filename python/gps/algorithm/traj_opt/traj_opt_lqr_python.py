@@ -452,6 +452,7 @@ class TrajOptLQRPython(TrajOpt):
                 if fail_check:
                     if np.any(np.isnan(Fm)) or np.any(np.isnan(fv)):
                         raise ValueError('NaNs encountered in dynamics!')
+                    import pdb; pdb.set_trace()
                     raise ValueError('Failed to find PD solution even for very \
                             large eta (check that dynamics and cost are \
                             reasonably well conditioned)!')

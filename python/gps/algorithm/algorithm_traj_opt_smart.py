@@ -12,4 +12,6 @@ class AlgorithmTrajOptSmart(AlgorithmTrajOpt):
     def iteration(self, sample_lists):
         AlgorithmTrajOpt.iteration(self, sample_lists)
         for m, info in enumerate(self.condition_info):
+            print 'Saving data for condition', m
+            print info.data_path
             info.save_data(sample_lists[m], self.cur[m].traj_distr)

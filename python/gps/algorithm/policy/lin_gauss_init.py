@@ -150,8 +150,6 @@ def init_pd_ref(hyperparams, ref_ja_pos, ref_ja_vel, ref_ee):
     position gains are controlled by the variable pos_gains, velocity
     gains are controlled by pos_gains*vel_gans_mult.
     """
-    wrist_mult = 1
-    ja_stuff = np.diag([3.09, 1.08 , 0.393 * 1.0, 0.674, 0.111 * 1.0, 0.152 * wrist_mult, 0.098])
 
     config = copy.deepcopy(INIT_LG_PD)
     config.update(hyperparams)
@@ -162,23 +160,18 @@ def init_pd_ref(hyperparams, ref_ja_pos, ref_ja_vel, ref_ee):
     # Choose initialization mode.
     Kp = 1.0
     Kv = config['vel_gains_mult']
-
+    D = np.diag(config['gains'])
+    
     if dU < dQ:
-        #pdb.set_trace()
         K = -config['pos_gains'] * np.tile(
-             [ja_stuff * Kp, np.zeros((dU, dQ-dU)),
-             #[np.eye(dU) * Kp, np.zeros((dU, dQ-dU)),
-             ja_stuff * Kv, np.zeros((dU, dQ-dU))],
-             #np.eye(dU) * Kv, np.zeros((dU, dQ-dU))],
+            [D * Kp, np.zeros((dU, dQ-dU)),
+             D * Kv, np.zeros((dU, dQ-dU))],
             [T, 1, 1]
         )
     else:
-        #pdb.set_trace()
         K = -config['pos_gains'] * np.tile(
             np.hstack([
-                ja_stuff * Kp, 
-                ja_stuff * Kv,
-                #np.eye(dU) * Kp, np.eye(dU) * Kv,
+                D * Kp, D * Kv,
                 np.zeros((dU, dX - dU*2))
             ]), [T, 1, 1]
         )
@@ -200,11 +193,10 @@ def init_pd_ref(hyperparams, ref_ja_pos, ref_ja_vel, ref_ee):
 
     #np.savetxt('K.txt', np.array(K))
     #np.savetxt('k.txt', np.array(k))
-    np.set_printoptions(threshold=np.inf)
-    with open('hello.txt', 'w') as f:
-        f.write(np.array_str(K))
-        f.write("HELLO\n\n")
-        f.write(np.array_str(k))
+    # np.set_printoptions(threshold=np.inf)
+    # with open('hello.txt', 'w') as f:
+    #     f.write(np.array_str(K))
+    #     f.write("HELLO\n\n")
+    #     f.write(np.array_str(k))
 
     return (K, k, PSig, cholPSig, invPSig)
-
