@@ -120,7 +120,7 @@ class AgentCAD(AgentROS):
         self.robot = moveit_commander.RobotCommander()
         self.scene = moveit_commander.PlanningSceneInterface()
         self.group = moveit_commander.MoveGroupCommander('left_arm')
-        # This is for controlling the head or something like that
+        # This is an ActionClient controlling the head of robot
         self.head_pub = actionlib.SimpleActionClient('/head_traj_controller/point_head_action', PointHeadAction)
 
         self.group.set_planner_id(hyperparams['planner'])
@@ -140,7 +140,6 @@ class AgentCAD(AgentROS):
         print 'Waiting for gripper server to start'; self.gripper_client.wait_for_server()
         self.visual_pub = rospy.Publisher('move_group/ompl_planner_data_marker_array', MarkerArray)
         # Gonna subscribe to the thing publishing locations for all the AR tags
-        #self.ar_marker_sub = rospy.Subscriber('/ar_pose_marker', AlvarMarkers, self.getAR)
         self.ar_marker_sub = rospy.Subscriber('/tag_detections', AprilTagDetectionArray, self.getAR)
 
         self.use_AR_markers = hyperparams['use_AR_markers']
@@ -159,26 +158,22 @@ class AgentCAD(AgentROS):
 
         self.dumb_ilqr = False # If we are just going to use the end positions for the cost fns
 
+        self.saved_samples = [[] * self.conditions] # Just for storing this real quick
+
+        self.cur_T = [self.T] * self.conditions # For storing the T of each of the conditions!
+        self.final_T = self.T # This is the original T 
+
+        # Disregard these following variables - work in progress
         self.samples_taken = [0] * self.conditions
         self.full_ref_ee = [0] * self.conditions # Lol for the reference ee
         self.full_ref_ja = [0] * self.conditions # For the full reference ja
         self.full_ref_vel = [0] * self.conditions # For the full reference vel
-        self.saved_samples = [[] * self.conditions] # Just for storing this real quick
-
-        self.cur_T = [self.T] * self.conditions # For storing the T of each of the conditions!
-        self.final_T = self.T # This is the original T WOWOWOWOWOWOWOWWOW
         self.varying_T = False # If you want T to vary depending on a whole bunch of stuff
         self.the_tolerance = 0.015 # If the difference is that large it's concerning
         self.padding = 10 # How many timesteps to put as padding for each of the segments
         self.iter_per_seg = 1 # Let's train this many iterations per segment
         self.iter_count = 0 # Count iterations
-        self.chosen_parts = None #[70, 70, 200, 200]
-        #[70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 200, 200, 200,
-        #200, 200, 200, 200, 200, 200, 200]
-        #[100, 100, 100, 100, 100, 100, 100,
-        #100, 100, 100, 100, 100, 100, 100, 100, 200, 200, 200, 200, 200, 200, 200,
-        # 200, 200, 200]
-        # SET THIS TO NONE IF YOU WANT TO USE FRACTIONS LMAO
+        self.chosen_parts = None # Can use particular timesteps (use array)
         self.cur_part = -1 # Current index
 
         self.trial_manager = ProxyTrialManager(self)
@@ -191,7 +186,7 @@ class AgentCAD(AgentROS):
         self.ee_link = self.group.get_end_effector_link()
 
         self.trajectories = {}
-        self.reset_trajectories = {} # For dat fancy reset or something
+        self.reset_trajectories = {} # For the special reset
         self.current_controller = None
         self.initialized = set()
 
@@ -207,7 +202,7 @@ class AgentCAD(AgentROS):
             self._hyperparams['reset_conditions'][i] = \
                 self.condition_info[i].initial
 
-    # Wipe the plans of all the conditions lmao
+    # Wipe the plans of all the conditions 
     def wipe_plans(self):
         for i in range(self.conditions):
             self.condition_info[i].plan = None
@@ -376,7 +371,7 @@ class AgentCAD(AgentROS):
 
     # Stores the gotten AR tag information in an instance variable
     def getAR(self, msg):
-        self.cur_ar_markers = msg # Store what we have gotten lmao
+        self.cur_ar_markers = msg # Store what we have gotten 
 
     # Get the pose of the AR tag (it's the center) given the number
     def get_AR_pose(self, number):
@@ -397,15 +392,6 @@ class AgentCAD(AgentROS):
         # Returns the array of AR markers
         #return self.cur_ar_markers.markers
         return self.cur_ar_markers.detections
-
-    # Get the chosen tag of the AR markers
-    # If the AR tag doesn't exist in the array, return None
-    #def get_AR_pose(self, number):
-    #    the_markers = self.get_AR_markers()
-    #    for tag in the_markers: # Look through all the tags in the array
-    #        if tag.id == number: # If we found the ID we are looking for
-    #            return tag.pose.pose # Return the pose of the tag
-    #    return None # If we couldn't find anything, return None
 
     # This will create an AR function that will return the pose of the
     # actual item depending on where the AR tag is placed (that's why offsets)
@@ -441,6 +427,7 @@ class AgentCAD(AgentROS):
         # Just run the ar_functions thing
         return self.ar_functions[self.ar[obj_name]]()
 
+    # THESE TWO FUNCTIONS WERE USED TO CALIBRATE/CHECK the tags
     # Just calculates the distance between the tags and whatever
     def dist_AR_tags(self, tag1ID, tag2ID):
         tag1Pose = self.get_AR_pose(tag1ID) # Get the poses of the tags
@@ -473,7 +460,7 @@ class AgentCAD(AgentROS):
         print("Range of values for euler difference: ")
         print(str(np.ptp(diffs_euler, axis=0)))
 
-    # Resets the object depending on the AR tag and stuff
+    # Resets the object in rviz depending on the AR tag 
     def reset_object_AR(self, name, theSize):
         # Remove the object from rviz first
         self.scene.remove_world_object(name)
@@ -699,12 +686,12 @@ class AgentCAD(AgentROS):
         request.ik_link_name = self.ee_link # We want the end effector
         request.pose_stamped = pose_stamped # Desired pose and what not
         request.timeout = Duration(5.0) # Here have another duration or something
-        # This is to seed the IK service or something like that???
+        # This is to seed the IK service 
         rs = moveit_msgs.msg.RobotState() # Getting the robot state
         rs.joint_state.name = JOINT_NAMES # This is the current joint value thing
         # I dunno get the current joint values
         rs.joint_state.position = self.group.get_current_joint_values()
-        # Not really sure so am just gonna put this down lmao
+        # Not really sure so am just gonna put this down 
         #request.ik_seed_state = rs
         request.robot_state = rs
 
@@ -724,8 +711,8 @@ class AgentCAD(AgentROS):
             print("This is now the target: " + str(the_list))
 
 
-    # Get the joint angles of a pose that is some m[meters]_above the current pose (of the end
-    # effector) that we have lmao
+    # Get the joint angles of a pose that is some meters above the current pose (of the end
+    # effector) that we have 
     def get_ja_above(self, cur_pose, m_above):
         cur_pose.pose.position.z += m_above # Increase the z value by some amount
         solution = self.inverse_kinematics1(cur_pose)
@@ -808,7 +795,7 @@ class AgentCAD(AgentROS):
         rs.joint_state.position = joint_angles
         return rs # Return the robot state nice
 
-    # Do the initialization of the reset trajectory and policy and stuff??
+    # Do the initialization of the reset trajectory and policy 
     def init_reset_traj(self, condition, policy):
         plan = self.reset_plans[condition] # Get the plan for the reset trajectory
         # Compute the reference trajectory given the plan
@@ -840,30 +827,6 @@ class AgentCAD(AgentROS):
         self.ja_goal = self.group.get_current_joint_values() # Get the current joint values\
         # Get the difference in position from real to the specified position
 
-    '''
-    def offset_whole_plan(self, thePlan):
-        diffPos = np.array(self._hyperparams['targets'][0]['position']) - np.array(listify(self.ee_goal.position))
-        diffOri = np.array(tf.transformations.quaternion_from_euler(*self._hyperparams['targets'][0]['orientation'])) \
-         - np.array(listify(self.ee_goal.orientation))
-        print("These are the offsets: " + str(diffPos) + " " + str(diffOri))
-        for i in range(len(thePlan.joint_trajectory.points)):
-            old_ja = thePlan.joint_trajectory.points[i].positions # Old joint angles
-            # Get the pose stamped using forward kinematics and whatever
-            thePoint = self.forward_kinematics_pose(old_ja, 'base_footprint')
-            thePoint.pose.position.x += diffPos[0]
-            thePoint.pose.position.y += diffPos[1]
-            thePoint.pose.position.z += diffPos[2]
-            thePoint.pose.orientation.x += diffOri[0]
-            thePoint.pose.orientation.y += diffOri[1]
-            thePoint.pose.orientation.z += diffOri[2]
-            thePoint.pose.orientation.w += diffOri[3]
-            print("The new pose-stamped is this: " + str(thePoint))
-            ja = self.inverse_kinematics1(thePoint) # Get the joint angles
-            thePlan.joint_trajectory.points[i].positions = ja.joint_state.position # Set to new joint angle
-            print("Old ja: " + str(old_ja) + " new ja: " + str(ja))
-    '''
-
-
     # Offset the plan depending on the differences
     def offset_whole_plan(self, thePlan):
         if self.ee_goal is None:
@@ -879,7 +842,6 @@ class AgentCAD(AgentROS):
             thePlan.joint_trajectory.points[i].positions = \
             np.array(thePlan.joint_trajectory.points[i].positions) + ((i / float(plen - 1)) * diff)
             print("Offsetting by: " + str(((i / float(plen - 1)) * diff)))
-
 
     # Edit the plan according to the different joint angle plan lmao
     def edit_plan_if_necessary(self, thePlan):

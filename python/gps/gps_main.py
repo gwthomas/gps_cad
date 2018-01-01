@@ -36,12 +36,14 @@ class GPSMain(object):
             config: Hyperparameters for experiment
             quit_on_end: When true, quit automatically on completion
         """
-        self.special_reset = False # L M A O
+        # This controls whether there is a learned reset or not 
+        # There is a learned reset when special_reset = True
+        self.special_reset = False 
         self._quit_on_end = quit_on_end
         self._hyperparams = config
         self._conditions = config['common']['conditions']
-        # There's gonna be as many reset conditions as conditions l m a o
-        self._reset_conditions = self._conditions # Heh
+        # There's going to be as many reset conditions as conditions 
+        self._reset_conditions = self._conditions 
         if 'train_conditions' in config['common']:
             self._train_idx = config['common']['train_conditions']
             self._test_idx = config['common']['test_conditions']
@@ -65,11 +67,14 @@ class GPSMain(object):
             # Gonna make the algorithm for the reset ones as well
             self.reset_algorithm = config['reset_algorithm']['type'](config['algorithm'])
 
-        self.saved_algorithm = copy.deepcopy(self.algorithm) # Save this newly initialized thing or something
-
-        self.diff_warm_start = True # If you want to warm start the algorithm BADMM with normal iLQG stuff
-        self.nn_warm_start = False # If you want to warm start the neural network
-        attention, structure = 'time', 'mlp' # Change these if you want to take the other policy type
+        self.saved_algorithm = copy.deepcopy(self.algorithm) # Save this newly initialized alg
+        # If you want to warm start the algorithm BADMM with learned iLQG controllers
+        self.diff_warm_start = True 
+        # If you want to warm start the neural network with some pretrained network
+        self.nn_warm_start = False 
+        # The following variables determine the pretrained network path
+        # Change these if you want to take the other policy type
+        attention, structure = 'time', 'mlp' 
         self.policy_path = os.path.join(self._data_files_dir, os.path.join('{}_{}'.format(attention, structure), 'policy'))
         try:
             self.old_policy_opt = copy.deepcopy(self.algorithm.policy_opt)
@@ -78,11 +83,11 @@ class GPSMain(object):
 
         pdb.set_trace()
 
-    # Specially initialize the algorithm after we have loaded things or whatever
+    # Specially initialize the algorithm after with pretrained things
     def special_init_alg(self):
 
         resumed_alg = self.algorithm # We picked this up by resuming
-        # SPECIFIC TO BADMM SO SORRY IF THIS BREAKS EVERYTHING
+        # SPECIFIC TO BADMM AND MDGPS
         if (type(self.saved_algorithm) is AlgorithmBADMM and not(type(resumed_alg) is AlgorithmBADMM)) or
         (type(self.saved_algorithm) is AlgorithmMDGPS and not(type(resumed_alg) is AlgorithmMDGPS)):
             self.algorithm = self.saved_algorithm # Return it to the new type we want to use
@@ -98,7 +103,7 @@ class GPSMain(object):
             self.algorithm.re_init_pol_info(theParams) # Reinitialize this
             # Get rid of the prev data, this messes up the linear algebra stuff
             self.algorithm.prev = [IterationData() for _ in range(self.algorithm.M)]
-            self.algorithm.iteration_count = 0 # Pretend this is the first iteration lmao
+            self.algorithm.iteration_count = 0 # Pretend this is the first iteration 
 
         pdb.set_trace()
 
@@ -131,11 +136,8 @@ class GPSMain(object):
                     for cond in self._train_idx
                     ]
                     self._take_iteration(itr, reset_traj_sample_lists, reset=True)
-                    #reset_pol_sample_lists = self._take_reset_policy_samples()
-                    ##### PROBABLY NEED TO LOG THE DATA TOO BUT OH WELL
 
-
-                # Clear agent samples. (Including the reset ones lmao)
+                # Clear agent samples. (Including the reset ones)
                 self.agent.clear_samples()
                 #pdb.set_trace()
                 self._take_iteration(itr, traj_sample_lists)
@@ -145,20 +147,6 @@ class GPSMain(object):
             traceback.print_exception(*sys.exc_info())
         finally:
             self._end()
-
-    # Unpickles trajectory information so we can train from it or something
-    def unpickle_traj_and_train(self, itr):
-        # Get the trajectory sample lists
-        traj_sample_lists = self.data_logger.unpickle(self._data_files_dir +
-            ('traj_sample_itr_%02d.pkl' % itr))
-        # Save the policy we have
-        saved_policy = self.algorithm.policy_opt
-        # Restore new algorithm that we presumably want??
-        self.algorithm.policy_opt = self.saved_policy
-        self.algorithm._take_iteration(traj_sample_lists)
-        pdb.set_trace()
-        # Then let's take like one policy sample (??)
-        pol_sample_lists = self._take_policy_samples(1)
 
     def test_policy(self, itr, N):
         """
@@ -205,7 +193,7 @@ class GPSMain(object):
                 self.gui.set_status_text('Press \'go\' to begin.')
             return 0
         else:
-            print("HELLO THIS IS STARTING OFF FROM ITR_LOAD" + str(itr_load))
+            print("TRAINING STARTING OFF FROM ITR_LOAD" + str(itr_load))
             algorithm_file = self._data_files_dir + 'algorithm_itr_%02d.pkl' % itr_load
             self.algorithm = self.data_logger.unpickle(algorithm_file)
             if self.algorithm is None:
@@ -214,17 +202,11 @@ class GPSMain(object):
             if self.diff_warm_start: # If we are warm starting the algorithm
                 self.special_init_alg() # Call the special initialization method lmao
             if self.nn_warm_start: # If we are warm starting the neural network
-                # Restore the policy opt with the policy in the given policy path or something like that
+                # Restore the policy opt with the policy in the given policy path
                 self.algorithm.policy_opt.restore_model(self.policy_path)
 
             self.agent.itr_load = itr_load # Set the iter load
             pdb.set_trace()
-            # unpickle the agent and whatever
-            #agent_file = self._data_files_dir + 'agent_itr_%02d.pkl' % itr_load
-            #self.agent = self.data_logger.unpickle(agent_file)
-            #if self.agent is None:
-            #    print("Error: cannot find '%s.'" % agent_file)
-            #    os._exit(1) # called instead of sys.exit(), since this is in a thread
 
             if self.gui:
                 traj_sample_lists = self.data_logger.unpickle(self._data_files_dir +
@@ -261,7 +243,6 @@ class GPSMain(object):
                 pol = self.reset_algorithm.cur[cond].traj_distr
             else:
                 pol = self.algorithm.cur[cond].traj_distr
-        #pdb.set_trace()
         if self.gui:
             self.gui.set_image_overlays(cond)   # Must call for each new cond.
             redo = True
@@ -290,8 +271,8 @@ class GPSMain(object):
                         (itr, cond, i)
                 )
                 if reset:
-                    self.agent.reset_time = True # Set the agent reset_time to true lmao
-                    # Then it will be a special sample hahaha
+                    self.agent.reset_time = True # Set the agent reset_time to true 
+                    # Then it will be a special sample 
                 self.agent.sample(pol, cond, verbose=(i < self._hyperparams['verbose_trials']))
 
                 if self.gui.mode == 'request' and self.gui.request == 'fail':
@@ -301,17 +282,6 @@ class GPSMain(object):
                 else:
                     redo = False
         else:
-            # If reset is true something I dunno.... T_T
-            # if reset:
-            #     self.agent.sample(
-            #     pol, cond,
-            #     verbose=(i < self._hyperparams['verbose_trials']), reset=True
-            #     )
-            # else:
-            #     self.agent.sample(
-            #         pol, cond,
-            #         verbose=(i < self._hyperparams['verbose_trials'])
-            #     )
             verbose = i < self._hyperparams['verbose_trials']
             self.agent.sample(pol, cond, verbose=verbose, reset=reset)
 
@@ -327,10 +297,9 @@ class GPSMain(object):
             self.gui.start_display_calculating()
         self.agent.reset(0) # so the arm doesn't roll
 
-        if reset: # If we are resetting, iterate for reset algorithm (??)
-            pass
-            # Actually I don't really want to learn
-            #self.reset_algorithm.iteration(sample_lists)
+        if reset: # If we are resetting, iterate for reset algorithm 
+            #pass # Uncomment this and comment below line if you don't want to learn reset
+            self.reset_algorithm.iteration(sample_lists)
         else: # Otherwise, iterate for normal algorithm
             self.algorithm.iteration(sample_lists)
         if self.gui:
@@ -353,36 +322,10 @@ class GPSMain(object):
         # Since this isn't noisy, just take one sample.
         # TODO: Make this noisy? Add hyperparam?
         # TODO: Take at all conditions for GUI?
-        # CHANGED TO MAKE NOISY -- DOES THAT CHANGE ANYTHING??! NOPE
         for cond in range(len(self._test_idx)):
             pol_samples[cond][0] = self.agent.sample(
                 self.algorithm.policy_opt.policy, self._test_idx[cond],
                 verbose=verbose, save=False, noisy=True)
-        return [SampleList(samples) for samples in pol_samples]
-
-    # This is basically the same thing as the take policy samples method
-    # but with the reset algorithm instead lmao
-    def _take_reset_policy_samples(self, N=None):
-        """
-        Take samples from the policy to see how it's doing.
-        Args:
-            N  : number of policy samples to take per condition
-        Returns: None
-        """
-        if 'verbose_policy_trials' not in self._hyperparams:
-            # AlgorithmTrajOpt
-            return None
-        verbose = self._hyperparams['verbose_policy_trials']
-        if self.gui:
-            self.gui.set_status_text('Taking reset policy samples.')
-        pol_samples = [[None] for _ in range(len(self._test_idx))]
-        # Since this isn't noisy, just take one sample.
-        # TODO: Make this noisy? Add hyperparam?
-        # TODO: Take at all conditions for GUI?
-        for cond in range(len(self._test_idx)):
-            pol_samples[cond][0] = self.agent.sample(
-                self.reset_algorithm.policy_opt.policy, self._test_idx[cond],
-                verbose=verbose, save=False, noisy=False)
         return [SampleList(samples) for samples in pol_samples]
 
     def _log_data(self, itr, traj_sample_lists, pol_sample_lists=None):
