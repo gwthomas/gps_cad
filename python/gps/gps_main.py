@@ -38,7 +38,10 @@ class GPSMain(object):
         """
         # This controls whether there is a learned reset or not 
         # There is a learned reset when special_reset = True
-        self.special_reset = False 
+        try:
+            self.special_reset = config['agent']['special_reset'] 
+        except:
+            self.special_reset = False
         self._quit_on_end = quit_on_end
         self._hyperparams = config
         self._conditions = config['common']['conditions']

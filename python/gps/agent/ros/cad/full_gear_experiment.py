@@ -63,7 +63,7 @@ class FullGearExperiment(AgentCAD):
         self.prev_pose = None # For storing previous pose of gear lmao
 
         self.cur_T = [0] * 5 # For storing the T of each of the conditions!
-        self.final_T = self.T # This is the original T WOWOWOWOWOWOWOWWOW 
+        self.final_T = self.T # This is the original T 
         self.varying_T = False # If you want T to vary depending on a whole bunch of stuff
         self.the_tolerance = 0.03 # If the difference is that large it's concerning
         self.segments = 1.0 # How many segments to break the trajectory into
@@ -90,7 +90,7 @@ class FullGearExperiment(AgentCAD):
         pdb.set_trace()     # for optional setup, not debugging
 
     def __getstate__(self):
-        # Saving all these nice important things or something lmaooo
+        # Saving all these important things (without the unpickleable objects)
         d = {} 
         d['dists'] = self.dists 
         d['attempts'] = self.attempts 

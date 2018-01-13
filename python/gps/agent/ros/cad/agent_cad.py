@@ -823,9 +823,8 @@ class AgentCAD(AgentROS):
 
     # This is if you want to set the ultimate destination from the
     def set_real_goal(self):
-        self.ee_goal = self.get_ee_pose() # Use what is happening in real world (??)
+        self.ee_goal = self.get_ee_pose() # Use what is happening in real world 
         self.ja_goal = self.group.get_current_joint_values() # Get the current joint values\
-        # Get the difference in position from real to the specified position
 
     # Offset the plan depending on the differences
     def offset_whole_plan(self, thePlan):
@@ -837,7 +836,7 @@ class AgentCAD(AgentROS):
         print("This is the difference: " + str(diff)) # Print this
         plen = len(thePlan.joint_trajectory.points)
         for i in range(plen):
-            # Add the difference to the plan and hope for the best or something
+            # Add the difference to the plan and hope for the best 
             #np.array(thePlan.joint_trajectory.points[i].positions) + diff
             thePlan.joint_trajectory.points[i].positions = \
             np.array(thePlan.joint_trajectory.points[i].positions) + ((i / float(plen - 1)) * diff)
