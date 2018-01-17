@@ -1,0 +1,28 @@
+<?xml version='1.0'?>
+<sdf version="1.4">
+  <model name="piece">
+  <pose>0 0 0 0 0 0</pose>
+  <static>true</static>
+    <link name="link">
+      <inertial>
+        <mass>10.0</mass>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <uri>model://piece/meshes/piece.stl</uri>
+            <scale>0.045 0.045 0.02286</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://piece/meshes/piece.stl</uri>
+            <scale>0.045 0.045 0.02286</scale>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>

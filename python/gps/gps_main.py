@@ -90,14 +90,9 @@ class GPSMain(object):
     def special_init_alg(self):
 
         resumed_alg = self.algorithm # We picked this up by resuming
-<<<<<<< HEAD
-        # SPECIFIC TO BADMM SO SORRY IF THIS BREAKS EVERYTHING
-        if (type(self.saved_algorithm) is AlgorithmBADMM and not(type(resumed_alg) is AlgorithmBADMM)) or (type(self.saved_algorithm) is AlgorithmMDGPS and not(type(resumed_alg) is AlgorithmMDGPS)):
-=======
         # SPECIFIC TO BADMM AND MDGPS
-        if (type(self.saved_algorithm) is AlgorithmBADMM and not(type(resumed_alg) is AlgorithmBADMM)) or
+        if (type(self.saved_algorithm) is AlgorithmBADMM and not(type(resumed_alg) is AlgorithmBADMM)) or \
         (type(self.saved_algorithm) is AlgorithmMDGPS and not(type(resumed_alg) is AlgorithmMDGPS)):
->>>>>>> aae3cf39cc895afcabe72a745a4c2bdb564ffc0e
             self.algorithm = self.saved_algorithm # Return it to the new type we want to use
             # Keep a copy of these hyperparams and stuff
             theParams = copy.deepcopy(self.algorithm._hyperparams)

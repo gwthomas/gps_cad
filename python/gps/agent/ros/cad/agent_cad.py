@@ -612,7 +612,7 @@ class AgentCAD(AgentROS):
         else:
             duration = rospy.Duration(wait)
             result = self.gripper_client.send_goal_and_wait(goal, execute_timeout=duration)
-            import pdb; pdb.set_trace()
+            #import pdb; pdb.set_trace()
 
     def grip(self, wait, max_effort=10000):
         self.set_gripper(0.0, wait, max_effort)
@@ -942,7 +942,7 @@ class AgentCAD(AgentROS):
         # If we already initialized the controller or we are loading
         if condition in self.initialized or not isinstance(policy, LinearGaussianPolicy) or self.itr_load:
             return
-        print("Initializing the controller and what not")
+        print("Initializing the controller.")
         ref_traj_info = self.trajectories[condition]
         ref_ja_pos = ref_traj_info['ja_pos']
         ref_ja_vel = ref_traj_info['ja_vel']
