@@ -215,9 +215,8 @@ class RealGearExperiment(AgentCAD):
         if self.reset_time or self.plans_made is False:
             pass
         else:
-            pass
-            #self.super_reset(condition)
-            #time.sleep(2.0)
+            self.super_reset(condition)
+            time.sleep(2.0)
 
     # Override of this because we want to compute all the reference trajectories now
     # Otherwise there would be a lot of annoying manual resetting and all that to do.
@@ -233,7 +232,7 @@ class RealGearExperiment(AgentCAD):
         plan = self.get_existing_plan(condition)
         if plan is None:
             print 'No valid plan found for condition {}. Computing a fresh one'.format(condition)
-            plan = self.reverse_plan(self.compute_plan(condition))
+            plan = self.reverse_plan(self.plan_for_condition(condition))
             self.offset_whole_plan(plan)
             # The reset plan is the reverse of the normal plan
             self.reset_plans[condition] = self.reverse_plan(plan) # Amazing really
@@ -253,7 +252,7 @@ class RealGearExperiment(AgentCAD):
         self.full_ref_vel[condition] = np.copy(self.trajectories[condition]['ja_vel'])
 
     '''
-    def compute_plan(self, condition):
+    def plan_for_condition(self, condition):
         self.reset(condition)
         self.group.set_start_state_to_current_state() # Set the start state to current
         # And the target to a few cm above the current position 

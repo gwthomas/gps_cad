@@ -300,7 +300,8 @@ reset_algorithm = {
 }
 
 algorithm_gps = {
-    'type': AlgorithmBADMM,
+    #'type': AlgorithmBADMM,
+    'type': AlgorithmMDGPS,
     'iterations': common['iterations'],
     'conditions': agent['conditions'],
     'train_conditions': common['train_conditions'],
@@ -310,10 +311,15 @@ algorithm_gps = {
     'policy_dual_rate': 0.1,
     'ent_reg_schedule': np.array([1e-3, 1e-3, 1e-2, 1e-1]),
     'fixed_lg_step': 3,
-    'kl_step': 5.0,
+    #'kl_step': 5.0,
+    'kl_step': 1.0,
     'init_pol_wt': 0.01,
-    'min_step_mult': 0.01,
-    'max_step_mult': 10.0,
+    #'min_step_mult': 0.01,
+    #'max_step_mult': 10.0,
+
+    'min_step_mult': 0.5,
+    'max_step_mult': 3.0,
+
     'sample_decrease_var': 0.05,
     'sample_increase_var': 0.1,
     'exp_step_increase': 2.0,
@@ -322,11 +328,13 @@ algorithm_gps = {
     'exp_step_lower': 1.0,
     'max_policy_samples': 6,
     'policy_sample_mode': 'add',
+    'sample_on_policy': True
 }
 algorithm = algorithm_gps if MODE == 'GPS' else algorithm_ilqr
 
 algorithm['init_traj_distr'] = {
     'type': init_pd,
+    'pr2_gains': PR2_GAINS,
     'pos_gains': 50.0,
     'vel_gains_mult': 0.18,
     'init_var': 0.15,

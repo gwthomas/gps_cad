@@ -49,6 +49,8 @@ try:
 except ImportError:  # user does not have tf installed.
     TfPolicy = None
 
+f = open('actions.txt', 'w') # Get the file
+
 JOINT_NAMES = [
         'l_shoulder_pan_joint',
         'l_shoulder_lift_joint',
@@ -112,9 +114,9 @@ class AgentCAD(AgentROS):
         self.actual_conditions = hyperparams['actual_conditions']
         self.condition_info = hyperparams['condition_info']
 
-        for info in self.condition_info:
-            info.plan = None    # disregard saved plans (for debugging)
-            # pass
+        #for info in self.condition_info:
+        #    info.plan = None    # disregard saved plans (for debugging)
+        #    pass
 
         moveit_commander.roscpp_initialize([])
         self.robot = moveit_commander.RobotCommander()
@@ -173,6 +175,7 @@ class AgentCAD(AgentROS):
         self.iter_per_seg = 1 # Let's train this many iterations per segment
         self.iter_count = 0 # Count iterations
         self.chosen_parts = None #[70, 70, 200, 200]
+        self.otherPol = None
         #[70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 200, 200, 200,
         #200, 200, 200, 200, 200, 200, 200]
         #[100, 100, 100, 100, 100, 100, 100,
@@ -198,7 +201,7 @@ class AgentCAD(AgentROS):
         self.plotter_xml = None
         self.plotted_names = []
 
-        self.traj_plot_period = 5
+        self.traj_plot_period = None
 
     # For the conditions specified (startInd - endInd, inclusive), use the reset
     def set_reset_pos(self, startInd, endInd):
@@ -214,7 +217,7 @@ class AgentCAD(AgentROS):
 
     # Wipe the plan of the condition specified
     def wipe_plan(self, condition):
-        self.condition_info[i].plan = None
+        self.condition_info[condition].plan = None
 
     # Calculate the T depending on how much of the trajectory we are using
     def change_T(self, condition):
@@ -986,7 +989,7 @@ class AgentCAD(AgentROS):
         self.initialized.add(condition)
 
     # Does something different if reset is false
-    def sample(self, policy, condition, verbose=True, save=True, noisy=True):
+    def sample(self, policy, condition, verbose=True, save=True, noisy=True, otherPol=None):
         """
         Reset and execute a policy and collect a sample.
         Args:
@@ -998,6 +1001,8 @@ class AgentCAD(AgentROS):
             sample: A Sample object.
         """
         # There are different trajectories based on if reset or not
+        self.otherPol = otherPol
+
         if self.reset_time:
             trajectories = self.reset_trajectories
         else:
@@ -1113,9 +1118,22 @@ class AgentCAD(AgentROS):
         # extra = ['centered_traj', 'coeffs', 'ee_pos', 'attended']
         extra = []
         action, debug = policy.act(None, obs, None, None, extra=extra)
+        # If we have another policy we want to compute the actions for
+        if self.otherPol is not None:
+            # This is gonna be the linear gaussian policy lmao
+            otherAct = self.otherPol.act(obs[:32], None, int(obs[-1] - 1), noise=np.zeros(7))
+
+        f.write("NN: " + str(list(action)) + "\n")
+        f.write("ILQG: " + str(list(otherAct)) + "\n")
         if np.any(np.isnan(action)):
             pdb.set_trace()
         return action
+
+    def close_file(self):
+        try:
+            f.close()
+        except:
+            return
 
     def get_obs(self, request, condition):
         array = np.array(request.obs)

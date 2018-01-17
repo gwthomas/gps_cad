@@ -160,7 +160,7 @@ def init_pd_ref(hyperparams, ref_ja_pos, ref_ja_vel, ref_ee):
     # Choose initialization mode.
     Kp = 1.0
     Kv = config['vel_gains_mult']
-    D = np.diag(config['gains'])
+    D = np.diag(config['pr2_gains'])
     
     if dU < dQ:
         K = -config['pos_gains'] * np.tile(

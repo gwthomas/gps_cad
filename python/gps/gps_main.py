@@ -83,8 +83,7 @@ class GPSMain(object):
 
         resumed_alg = self.algorithm # We picked this up by resuming
         # SPECIFIC TO BADMM SO SORRY IF THIS BREAKS EVERYTHING
-        if (type(self.saved_algorithm) is AlgorithmBADMM and not(type(resumed_alg) is AlgorithmBADMM)) or
-        (type(self.saved_algorithm) is AlgorithmMDGPS and not(type(resumed_alg) is AlgorithmMDGPS)):
+        if (type(self.saved_algorithm) is AlgorithmBADMM and not(type(resumed_alg) is AlgorithmBADMM)) or (type(self.saved_algorithm) is AlgorithmMDGPS and not(type(resumed_alg) is AlgorithmMDGPS)):
             self.algorithm = self.saved_algorithm # Return it to the new type we want to use
             # Keep a copy of these hyperparams and stuff
             theParams = copy.deepcopy(self.algorithm._hyperparams)
@@ -357,7 +356,8 @@ class GPSMain(object):
         for cond in range(len(self._test_idx)):
             pol_samples[cond][0] = self.agent.sample(
                 self.algorithm.policy_opt.policy, self._test_idx[cond],
-                verbose=verbose, save=False, noisy=True)
+                verbose=verbose, save=False, noisy=True, otherPol=self.algorithm.cur[cond].traj_distr)
+        pdb.set_trace()
         return [SampleList(samples) for samples in pol_samples]
 
     # This is basically the same thing as the take policy samples method

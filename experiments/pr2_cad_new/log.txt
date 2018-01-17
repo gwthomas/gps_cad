@@ -1,0 +1,314 @@
+
+
+exp_name:   my_experiment_11-16-17_12-04
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_11-16-17_12-08
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_11-16-17_12-09
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_11-16-17_12-10
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_11-16-17_12-11
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_11-16-17_12-12
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_11-16-17_12-12
+    |                       |          condition 0                                 
+itr | avg_cost avg_pol_cost |   cost     step   entropy  pol_cost kl_div_i kl_div_f
+  0 |  -176.70      -140.19 |  -176.70     5.00 -2655.97  -140.19    17.92     0.40
+
+
+exp_name:   my_experiment_11-16-17_12-20
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_11-16-17_12-22
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_11-16-17_12-22
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_11-16-17_12-22
+    |                       |          condition 0                                 
+itr | avg_cost avg_pol_cost |   cost     step   entropy  pol_cost kl_div_i kl_div_f
+  0 |  -177.45      -149.34 |  -177.45     5.00 -2655.97  -149.34    18.48     2.10
+
+
+exp_name:   my_experiment_11-16-17_12-28
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_11-16-17_12-28
+    |                       |          condition 0                                 
+itr | avg_cost avg_pol_cost |   cost     step   entropy  pol_cost kl_div_i kl_div_f
+  0 |  -177.45      -159.41 |  -177.45     5.00 -2655.97  -159.41    18.48     2.10
+
+
+exp_name:   my_experiment_11-16-17_12-29
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_11-16-17_12-29
+    |                       |          condition 0                                 
+itr | avg_cost avg_pol_cost |   cost     step   entropy  pol_cost kl_div_i kl_div_f
+  1 |  -177.88      -175.47 |  -177.88     0.50 -2655.97  -175.47     3.90     0.29
+  2 |  -178.99      -189.71 |  -178.99     2.50 -2649.18  -189.71     0.86     0.74
+  3 |  -180.81      -162.56 |  -180.81    12.50 -2538.34  -162.56     0.70     3.46
+  4 |  -175.16      -158.47 |  -175.16     3.90 -1621.09  -158.47    10.32     7.46
+
+
+exp_name:   my_experiment_11-16-17_12-50
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_11-16-17_12-50
+    |                       |          condition 0                                 
+itr | avg_cost avg_pol_cost |   cost     step   entropy  pol_cost kl_div_i kl_div_f
+  5 |  -193.06      -142.34 |  -193.06     5.03 -2053.19  -142.34     7.99     3.72
+
+
+exp_name:   my_experiment_11-16-17_12-57
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_11-16-17_12-57
+    |                       |          condition 0                                 
+itr | avg_cost avg_pol_cost |   cost     step   entropy  pol_cost kl_div_i kl_div_f
+  5 |  -193.22      -142.37 |  -193.22     2.16 -2053.19  -142.37    14.56     1.97
+
+
+exp_name:   my_experiment_11-16-17_13-04
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_11-16-17_13-04
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_11-16-17_13-16
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_11-16-17_13-17
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_11-16-17_13-19
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_11-16-17_13-19
+    |                       |          condition 0                                 
+itr | avg_cost avg_pol_cost |   cost     step   entropy  pol_cost kl_div_i kl_div_f
+  5 |  -193.26      -172.08 |  -193.26     3.46 -2053.19  -172.08     8.28     2.89
+
+
+exp_name:   my_experiment_11-16-17_13-28
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_11-16-17_13-28
+    |                       |          condition 0                                 
+itr | avg_cost avg_pol_cost |   cost     step   entropy  pol_cost kl_div_i kl_div_f
+  5 |  -192.92      -173.31 |  -192.92     2.88 -2053.19  -173.31     8.05     2.40
+
+
+exp_name:   my_experiment_11-30-17_12-35
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_11-30-17_12-37
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_11-30-17_12-37
+    |                       |          condition 0                                 
+itr | avg_cost avg_pol_cost |   cost     step   entropy  pol_cost kl_div_i kl_div_f
+  5 |  -190.56      -186.78 |  -190.56     0.39 -2053.19  -186.78    90.49     0.54
+
+
+exp_name:   my_experiment_11-30-17_12-46
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_11-30-17_12-51
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+
+
+exp_name:   my_experiment_11-30-17_13-14
+alg_type:   AlgorithmMDGPS
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_11-30-17_13-14
+    |                       |          condition 0               
+itr | avg_cost avg_pol_cost |   cost     step   entropy  pol_cost
+  0 |  -177.22      -141.99 |  -177.22     5.00 -2655.97  -141.99
+  1 |  -156.03      -170.56 |  -156.03     1.08 -2724.79  -170.56
+  2 |  -156.29      -175.81 |  -156.29     0.11 -2724.02  -175.81
+  3 |  -167.55      -163.70 |  -167.55     0.54 -2799.92  -163.70
+  4 |  -173.67      -123.37 |  -173.67     2.70 -2981.74  -123.37
+
+
+exp_name:   my_experiment_11-30-17_13-43
+alg_type:   AlgorithmMDGPS
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
+my_experiment_11-30-17_13-43
+    |                       |          condition 0               
+itr | avg_cost avg_pol_cost |   cost     step   entropy  pol_cost
+  0 |  -177.28      -143.40 |  -177.28     1.00 -2655.97  -143.40
+  1 |  -143.44      -143.78 |  -143.44     0.50 -2665.58  -143.78
+  2 |  -143.80      -142.99 |  -143.80     0.50 -2820.30  -142.99
+  3 |  -143.00      -142.36 |  -143.00     0.50 -3143.65  -142.36
+
+
+exp_name:   my_experiment_11-30-17_13-56
+alg_type:   AlgorithmMDGPS
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+
