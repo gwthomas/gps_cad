@@ -57,6 +57,7 @@ class ProxyTrialManager(object):
         obs = self.agent.get_obs(request, self.condition)
         response = ProxyControlResponse()
         response.action = self.agent.get_action(self.policy, obs)
+        print("T=" + str(self.t) + ": " + str(response.action))
         return response
 
     def prep(self, policy, condition):

@@ -56,6 +56,7 @@ class AgentCADEx(AgentCAD):
 
         self.hack = -1.0
         self.try_mp = False
+        pdb.set_trace()
         self.wipe_plans() # Make sure the condition info does not get saved
         self.setup()
         self.grasp()

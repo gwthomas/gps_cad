@@ -66,9 +66,12 @@ class GPSMain(object):
         self.algorithm = config['algorithm']['type'](config['algorithm'])
 
         import tensorflow as tf
-        with tf.variable_scope('reset'): # to avoid variable naming conflicts
-            # Gonna make the algorithm for the reset ones as well
-            self.reset_algorithm = config['reset_algorithm']['type'](config['algorithm'])
+        try:
+            with tf.variable_scope('reset'): # to avoid variable naming conflicts
+                # Gonna make the algorithm for the reset ones as well
+                self.reset_algorithm = config['reset_algorithm']['type'](config['algorithm'])
+        except:
+            pass
 
         self.saved_algorithm = copy.deepcopy(self.algorithm) # Save this newly initialized alg
         # If you want to warm start the algorithm BADMM with learned iLQG controllers
@@ -329,7 +332,7 @@ class GPSMain(object):
             pol_samples[cond][0] = self.agent.sample(
                 self.algorithm.policy_opt.policy, self._test_idx[cond],
                 verbose=verbose, save=False, noisy=True, otherPol=self.algorithm.cur[cond].traj_distr)
-        pdb.set_trace()
+        #pdb.set_trace()
         return [SampleList(samples) for samples in pol_samples]
 
     def _log_data(self, itr, traj_sample_lists, pol_sample_lists=None):
@@ -450,6 +453,7 @@ def main():
         sys.exit("Experiment '%s' does not exist.\nDid you create '%s'?" %
                  (exp_name, hyperparams_file))
 
+    import pdb; pdb.set_trace()
     hyperparams = imp.load_source('hyperparams', hyperparams_file)
     if args.targetsetup:
         try:

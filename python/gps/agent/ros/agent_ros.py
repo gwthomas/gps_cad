@@ -14,6 +14,7 @@ from gps.agent.ros.ros_utils import ServiceEmulator, msg_to_sample, \
 from gps.proto.gps_pb2 import TRIAL_ARM, AUXILIARY_ARM
 from gps_agent_pkg.msg import TrialCommand, SampleResult, PositionCommand, \
         RelaxCommand, DataRequest, TfActionCommand, TfObsData
+from gps.agent.ros.cad.util import * # For the ProxyTrialController
 try:
     from gps.algorithm.policy.tf_policy import TfPolicy
 except ImportError:  # user does not have tf installed.
@@ -32,7 +33,8 @@ class AgentROS(Agent):
             '_relax_service',
             '_data_service',
             '_pub',
-            '_sub'
+            '_sub',
+            'trial_manager'
     ]
 
     def __init__(self, hyperparams, init_node=True):
@@ -63,6 +65,9 @@ class AgentROS(Agent):
 
         self.use_tf = False
         self.observations_stale = True
+
+        # Added to use the proxy controller
+        self.trial_manager = ProxyTrialManager(self)
 
     def _init_pubs_and_subs(self):
         self._trial_service = ServiceEmulator(
@@ -195,6 +200,7 @@ class AgentROS(Agent):
                 self._samples[condition].append(sample)
             return sample
         else:
+            '''
             print 'Using TF controller'
             self._trial_service.publish(trial_command)
             sample_msg = self.run_trial_tf(policy, condition, time_to_run=self._hyperparams['trial_timeout'])
@@ -203,6 +209,25 @@ class AgentROS(Agent):
             if save:
                 self._samples[condition].append(sample)
             return sample
+            '''
+            print("Using ProxyController")
+            self.trial_manager.prep(policy, condition)
+            self._trial_service.publish(trial_command, wait=True)
+            self.trial_manager.run(self._hyperparams['trial_timeout'])
+            while self._trial_service._waiting:
+                print 'Waiting for sample to come in'
+                rospy.sleep(1.0)
+            sample_msg = self._trial_service._subscriber_msg
+
+        sample = msg_to_sample(sample_msg, self)
+        sample.set(NOISE, noise)
+        sample.set(TIMESTEP, np.arange(self.T).reshape((self.T,1)))
+
+        if save:
+            self._samples[condition].append(sample)
+
+        return sample
+
 
     def _get_obs(self, msg, condition):
         return tf_obs_msg_to_numpy(msg)

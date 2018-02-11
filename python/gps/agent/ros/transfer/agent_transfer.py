@@ -163,7 +163,7 @@ class AgentCAD(AgentROS):
         self.saved_samples = [[] * self.conditions] # Just for storing this real quick
 
         self.cur_T = [self.T] * self.conditions # For storing the T of each of the conditions!
-        self.final_T = self.T # This is the original T 
+        self.final_T = self.T # This is the original T
 
         # Disregard these following variables - work in progress
         self.samples_taken = [0] * self.conditions
@@ -206,7 +206,7 @@ class AgentCAD(AgentROS):
             self._hyperparams['reset_conditions'][i] = \
                 self.condition_info[i].initial
 
-    # Wipe the plans of all the conditions 
+    # Wipe the plans of all the conditions
     def wipe_plans(self):
         for i in range(self.conditions):
             self.condition_info[i].plan = None
@@ -375,7 +375,7 @@ class AgentCAD(AgentROS):
 
     # Stores the gotten AR tag information in an instance variable
     def getAR(self, msg):
-        self.cur_ar_markers = msg # Store what we have gotten 
+        self.cur_ar_markers = msg # Store what we have gotten
 
     # Get the pose of the AR tag (it's the center) given the number
     def get_AR_pose(self, number):
@@ -464,7 +464,7 @@ class AgentCAD(AgentROS):
         print("Range of values for euler difference: ")
         print(str(np.ptp(diffs_euler, axis=0)))
 
-    # Resets the object in rviz depending on the AR tag 
+    # Resets the object in rviz depending on the AR tag
     def reset_object_AR(self, name, theSize):
         # Remove the object from rviz first
         self.scene.remove_world_object(name)
@@ -690,12 +690,12 @@ class AgentCAD(AgentROS):
         request.ik_link_name = self.ee_link # We want the end effector
         request.pose_stamped = pose_stamped # Desired pose and what not
         request.timeout = Duration(5.0) # Here have another duration or something
-        # This is to seed the IK service 
+        # This is to seed the IK service
         rs = moveit_msgs.msg.RobotState() # Getting the robot state
         rs.joint_state.name = JOINT_NAMES # This is the current joint value thing
         # I dunno get the current joint values
         rs.joint_state.position = self.group.get_current_joint_values()
-        # Not really sure so am just gonna put this down 
+        # Not really sure so am just gonna put this down
         #request.ik_seed_state = rs
         request.robot_state = rs
 
@@ -716,7 +716,7 @@ class AgentCAD(AgentROS):
 
 
     # Get the joint angles of a pose that is some meters above the current pose (of the end
-    # effector) that we have 
+    # effector) that we have
     def get_ja_above(self, cur_pose, m_above):
         cur_pose.pose.position.z += m_above # Increase the z value by some amount
         solution = self.inverse_kinematics1(cur_pose)
@@ -799,7 +799,7 @@ class AgentCAD(AgentROS):
         rs.joint_state.position = joint_angles
         return rs # Return the robot state nice
 
-    # Do the initialization of the reset trajectory and policy 
+    # Do the initialization of the reset trajectory and policy
     def init_reset_traj(self, condition, policy):
         plan = self.reset_plans[condition] # Get the plan for the reset trajectory
         # Compute the reference trajectory given the plan
@@ -827,7 +827,7 @@ class AgentCAD(AgentROS):
 
     # This is if you want to set the ultimate destination from the
     def set_real_goal(self):
-        self.ee_goal = self.get_ee_pose() # Use what is happening in real world 
+        self.ee_goal = self.get_ee_pose() # Use what is happening in real world
         self.ja_goal = self.group.get_current_joint_values() # Get the current joint values\
 
     # Offset the plan depending on the differences
@@ -840,7 +840,7 @@ class AgentCAD(AgentROS):
         print("This is the difference: " + str(diff)) # Print this
         plen = len(thePlan.joint_trajectory.points)
         for i in range(plen):
-            # Add the difference to the plan and hope for the best 
+            # Add the difference to the plan and hope for the best
             #np.array(thePlan.joint_trajectory.points[i].positions) + diff
             thePlan.joint_trajectory.points[i].positions = \
             np.array(thePlan.joint_trajectory.points[i].positions) + ((i / float(plen - 1)) * diff)
@@ -1062,11 +1062,9 @@ class AgentCAD(AgentROS):
         if save and not self.reset_time: # If we are not gonna save this sample as reset
             self._samples[condition].append(sample)
             if self.varying_T: # Save if using varying T
-                pass
-                #self.saved_samples[condition].append(sample)
+                self.saved_samples[condition].append(sample)
         if save and self.reset_time: # If we are going to save the reset sample
-            pass
-            #self._reset_samples[condition].append(sample)
+            self._reset_samples[condition].append(sample)
 
         if not self.reset_time: # If it's not reset time or something weird like that
             self.samples_taken[condition] += 1 # Increment number of samples taken
