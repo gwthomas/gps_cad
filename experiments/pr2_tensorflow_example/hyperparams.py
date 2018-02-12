@@ -209,6 +209,13 @@ algorithm['policy_opt'] = {
     'network_model': tf_network,
     'iterations': 1000,
     'weights_file_prefix': EXP_DIR + 'policy',
+    'max_iterations': 50000,
+    # CHANGE MAX_ITERATIONS # Add some noise maybe
+    'period': 500,
+    'termination_history_length': 5,
+    'termination_epsilon': 0.005,
+    'weights_file_prefix': os.path.join(EXP_DIR, 'policy'),
+    'normalize': False
 }
 
 algorithm['policy_prior'] = {

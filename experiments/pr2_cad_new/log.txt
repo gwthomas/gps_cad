@@ -312,3 +312,13 @@ iterations: 40
 conditions: 1
 samples:    5
 
+
+
+exp_name:   my_experiment_02-11-18_16-38
+alg_type:   AlgorithmMDGPS
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 40
+conditions: 1
+samples:    5
+

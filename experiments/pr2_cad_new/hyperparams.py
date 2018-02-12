@@ -300,8 +300,8 @@ reset_algorithm = {
 }
 
 algorithm_gps = {
-    #'type': AlgorithmBADMM,
-    'type': AlgorithmMDGPS,
+    'type': AlgorithmBADMM,
+    #'type': AlgorithmMDGPS,
     'iterations': common['iterations'],
     'conditions': agent['conditions'],
     'train_conditions': common['train_conditions'],

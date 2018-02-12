@@ -1,0 +1,233 @@
+
+
+exp_name:   my_experiment_02-11-18_17-06
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_17-10
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_17-12
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_17-16
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_17-21
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_17-22
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_17-27
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_17-31
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_17-36
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+my_experiment_02-11-18_17-36
+    |                       |          condition 0                                  |          condition 1                                 
+itr | avg_cost avg_pol_cost |   cost     step   entropy  pol_cost kl_div_i kl_div_f |   cost     step   entropy  pol_cost kl_div_i kl_div_f
+  0 |  -574.21      -576.55 |  -574.51     5.00  -127.51  -576.49    30.11    14.08 |  -573.90     5.00  -127.51  -576.61    30.32    13.05
+  1 |  -576.53      -579.56 |  -576.79     5.00 -1171.04  -579.02     0.47     2.10 |  -576.27     5.00 -1075.55  -580.10     0.23     1.81
+  2 |  -579.15      -579.97 |  -579.28     0.86 -1334.64  -579.38     0.63     0.33 |  -579.01     0.91 -1313.63  -580.55     0.79     0.35
+  3 |  -579.84      -579.80 |  -579.88     0.71 -1330.06  -579.27     0.67     0.33 |  -579.80     0.12 -1310.55  -580.33     0.48     0.30
+  4 |  -581.38      -579.93 |  -581.74     0.11 -1312.70  -579.40     0.52     0.34 |  -581.03     0.05 -1307.55  -580.46     0.57     0.37
+  5 |  -580.69      -580.25 |  -581.70     0.05 -1307.64  -579.38     0.81     0.35 |  -579.69     0.05 -1307.73  -581.11     1.02     0.41
+  6 |  -581.78      -579.94 |  -582.05     0.05 -1315.74  -579.29     0.68     0.26 |  -581.50     0.25 -1307.82  -580.59     1.21     0.31
+  7 |  -582.42      -580.60 |  -584.25     0.05 -1318.48  -579.68     0.80     0.21 |  -580.59     1.25 -1311.49  -581.51     0.94     0.35
+  8 |  -582.05      -581.23 |  -583.20     0.25 -1319.71  -579.95     0.32     0.15 |  -580.90     0.81 -1320.36  -582.51     0.77     0.13
+  9 |  -582.02      -581.09 |  -583.61     0.11 -1320.24  -580.37     0.55     0.15 |  -580.43     0.32 -1322.43  -581.82     0.40     0.13
+
+
+exp_name:   my_experiment_02-11-18_18-22
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_18-24
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_18-29
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_18-39
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_18-41
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_18-42
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_18-47
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_18-51
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_18-51
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_18-54
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_18-55
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_18-58
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+
+
+
+exp_name:   my_experiment_02-11-18_18-58
+alg_type:   AlgorithmBADMM
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFK, CostFK)
+iterations: 10
+conditions: 2
+samples:    3
+

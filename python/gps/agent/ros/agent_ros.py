@@ -14,11 +14,17 @@ from gps.agent.ros.ros_utils import ServiceEmulator, msg_to_sample, \
 from gps.proto.gps_pb2 import TRIAL_ARM, AUXILIARY_ARM
 from gps_agent_pkg.msg import TrialCommand, SampleResult, PositionCommand, \
         RelaxCommand, DataRequest, TfActionCommand, TfObsData
+from gps.proto.gps_pb2 import TRIAL_ARM, AUXILIARY_ARM, JOINT_ANGLES, \
+        JOINT_VELOCITIES, END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, \
+        ACTION, TRIAL_ARM, AUXILIARY_ARM, JOINT_SPACE, \
+        REF_TRAJ, REF_OFFSETS, PROXY_CONTROLLER, NOISE, TIMESTEP
+from gps_agent_pkg.msg import TrialCommand, SampleResult, PositionCommand, \
+        RelaxCommand, DataRequest
 try:
     from gps.algorithm.policy.tf_policy import TfPolicy
 except ImportError:  # user does not have tf installed.
     TfPolicy = None
-
+from gps.agent.ros.cad.util import *
 
 class AgentROS(Agent):
     """
@@ -28,6 +34,7 @@ class AgentROS(Agent):
 
     _unpickleables = Agent._unpickleables + [
             '_trial_service',
+            'trial_manager',
             '_reset_service',
             '_relax_service',
             '_data_service',
@@ -63,6 +70,10 @@ class AgentROS(Agent):
 
         self.use_tf = False
         self.observations_stale = True
+
+        self.trial_manager = ProxyTrialManager(self)
+        self.current_controller = None
+
 
     def _init_pubs_and_subs(self):
         self._trial_service = ServiceEmulator(
@@ -195,6 +206,7 @@ class AgentROS(Agent):
                 self._samples[condition].append(sample)
             return sample
         else:
+            '''
             print 'Using TF controller'
             self._trial_service.publish(trial_command)
             sample_msg = self.run_trial_tf(policy, condition, time_to_run=self._hyperparams['trial_timeout'])
@@ -203,6 +215,39 @@ class AgentROS(Agent):
             if save:
                 self._samples[condition].append(sample)
             return sample
+            '''
+            self.trial_manager.prep(policy, condition)
+            self._trial_service.publish(trial_command, wait=True)
+            self.trial_manager.run(self._hyperparams['trial_timeout'])
+            while self._trial_service._waiting:
+                print 'Waiting for sample to come in'
+                rospy.sleep(1.0)
+            sample_msg = self._trial_service._subscriber_msg
+
+        sample = msg_to_sample(sample_msg, self)
+        sample.set(NOISE, noise)
+        sample.set(TIMESTEP, np.arange(self.T).reshape((self.T,1)))
+
+        return sample
+
+    def use_controller(self, target):
+        assert target in ('GPS', 'MoveIt')
+        switch = True
+        if target == 'GPS' and self.current_controller != 'GPS':
+            start = ['GPSPR2Plugin']
+            stop = ['l_arm_controller', 'r_arm_controller']
+            self.current_controller = 'GPS'
+        elif target == 'MoveIt' and self.current_controller != 'MoveIt':
+            start = ['l_arm_controller', 'r_arm_controller']
+            stop = ['GPSPR2Plugin']
+            self.current_controller = 'MoveIt'
+        else:
+            switch = False
+
+        if switch:
+            print 'Switching to {} controllers'.format(target)
+            self.use_controller_srv(start, stop, 2) # 2 means STRICT
+            time.sleep(1)
 
     def _get_obs(self, msg, condition):
         return tf_obs_msg_to_numpy(msg)
@@ -230,3 +275,16 @@ class AgentROS(Agent):
             r.sleep()
         self.use_tf = True
         self.observations_stale = True
+
+    def get_obs(self, request, condition):
+        array = np.array(request.obs)
+        return array
+
+    def get_action(self, policy, obs):
+        # extra = ['distances', 'coeffs', 'ee_pos', 'attended', 'direction']
+        # extra = ['centered_traj', 'coeffs', 'ee_pos', 'attended']
+        extra = []
+        action, debug = policy.act(None, obs, None, None, extra=extra)
+        if np.any(np.isnan(action)):
+            pdb.set_trace()
+        return action
