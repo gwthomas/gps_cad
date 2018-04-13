@@ -453,13 +453,23 @@ def main():
         sys.exit("Experiment '%s' does not exist.\nDid you create '%s'?" %
                  (exp_name, hyperparams_file))
 
-    hyperparams = imp.load_sourms.config['agent'])
+    hyperparams = imp.load_source('hyperparams', hyperparams_file)
+    if args.targetsetup:
+        try:
+            import matplotlib.pyplot as plt
+            from gps.agent.ros.agent_ros import AgentROS
+            from gps.gui.target_setup_gui import TargetSetupGUI
+
+            # If we want to start halfway and stuff
+            if resume_training_itr is not None:
+                hyperparams.agent.update({'resume_itr': resume_training_itr})
+            agent = AgentROS(hyperparams.config['agent'])
             TargetSetupGUI(hyperparams.config['common'], agent)
 
             plt.ioff()
             plt.show()
         except ImportError:
-            sys.exit('ROS required for target setup.')
+            ssys.exit('ROS required for target setup.')
     elif test_policy_N:
         import random
         import numpy as np
