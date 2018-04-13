@@ -1,0 +1,73 @@
+
+
+exp_name:   my_experiment_02-26-18_09-24
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 20
+conditions: 1
+samples:    2
+
+
+
+exp_name:   my_experiment_02-26-18_09-25
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 20
+conditions: 1
+samples:    2
+
+
+
+exp_name:   my_experiment_02-26-18_22-50
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 20
+conditions: 1
+samples:    2
+
+
+
+exp_name:   my_experiment_02-26-18_22-52
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 20
+conditions: 1
+samples:    2
+
+
+
+exp_name:   my_experiment_02-26-18_22-55
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 20
+conditions: 1
+samples:    2
+
+my_experiment_02-26-18_22-55
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -229.17 |  -229.17     0.20 -3319.96
+  1 |  -230.68 |  -230.68     0.02 -3335.61
+  2 |  -230.46 |  -230.46     0.10 -3335.94
+  3 |  -230.56 |  -230.56     0.01 -3349.22
+  4 |  -229.92 |  -229.92     0.07 -3350.93
+  5 |  -230.41 |  -230.41     0.04 -3364.29
+  6 |  -230.22 |  -230.22     0.01 -3374.87
+  7 |  -231.55 |  -231.55     0.00 -3380.93
+  8 |  -232.34 |  -232.34     0.01 -3383.10
+  9 |  -230.81 |  -230.81     0.05 -3386.45
+ 10 |  -229.91 |  -229.91     0.01 -3400.54
+ 11 |  -230.89 |  -230.89     0.04 -3405.48
+ 12 |  -232.54 |  -232.54     0.01 -3415.95
+ 13 |  -231.26 |  -231.26     0.03 -3419.61
+ 14 |  -233.49 |  -233.49     0.02 -3430.79
+ 15 |  -233.08 |  -233.08     0.00 -3442.30
+ 16 |  -233.00 |  -233.00     0.01 -3444.89
+ 17 |  -233.28 |  -233.28     0.00 -3452.25
+ 18 |  -233.84 |  -233.84     0.02 -3455.55
+ 19 |  -234.73 |  -234.73     0.00 -3464.00

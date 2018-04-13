@@ -1,0 +1,80 @@
+
+
+exp_name:   my_experiment_02-25-18_16-13
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 20
+conditions: 1
+samples:    2
+
+
+
+exp_name:   my_experiment_02-25-18_16-15
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 20
+conditions: 1
+samples:    2
+
+
+
+exp_name:   my_experiment_02-25-18_16-18
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 20
+conditions: 1
+samples:    2
+
+
+
+exp_name:   my_experiment_02-25-18_16-22
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 20
+conditions: 1
+samples:    2
+
+
+
+exp_name:   my_experiment_02-25-18_16-26
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 20
+conditions: 1
+samples:    2
+
+
+
+exp_name:   my_experiment_02-25-18_16-27
+alg_type:   AlgorithmTrajOpt
+alg_dyn:    DynamicsLRPrior
+alg_cost:   CostSum(CostAction, CostFKT, CostFK)
+iterations: 20
+conditions: 1
+samples:    2
+
+my_experiment_02-25-18_16-27
+    |          |          condition 0      
+itr | avg_cost |   cost     step   entropy 
+  0 |  -228.82 |  -228.82     0.20 -3319.96
+  1 |  -230.70 |  -230.70     0.02 -3353.72
+  2 |  -230.27 |  -230.27     0.10 -3354.23
+  3 |  -230.03 |  -230.03     0.50 -3359.76
+  4 |  -231.26 |  -231.26     2.00 -3402.34
+  5 |  -236.57 |  -236.57     0.80 -3546.02
+  6 |  -240.42 |  -240.42     0.74 -3603.61
+  7 |  -243.25 |  -243.25     2.00 -3671.00
+  8 |  -249.51 |  -249.51     2.00 -3842.21
+  9 |  -254.32 |  -254.32     0.55 -4055.68
+ 10 |  -256.30 |  -256.30     0.15 -4159.91
+ 11 |  -256.08 |  -256.08     0.73 -4206.17
+ 12 |  -257.30 |  -257.30     1.54 -4340.44
+ 13 |  -257.95 |  -257.95     2.00 -4565.79
+ 14 |  -259.41 |  -259.41     0.21 -4829.38
+ 15 |  -258.76 |  -258.76     0.07 -4848.79
+ 16 |  -259.51 |  -259.51     0.01 -4859.39
