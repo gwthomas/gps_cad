@@ -1,8 +1,3 @@
-GPS
-======
+This code implements the motion-planning based control described in our paper [*Learning Robotic Assembly From CAD*](https://arxiv.org/abs/1803.07635).
 
-This code is a reimplementation of the guided policy search algorithm and LQG-based trajectory optimization, meant to help others understand, reuse, and build upon existing work.
-
-For full documentation, see [rll.berkeley.edu/gps](http://rll.berkeley.edu/gps).
-
-The code base is **a work in progress**. See the [FAQ](http://rll.berkeley.edu/gps/faq.html) for information on planned future additions to the code.
+It is based on the [Guided Policy Search codebase](https://github.com/cbfinn/gps) developed at UC Berkeley.
